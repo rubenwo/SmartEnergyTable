@@ -1,0 +1,50 @@
+syntax = "proto3";
+package protocol;
+
+message Create {
+    string user = 1;
+}
+
+message Session {
+    string session_id = 1;
+    string user = 2;
+}
+
+message Entity {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    int32 id = 4;
+}
+
+message Update {
+    repeated Entity entities = 1;
+}
+
+message Status {
+    int32 status_code = 1;
+    string message = 2;
+}
+
+service SyncService {
+    rpc CreateSession (Create) returns (Session) {
+    }
+
+    rpc DestroySession (Session) returns (Status) {
+    }
+
+    rpc StopSession (Session) returns (Status) {
+    }
+
+    rpc SaveSession (Session) returns (Status) {
+    }
+
+    rpc JoinSession (Session) returns (Status) {
+    }
+
+    rpc UpdateEntities (Update) returns (Status) {
+    }
+
+    rpc Refresh (Session) returns (Update) {
+    }
+}
