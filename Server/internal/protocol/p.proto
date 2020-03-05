@@ -10,6 +10,10 @@ message Session {
     string user = 2;
 }
 
+message Owner {
+
+}
+
 message Entity {
     float x = 1;
     float y = 2;
@@ -19,6 +23,7 @@ message Entity {
 
 message Update {
     repeated Entity entities = 1;
+    Owner owner = 2;
 }
 
 message Status {

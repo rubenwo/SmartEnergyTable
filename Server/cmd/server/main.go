@@ -28,7 +28,7 @@ func (s *Server) DestroySession(ctx context.Context, se *protocol.Session) (*pro
 			Message:    err.Error(),
 		}, err
 	}
-	if !ok{
+	if !ok {
 
 	}
 	return &protocol.Status{}, nil
@@ -37,9 +37,11 @@ func (s *Server) StopSession(ctx context.Context, se *protocol.Session) (*protoc
 	return &protocol.Status{}, nil
 }
 func (s *Server) SaveSession(ctx context.Context, se *protocol.Session) (*protocol.Status, error) {
+	_ = s.SessionManager.SaveSession(se.SessionId, se.User)
 	return &protocol.Status{}, nil
 }
 func (s *Server) JoinSession(ctx context.Context, se *protocol.Session) (*protocol.Status, error) {
+	_ = s.SessionManager.JoinSession(se.SessionId, se.User)
 	return &protocol.Status{}, nil
 }
 func (s *Server) UpdateEntities(ctx context.Context, u *protocol.Update) (*protocol.Status, error) {
@@ -48,6 +50,7 @@ func (s *Server) UpdateEntities(ctx context.Context, u *protocol.Update) (*proto
 func (s *Server) Refresh(ctx context.Context, se *protocol.Session) (*protocol.Update, error) {
 	return &protocol.Update{}, nil
 }
+
 func main() {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 8080))
 	if err != nil {
