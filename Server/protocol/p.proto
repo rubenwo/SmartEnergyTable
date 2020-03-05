@@ -1,0 +1,15 @@
+syntax = "proto3";
+package protocol;
+
+message Credentials {
+
+}
+
+message Response {
+
+}
+
+service SyncService {
+    rpc Sync (Credentials) returns (Response) {
+    }
+}
