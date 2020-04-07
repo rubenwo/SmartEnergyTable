@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
-
     private static NetworkManager _instance;
 
-    public static NetworkManager Instance { get { return _instance; } }
+    public static NetworkManager Instance
+    {
+        get { return _instance; }
+    }
 
 
     private void Awake()
@@ -15,7 +17,9 @@ public class NetworkManager : MonoBehaviour
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-        } else {
+        }
+        else
+        {
             _instance = this;
         }
     }
@@ -23,12 +27,10 @@ public class NetworkManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
