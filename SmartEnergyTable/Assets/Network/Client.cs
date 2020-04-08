@@ -1,7 +1,5 @@
-using System;
 using System.Threading.Tasks;
 using Grpc.Core;
-using Packages.Rider.Editor.UnitTesting;
 using UnityEngine;
 
 namespace Network
@@ -14,7 +12,7 @@ namespace Network
 
         public Client(SmartEnergyTableService.SmartEnergyTableServiceClient client)
         {
-            this._client = client;
+            _client = client;
         }
 
         internal Room CreateRoom()
@@ -27,7 +25,7 @@ namespace Network
         {
             try
             {
-                using (var call = _client.JoinRoom(new RoomId() {Id = roomId}))
+                using (var call = _client.JoinRoom(new RoomId {Id = roomId}))
                 {
                     while (await call.ResponseStream.MoveNext())
                     {
@@ -45,10 +43,8 @@ namespace Network
 
         internal Empty AddGameObject(string name, float posX, float posY, float posZ)
         {
-            var empty = _client.AddGameObject(new GameObject() {Name = name, PosX = posX, PosY = posY, PosZ = posZ});
+            var empty = _client.AddGameObject(new GameObject {Name = name, PosX = posX, PosY = posY, PosZ = posZ});
             return empty;
         }
-
-
     }
 }

@@ -1,38 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Grpc.Core;
 using Network;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
-    private static NetworkManager _instance;
-    private Network.Client _client;
     private Channel _channel;
+    private Client _client;
 
-    public static NetworkManager Instance
-    {
-        get { return _instance; }
-    }
+    public static NetworkManager Instance { get; private set; }
 
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
         else
-        {
-            _instance = this;
-        }
+            Instance = this;
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _channel = new Channel("127.0.0.1:8080", ChannelCredentials.Insecure);
         _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
@@ -47,7 +35,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
     }
 }
