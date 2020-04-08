@@ -15,14 +15,21 @@ message GameObject {
 message Room {
     string id = 1;
     repeated GameObject objects = 2;
+    int32 sceneId = 3;
 }
 
 message RoomId {
     string id = 1;
 }
 
+message Scene {
+    string id = 1;
+    int32 sceneId = 2;
+}
+
 message Update {
     string id = 1;
+    Room room = 2;
 }
 
 service SmartEnergyTableService {
@@ -35,6 +42,9 @@ service SmartEnergyTableService {
 
     rpc AddGameObject (GameObject) returns (Empty) {
 
+    }
+
+    rpc ChangeScene (Scene) returns (Empty) {
     }
 
 }

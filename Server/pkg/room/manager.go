@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/database"
-	"log"
 )
 
 type Manager struct {
@@ -25,13 +24,25 @@ func NewManager() (*Manager, error) {
 
 func (m *Manager) CreateRoom() (id string) {
 	id = uuid.New().String()
-	m.rooms[id] = &Room{id: id}
+	m.rooms[id] = &Room{Data: struct {
+		ID      string
+		SceneID int
+		Objects []SceneObject
+	}{ID: id, SceneID: 0, Objects: nil}, master: nil, clients: make([]chan Data, 1)}
 	return id
 }
 
-func (m *Manager) JoinRoom(id string) {
-	log.Println(m.db.Set("test", "test123"))
-	log.Println(m.db.Get("test"))
+func (m *Manager) JoinRoom(id string, callback chan Data) error {
+	if callback == nil {
+		return fmt.Errorf("callback channel can't be nil")
+	}
+	if room, ok := m.rooms[id]; ok {
+		if room.master == nil {
+			room.master = callback
+		} else {
+			room.clients = append(room.clients, callback)
+		}
+	}
 }
 
 func (m *Manager) Room(id string) *Room {
@@ -43,7 +54,13 @@ func (m *Manager) UpdateRoom(id string, sceneId int, objects []SceneObject) erro
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
 	}
-	room.sceneId = sceneId
-	room.objects = objects
+	room.Data.SceneID = sceneId
+	if objects != nil {
+		room.Data.Objects = objects
+	}
+	for _, r := range room.clients {
+		r <- room.Data
+	}
+	room.master <- room.Data
 	return nil
 }

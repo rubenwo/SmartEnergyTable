@@ -1,12 +1,16 @@
 package room
 
-type Room struct {
-	id      string
-	sceneId int
-	objects []SceneObject
+type Data struct {
+	ID      string
+	SceneID int
+	Objects []SceneObject
+}
 
-	master  chan int
-	clients []chan int
+type Room struct {
+	Data Data
+
+	master  chan Data
+	clients []chan Data
 }
 
 type SceneObject struct {

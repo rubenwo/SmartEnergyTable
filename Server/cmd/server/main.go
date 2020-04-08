@@ -17,15 +17,21 @@ type server struct {
 
 func (s *server) JoinRoom(roomId *v1.RoomId, stream v1.SmartEnergyTableService_JoinRoomServer) error {
 	log.Println("Someone joined the room")
+	cb := make(chan room.Data)
+	_ = s.manager.JoinRoom(roomId.Id, cb)
+Loop:
 	for {
-		time.Sleep(time.Second * 2)
-		log.Println("player still connected")
-		start := time.Now()
-		if err := stream.Send(&v1.Update{Id: "test"}); err != nil {
-			log.Println(err)
-			break
+		select {
+		case data := <-cb:
+			time.Sleep(time.Second * 2)
+			log.Println("player still connected")
+			start := time.Now()
+			if err := stream.Send(&v1.Update{Id: data.ID, Room: &v1.Room{Id: data.ID, SceneId: int32(data.SceneID)}}); err != nil {
+				log.Println(err)
+				break Loop
+			}
+			log.Println("Sending update message took:", time.Since(start).Microseconds(), "seconds.")
 		}
-		log.Println("Sending update message took:", time.Since(start).Microseconds(), "seconds.")
 	}
 	return nil
 }
@@ -35,6 +41,13 @@ func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.Room, err
 }
 
 func (s *server) AddGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
+	return &v1.Empty{}, nil
+}
+
+func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, error) {
+	if err := s.manager.UpdateRoom(scene.Id, int(scene.SceneId), nil); err != nil {
+		return &v1.Empty{}, err
+	}
 	return &v1.Empty{}, nil
 }
 
