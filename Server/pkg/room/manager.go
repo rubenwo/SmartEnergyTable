@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/database"
+	"log"
 )
 
 type Manager struct {
@@ -29,7 +30,8 @@ func (m *Manager) CreateRoom() (id string) {
 }
 
 func (m *Manager) JoinRoom(id string) {
-
+	log.Println(m.db.Set("test", "test123"))
+	log.Println(m.db.Get("test"))
 }
 
 func (m *Manager) Room(id string) *Room {

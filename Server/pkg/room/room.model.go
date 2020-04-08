@@ -5,8 +5,8 @@ type Room struct {
 	sceneId int
 	objects []SceneObject
 
-	master  interface{}
-	clients []interface{}
+	master  chan int
+	clients []chan int
 }
 
 type SceneObject struct {

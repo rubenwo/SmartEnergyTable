@@ -55,22 +55,224 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
+type GameObject struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	PosX                 float32  `protobuf:"fixed32,2,opt,name=pos_x,json=posX,proto3" json:"pos_x,omitempty"`
+	PosY                 float32  `protobuf:"fixed32,3,opt,name=pos_y,json=posY,proto3" json:"pos_y,omitempty"`
+	PosZ                 float32  `protobuf:"fixed32,4,opt,name=pos_z,json=posZ,proto3" json:"pos_z,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GameObject) Reset()         { *m = GameObject{} }
+func (m *GameObject) String() string { return proto.CompactTextString(m) }
+func (*GameObject) ProtoMessage()    {}
+func (*GameObject) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7be9bf9d675643a6, []int{1}
+}
+
+func (m *GameObject) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GameObject.Unmarshal(m, b)
+}
+func (m *GameObject) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GameObject.Marshal(b, m, deterministic)
+}
+func (m *GameObject) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GameObject.Merge(m, src)
+}
+func (m *GameObject) XXX_Size() int {
+	return xxx_messageInfo_GameObject.Size(m)
+}
+func (m *GameObject) XXX_DiscardUnknown() {
+	xxx_messageInfo_GameObject.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GameObject proto.InternalMessageInfo
+
+func (m *GameObject) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *GameObject) GetPosX() float32 {
+	if m != nil {
+		return m.PosX
+	}
+	return 0
+}
+
+func (m *GameObject) GetPosY() float32 {
+	if m != nil {
+		return m.PosY
+	}
+	return 0
+}
+
+func (m *GameObject) GetPosZ() float32 {
+	if m != nil {
+		return m.PosZ
+	}
+	return 0
+}
+
+type Room struct {
+	Id                   string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Objects              []*GameObject `protobuf:"bytes,2,rep,name=objects,proto3" json:"objects,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *Room) Reset()         { *m = Room{} }
+func (m *Room) String() string { return proto.CompactTextString(m) }
+func (*Room) ProtoMessage()    {}
+func (*Room) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7be9bf9d675643a6, []int{2}
+}
+
+func (m *Room) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Room.Unmarshal(m, b)
+}
+func (m *Room) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Room.Marshal(b, m, deterministic)
+}
+func (m *Room) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Room.Merge(m, src)
+}
+func (m *Room) XXX_Size() int {
+	return xxx_messageInfo_Room.Size(m)
+}
+func (m *Room) XXX_DiscardUnknown() {
+	xxx_messageInfo_Room.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Room proto.InternalMessageInfo
+
+func (m *Room) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Room) GetObjects() []*GameObject {
+	if m != nil {
+		return m.Objects
+	}
+	return nil
+}
+
+type RoomId struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RoomId) Reset()         { *m = RoomId{} }
+func (m *RoomId) String() string { return proto.CompactTextString(m) }
+func (*RoomId) ProtoMessage()    {}
+func (*RoomId) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7be9bf9d675643a6, []int{3}
+}
+
+func (m *RoomId) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RoomId.Unmarshal(m, b)
+}
+func (m *RoomId) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RoomId.Marshal(b, m, deterministic)
+}
+func (m *RoomId) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RoomId.Merge(m, src)
+}
+func (m *RoomId) XXX_Size() int {
+	return xxx_messageInfo_RoomId.Size(m)
+}
+func (m *RoomId) XXX_DiscardUnknown() {
+	xxx_messageInfo_RoomId.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RoomId proto.InternalMessageInfo
+
+func (m *RoomId) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type Update struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Update) Reset()         { *m = Update{} }
+func (m *Update) String() string { return proto.CompactTextString(m) }
+func (*Update) ProtoMessage()    {}
+func (*Update) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7be9bf9d675643a6, []int{4}
+}
+
+func (m *Update) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Update.Unmarshal(m, b)
+}
+func (m *Update) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Update.Marshal(b, m, deterministic)
+}
+func (m *Update) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Update.Merge(m, src)
+}
+func (m *Update) XXX_Size() int {
+	return xxx_messageInfo_Update.Size(m)
+}
+func (m *Update) XXX_DiscardUnknown() {
+	xxx_messageInfo_Update.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Update proto.InternalMessageInfo
+
+func (m *Update) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*Empty)(nil), "Empty")
+	proto.RegisterType((*GameObject)(nil), "GameObject")
+	proto.RegisterType((*Room)(nil), "Room")
+	proto.RegisterType((*RoomId)(nil), "RoomId")
+	proto.RegisterType((*Update)(nil), "Update")
 }
 
 func init() { proto.RegisterFile("smartenergytable-service.proto", fileDescriptor_7be9bf9d675643a6) }
 
 var fileDescriptor_7be9bf9d675643a6 = []byte{
-	// 122 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2b, 0xce, 0x4d, 0x2c,
-	0x2a, 0x49, 0xcd, 0x4b, 0x2d, 0x4a, 0xaf, 0x2c, 0x49, 0x4c, 0xca, 0x49, 0xd5, 0x2d, 0x4e, 0x2d,
-	0x2a, 0xcb, 0x4c, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x57, 0x62, 0xe7, 0x62, 0x75, 0xcd,
-	0x2d, 0x28, 0xa9, 0x34, 0x32, 0xe7, 0x12, 0x0f, 0x06, 0x29, 0x75, 0x05, 0x2b, 0x0d, 0x01, 0x29,
-	0x0d, 0x86, 0xa8, 0x14, 0x92, 0xe1, 0x62, 0x0b, 0x2d, 0x48, 0x49, 0x2c, 0x49, 0x15, 0x62, 0xd3,
-	0x03, 0x2b, 0x96, 0x82, 0xd2, 0x4a, 0x0c, 0x06, 0x8c, 0x4e, 0x3c, 0x51, 0x5c, 0x05, 0xd9, 0xe9,
-	0xfa, 0x89, 0x05, 0x99, 0xfa, 0x65, 0x86, 0x49, 0x6c, 0x60, 0x63, 0x8d, 0x01, 0x01, 0x00, 0x00,
-	0xff, 0xff, 0x2f, 0xb7, 0xa8, 0xa5, 0x78, 0x00, 0x00, 0x00,
+	// 286 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x5c, 0x50, 0xcf, 0x4b, 0xf3, 0x30,
+	0x18, 0x5e, 0xbb, 0xae, 0xfd, 0xbe, 0x77, 0xea, 0x21, 0x1e, 0x0c, 0x05, 0xa5, 0x04, 0x94, 0x5e,
+	0xcc, 0x74, 0x9e, 0x3d, 0xa8, 0x0c, 0xd1, 0x8b, 0xd0, 0x29, 0xe8, 0x2e, 0x23, 0x5d, 0x5e, 0x46,
+	0xd5, 0x36, 0xa1, 0x0d, 0xc3, 0x7a, 0xf4, 0x2f, 0x97, 0xa6, 0xeb, 0x1c, 0xbb, 0x25, 0xcf, 0xc3,
+	0xfb, 0xfc, 0x82, 0x93, 0x2a, 0x17, 0xa5, 0xc1, 0x02, 0xcb, 0x65, 0x6d, 0x44, 0xfa, 0x89, 0xe7,
+	0x15, 0x96, 0xab, 0x6c, 0x81, 0x5c, 0x97, 0xca, 0x28, 0x16, 0xc0, 0x60, 0x92, 0x6b, 0x53, 0xb3,
+	0x39, 0xc0, 0xbd, 0xc8, 0xf1, 0x29, 0x7d, 0xc7, 0x85, 0x21, 0x04, 0xbc, 0x42, 0xe4, 0x48, 0x9d,
+	0xc8, 0x89, 0xff, 0x27, 0xf6, 0x4d, 0x0e, 0x61, 0xa0, 0x55, 0x35, 0xff, 0xa2, 0x6e, 0xe4, 0xc4,
+	0x6e, 0xe2, 0x69, 0x55, 0xbd, 0x76, 0x60, 0x4d, 0xfb, 0x1b, 0xf0, 0xad, 0x03, 0xbf, 0xa9, 0xb7,
+	0x01, 0x67, 0xec, 0x1a, 0xbc, 0x44, 0xa9, 0x9c, 0x1c, 0x80, 0x9b, 0xc9, 0xb5, 0xb0, 0x9b, 0x49,
+	0x72, 0x0a, 0x81, 0xb2, 0xa6, 0x15, 0x75, 0xa3, 0x7e, 0x3c, 0x1c, 0x0f, 0xf9, 0x5f, 0x90, 0xa4,
+	0xe3, 0x18, 0x05, 0xbf, 0x39, 0x7f, 0x90, 0xbb, 0x02, 0x0d, 0xf3, 0xa2, 0xa5, 0x30, 0xb8, 0xcb,
+	0x8c, 0x7f, 0x1c, 0x38, 0x9a, 0x36, 0xfd, 0x27, 0xb6, 0xff, 0x73, 0xd3, 0x7f, 0xda, 0xd6, 0x27,
+	0xc7, 0x00, 0x77, 0x25, 0x0a, 0x83, 0x36, 0x94, 0xcf, 0xed, 0x0a, 0xe1, 0x80, 0x37, 0x5f, 0xd6,
+	0x23, 0x11, 0xfc, 0x7b, 0x54, 0x59, 0x61, 0xc9, 0x80, 0xb7, 0xce, 0x61, 0xc0, 0x5b, 0x23, 0xd6,
+	0xbb, 0x70, 0xc8, 0x19, 0xec, 0xdf, 0x48, 0xb9, 0xb5, 0xd9, 0x76, 0xee, 0x70, 0x2d, 0xc8, 0x7a,
+	0xb7, 0x7b, 0x33, 0xd0, 0x1f, 0xcb, 0x91, 0xd0, 0xd9, 0x68, 0x75, 0x99, 0xfa, 0x76, 0xf6, 0xab,
+	0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x44, 0x55, 0x07, 0x48, 0x98, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -85,7 +287,9 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SmartEnergyTableServiceClient interface {
-	Update(ctx context.Context, in *Empty, opts ...grpc.CallOption) (SmartEnergyTableService_UpdateClient, error)
+	CreateRoom(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Room, error)
+	JoinRoom(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (SmartEnergyTableService_JoinRoomClient, error)
+	AddGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type smartEnergyTableServiceClient struct {
@@ -96,12 +300,21 @@ func NewSmartEnergyTableServiceClient(cc *grpc.ClientConn) SmartEnergyTableServi
 	return &smartEnergyTableServiceClient{cc}
 }
 
-func (c *smartEnergyTableServiceClient) Update(ctx context.Context, in *Empty, opts ...grpc.CallOption) (SmartEnergyTableService_UpdateClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_SmartEnergyTableService_serviceDesc.Streams[0], "/SmartEnergyTableService/Update", opts...)
+func (c *smartEnergyTableServiceClient) CreateRoom(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Room, error) {
+	out := new(Room)
+	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/CreateRoom", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &smartEnergyTableServiceUpdateClient{stream}
+	return out, nil
+}
+
+func (c *smartEnergyTableServiceClient) JoinRoom(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (SmartEnergyTableService_JoinRoomClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_SmartEnergyTableService_serviceDesc.Streams[0], "/SmartEnergyTableService/JoinRoom", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &smartEnergyTableServiceJoinRoomClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -111,69 +324,131 @@ func (c *smartEnergyTableServiceClient) Update(ctx context.Context, in *Empty, o
 	return x, nil
 }
 
-type SmartEnergyTableService_UpdateClient interface {
-	Recv() (*Empty, error)
+type SmartEnergyTableService_JoinRoomClient interface {
+	Recv() (*Update, error)
 	grpc.ClientStream
 }
 
-type smartEnergyTableServiceUpdateClient struct {
+type smartEnergyTableServiceJoinRoomClient struct {
 	grpc.ClientStream
 }
 
-func (x *smartEnergyTableServiceUpdateClient) Recv() (*Empty, error) {
-	m := new(Empty)
+func (x *smartEnergyTableServiceJoinRoomClient) Recv() (*Update, error) {
+	m := new(Update)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
+func (c *smartEnergyTableServiceClient) AddGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/AddGameObject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SmartEnergyTableServiceServer is the server API for SmartEnergyTableService service.
 type SmartEnergyTableServiceServer interface {
-	Update(*Empty, SmartEnergyTableService_UpdateServer) error
+	CreateRoom(context.Context, *Empty) (*Room, error)
+	JoinRoom(*RoomId, SmartEnergyTableService_JoinRoomServer) error
+	AddGameObject(context.Context, *GameObject) (*Empty, error)
 }
 
 // UnimplementedSmartEnergyTableServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedSmartEnergyTableServiceServer struct {
 }
 
-func (*UnimplementedSmartEnergyTableServiceServer) Update(req *Empty, srv SmartEnergyTableService_UpdateServer) error {
-	return status.Errorf(codes.Unimplemented, "method Update not implemented")
+func (*UnimplementedSmartEnergyTableServiceServer) CreateRoom(ctx context.Context, req *Empty) (*Room, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRoom not implemented")
+}
+func (*UnimplementedSmartEnergyTableServiceServer) JoinRoom(req *RoomId, srv SmartEnergyTableService_JoinRoomServer) error {
+	return status.Errorf(codes.Unimplemented, "method JoinRoom not implemented")
+}
+func (*UnimplementedSmartEnergyTableServiceServer) AddGameObject(ctx context.Context, req *GameObject) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddGameObject not implemented")
 }
 
 func RegisterSmartEnergyTableServiceServer(s *grpc.Server, srv SmartEnergyTableServiceServer) {
 	s.RegisterService(&_SmartEnergyTableService_serviceDesc, srv)
 }
 
-func _SmartEnergyTableService_Update_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Empty)
+func _SmartEnergyTableService_CreateRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SmartEnergyTableServiceServer).CreateRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/SmartEnergyTableService/CreateRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SmartEnergyTableServiceServer).CreateRoom(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SmartEnergyTableService_JoinRoom_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(RoomId)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(SmartEnergyTableServiceServer).Update(m, &smartEnergyTableServiceUpdateServer{stream})
+	return srv.(SmartEnergyTableServiceServer).JoinRoom(m, &smartEnergyTableServiceJoinRoomServer{stream})
 }
 
-type SmartEnergyTableService_UpdateServer interface {
-	Send(*Empty) error
+type SmartEnergyTableService_JoinRoomServer interface {
+	Send(*Update) error
 	grpc.ServerStream
 }
 
-type smartEnergyTableServiceUpdateServer struct {
+type smartEnergyTableServiceJoinRoomServer struct {
 	grpc.ServerStream
 }
 
-func (x *smartEnergyTableServiceUpdateServer) Send(m *Empty) error {
+func (x *smartEnergyTableServiceJoinRoomServer) Send(m *Update) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _SmartEnergyTableService_AddGameObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GameObject)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SmartEnergyTableServiceServer).AddGameObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/SmartEnergyTableService/AddGameObject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SmartEnergyTableServiceServer).AddGameObject(ctx, req.(*GameObject))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _SmartEnergyTableService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "SmartEnergyTableService",
 	HandlerType: (*SmartEnergyTableServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateRoom",
+			Handler:    _SmartEnergyTableService_CreateRoom_Handler,
+		},
+		{
+			MethodName: "AddGameObject",
+			Handler:    _SmartEnergyTableService_AddGameObject_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Update",
-			Handler:       _SmartEnergyTableService_Update_Handler,
+			StreamName:    "JoinRoom",
+			Handler:       _SmartEnergyTableService_JoinRoom_Handler,
 			ServerStreams: true,
 		},
 	},

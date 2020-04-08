@@ -1,9 +1,9 @@
 package database
 
 type Database interface {
-	Set(key string, value []byte) (string, error)
-	Get(key string) ([]byte, error)
-	Delete(key string) ([]byte, error)
+	Set(key string, value string) (string, error)
+	Get(key string) (string, error)
+	Delete(key string) (string, error)
 }
 
 func Factory(databaseName string) (Database, error) {
