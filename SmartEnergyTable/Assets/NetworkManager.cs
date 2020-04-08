@@ -1,13 +1,20 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Grpc.Core;
 using Network;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
+    public List<UnityEngine.GameObject> GameObjects = new List<UnityEngine.GameObject>();
     private Channel _channel;
     private Client _client;
-
+    private Queue<int> obj = new Queue<int>();
     public static NetworkManager Instance { get; private set; }
 
 
@@ -26,7 +33,11 @@ public class NetworkManager : MonoBehaviour
         _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
         var room = _client.CreateRoom();
         Debug.Log(room.Id);
-        Task.Run(() => _client.JoinRoom(room.Id, update => Debug.Log(update.Id)));
+        Task.Run(() => _client.JoinRoom(room.Id, update =>
+        {
+            obj.Enqueue(0);
+            Debug.Log(update.Id);
+        }));
     }
 
     private void OnDisable()
@@ -37,5 +48,10 @@ public class NetworkManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (obj.Count > 0)
+        {
+            var index = obj.Dequeue();
+            Instantiate(GameObjects[index]);
+        }
     }
 }

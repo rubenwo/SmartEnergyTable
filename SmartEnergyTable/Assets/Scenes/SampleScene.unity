@@ -307,11 +307,11 @@ GameObject:
   - component: {fileID: 2062534222}
   - component: {fileID: 2062534221}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &2062534221
 MonoBehaviour:
@@ -325,6 +325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493565abcae929a45bd7671cb4f4183a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameObjects:
+  - {fileID: 1399436938488828656, guid: a09693dfa5df20845998aa14b5ae7b14, type: 3}
 --- !u!4 &2062534222
 Transform:
   m_ObjectHideFlags: 0
