@@ -16,10 +16,12 @@ func (err *DownError) Error() string {
 	return "could not connect to the database"
 }
 
-type CreateDatabaseError struct{}
+type CreateDatabaseError struct {
+	reason string
+}
 
 func (err *CreateDatabaseError) Error() string {
-	return "could not create database"
+	return fmt.Sprintf("could not create database: %s", err.reason)
 }
 
 type NotImplementedDatabaseError struct {

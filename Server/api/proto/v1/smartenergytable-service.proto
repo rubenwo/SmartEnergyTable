@@ -7,6 +7,6 @@ message Empty {
 }
 
 service SmartEnergyTableService {
-    rpc Update (Empty) returns (Empty) {
+    rpc Update (Empty) returns (stream Empty) {
     }
 }
