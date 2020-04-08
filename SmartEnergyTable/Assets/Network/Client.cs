@@ -1,33 +1,54 @@
+using System;
+using System.Threading.Tasks;
 using Grpc.Core;
-using Protocolor;
+using Packages.Rider.Editor.UnitTesting;
 using UnityEngine;
 
 namespace Network
 {
+    public delegate void UpdateCallback(Update update);
+
     public class Client
     {
-        private readonly ColorGenerator.ColorGeneratorClient _client;
-        private readonly Channel _channel;
-        private readonly string _server = "127.0.0.1:50051";
+        private readonly SmartEnergyTableService.SmartEnergyTableServiceClient _client;
 
-        internal Client()
+        public Client(SmartEnergyTableService.SmartEnergyTableServiceClient client)
         {
-            _channel = new Channel(_server, ChannelCredentials.Insecure);
-            _client = new ColorGenerator.ColorGeneratorClient(_channel);
+            this._client = client;
         }
 
-        internal string GetRandomColor(string currentColor)
+        internal Room CreateRoom()
         {
-            var randomColor = _client.GetRandomColor(new CurrentColor {Color = currentColor});
-            Debug.Log("Client is currently using color: " + currentColor +
-                      " switching to: " + randomColor.Color);
-
-            return randomColor.Color;
+            var room = _client.CreateRoom(new Empty());
+            return room;
         }
 
-        private void OnDisable()
+        internal async Task JoinRoom(string roomId, UpdateCallback callback)
         {
-            _channel.ShutdownAsync().Wait();
+            try
+            {
+                using (var call = _client.JoinRoom(new RoomId() {Id = roomId}))
+                {
+                    while (await call.ResponseStream.MoveNext())
+                    {
+                        var s = call.ResponseStream.Current;
+                        callback.Invoke(s);
+                    }
+                }
+            }
+            catch (RpcException e)
+            {
+                Debug.Log("RPC failed" + e);
+                throw;
+            }
         }
+
+        internal Empty AddGameObject(string name, float posX, float posY, float posZ)
+        {
+            var empty = _client.AddGameObject(new GameObject() {Name = name, PosX = posX, PosY = posY, PosZ = posZ});
+            return empty;
+        }
+
+
     }
 }
