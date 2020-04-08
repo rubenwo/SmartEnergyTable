@@ -14,16 +14,25 @@ public class NetworkManager : MonoBehaviour
     public List<UnityEngine.GameObject> GameObjects = new List<UnityEngine.GameObject>();
     private Channel _channel;
     private Client _client;
-    private Queue<int> obj = new Queue<int>();
+    private Queue<Action> obj = new Queue<Action>();
     public static NetworkManager Instance { get; private set; }
 
 
-    private void Awake()
+    private static NetworkManager s_Instance = null;
+
+    void Awake()
     {
-        if (Instance != null && Instance != this)
-            Destroy(gameObject);
+        if (s_Instance == null)
+        {
+            s_Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            //Initialization code goes here[/INDENT]
+        }
         else
-            Instance = this;
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -35,9 +44,11 @@ public class NetworkManager : MonoBehaviour
         Debug.Log(room.Id);
         Task.Run(() => _client.JoinRoom(room.Id, update =>
         {
-            obj.Enqueue(0);
+            obj.Enqueue(() => Instantiate(GameObjects[0]));
+
             Debug.Log(update.Id);
         }));
+        Application.LoadLevel(1);
     }
 
     private void OnDisable()
@@ -50,8 +61,7 @@ public class NetworkManager : MonoBehaviour
     {
         if (obj.Count > 0)
         {
-            var index = obj.Dequeue();
-            Instantiate(GameObjects[index]);
+            obj.Dequeue()();
         }
     }
 }
