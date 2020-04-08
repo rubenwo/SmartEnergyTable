@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option go_package = "pkg/api/v1";
+
+message Empty {
+
+}
+
+service SmartEnergyTableService {
+    rpc Update (Empty) returns (Empty) {
+    }
+}
