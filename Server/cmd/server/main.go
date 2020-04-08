@@ -19,10 +19,13 @@ func (s *server) JoinRoom(roomId *v1.RoomId, stream v1.SmartEnergyTableService_J
 	log.Println("Someone joined the room")
 	for {
 		time.Sleep(time.Second * 2)
+		log.Println("player still connected")
+		start := time.Now()
 		if err := stream.Send(&v1.Update{Id: "test"}); err != nil {
 			log.Println(err)
 			break
 		}
+		log.Println("Sending update message took:", time.Since(start).Microseconds(), "seconds.")
 	}
 	return nil
 }

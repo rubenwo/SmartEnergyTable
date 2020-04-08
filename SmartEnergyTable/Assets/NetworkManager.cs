@@ -22,7 +22,7 @@ public class NetworkManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        _channel = new Channel("127.0.0.1:8080", ChannelCredentials.Insecure);
+        _channel = new Channel("192.168.2.14:8080", ChannelCredentials.Insecure);
         _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
         var room = _client.CreateRoom();
         Debug.Log(room.Id);
