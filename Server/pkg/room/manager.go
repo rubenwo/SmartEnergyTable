@@ -44,10 +44,11 @@ func (m *Manager) JoinRoom(id string, user string, callback chan Data) error {
 	}
 	if room.master == "" {
 		room.master = user
-		log.Println("Client is master joined")
+		log.Println("Master joined")
+	} else {
+		log.Println("Client joined")
 	}
 	room.clients[user] = callback
-	log.Println("Client joined")
 
 	go func(r *Room) { r.Notify() }(room)
 
@@ -91,8 +92,15 @@ func (m *Manager) RemoveClient(id string, user string) error {
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
 	}
-	close(room.clients[user])
-	delete(room.clients, user)
-
+	if room.master == user {
+		log.Println("Master left")
+		for user, client := range room.clients {
+			close(client)
+			delete(room.clients, user)
+		}
+	} else {
+		close(room.clients[user])
+		delete(room.clients, user)
+	}
 	return nil
 }

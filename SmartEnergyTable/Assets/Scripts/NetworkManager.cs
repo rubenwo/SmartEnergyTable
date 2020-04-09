@@ -37,7 +37,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     private string roomId = "";
-    private string userId = "test123";
+    private string userId = Guid.NewGuid().ToString();
 
     // Start is called before the first frame update
     private void Start()

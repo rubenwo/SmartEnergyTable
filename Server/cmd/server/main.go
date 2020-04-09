@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/go-chi/chi"
+	"github.com/google/uuid"
 	v1 "github.com/rubenwo/SmartEnergyTable/Server/pkg/api/v1"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/room"
 	"google.golang.org/grpc"
@@ -91,6 +92,23 @@ func main() {
 	router := chi.NewRouter()
 	router.Get("/healthz", func(writer http.ResponseWriter, request *http.Request) {
 		_, _ = writer.Write([]byte("Hello world"))
+	})
+	router.Get("/join", func(writer http.ResponseWriter, request *http.Request) {
+		id := request.URL.Query().Get("id")
+		log.Println(id)
+		cb := make(chan room.Data)
+		if err := roomManager.JoinRoom(id, uuid.New().String(), cb); err != nil {
+			log.Fatal(err)
+		}
+		for {
+			data, ok := <-cb
+			if !ok {
+				break
+			}
+			log.Println(data)
+		}
+		writer.Write([]byte("Bye"))
+
 	})
 	go func() {
 		log.Println("SmartEnergyTable API is running!")
