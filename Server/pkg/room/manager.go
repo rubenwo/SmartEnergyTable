@@ -30,7 +30,7 @@ func (m *Manager) CreateRoom() (id string) {
 		ID      string
 		SceneID int
 		Objects []SceneObject
-	}{ID: id, SceneID: 0, Objects: make([]SceneObject, 0)}, master: "", clients: make(map[string]chan Data, 1)}
+	}{ID: id, SceneID: 1, Objects: make([]SceneObject, 0)}, master: "", clients: make(map[string]chan Data, 1)}
 	return id
 }
 

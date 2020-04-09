@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
-    public List<UnityEngine.GameObject> GameObjects = new List<UnityEngine.GameObject>();
+    public List<UnityEngine.GameObject> ObjectLibrary = new List<UnityEngine.GameObject>();
     private Channel _channel;
     private Client _client;
     private Queue<Action> obj = new Queue<Action>();
@@ -36,7 +36,7 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    private string roomId;
+    private string roomId = "";
     private string userId = "test123";
 
     // Start is called before the first frame update
@@ -44,23 +44,31 @@ public class NetworkManager : MonoBehaviour
     {
         _channel = new Channel("192.168.2.14:8080", ChannelCredentials.Insecure);
         _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+    }
 
+    public void CreateRoom()
+    {
+        if (roomId != "")
+            return;
         var room = _client.CreateRoom();
         Debug.Log(room.Id);
         roomId = room.Id;
+        JoinRoom(roomId);
+    }
 
-        Task.Run(() => _client.JoinRoom(roomId, userId, update =>
+    public void JoinRoom(string id)
+    {
+        Task.Run(() => _client.JoinRoom(id, userId, update =>
         {
-            obj.Enqueue(() => Instantiate(GameObjects[0]));
+            obj.Enqueue(() =>
+            {
+                if (update.Room.SceneId != SceneManager.GetActiveScene().buildIndex)
+                    SceneManager.LoadScene(update.Room.SceneId);
+                Instantiate(ObjectLibrary[0]);
+            });
 
             Debug.Log(update.Id);
         }));
-        SceneManager.LoadScene(1);
-        Task.Run(() =>
-        {
-            Thread.Sleep(5000);
-            _client.AddGameObject(roomId, userId, "Cube", 0, 0, 0);
-        });
     }
 
     private void OnDisable()

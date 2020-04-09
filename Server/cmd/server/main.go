@@ -24,7 +24,9 @@ func (s *server) RemoveGameObject(context.Context, *v1.RoomId) (*v1.Empty, error
 func (s *server) JoinRoom(roomId *v1.RoomId, stream v1.SmartEnergyTableService_JoinRoomServer) error {
 	log.Println("Someone joined room:", roomId.Id)
 	cb := make(chan room.Data)
-	log.Println(s.manager.JoinRoom(roomId.Id, roomId.UserId, cb))
+	if err := s.manager.JoinRoom(roomId.Id, roomId.UserId, cb); err != nil {
+		return err
+	}
 
 	for {
 		data, ok := <-cb
