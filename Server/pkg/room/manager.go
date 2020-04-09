@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/database"
+	"log"
 )
 
 type Manager struct {
@@ -36,13 +37,21 @@ func (m *Manager) JoinRoom(id string, callback chan Data) error {
 	if callback == nil {
 		return fmt.Errorf("callback channel can't be nil")
 	}
-	if room, ok := m.rooms[id]; ok {
-		if room.master == nil {
-			room.master = callback
-		} else {
-			room.clients = append(room.clients, callback)
-		}
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
 	}
+	if room.master == nil {
+		room.master = callback
+		log.Println("Master joined")
+	} else {
+		room.clients = append(room.clients, callback)
+		log.Println("Client joined")
+	}
+	log.Println("Sending room data:", room.Data)
+	go func(cb chan Data) { cb <- room.Data }(callback)
+
+	return nil
 }
 
 func (m *Manager) Room(id string) *Room {
@@ -63,4 +72,31 @@ func (m *Manager) UpdateRoom(id string, sceneId int, objects []SceneObject) erro
 	}
 	room.master <- room.Data
 	return nil
+}
+
+func (m *Manager) RemoveClient(id string, callback chan Data) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+
+	if room.master == callback {
+		if len(room.clients) > 0 {
+			room.master = room.clients[0]
+			return nil
+		}
+		room.master = nil
+	}
+	for index, cb := range room.clients {
+		if cb == callback {
+			room.clients = remove(room.clients, index)
+			return nil
+		}
+	}
+	return nil
+}
+func remove(s []chan Data, i int) []chan Data {
+	s[i] = s[len(s)-1]
+	// We do not need to put s[i] at the end, as it will be discarded anyway
+	return s[:len(s)-1]
 }

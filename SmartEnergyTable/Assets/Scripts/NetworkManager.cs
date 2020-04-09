@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Network;
@@ -40,6 +41,7 @@ public class NetworkManager : MonoBehaviour
     {
         _channel = new Channel("192.168.2.14:8080", ChannelCredentials.Insecure);
         _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+
         var room = _client.CreateRoom();
         Debug.Log(room.Id);
         Task.Run(() => _client.JoinRoom(room.Id, update =>
@@ -53,6 +55,7 @@ public class NetworkManager : MonoBehaviour
 
     private void OnDisable()
     {
+        Debug.Log("OnDisable()");
         _channel.ShutdownAsync().Wait();
     }
 

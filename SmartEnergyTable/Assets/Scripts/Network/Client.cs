@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
 using UnityEngine;
@@ -27,10 +28,12 @@ namespace Network
             {
                 using (var call = _client.JoinRoom(new RoomId {Id = roomId}))
                 {
-                    while (await call.ResponseStream.MoveNext())
+                    while (true)
                     {
+                        await call.ResponseStream.MoveNext();
+
                         var s = call.ResponseStream.Current;
-                        callback.Invoke(s);
+                        if (s.Id != "-1") callback.Invoke(s);
                     }
                 }
             }
