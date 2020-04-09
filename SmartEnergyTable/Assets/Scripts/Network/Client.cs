@@ -22,11 +22,11 @@ namespace Network
             return room;
         }
 
-        internal async Task JoinRoom(string roomId, UpdateCallback callback)
+        internal async Task JoinRoom(string roomId, string userId, UpdateCallback callback)
         {
             try
             {
-                using (var call = _client.JoinRoom(new RoomId {Id = roomId}))
+                using (var call = _client.JoinRoom(new RoomId {Id = roomId, UserId = userId}))
                 {
                     while (true)
                     {
@@ -44,9 +44,18 @@ namespace Network
             }
         }
 
-        internal Empty AddGameObject(string name, float posX, float posY, float posZ)
+        internal Empty AddGameObject(string roomId, string userId, string name, float posX, float posY, float posZ)
         {
-            var empty = _client.AddGameObject(new GameObject {Name = name, PosX = posX, PosY = posY, PosZ = posZ});
+            var empty = _client.AddGameObject(new GameObject
+            {
+                RoomId = new RoomId() {Id = roomId, UserId = userId}, Name = name, PosX = posX, PosY = posY, PosZ = posZ
+            });
+            return empty;
+        }
+
+        internal Empty LeaveRoom(string roomId, string userId)
+        {
+            var empty = _client.LeaveRoom(new RoomId() {Id = roomId, UserId = userId});
             return empty;
         }
     }

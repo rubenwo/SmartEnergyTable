@@ -17,33 +17,38 @@ type server struct {
 	manager *room.Manager
 }
 
+func (s *server) RemoveGameObject(context.Context, *v1.RoomId) (*v1.Empty, error) {
+	panic("implement me")
+}
+
 func (s *server) JoinRoom(roomId *v1.RoomId, stream v1.SmartEnergyTableService_JoinRoomServer) error {
 	log.Println("Someone joined room:", roomId.Id)
 	cb := make(chan room.Data)
-	log.Println(s.manager.JoinRoom(roomId.Id, cb))
-	timer := time.Tick(time.Second * 2)
+	log.Println(s.manager.JoinRoom(roomId.Id, roomId.UserId, cb))
 
-Loop:
 	for {
-		select {
-		case data := <-cb:
-			log.Println("player still connected")
-			start := time.Now()
-
-			if err := stream.Send(&v1.Update{Id: data.ID, Room: &v1.Room{Id: data.ID, SceneId: int32(data.SceneID)}}); err != nil {
-				log.Println(err)
-				break Loop
-			}
-			log.Println("Sending update message took:", time.Since(start).Microseconds(), "microseconds.")
-		case <-timer:
-			if err := stream.Send(&v1.Update{Id: "-1"}); err != nil {
-				log.Println(err)
-				break Loop
+		data, ok := <-cb
+		if !ok {
+			break
+		}
+		log.Println("player still connected")
+		start := time.Now()
+		objs := make([]*v1.GameObject, len(data.Objects))
+		for index, objData := range data.Objects {
+			objs[index] = &v1.GameObject{
+				Name: objData.Name,
+				PosX: objData.PosX,
+				PosY: objData.PosY,
+				PosZ: objData.PosZ,
 			}
 		}
+		if err := stream.Send(&v1.Update{Id: data.ID, Room: &v1.Room{Id: data.ID, SceneId: int32(data.SceneID), Objects: objs}}); err != nil {
+			return err
+		}
+		log.Println("Sending update message took:", time.Since(start).Microseconds(), "microseconds.")
+
 	}
 	log.Println("Closed")
-	_ = s.manager.RemoveClient(roomId.Id, cb)
 	return nil
 }
 
@@ -53,12 +58,23 @@ func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.Room, err
 }
 
 func (s *server) AddGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
+	log.Println("Adding gameobject")
+	_ = s.manager.AddGameObject(gameObject.RoomId.Id, gameObject.RoomId.UserId, gameObject)
 	return &v1.Empty{}, nil
 }
 
 func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, error) {
 	if err := s.manager.UpdateRoom(scene.Id, int(scene.SceneId), nil); err != nil {
 		return &v1.Empty{}, err
+	}
+	return &v1.Empty{}, nil
+}
+
+func (s *server) LeaveRoom(ctx context.Context, roomId *v1.RoomId) (*v1.Empty, error) {
+	log.Println("LeaveRoom() =>", roomId.UserId)
+	if err := s.manager.RemoveClient(roomId.Id, roomId.UserId); err != nil {
+		log.Println(err)
+		return &v1.Empty{}, nil
 	}
 	return &v1.Empty{}, nil
 }

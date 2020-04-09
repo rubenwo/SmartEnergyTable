@@ -1,1 +1,2 @@
 protoc --proto_path=api/proto/v1 --go_out=plugins=grpc:. smartenergytable-service.proto
+protoc --proto_path=api/proto/v1 --csharp_out=api/proto/v1 --grpc_out=api/proto/v1 --plugin=protoc-gen-grpc="C:\Users\diabl\go\bin\grpc_csharp_plugin.exe" smartenergytable-service.proto

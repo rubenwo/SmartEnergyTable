@@ -3,6 +3,7 @@ package room
 import (
 	"fmt"
 	"github.com/google/uuid"
+	v1 "github.com/rubenwo/SmartEnergyTable/Server/pkg/api/v1"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/database"
 	"log"
 )
@@ -29,11 +30,11 @@ func (m *Manager) CreateRoom() (id string) {
 		ID      string
 		SceneID int
 		Objects []SceneObject
-	}{ID: id, SceneID: 0, Objects: nil}, master: nil, clients: make([]chan Data, 1)}
+	}{ID: id, SceneID: 0, Objects: make([]SceneObject, 0)}, master: "", clients: make(map[string]chan Data, 1)}
 	return id
 }
 
-func (m *Manager) JoinRoom(id string, callback chan Data) error {
+func (m *Manager) JoinRoom(id string, user string, callback chan Data) error {
 	if callback == nil {
 		return fmt.Errorf("callback channel can't be nil")
 	}
@@ -41,21 +42,35 @@ func (m *Manager) JoinRoom(id string, callback chan Data) error {
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
 	}
-	if room.master == nil {
-		room.master = callback
-		log.Println("Master joined")
-	} else {
-		room.clients = append(room.clients, callback)
-		log.Println("Client joined")
+	if room.master == "" {
+		room.master = user
+		log.Println("Client is master joined")
 	}
-	log.Println("Sending room data:", room.Data)
-	go func(cb chan Data) { cb <- room.Data }(callback)
+	room.clients[user] = callback
+	log.Println("Client joined")
+
+	go func(r *Room) { r.Notify() }(room)
 
 	return nil
 }
 
 func (m *Manager) Room(id string) *Room {
 	return m.rooms[id]
+}
+
+func (m *Manager) AddGameObject(id string, user string, object *v1.GameObject) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+	room.Data.Objects = append(room.Data.Objects, SceneObject{
+		Name: object.Name,
+		PosX: object.PosX,
+		PosY: object.PosY,
+		PosZ: object.PosZ,
+	})
+	room.Notify()
+	return nil
 }
 
 func (m *Manager) UpdateRoom(id string, sceneId int, objects []SceneObject) error {
@@ -67,36 +82,17 @@ func (m *Manager) UpdateRoom(id string, sceneId int, objects []SceneObject) erro
 	if objects != nil {
 		room.Data.Objects = objects
 	}
-	for _, r := range room.clients {
-		r <- room.Data
-	}
-	room.master <- room.Data
+	room.Notify()
 	return nil
 }
 
-func (m *Manager) RemoveClient(id string, callback chan Data) error {
+func (m *Manager) RemoveClient(id string, user string) error {
 	room, ok := m.rooms[id]
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
 	}
+	close(room.clients[user])
+	delete(room.clients, user)
 
-	if room.master == callback {
-		if len(room.clients) > 0 {
-			room.master = room.clients[0]
-			return nil
-		}
-		room.master = nil
-	}
-	for index, cb := range room.clients {
-		if cb == callback {
-			room.clients = remove(room.clients, index)
-			return nil
-		}
-	}
 	return nil
-}
-func remove(s []chan Data, i int) []chan Data {
-	s[i] = s[len(s)-1]
-	// We do not need to put s[i] at the end, as it will be discarded anyway
-	return s[:len(s)-1]
 }

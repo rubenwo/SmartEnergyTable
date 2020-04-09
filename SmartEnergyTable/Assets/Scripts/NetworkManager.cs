@@ -36,6 +36,9 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
+    private string roomId;
+    private string userId = "test123";
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -44,18 +47,26 @@ public class NetworkManager : MonoBehaviour
 
         var room = _client.CreateRoom();
         Debug.Log(room.Id);
-        Task.Run(() => _client.JoinRoom(room.Id, update =>
+        roomId = room.Id;
+
+        Task.Run(() => _client.JoinRoom(roomId, userId, update =>
         {
             obj.Enqueue(() => Instantiate(GameObjects[0]));
 
             Debug.Log(update.Id);
         }));
-        Application.LoadLevel(1);
+        SceneManager.LoadScene(1);
+        Task.Run(() =>
+        {
+            Thread.Sleep(5000);
+            _client.AddGameObject(roomId, userId, "Cube", 0, 0, 0);
+        });
     }
 
     private void OnDisable()
     {
         Debug.Log("OnDisable()");
+        _client.LeaveRoom(roomId, userId);
         _channel.ShutdownAsync().Wait();
     }
 

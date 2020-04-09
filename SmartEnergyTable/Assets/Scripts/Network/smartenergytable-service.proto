@@ -6,23 +6,32 @@ message Empty {
 }
 
 message GameObject {
-    string name = 1;
-    float pos_x = 2;
-    float pos_y = 3;
-    float pos_z = 4;
+    RoomId room_id = 1;
+    string name = 2;
+    float pos_x = 3;
+    float pos_y = 4;
+    float pos_z = 5;
 }
 
 message Room {
     string id = 1;
     repeated GameObject objects = 2;
+    int32 sceneId = 3;
 }
 
 message RoomId {
     string id = 1;
+    string user_id = 2;
+}
+
+message Scene {
+    string id = 1;
+    int32 sceneId = 2;
 }
 
 message Update {
     string id = 1;
+    Room room = 2;
 }
 
 service SmartEnergyTableService {
@@ -37,4 +46,14 @@ service SmartEnergyTableService {
 
     }
 
+    rpc RemoveGameObject (RoomId) returns (Empty) {
+
+    }
+
+    rpc ChangeScene (Scene) returns (Empty) {
+    }
+
+    rpc LeaveRoom (RoomId) returns (Empty) {
+
+    }
 }
