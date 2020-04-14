@@ -71,6 +71,11 @@ public class NetworkManager : MonoBehaviour
         }));
     }
 
+    public void AddGameObject(string prefab, float posX, float posY, float posZ)
+    {
+        var empty = _client.AddGameObject(roomId, userId, prefab, posX, posY, posZ);
+    }
+
     private void OnDisable()
     {
         Debug.Log("OnDisable()");

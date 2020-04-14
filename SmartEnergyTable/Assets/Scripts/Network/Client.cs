@@ -48,14 +48,14 @@ namespace Network
         {
             var empty = _client.AddGameObject(new GameObject
             {
-                RoomId = new RoomId() {Id = roomId, UserId = userId}, Name = name, PosX = posX, PosY = posY, PosZ = posZ
+                RoomId = new RoomId {Id = roomId, UserId = userId}, Name = name, PosX = posX, PosY = posY, PosZ = posZ
             });
             return empty;
         }
 
         internal Empty LeaveRoom(string roomId, string userId)
         {
-            var empty = _client.LeaveRoom(new RoomId() {Id = roomId, UserId = userId});
+            var empty = _client.LeaveRoom(new RoomId {Id = roomId, UserId = userId});
             return empty;
         }
     }
