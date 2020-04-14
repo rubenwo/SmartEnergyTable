@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
-using Network;
 using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Client = Network.Client;
 
 public class NetworkManager : MonoBehaviour
 {
-    public List<UnityEngine.GameObject> ObjectLibrary = new List<UnityEngine.GameObject>();
+    public List<UnityEngine.GameObject> objectLibrary = new List<UnityEngine.GameObject>();
     private Channel _channel;
     private Client _client;
     private Queue<Action> obj = new Queue<Action>();
@@ -64,7 +65,7 @@ public class NetworkManager : MonoBehaviour
             {
                 if (update.Room.SceneId != SceneManager.GetActiveScene().buildIndex)
                     SceneManager.LoadScene(update.Room.SceneId);
-                Instantiate(ObjectLibrary[0]);
+                Instantiate(objectLibrary[0]);
             });
 
             Debug.Log(update.Id);
@@ -74,6 +75,13 @@ public class NetworkManager : MonoBehaviour
     public void AddGameObject(string prefab, float posX, float posY, float posZ)
     {
         var empty = _client.AddGameObject(roomId, userId, prefab, posX, posY, posZ);
+    }
+
+    public void LoadScene(uint buildIndex)
+    {
+        if (buildIndex > SceneManager.sceneCountInBuildSettings - 1)
+            throw new IndexOutOfRangeException("buildIndex is out of bounds. Check build settings for valid indices.");
+        SceneManager.LoadScene(Convert.ToInt32(buildIndex));
     }
 
     private void OnDisable()
