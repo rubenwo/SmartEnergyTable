@@ -65,10 +65,12 @@ func (m *Manager) AddGameObject(id string, user string, object *v1.GameObject) e
 		return fmt.Errorf("room with id: %s does not exist", id)
 	}
 	room.Data.Objects = append(room.Data.Objects, SceneObject{
-		Name: object.Name,
-		PosX: object.PosX,
-		PosY: object.PosY,
-		PosZ: object.PosZ,
+		Name: object.ObjectName,
+		Position: Vector3{
+			X: object.Position.X,
+			Y: object.Position.Y,
+			Z: object.Position.Z,
+		},
 	})
 	room.Notify()
 	return nil
@@ -98,9 +100,18 @@ func (m *Manager) RemoveClient(id string, user string) error {
 			close(client)
 			delete(room.clients, user)
 		}
+		delete(m.rooms, id)
 	} else {
 		close(room.clients[user])
 		delete(room.clients, user)
 	}
 	return nil
+}
+
+func (m *Manager) RoomIDs() []string {
+	var ids []string
+	for key, _ := range m.rooms {
+		ids = append(ids, key)
+	}
+	return ids
 }

@@ -56,14 +56,12 @@ func (m *Empty) XXX_DiscardUnknown() {
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 type GameObject struct {
-	RoomId               *RoomId  `protobuf:"bytes,1,opt,name=room_id,json=roomId,proto3" json:"room_id,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	PosX                 float32  `protobuf:"fixed32,3,opt,name=pos_x,json=posX,proto3" json:"pos_x,omitempty"`
-	PosY                 float32  `protobuf:"fixed32,4,opt,name=pos_y,json=posY,proto3" json:"pos_y,omitempty"`
-	PosZ                 float32  `protobuf:"fixed32,5,opt,name=pos_z,json=posZ,proto3" json:"pos_z,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	RoomUser             *RoomUser `protobuf:"bytes,1,opt,name=room_user,json=roomUser,proto3" json:"room_user,omitempty"`
+	ObjectName           string    `protobuf:"bytes,2,opt,name=object_name,json=objectName,proto3" json:"object_name,omitempty"`
+	Position             *Vector3  `protobuf:"bytes,3,opt,name=position,proto3" json:"position,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *GameObject) Reset()         { *m = GameObject{} }
@@ -91,37 +89,78 @@ func (m *GameObject) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GameObject proto.InternalMessageInfo
 
-func (m *GameObject) GetRoomId() *RoomId {
+func (m *GameObject) GetRoomUser() *RoomUser {
 	if m != nil {
-		return m.RoomId
+		return m.RoomUser
 	}
 	return nil
 }
 
-func (m *GameObject) GetName() string {
+func (m *GameObject) GetObjectName() string {
 	if m != nil {
-		return m.Name
+		return m.ObjectName
 	}
 	return ""
 }
 
-func (m *GameObject) GetPosX() float32 {
+func (m *GameObject) GetPosition() *Vector3 {
 	if m != nil {
-		return m.PosX
+		return m.Position
+	}
+	return nil
+}
+
+type Vector3 struct {
+	X                    float32  `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y                    float32  `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
+	Z                    float32  `protobuf:"fixed32,3,opt,name=z,proto3" json:"z,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Vector3) Reset()         { *m = Vector3{} }
+func (m *Vector3) String() string { return proto.CompactTextString(m) }
+func (*Vector3) ProtoMessage()    {}
+func (*Vector3) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7be9bf9d675643a6, []int{2}
+}
+
+func (m *Vector3) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Vector3.Unmarshal(m, b)
+}
+func (m *Vector3) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Vector3.Marshal(b, m, deterministic)
+}
+func (m *Vector3) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Vector3.Merge(m, src)
+}
+func (m *Vector3) XXX_Size() int {
+	return xxx_messageInfo_Vector3.Size(m)
+}
+func (m *Vector3) XXX_DiscardUnknown() {
+	xxx_messageInfo_Vector3.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Vector3 proto.InternalMessageInfo
+
+func (m *Vector3) GetX() float32 {
+	if m != nil {
+		return m.X
 	}
 	return 0
 }
 
-func (m *GameObject) GetPosY() float32 {
+func (m *Vector3) GetY() float32 {
 	if m != nil {
-		return m.PosY
+		return m.Y
 	}
 	return 0
 }
 
-func (m *GameObject) GetPosZ() float32 {
+func (m *Vector3) GetZ() float32 {
 	if m != nil {
-		return m.PosZ
+		return m.Z
 	}
 	return 0
 }
@@ -139,7 +178,7 @@ func (m *Room) Reset()         { *m = Room{} }
 func (m *Room) String() string { return proto.CompactTextString(m) }
 func (*Room) ProtoMessage()    {}
 func (*Room) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7be9bf9d675643a6, []int{2}
+	return fileDescriptor_7be9bf9d675643a6, []int{3}
 }
 
 func (m *Room) XXX_Unmarshal(b []byte) error {
@@ -181,7 +220,7 @@ func (m *Room) GetSceneId() int32 {
 	return 0
 }
 
-type RoomId struct {
+type RoomUser struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	UserId               string   `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -189,58 +228,105 @@ type RoomId struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RoomId) Reset()         { *m = RoomId{} }
-func (m *RoomId) String() string { return proto.CompactTextString(m) }
-func (*RoomId) ProtoMessage()    {}
-func (*RoomId) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7be9bf9d675643a6, []int{3}
+func (m *RoomUser) Reset()         { *m = RoomUser{} }
+func (m *RoomUser) String() string { return proto.CompactTextString(m) }
+func (*RoomUser) ProtoMessage()    {}
+func (*RoomUser) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7be9bf9d675643a6, []int{4}
 }
 
-func (m *RoomId) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RoomId.Unmarshal(m, b)
+func (m *RoomUser) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RoomUser.Unmarshal(m, b)
 }
-func (m *RoomId) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RoomId.Marshal(b, m, deterministic)
+func (m *RoomUser) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RoomUser.Marshal(b, m, deterministic)
 }
-func (m *RoomId) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RoomId.Merge(m, src)
+func (m *RoomUser) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RoomUser.Merge(m, src)
 }
-func (m *RoomId) XXX_Size() int {
-	return xxx_messageInfo_RoomId.Size(m)
+func (m *RoomUser) XXX_Size() int {
+	return xxx_messageInfo_RoomUser.Size(m)
 }
-func (m *RoomId) XXX_DiscardUnknown() {
-	xxx_messageInfo_RoomId.DiscardUnknown(m)
+func (m *RoomUser) XXX_DiscardUnknown() {
+	xxx_messageInfo_RoomUser.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RoomId proto.InternalMessageInfo
+var xxx_messageInfo_RoomUser proto.InternalMessageInfo
 
-func (m *RoomId) GetId() string {
+func (m *RoomUser) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *RoomId) GetUserId() string {
+func (m *RoomUser) GetUserId() string {
 	if m != nil {
 		return m.UserId
 	}
 	return ""
 }
 
+type UserPosition struct {
+	RoomUser             *RoomUser `protobuf:"bytes,1,opt,name=room_user,json=roomUser,proto3" json:"room_user,omitempty"`
+	NewPosition          *Vector3  `protobuf:"bytes,2,opt,name=new_position,json=newPosition,proto3" json:"new_position,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *UserPosition) Reset()         { *m = UserPosition{} }
+func (m *UserPosition) String() string { return proto.CompactTextString(m) }
+func (*UserPosition) ProtoMessage()    {}
+func (*UserPosition) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7be9bf9d675643a6, []int{5}
+}
+
+func (m *UserPosition) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UserPosition.Unmarshal(m, b)
+}
+func (m *UserPosition) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UserPosition.Marshal(b, m, deterministic)
+}
+func (m *UserPosition) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UserPosition.Merge(m, src)
+}
+func (m *UserPosition) XXX_Size() int {
+	return xxx_messageInfo_UserPosition.Size(m)
+}
+func (m *UserPosition) XXX_DiscardUnknown() {
+	xxx_messageInfo_UserPosition.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UserPosition proto.InternalMessageInfo
+
+func (m *UserPosition) GetRoomUser() *RoomUser {
+	if m != nil {
+		return m.RoomUser
+	}
+	return nil
+}
+
+func (m *UserPosition) GetNewPosition() *Vector3 {
+	if m != nil {
+		return m.NewPosition
+	}
+	return nil
+}
+
 type Scene struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	SceneId              int32    `protobuf:"varint,2,opt,name=sceneId,proto3" json:"sceneId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	RoomUser             *RoomUser `protobuf:"bytes,1,opt,name=room_user,json=roomUser,proto3" json:"room_user,omitempty"`
+	SceneId              int32     `protobuf:"varint,2,opt,name=sceneId,proto3" json:"sceneId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *Scene) Reset()         { *m = Scene{} }
 func (m *Scene) String() string { return proto.CompactTextString(m) }
 func (*Scene) ProtoMessage()    {}
 func (*Scene) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7be9bf9d675643a6, []int{4}
+	return fileDescriptor_7be9bf9d675643a6, []int{6}
 }
 
 func (m *Scene) XXX_Unmarshal(b []byte) error {
@@ -261,11 +347,11 @@ func (m *Scene) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Scene proto.InternalMessageInfo
 
-func (m *Scene) GetId() string {
+func (m *Scene) GetRoomUser() *RoomUser {
 	if m != nil {
-		return m.Id
+		return m.RoomUser
 	}
-	return ""
+	return nil
 }
 
 func (m *Scene) GetSceneId() int32 {
@@ -278,6 +364,7 @@ func (m *Scene) GetSceneId() int32 {
 type Update struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Room                 *Room    `protobuf:"bytes,2,opt,name=room,proto3" json:"room,omitempty"`
+	Position             *Vector3 `protobuf:"bytes,3,opt,name=position,proto3" json:"position,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -287,7 +374,7 @@ func (m *Update) Reset()         { *m = Update{} }
 func (m *Update) String() string { return proto.CompactTextString(m) }
 func (*Update) ProtoMessage()    {}
 func (*Update) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7be9bf9d675643a6, []int{5}
+	return fileDescriptor_7be9bf9d675643a6, []int{7}
 }
 
 func (m *Update) XXX_Unmarshal(b []byte) error {
@@ -322,11 +409,20 @@ func (m *Update) GetRoom() *Room {
 	return nil
 }
 
+func (m *Update) GetPosition() *Vector3 {
+	if m != nil {
+		return m.Position
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Empty)(nil), "Empty")
 	proto.RegisterType((*GameObject)(nil), "GameObject")
+	proto.RegisterType((*Vector3)(nil), "Vector3")
 	proto.RegisterType((*Room)(nil), "Room")
-	proto.RegisterType((*RoomId)(nil), "RoomId")
+	proto.RegisterType((*RoomUser)(nil), "RoomUser")
+	proto.RegisterType((*UserPosition)(nil), "UserPosition")
 	proto.RegisterType((*Scene)(nil), "Scene")
 	proto.RegisterType((*Update)(nil), "Update")
 }
@@ -334,33 +430,38 @@ func init() {
 func init() { proto.RegisterFile("smartenergytable-service.proto", fileDescriptor_7be9bf9d675643a6) }
 
 var fileDescriptor_7be9bf9d675643a6 = []byte{
-	// 401 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x52, 0x4d, 0x6f, 0x9b, 0x40,
-	0x10, 0x35, 0x98, 0x8f, 0x7a, 0x68, 0xab, 0x6a, 0x7b, 0x30, 0xb5, 0x54, 0x17, 0x21, 0xb9, 0xe2,
-	0x52, 0x5c, 0xe3, 0x5f, 0xd0, 0x5a, 0x56, 0xe5, 0xaa, 0x52, 0xa5, 0x75, 0xa2, 0x24, 0xbe, 0x58,
-	0x6b, 0x33, 0x72, 0x48, 0x02, 0x8b, 0x16, 0x82, 0xe2, 0xdc, 0xf2, 0x77, 0xf3, 0x2b, 0x22, 0x16,
-	0x83, 0xb1, 0x7c, 0x5a, 0x76, 0x66, 0xde, 0xbc, 0xb7, 0xef, 0x01, 0xc3, 0x2c, 0x66, 0x22, 0xc7,
-	0x04, 0xc5, 0x6e, 0x9f, 0xb3, 0xcd, 0x03, 0xfe, 0xc8, 0x50, 0x14, 0xd1, 0x16, 0xfd, 0x54, 0xf0,
-	0x9c, 0xbb, 0x26, 0xe8, 0xf3, 0x38, 0xcd, 0xf7, 0xee, 0x8b, 0x02, 0xf0, 0x87, 0xc5, 0xf8, 0x7f,
-	0x73, 0x87, 0xdb, 0x9c, 0x38, 0x60, 0x0a, 0xce, 0xe3, 0x75, 0x14, 0xda, 0x8a, 0xa3, 0x78, 0x56,
-	0x60, 0xfa, 0x94, 0xf3, 0x78, 0x11, 0x52, 0x43, 0xc8, 0x93, 0x10, 0xd0, 0x12, 0x16, 0xa3, 0xad,
-	0x3a, 0x8a, 0xd7, 0xa3, 0xf2, 0x9b, 0x7c, 0x06, 0x3d, 0xe5, 0xd9, 0xfa, 0xc9, 0xee, 0x3a, 0x8a,
-	0xa7, 0x52, 0x2d, 0xe5, 0xd9, 0x75, 0x5d, 0xdc, 0xdb, 0x5a, 0x53, 0xbc, 0xa9, 0x8b, 0xcf, 0xb6,
-	0xde, 0x14, 0x57, 0xee, 0x15, 0x68, 0x25, 0x09, 0xf9, 0x08, 0xea, 0x81, 0xb7, 0x47, 0xd5, 0x28,
-	0x24, 0x23, 0x30, 0xb9, 0x94, 0x95, 0xd9, 0xaa, 0xd3, 0xf5, 0xac, 0xc0, 0xf2, 0x8f, 0x52, 0x69,
-	0xdd, 0x23, 0x36, 0x98, 0xd9, 0x16, 0x13, 0x5c, 0x84, 0x92, 0x5f, 0xa7, 0xf5, 0xd5, 0x9d, 0x80,
-	0x51, 0xa9, 0x3f, 0x5b, 0xdd, 0x07, 0xf3, 0x31, 0x43, 0x51, 0xbe, 0xb3, 0x7a, 0x88, 0x51, 0x5e,
-	0x25, 0x44, 0x5f, 0x96, 0xe8, 0x33, 0x44, 0x8b, 0x45, 0x3d, 0x65, 0x99, 0x82, 0x71, 0x99, 0x86,
-	0x2c, 0x3f, 0xc7, 0x7c, 0x01, 0xad, 0x74, 0x4d, 0x02, 0xac, 0x40, 0x97, 0x56, 0x52, 0x59, 0x0a,
-	0x5e, 0x15, 0xe8, 0x2f, 0xcb, 0x8c, 0xe6, 0x32, 0xa3, 0x8b, 0x32, 0xa3, 0x65, 0x15, 0x11, 0xf9,
-	0x0a, 0x30, 0x13, 0xc8, 0x72, 0x94, 0xae, 0x18, 0xbe, 0x4c, 0x6a, 0x50, 0xc1, 0xdd, 0x0e, 0x71,
-	0xe0, 0xdd, 0x5f, 0x1e, 0x25, 0xb2, 0x59, 0xc7, 0x33, 0x30, 0xfd, 0x4a, 0x83, 0xdb, 0xf9, 0xa9,
-	0x90, 0xef, 0xf0, 0xe1, 0x57, 0x18, 0xb6, 0x62, 0x6d, 0x1b, 0x37, 0x38, 0x2c, 0x74, 0x3b, 0x64,
-	0x04, 0x9f, 0x28, 0xc6, 0xbc, 0xc0, 0xd6, 0x68, 0xb3, 0xf1, 0x38, 0xf6, 0x0d, 0xac, 0xd9, 0x2d,
-	0x4b, 0x76, 0x58, 0x39, 0x63, 0xf8, 0xf2, 0x6c, 0x0d, 0x0c, 0xa1, 0xf7, 0x0f, 0x59, 0x81, 0xa7,
-	0x92, 0x9a, 0xfe, 0xef, 0xf7, 0x2b, 0x48, 0xef, 0x77, 0x63, 0x96, 0x46, 0xe3, 0x62, 0xb2, 0x31,
-	0xe4, 0x2f, 0x38, 0x7d, 0x0b, 0x00, 0x00, 0xff, 0xff, 0x00, 0x9f, 0x35, 0x89, 0xa4, 0x02, 0x00,
-	0x00,
+	// 490 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0x8d, 0xb7, 0x4d, 0x6c, 0x8f, 0xd3, 0x0a, 0xed, 0xa5, 0x26, 0x08, 0x1a, 0xad, 0x4a, 0x09,
+	0x42, 0xb8, 0x90, 0xfc, 0x02, 0xa8, 0x2a, 0x14, 0xc4, 0x97, 0x36, 0x14, 0x04, 0x97, 0x68, 0x63,
+	0x8f, 0x82, 0x01, 0x7b, 0xad, 0xf5, 0x92, 0x36, 0xe5, 0xbf, 0xf2, 0x5b, 0xd0, 0xae, 0xed, 0xd4,
+	0xd0, 0x43, 0x73, 0x4a, 0x66, 0xe6, 0xcd, 0xdb, 0x79, 0x33, 0xcf, 0xf0, 0xa0, 0xcc, 0x84, 0xd2,
+	0x98, 0xa3, 0x5a, 0xae, 0xb5, 0x58, 0xfc, 0xc4, 0xa7, 0x25, 0xaa, 0x55, 0x1a, 0x63, 0x54, 0x28,
+	0xa9, 0x25, 0x73, 0xa1, 0x7b, 0x96, 0x15, 0x7a, 0xcd, 0x7e, 0x03, 0xbc, 0x12, 0x19, 0xbe, 0x5f,
+	0x7c, 0xc7, 0x58, 0xd3, 0x63, 0xf0, 0x95, 0x94, 0xd9, 0xfc, 0x57, 0x89, 0x2a, 0x74, 0x86, 0xce,
+	0x28, 0x18, 0xfb, 0x11, 0x97, 0x32, 0x3b, 0x2f, 0x51, 0x71, 0x4f, 0xd5, 0xff, 0xe8, 0x21, 0x04,
+	0xd2, 0x76, 0xcc, 0x73, 0x91, 0x61, 0x48, 0x86, 0xce, 0xc8, 0xe7, 0x50, 0xa5, 0xde, 0x89, 0x0c,
+	0xe9, 0x11, 0x78, 0x85, 0x2c, 0x53, 0x9d, 0xca, 0x3c, 0xdc, 0xb1, 0x3c, 0x5e, 0xf4, 0x09, 0x63,
+	0x2d, 0xd5, 0x84, 0x6f, 0x2a, 0x6c, 0x02, 0x6e, 0x9d, 0xa4, 0x7d, 0x70, 0x2e, 0xed, 0x8b, 0x84,
+	0x3b, 0x97, 0x26, 0x5a, 0x5b, 0x56, 0xc2, 0x9d, 0xb5, 0x89, 0xae, 0x2c, 0x0b, 0xe1, 0xce, 0x15,
+	0xfb, 0x0c, 0xbb, 0x66, 0x22, 0xba, 0x0f, 0x24, 0x4d, 0x6c, 0x8b, 0xcf, 0x49, 0x9a, 0xd0, 0x87,
+	0xe0, 0x56, 0x03, 0x94, 0x21, 0x19, 0xee, 0x8c, 0x82, 0x71, 0x10, 0x5d, 0x2b, 0xe3, 0x4d, 0x8d,
+	0x86, 0xe0, 0x96, 0x31, 0xe6, 0x38, 0x4d, 0x2c, 0x65, 0x97, 0x37, 0x21, 0x9b, 0x80, 0xd7, 0x48,
+	0xbd, 0x41, 0x7e, 0x00, 0xae, 0xd9, 0xc9, 0x3c, 0x4d, 0x6a, 0xb1, 0x3d, 0x13, 0x4e, 0x13, 0x16,
+	0x43, 0xdf, 0x34, 0x7c, 0xa8, 0x25, 0x6d, 0xbd, 0xc1, 0x27, 0xd0, 0xcf, 0xf1, 0x62, 0xbe, 0x59,
+	0x12, 0xf9, 0x6f, 0x49, 0x41, 0x8e, 0x17, 0x0d, 0x29, 0x9b, 0x42, 0x77, 0x66, 0x86, 0xdc, 0x9a,
+	0xbd, 0x25, 0x92, 0xfc, 0x2b, 0xf2, 0x0b, 0xf4, 0xce, 0x8b, 0x44, 0x68, 0xbc, 0x21, 0xf1, 0x2e,
+	0xec, 0x9a, 0xfe, 0x7a, 0x92, 0xae, 0xa5, 0xe5, 0x36, 0xb5, 0xdd, 0x35, 0xc7, 0x7f, 0x08, 0x1c,
+	0xcc, 0x8c, 0xed, 0xce, 0xac, 0xed, 0x3e, 0x1a, 0xdb, 0xcd, 0x2a, 0xd7, 0xd1, 0xfb, 0x00, 0xa7,
+	0x0a, 0x85, 0x46, 0x7b, 0xba, 0x5e, 0x64, 0xcd, 0x37, 0xa8, 0x1e, 0x61, 0x1d, 0xca, 0xc0, 0x7b,
+	0x2d, 0xd3, 0xdc, 0x16, 0xaf, 0x05, 0x0d, 0xdc, 0xa8, 0x9a, 0x95, 0x75, 0x9e, 0x39, 0xf4, 0x1e,
+	0x78, 0x33, 0xb1, 0xaa, 0x08, 0xaa, 0xc6, 0x41, 0xcd, 0xc3, 0x3a, 0xf4, 0x18, 0xf6, 0x5e, 0x24,
+	0x49, 0xcb, 0xc9, 0xed, 0xe3, 0xb7, 0x70, 0x8f, 0xe1, 0x0e, 0xc7, 0x4c, 0xae, 0xf0, 0x76, 0xe8,
+	0x23, 0xd8, 0x7f, 0xbb, 0x15, 0xf0, 0x10, 0x82, 0xd3, 0x6f, 0x22, 0x5f, 0x62, 0x75, 0xa3, 0x5e,
+	0x64, 0x7f, 0x5b, 0x80, 0x23, 0xf0, 0x0d, 0x93, 0x91, 0x54, 0xd2, 0xbd, 0xa8, 0xed, 0x97, 0x16,
+	0x6a, 0x08, 0xfe, 0x1b, 0x6c, 0x04, 0xb6, 0x96, 0xb0, 0x41, 0xbc, 0xec, 0x7f, 0x85, 0xe2, 0xc7,
+	0xf2, 0x44, 0x14, 0xe9, 0xc9, 0xea, 0xf9, 0xa2, 0x67, 0xbf, 0xe4, 0xc9, 0xdf, 0x00, 0x00, 0x00,
+	0xff, 0xff, 0xc7, 0x59, 0xbb, 0x7a, 0xeb, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -376,11 +477,14 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SmartEnergyTableServiceClient interface {
 	CreateRoom(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Room, error)
-	JoinRoom(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (SmartEnergyTableService_JoinRoomClient, error)
+	JoinRoom(ctx context.Context, in *RoomUser, opts ...grpc.CallOption) (SmartEnergyTableService_JoinRoomClient, error)
+	SaveRoom(ctx context.Context, in *Room, opts ...grpc.CallOption) (*Empty, error)
 	AddGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error)
-	RemoveGameObject(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (*Empty, error)
+	RemoveGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error)
+	MoveGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error)
 	ChangeScene(ctx context.Context, in *Scene, opts ...grpc.CallOption) (*Empty, error)
-	LeaveRoom(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (*Empty, error)
+	MoveUsers(ctx context.Context, in *UserPosition, opts ...grpc.CallOption) (*Empty, error)
+	LeaveRoom(ctx context.Context, in *RoomUser, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type smartEnergyTableServiceClient struct {
@@ -400,7 +504,7 @@ func (c *smartEnergyTableServiceClient) CreateRoom(ctx context.Context, in *Empt
 	return out, nil
 }
 
-func (c *smartEnergyTableServiceClient) JoinRoom(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (SmartEnergyTableService_JoinRoomClient, error) {
+func (c *smartEnergyTableServiceClient) JoinRoom(ctx context.Context, in *RoomUser, opts ...grpc.CallOption) (SmartEnergyTableService_JoinRoomClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_SmartEnergyTableService_serviceDesc.Streams[0], "/SmartEnergyTableService/JoinRoom", opts...)
 	if err != nil {
 		return nil, err
@@ -432,6 +536,15 @@ func (x *smartEnergyTableServiceJoinRoomClient) Recv() (*Update, error) {
 	return m, nil
 }
 
+func (c *smartEnergyTableServiceClient) SaveRoom(ctx context.Context, in *Room, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/SaveRoom", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *smartEnergyTableServiceClient) AddGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/AddGameObject", in, out, opts...)
@@ -441,9 +554,18 @@ func (c *smartEnergyTableServiceClient) AddGameObject(ctx context.Context, in *G
 	return out, nil
 }
 
-func (c *smartEnergyTableServiceClient) RemoveGameObject(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (*Empty, error) {
+func (c *smartEnergyTableServiceClient) RemoveGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/RemoveGameObject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *smartEnergyTableServiceClient) MoveGameObject(ctx context.Context, in *GameObject, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/MoveGameObject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -459,7 +581,16 @@ func (c *smartEnergyTableServiceClient) ChangeScene(ctx context.Context, in *Sce
 	return out, nil
 }
 
-func (c *smartEnergyTableServiceClient) LeaveRoom(ctx context.Context, in *RoomId, opts ...grpc.CallOption) (*Empty, error) {
+func (c *smartEnergyTableServiceClient) MoveUsers(ctx context.Context, in *UserPosition, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/MoveUsers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *smartEnergyTableServiceClient) LeaveRoom(ctx context.Context, in *RoomUser, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/SmartEnergyTableService/LeaveRoom", in, out, opts...)
 	if err != nil {
@@ -471,11 +602,14 @@ func (c *smartEnergyTableServiceClient) LeaveRoom(ctx context.Context, in *RoomI
 // SmartEnergyTableServiceServer is the server API for SmartEnergyTableService service.
 type SmartEnergyTableServiceServer interface {
 	CreateRoom(context.Context, *Empty) (*Room, error)
-	JoinRoom(*RoomId, SmartEnergyTableService_JoinRoomServer) error
+	JoinRoom(*RoomUser, SmartEnergyTableService_JoinRoomServer) error
+	SaveRoom(context.Context, *Room) (*Empty, error)
 	AddGameObject(context.Context, *GameObject) (*Empty, error)
-	RemoveGameObject(context.Context, *RoomId) (*Empty, error)
+	RemoveGameObject(context.Context, *GameObject) (*Empty, error)
+	MoveGameObject(context.Context, *GameObject) (*Empty, error)
 	ChangeScene(context.Context, *Scene) (*Empty, error)
-	LeaveRoom(context.Context, *RoomId) (*Empty, error)
+	MoveUsers(context.Context, *UserPosition) (*Empty, error)
+	LeaveRoom(context.Context, *RoomUser) (*Empty, error)
 }
 
 // UnimplementedSmartEnergyTableServiceServer can be embedded to have forward compatible implementations.
@@ -485,19 +619,28 @@ type UnimplementedSmartEnergyTableServiceServer struct {
 func (*UnimplementedSmartEnergyTableServiceServer) CreateRoom(ctx context.Context, req *Empty) (*Room, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRoom not implemented")
 }
-func (*UnimplementedSmartEnergyTableServiceServer) JoinRoom(req *RoomId, srv SmartEnergyTableService_JoinRoomServer) error {
+func (*UnimplementedSmartEnergyTableServiceServer) JoinRoom(req *RoomUser, srv SmartEnergyTableService_JoinRoomServer) error {
 	return status.Errorf(codes.Unimplemented, "method JoinRoom not implemented")
+}
+func (*UnimplementedSmartEnergyTableServiceServer) SaveRoom(ctx context.Context, req *Room) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveRoom not implemented")
 }
 func (*UnimplementedSmartEnergyTableServiceServer) AddGameObject(ctx context.Context, req *GameObject) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddGameObject not implemented")
 }
-func (*UnimplementedSmartEnergyTableServiceServer) RemoveGameObject(ctx context.Context, req *RoomId) (*Empty, error) {
+func (*UnimplementedSmartEnergyTableServiceServer) RemoveGameObject(ctx context.Context, req *GameObject) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveGameObject not implemented")
+}
+func (*UnimplementedSmartEnergyTableServiceServer) MoveGameObject(ctx context.Context, req *GameObject) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MoveGameObject not implemented")
 }
 func (*UnimplementedSmartEnergyTableServiceServer) ChangeScene(ctx context.Context, req *Scene) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangeScene not implemented")
 }
-func (*UnimplementedSmartEnergyTableServiceServer) LeaveRoom(ctx context.Context, req *RoomId) (*Empty, error) {
+func (*UnimplementedSmartEnergyTableServiceServer) MoveUsers(ctx context.Context, req *UserPosition) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MoveUsers not implemented")
+}
+func (*UnimplementedSmartEnergyTableServiceServer) LeaveRoom(ctx context.Context, req *RoomUser) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LeaveRoom not implemented")
 }
 
@@ -524,7 +667,7 @@ func _SmartEnergyTableService_CreateRoom_Handler(srv interface{}, ctx context.Co
 }
 
 func _SmartEnergyTableService_JoinRoom_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(RoomId)
+	m := new(RoomUser)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -542,6 +685,24 @@ type smartEnergyTableServiceJoinRoomServer struct {
 
 func (x *smartEnergyTableServiceJoinRoomServer) Send(m *Update) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _SmartEnergyTableService_SaveRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Room)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SmartEnergyTableServiceServer).SaveRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/SmartEnergyTableService/SaveRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SmartEnergyTableServiceServer).SaveRoom(ctx, req.(*Room))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _SmartEnergyTableService_AddGameObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -563,7 +724,7 @@ func _SmartEnergyTableService_AddGameObject_Handler(srv interface{}, ctx context
 }
 
 func _SmartEnergyTableService_RemoveGameObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RoomId)
+	in := new(GameObject)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -575,7 +736,25 @@ func _SmartEnergyTableService_RemoveGameObject_Handler(srv interface{}, ctx cont
 		FullMethod: "/SmartEnergyTableService/RemoveGameObject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SmartEnergyTableServiceServer).RemoveGameObject(ctx, req.(*RoomId))
+		return srv.(SmartEnergyTableServiceServer).RemoveGameObject(ctx, req.(*GameObject))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SmartEnergyTableService_MoveGameObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GameObject)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SmartEnergyTableServiceServer).MoveGameObject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/SmartEnergyTableService/MoveGameObject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SmartEnergyTableServiceServer).MoveGameObject(ctx, req.(*GameObject))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -598,8 +777,26 @@ func _SmartEnergyTableService_ChangeScene_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SmartEnergyTableService_MoveUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserPosition)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SmartEnergyTableServiceServer).MoveUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/SmartEnergyTableService/MoveUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SmartEnergyTableServiceServer).MoveUsers(ctx, req.(*UserPosition))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SmartEnergyTableService_LeaveRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RoomId)
+	in := new(RoomUser)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -611,7 +808,7 @@ func _SmartEnergyTableService_LeaveRoom_Handler(srv interface{}, ctx context.Con
 		FullMethod: "/SmartEnergyTableService/LeaveRoom",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SmartEnergyTableServiceServer).LeaveRoom(ctx, req.(*RoomId))
+		return srv.(SmartEnergyTableServiceServer).LeaveRoom(ctx, req.(*RoomUser))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -625,6 +822,10 @@ var _SmartEnergyTableService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _SmartEnergyTableService_CreateRoom_Handler,
 		},
 		{
+			MethodName: "SaveRoom",
+			Handler:    _SmartEnergyTableService_SaveRoom_Handler,
+		},
+		{
 			MethodName: "AddGameObject",
 			Handler:    _SmartEnergyTableService_AddGameObject_Handler,
 		},
@@ -633,8 +834,16 @@ var _SmartEnergyTableService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _SmartEnergyTableService_RemoveGameObject_Handler,
 		},
 		{
+			MethodName: "MoveGameObject",
+			Handler:    _SmartEnergyTableService_MoveGameObject_Handler,
+		},
+		{
 			MethodName: "ChangeScene",
 			Handler:    _SmartEnergyTableService_ChangeScene_Handler,
+		},
+		{
+			MethodName: "MoveUsers",
+			Handler:    _SmartEnergyTableService_MoveUsers_Handler,
 		},
 		{
 			MethodName: "LeaveRoom",

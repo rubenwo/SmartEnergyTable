@@ -6,11 +6,15 @@ message Empty {
 }
 
 message GameObject {
-    RoomId room_id = 1;
-    string name = 2;
-    float pos_x = 3;
-    float pos_y = 4;
-    float pos_z = 5;
+    RoomUser room_user = 1;
+    string object_name = 2;
+    Vector3 position = 3;
+}
+
+message Vector3 {
+    float x = 1;
+    float y = 2;
+    float z = 3;
 }
 
 message Room {
@@ -19,19 +23,25 @@ message Room {
     int32 sceneId = 3;
 }
 
-message RoomId {
+message RoomUser {
     string id = 1;
     string user_id = 2;
 }
 
+message UserPosition {
+    RoomUser room_user = 1;
+    Vector3 new_position = 2;
+}
+
 message Scene {
-    string id = 1;
+    RoomUser room_user = 1;
     int32 sceneId = 2;
 }
 
 message Update {
     string id = 1;
     Room room = 2;
+    Vector3 position = 3;
 }
 
 service SmartEnergyTableService {
@@ -39,21 +49,27 @@ service SmartEnergyTableService {
     rpc CreateRoom (Empty) returns (Room) {
     }
 
-    rpc JoinRoom (RoomId) returns (stream Update) {
+    rpc JoinRoom (RoomUser) returns (stream Update) {
+    }
+
+    rpc SaveRoom (Room) returns (Empty) {
     }
 
     rpc AddGameObject (GameObject) returns (Empty) {
-
     }
 
-    rpc RemoveGameObject (RoomId) returns (Empty) {
+    rpc RemoveGameObject (GameObject) returns (Empty) {
+    }
 
+    rpc MoveGameObject (GameObject) returns (Empty) {
     }
 
     rpc ChangeScene (Scene) returns (Empty) {
     }
 
-    rpc LeaveRoom (RoomId) returns (Empty) {
+    rpc MoveUsers (UserPosition) returns (Empty) {
+    }
 
+    rpc LeaveRoom (RoomUser) returns (Empty) {
     }
 }
