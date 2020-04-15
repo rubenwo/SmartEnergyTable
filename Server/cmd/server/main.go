@@ -18,11 +18,12 @@ type server struct {
 	manager *room.Manager
 }
 
-func (s *server) RemoveGameObject(context.Context, *v1.RoomId) (*v1.Empty, error) {
-	panic("implement me")
+func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.Room, error) {
+	id := s.manager.CreateRoom()
+	return &v1.Room{Id: id}, nil
 }
 
-func (s *server) JoinRoom(roomId *v1.RoomId, stream v1.SmartEnergyTableService_JoinRoomServer) error {
+func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService_JoinRoomServer) error {
 	log.Println("Someone joined room:", roomId.Id)
 	cb := make(chan room.Data)
 	if err := s.manager.JoinRoom(roomId.Id, roomId.UserId, cb); err != nil {
@@ -39,10 +40,12 @@ func (s *server) JoinRoom(roomId *v1.RoomId, stream v1.SmartEnergyTableService_J
 		objs := make([]*v1.GameObject, len(data.Objects))
 		for index, objData := range data.Objects {
 			objs[index] = &v1.GameObject{
-				Name: objData.Name,
-				PosX: objData.PosX,
-				PosY: objData.PosY,
-				PosZ: objData.PosZ,
+				ObjectName: objData.Name,
+				Position: &v1.Vector3{
+					X: objData.PosX,
+					Y: objData.PosY,
+					Z: objData.PosZ,
+				},
 			}
 		}
 		if err := stream.Send(&v1.Update{Id: data.ID, Room: &v1.Room{Id: data.ID, SceneId: int32(data.SceneID), Objects: objs}}); err != nil {
@@ -55,25 +58,36 @@ func (s *server) JoinRoom(roomId *v1.RoomId, stream v1.SmartEnergyTableService_J
 	return nil
 }
 
-func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.Room, error) {
-	id := s.manager.CreateRoom()
-	return &v1.Room{Id: id}, nil
+func (s *server) SaveRoom(ctx context.Context, room *v1.Room) (*v1.Empty, error) {
+	panic("implement me")
 }
 
 func (s *server) AddGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
 	log.Println("Adding gameobject")
-	_ = s.manager.AddGameObject(gameObject.RoomId.Id, gameObject.RoomId.UserId, gameObject)
+	_ = s.manager.AddGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject)
 	return &v1.Empty{}, nil
 }
 
+func (s *server) RemoveGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
+	panic("implement me")
+}
+
+func (s *server) MoveGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
+	panic("implement me")
+}
+
 func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, error) {
-	if err := s.manager.UpdateRoom(scene.Id, int(scene.SceneId), nil); err != nil {
+	if err := s.manager.UpdateRoom(scene.RoomUser.Id, int(scene.SceneId), nil); err != nil {
 		return &v1.Empty{}, err
 	}
 	return &v1.Empty{}, nil
 }
 
-func (s *server) LeaveRoom(ctx context.Context, roomId *v1.RoomId) (*v1.Empty, error) {
+func (s *server) MoveUsers(ctx context.Context, position *v1.UserPosition) (*v1.Empty, error) {
+	panic("implement me")
+}
+
+func (s *server) LeaveRoom(ctx context.Context, roomId *v1.RoomUser) (*v1.Empty, error) {
 	log.Println("LeaveRoom() =>", roomId.UserId)
 	if err := s.manager.RemoveClient(roomId.Id, roomId.UserId); err != nil {
 		log.Println(err)

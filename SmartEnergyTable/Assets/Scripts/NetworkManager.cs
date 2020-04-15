@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
-using UnityEditor;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Client = Network.Client;
 
@@ -22,7 +17,11 @@ public class NetworkManager : MonoBehaviour
 
     private static NetworkManager s_Instance = null;
 
-    void Awake()
+
+    private WebCamTexture _camTexture;
+    private Rect screenRect;
+
+    private void Awake()
     {
         if (s_Instance == null)
         {
@@ -38,13 +37,17 @@ public class NetworkManager : MonoBehaviour
     }
 
     private string roomId = "";
-    private string userId = Guid.NewGuid().ToString();
+    private readonly string userId = Guid.NewGuid().ToString();
 
     // Start is called before the first frame update
     private void Start()
     {
         _channel = new Channel("192.168.2.14:8080", ChannelCredentials.Insecure);
         _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+    }
+
+    public void JoinQR()
+    {
     }
 
     public void CreateRoom()
