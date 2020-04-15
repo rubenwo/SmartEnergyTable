@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
 using UnityEngine;
@@ -26,7 +25,7 @@ namespace Network
         {
             try
             {
-                using (var call = _client.JoinRoom(new RoomId {Id = roomId, UserId = userId}))
+                using (var call = _client.JoinRoom(new RoomUser {Id = roomId, UserId = userId}))
                 {
                     while (true)
                     {
@@ -44,18 +43,81 @@ namespace Network
             }
         }
 
-        internal Empty AddGameObject(string roomId, string userId, string name, float posX, float posY, float posZ)
+        internal Empty SaveRoom(Room room)
+        {
+            var empty = _client.SaveRoom(room);
+            return empty;
+        }
+
+        internal Empty AddGameObject(string roomId, string userId, string objectName, Vector3 position)
         {
             var empty = _client.AddGameObject(new GameObject
             {
-                RoomId = new RoomId {Id = roomId, UserId = userId}, Name = name, PosX = posX, PosY = posY, PosZ = posZ
+                RoomUser = new RoomUser {Id = roomId, UserId = userId},
+                ObjectName = objectName,
+                Position = new Vector3
+                {
+                    X = position.X, Y = position.Y, Z = position.Z
+                }
+            });
+            return empty;
+        }
+
+        internal Empty RemoveGameObject(string roomId, string userId, string objectName, Vector3 position)
+        {
+            var empty = _client.RemoveGameObject(new GameObject
+            {
+                RoomUser = new RoomUser {Id = roomId, UserId = userId},
+                ObjectName = objectName,
+                Position = new Vector3
+                {
+                    X = position.X, Y = position.Y, Z = position.Z
+                }
+            });
+            return empty;
+        }
+
+        internal Empty MoveGameObject(string roomId, string userId, string objectName, Vector3 position)
+        {
+            var empty = _client.MoveGameObject(new GameObject
+            {
+                RoomUser = new RoomUser {Id = roomId, UserId = userId},
+                ObjectName = objectName,
+                Position = new Vector3
+                {
+                    X = position.X, Y = position.Y, Z = position.Z
+                }
+            });
+            return empty;
+        }
+
+        internal Empty ChangeScene(string roomId, string userId, int sceneId)
+        {
+            var empty = _client.ChangeScene(new Scene
+            {
+                RoomUser = new RoomUser {Id = roomId, UserId = userId},
+                SceneId = sceneId
+            });
+            return empty;
+        }
+
+        internal Empty MoveUsers(string roomId, string userId, Vector3 newPosition)
+        {
+            var empty = _client.MoveUsers(new UserPosition
+            {
+                RoomUser = new RoomUser
+                {
+                    Id = roomId,
+                    UserId = userId
+                },
+                NewPosition = newPosition
             });
             return empty;
         }
 
         internal Empty LeaveRoom(string roomId, string userId)
         {
-            var empty = _client.LeaveRoom(new RoomId {Id = roomId, UserId = userId});
+            var empty = _client.LeaveRoom(new RoomUser {Id = roomId, UserId = userId});
             return empty;
         }
     }

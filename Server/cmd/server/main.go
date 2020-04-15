@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/go-chi/chi"
-	"github.com/google/uuid"
 	v1 "github.com/rubenwo/SmartEnergyTable/Server/pkg/api/v1"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/room"
 	"google.golang.org/grpc"
@@ -42,9 +42,9 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 			objs[index] = &v1.GameObject{
 				ObjectName: objData.Name,
 				Position: &v1.Vector3{
-					X: objData.PosX,
-					Y: objData.PosY,
-					Z: objData.PosZ,
+					X: objData.Position.X,
+					Y: objData.Position.X,
+					Z: objData.Position.Z,
 				},
 			}
 		}
@@ -101,29 +101,22 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	roomManager.CreateRoom()
 	router := chi.NewRouter()
 	router.Get("/healthz", func(writer http.ResponseWriter, request *http.Request) {
-		_, _ = writer.Write([]byte("Hello world"))
+		writer.WriteHeader(http.StatusOK)
 	})
-	router.Get("/join", func(writer http.ResponseWriter, request *http.Request) {
-		id := request.URL.Query().Get("id")
-		log.Println(id)
-		cb := make(chan room.Data)
-		if err := roomManager.JoinRoom(id, uuid.New().String(), cb); err != nil {
-			log.Fatal(err)
-		}
-		for {
-			data, ok := <-cb
-			if !ok {
-				break
-			}
-			log.Println(data)
-		}
-		writer.Write([]byte("Bye"))
 
+	router.Get("/rooms", func(writer http.ResponseWriter, request *http.Request) {
+		var r struct {
+			Rooms []string `json:"rooms"`
+		}
+		r.Rooms = roomManager.RoomIDs()
+		if err := json.NewEncoder(writer).Encode(&r); err != nil {
+			log.Println(err)
+			writer.WriteHeader(http.StatusInternalServerError)
+		}
 	})
+
 	go func() {
 		log.Println("SmartEnergyTable API is running!")
 		if err := http.ListenAndServe(":80", router); err != nil {

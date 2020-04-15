@@ -2,24 +2,21 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Network;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Client = Network.Client;
 
 public class NetworkManager : MonoBehaviour
 {
-    public List<UnityEngine.GameObject> objectLibrary = new List<UnityEngine.GameObject>();
+    private static NetworkManager s_Instance;
+    private readonly string _userId = Guid.NewGuid().ToString();
     private Channel _channel;
     private Client _client;
-    private Queue<Action> obj = new Queue<Action>();
+
+    private string _roomId = "";
+    private readonly Queue<Action> obj = new Queue<Action>();
+    public List<UnityEngine.GameObject> objectLibrary = new List<UnityEngine.GameObject>();
     public static NetworkManager Instance { get; private set; }
-
-
-    private static NetworkManager s_Instance = null;
-
-
-    private WebCamTexture _camTexture;
-    private Rect screenRect;
 
     private void Awake()
     {
@@ -28,7 +25,8 @@ public class NetworkManager : MonoBehaviour
             s_Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            //Initialization code goes here[/INDENT]
+            _channel = new Channel("192.168.2.14:8080", ChannelCredentials.Insecure);
+            _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
         }
         else
         {
@@ -36,33 +34,33 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    private string roomId = "";
-    private readonly string userId = Guid.NewGuid().ToString();
-
-    // Start is called before the first frame update
-    private void Start()
+    private void OnDisable()
     {
-        _channel = new Channel("192.168.2.14:8080", ChannelCredentials.Insecure);
-        _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+        Debug.Log("OnDisable()");
+        _client.LeaveRoom(_roomId, _userId);
+        _channel.ShutdownAsync().Wait();
     }
 
-    public void JoinQR()
+    // Update is called once per frame
+    private void Update()
     {
+        if (obj.Count > 0) obj.Dequeue()();
     }
+
+    #region RPCs
 
     public void CreateRoom()
     {
-        if (roomId != "")
+        if (_roomId != "")
             return;
         var room = _client.CreateRoom();
-        Debug.Log(room.Id);
-        roomId = room.Id;
-        JoinRoom(roomId);
+        _roomId = room.Id;
+        JoinRoom(_roomId);
     }
 
     public void JoinRoom(string id)
     {
-        Task.Run(() => _client.JoinRoom(id, userId, update =>
+        Task.Run(() => _client.JoinRoom(id, _userId, update =>
         {
             obj.Enqueue(() =>
             {
@@ -75,31 +73,48 @@ public class NetworkManager : MonoBehaviour
         }));
     }
 
-    public void AddGameObject(string prefab, float posX, float posY, float posZ)
+    public void SaveRoom()
     {
-        var empty = _client.AddGameObject(roomId, userId, prefab, posX, posY, posZ);
+        _client.SaveRoom(new Room
+        {
+            Id = _roomId,
+            SceneId = SceneManager.GetActiveScene().buildIndex
+        });
     }
+
+    public void AddGameObject(string prefab, Vector3 position)
+    {
+        _client.AddGameObject(_roomId, _userId, prefab, position);
+    }
+
+    public void RemoveGameObject(string prefab, Vector3 position)
+    {
+        _client.RemoveGameObject(_roomId, _userId, prefab, position);
+    }
+
+    public void MoveGameObject(string prefab, Vector3 position)
+    {
+        _client.MoveGameObject(_roomId, _userId, prefab, position);
+    }
+
 
     public void LoadScene(uint buildIndex)
     {
         if (buildIndex > SceneManager.sceneCountInBuildSettings - 1)
             throw new IndexOutOfRangeException("buildIndex is out of bounds. Check build settings for valid indices.");
-        SceneManager.LoadScene(Convert.ToInt32(buildIndex));
+        //SceneManager.LoadScene(Convert.ToInt32(buildIndex));
+        _client.ChangeScene(_roomId, _userId, Convert.ToInt32(buildIndex));
     }
 
-    private void OnDisable()
+    public void MoveUsers(Vector3 newPosition)
     {
-        Debug.Log("OnDisable()");
-        _client.LeaveRoom(roomId, userId);
-        _channel.ShutdownAsync().Wait();
+        _client.MoveUsers(_roomId, _userId, newPosition);
     }
 
-    // Update is called once per frame
-    private void Update()
+    public void LeaveRoom()
     {
-        if (obj.Count > 0)
-        {
-            obj.Dequeue()();
-        }
+        _client.LeaveRoom(_roomId, _userId);
     }
+
+    #endregion
 }

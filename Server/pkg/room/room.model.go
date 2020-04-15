@@ -25,9 +25,13 @@ func (r *Room) Notify() {
 	}
 }
 
+type Vector3 struct {
+	X float32
+	Y float32
+	Z float32
+}
+
 type SceneObject struct {
-	Name string
-	PosX float32
-	PosY float32
-	PosZ float32
+	Name     string
+	Position Vector3
 }
