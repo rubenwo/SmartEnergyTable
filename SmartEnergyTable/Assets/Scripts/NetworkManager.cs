@@ -14,9 +14,10 @@ public class NetworkManager : MonoBehaviour
     private Client _client;
 
     private string _roomId = "";
-    private readonly Queue<Action> obj = new Queue<Action>();
+    private readonly Queue<Action> _actionQueue = new Queue<Action>();
+
     public List<UnityEngine.GameObject> objectLibrary = new List<UnityEngine.GameObject>();
-    public static NetworkManager Instance { get; private set; }
+    public string ServerAddr;
 
     private void Awake()
     {
@@ -25,7 +26,7 @@ public class NetworkManager : MonoBehaviour
             s_Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            _channel = new Channel("192.168.2.14:8080", ChannelCredentials.Insecure);
+            _channel = new Channel(ServerAddr, ChannelCredentials.Insecure);
             _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
         }
         else
@@ -44,7 +45,8 @@ public class NetworkManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (obj.Count > 0) obj.Dequeue()();
+        while (_actionQueue.Count > 0)
+            _actionQueue.Dequeue()();
     }
 
     #region RPCs
@@ -62,7 +64,7 @@ public class NetworkManager : MonoBehaviour
     {
         Task.Run(() => _client.JoinRoom(id, _userId, update =>
         {
-            obj.Enqueue(() =>
+            _actionQueue.Enqueue(() =>
             {
                 if (update.Room.SceneId != SceneManager.GetActiveScene().buildIndex)
                     SceneManager.LoadScene(update.Room.SceneId);
