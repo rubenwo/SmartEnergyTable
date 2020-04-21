@@ -8,7 +8,8 @@ message Empty {
 message GameObject {
     RoomUser room_user = 1;
     string object_name = 2;
-    Vector3 position = 3;
+    string guid = 3;
+    Vector3 position = 4;
 }
 
 message Vector3 {
