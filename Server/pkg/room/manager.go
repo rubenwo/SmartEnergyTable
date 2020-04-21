@@ -31,6 +31,7 @@ func (m *Manager) CreateRoom() (id string) {
 		SceneID int
 		Objects []SceneObject
 	}{ID: id, SceneID: 1, Objects: make([]SceneObject, 0)}, master: "", clients: make(map[string]chan Data, 1)}
+	log.Println("Created room:", id)
 	return id
 }
 
@@ -63,6 +64,49 @@ func (m *Manager) AddGameObject(id string, user string, object *v1.GameObject) e
 	room, ok := m.rooms[id]
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+	if room.master != user {
+		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
+	}
+	room.Data.Objects = append(room.Data.Objects, SceneObject{
+		Name: object.ObjectName,
+		Position: Vector3{
+			X: object.Position.X,
+			Y: object.Position.Y,
+			Z: object.Position.Z,
+		},
+	})
+	room.Notify()
+	return nil
+}
+
+func (m *Manager) RemoveGameObject(id string, user string, object *v1.GameObject) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+	if room.master != user {
+		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
+	}
+	room.Data.Objects = append(room.Data.Objects, SceneObject{
+		Name: object.ObjectName,
+		Position: Vector3{
+			X: object.Position.X,
+			Y: object.Position.Y,
+			Z: object.Position.Z,
+		},
+	})
+	room.Notify()
+	return nil
+}
+
+func (m *Manager) MoveGameObject(id string, user string, object *v1.GameObject) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+	if room.master != user {
+		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
 	room.Data.Objects = append(room.Data.Objects, SceneObject{
 		Name: object.ObjectName,
@@ -102,6 +146,7 @@ func (m *Manager) RemoveClient(id string, user string) error {
 		}
 		delete(m.rooms, id)
 	} else {
+		log.Println("User left")
 		close(room.clients[user])
 		delete(room.clients, user)
 	}

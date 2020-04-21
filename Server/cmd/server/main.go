@@ -64,16 +64,26 @@ func (s *server) SaveRoom(ctx context.Context, room *v1.Room) (*v1.Empty, error)
 
 func (s *server) AddGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
 	log.Println("Adding gameobject")
-	_ = s.manager.AddGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject)
+	if err := s.manager.AddGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject); err != nil {
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing gameobject: %s from the scene: %w", gameObject.ObjectName, err)
+	}
 	return &v1.Empty{}, nil
 }
 
 func (s *server) RemoveGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
-	panic("implement me")
+	log.Println("Removing gameobject")
+	if err := s.manager.RemoveGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject); err != nil {
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing gameobject: %s from the scene: %w", gameObject.ObjectName, err)
+	}
+	return &v1.Empty{}, nil
 }
 
 func (s *server) MoveGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
-	panic("implement me")
+	log.Println("Moving gameobject")
+	if err := s.manager.MoveGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject); err != nil {
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing gameobject: %s from the scene: %w", gameObject.ObjectName, err)
+	}
+	return &v1.Empty{}, nil
 }
 
 func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, error) {
@@ -111,6 +121,17 @@ func main() {
 			Rooms []string `json:"rooms"`
 		}
 		r.Rooms = roomManager.RoomIDs()
+		if err := json.NewEncoder(writer).Encode(&r); err != nil {
+			log.Println(err)
+			writer.WriteHeader(http.StatusInternalServerError)
+		}
+	})
+
+	router.Post("/rooms", func(writer http.ResponseWriter, request *http.Request) {
+		var r struct {
+			ID string `json:"id"`
+		}
+		r.ID = roomManager.CreateRoom()
 		if err := json.NewEncoder(writer).Encode(&r); err != nil {
 			log.Println(err)
 			writer.WriteHeader(http.StatusInternalServerError)
