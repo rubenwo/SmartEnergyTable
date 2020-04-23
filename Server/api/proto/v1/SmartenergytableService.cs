@@ -22,33 +22,33 @@ public static partial class SmartenergytableServiceReflection {
   static SmartenergytableServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkiVwoF",
+          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkiagoF",
           "VG9rZW4SHAoJcm9vbV91c2VyGAEgASgLMgkuUm9vbVVzZXISFAoMb2JqZWN0",
-          "X2luZGV4GAIgASgFEhoKCHBvc2l0aW9uGAMgASgLMgguVmVjdG9yMyIqCgdW",
-          "ZWN0b3IzEgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCIk4KBFJv",
-          "b20SCgoCaWQYASABKAkSFwoHb2JqZWN0cxgCIAMoCzIGLlRva2VuEg8KB3Nj",
-          "ZW5lSWQYAyABKAUSEAoIdXNlcl9pZHMYBCADKAkiJwoIUm9vbVVzZXISCgoC",
-          "aWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCSJMCgxVc2VyUG9zaXRpb24SHAoJ",
-          "cm9vbV91c2VyGAEgASgLMgkuUm9vbVVzZXISHgoMbmV3X3Bvc2l0aW9uGAIg",
-          "ASgLMgguVmVjdG9yMyJECgxNYXN0ZXJTd2l0Y2gSCgoCaWQYASABKAkSEQoJ",
-          "bWFzdGVyX2lkGAIgASgJEhUKDW5ld19tYXN0ZXJfaWQYAyABKAkiNgoFU2Nl",
-          "bmUSHAoJcm9vbV91c2VyGAEgASgLMgkuUm9vbVVzZXISDwoHc2NlbmVJZBgC",
-          "IAEoBSJFCgZVcGRhdGUSCgoCaWQYASABKAkSEwoEcm9vbRgCIAEoCzIFLlJv",
-          "b20SGgoIcG9zaXRpb24YAyABKAsyCC5WZWN0b3IzMukCChdTbWFydEVuZXJn",
-          "eVRhYmxlU2VydmljZRIdCgpDcmVhdGVSb29tEgYuRW1wdHkaBS5Sb29tIgAS",
-          "IgoISm9pblJvb20SCS5Sb29tVXNlchoHLlVwZGF0ZSIAMAESGwoIU2F2ZVJv",
-          "b20SBS5Sb29tGgYuRW1wdHkiABIcCghBZGRUb2tlbhIGLlRva2VuGgYuRW1w",
-          "dHkiABIfCgtSZW1vdmVUb2tlbhIGLlRva2VuGgYuRW1wdHkiABIdCglNb3Zl",
-          "VG9rZW4SBi5Ub2tlbhoGLkVtcHR5IgASHwoLQ2hhbmdlU2NlbmUSBi5TY2Vu",
-          "ZRoGLkVtcHR5IgASJAoJTW92ZVVzZXJzEg0uVXNlclBvc2l0aW9uGgYuRW1w",
-          "dHkiABIgCglMZWF2ZVJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgASJwoMQ2hh",
-          "bmdlTWFzdGVyEg0uTWFzdGVyU3dpdGNoGgYuRW1wdHkiAEIMWgpwa2cvYXBp",
-          "L3YxYgZwcm90bzM="));
+          "X2luZGV4GAIgASgFEhoKCHBvc2l0aW9uGAMgASgLMgguVmVjdG9yMxIRCglv",
+          "YmplY3RfaWQYBCABKAkiKgoHVmVjdG9yMxIJCgF4GAEgASgCEgkKAXkYAiAB",
+          "KAISCQoBehgDIAEoAiJOCgRSb29tEgoKAmlkGAEgASgJEhcKB29iamVjdHMY",
+          "AiADKAsyBi5Ub2tlbhIPCgdzY2VuZUlkGAMgASgFEhAKCHVzZXJfaWRzGAQg",
+          "AygJIicKCFJvb21Vc2VyEgoKAmlkGAEgASgJEg8KB3VzZXJfaWQYAiABKAki",
+          "TAoMVXNlclBvc2l0aW9uEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2Vy",
+          "Eh4KDG5ld19wb3NpdGlvbhgCIAEoCzIILlZlY3RvcjMiRAoMTWFzdGVyU3dp",
+          "dGNoEgoKAmlkGAEgASgJEhEKCW1hc3Rlcl9pZBgCIAEoCRIVCg1uZXdfbWFz",
+          "dGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgBIAEoCzIJLlJv",
+          "b21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiRQoGVXBkYXRlEgoKAmlkGAEgASgJ",
+          "EhMKBHJvb20YAiABKAsyBS5Sb29tEhoKCHBvc2l0aW9uGAMgASgLMgguVmVj",
+          "dG9yMzLpAgoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USHQoKQ3JlYXRlUm9v",
+          "bRIGLkVtcHR5GgUuUm9vbSIAEiIKCEpvaW5Sb29tEgkuUm9vbVVzZXIaBy5V",
+          "cGRhdGUiADABEhsKCFNhdmVSb29tEgUuUm9vbRoGLkVtcHR5IgASHAoIQWRk",
+          "VG9rZW4SBi5Ub2tlbhoGLkVtcHR5IgASHwoLUmVtb3ZlVG9rZW4SBi5Ub2tl",
+          "bhoGLkVtcHR5IgASHQoJTW92ZVRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8K",
+          "C0NoYW5nZVNjZW5lEgYuU2NlbmUaBi5FbXB0eSIAEiQKCU1vdmVVc2VycxIN",
+          "LlVzZXJQb3NpdGlvbhoGLkVtcHR5IgASIAoJTGVhdmVSb29tEgkuUm9vbVVz",
+          "ZXIaBi5FbXB0eSIAEicKDENoYW5nZU1hc3RlchINLk1hc3RlclN3aXRjaBoG",
+          "LkVtcHR5IgBCDFoKcGtnL2FwaS92MWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Vector3), global::Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Room), global::Room.Parser, new[]{ "Id", "Objects", "SceneId", "UserIds" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RoomUser), global::RoomUser.Parser, new[]{ "Id", "UserId" }, null, null, null),
@@ -191,6 +191,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     roomUser_ = other.roomUser_ != null ? other.roomUser_.Clone() : null;
     objectIndex_ = other.objectIndex_;
     position_ = other.position_ != null ? other.position_.Clone() : null;
+    objectId_ = other.objectId_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -232,6 +233,17 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
   }
 
+  /// <summary>Field number for the "object_id" field.</summary>
+  public const int ObjectIdFieldNumber = 4;
+  private string objectId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string ObjectId {
+    get { return objectId_; }
+    set {
+      objectId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Token);
@@ -248,6 +260,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (!object.Equals(RoomUser, other.RoomUser)) return false;
     if (ObjectIndex != other.ObjectIndex) return false;
     if (!object.Equals(Position, other.Position)) return false;
+    if (ObjectId != other.ObjectId) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -257,6 +270,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (roomUser_ != null) hash ^= RoomUser.GetHashCode();
     if (ObjectIndex != 0) hash ^= ObjectIndex.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
+    if (ObjectId.Length != 0) hash ^= ObjectId.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -282,6 +296,10 @@ public sealed partial class Token : pb::IMessage<Token> {
       output.WriteRawTag(26);
       output.WriteMessage(Position);
     }
+    if (ObjectId.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(ObjectId);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -298,6 +316,9 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (position_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+    }
+    if (ObjectId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ObjectId);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -324,6 +345,9 @@ public sealed partial class Token : pb::IMessage<Token> {
         Position = new global::Vector3();
       }
       Position.MergeFrom(other.Position);
+    }
+    if (other.ObjectId.Length != 0) {
+      ObjectId = other.ObjectId;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -352,6 +376,10 @@ public sealed partial class Token : pb::IMessage<Token> {
             Position = new global::Vector3();
           }
           input.ReadMessage(Position);
+          break;
+        }
+        case 34: {
+          ObjectId = input.ReadString();
           break;
         }
       }

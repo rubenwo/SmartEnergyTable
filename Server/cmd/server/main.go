@@ -38,15 +38,19 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 		log.Println("player still connected")
 		start := time.Now()
 		objs := make([]*v1.Token, len(data.Objects))
-		for index, objData := range data.Objects {
+
+		index := 0
+		for key, objData := range data.Objects {
 			objs[index] = &v1.Token{
 				ObjectIndex: objData.Index,
+				ObjectId:    key,
 				Position: &v1.Vector3{
 					X: objData.Position.X,
 					Y: objData.Position.X,
 					Z: objData.Position.Z,
 				},
 			}
+			index++
 		}
 		if err := stream.Send(&v1.Update{Id: data.ID, Room: &v1.Room{Id: data.ID, SceneId: int32(data.SceneID), Objects: objs}}); err != nil {
 			return err
@@ -146,18 +150,6 @@ func main() {
 			writer.WriteHeader(http.StatusInternalServerError)
 		}
 	})
-
-	//router.Post("/test", func(writer http.ResponseWriter, request *http.Request) {
-	//	for _, r := range roomManager.RoomIDs() {
-	//		err := roomManager.UpdateRoom(r, 1, []room.SceneObject{room.SceneObject{
-	//			Name:     "bla",
-	//			Position: room.Vector3{0, 0, 0},
-	//		}})
-	//		if err != nil {
-	//			log.Println(err)
-	//		}
-	//	}
-	//})
 
 	go func() {
 		log.Println("SmartEnergyTable API is running!")

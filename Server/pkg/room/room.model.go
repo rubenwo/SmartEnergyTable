@@ -5,7 +5,7 @@ import "log"
 type Data struct {
 	ID      string
 	SceneID int
-	Objects []SceneObject
+	Objects map[string]SceneObject
 }
 
 type Room struct {

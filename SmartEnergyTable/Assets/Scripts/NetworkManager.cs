@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
@@ -25,7 +26,7 @@ public class NetworkManager : MonoBehaviour
     private string _roomId = "";
     private bool _master;
 
-    private readonly List<GameObject> _currentScene = new List<GameObject>();
+    private readonly Dictionary<string, GameObject> _currentScene = new Dictionary<string, GameObject>();
 
     private void Awake()
     {
@@ -87,9 +88,10 @@ public class NetworkManager : MonoBehaviour
             {
                 if (update.Room.SceneId != SceneManager.GetActiveScene().buildIndex)
                     SceneManager.LoadScene(update.Room.SceneId);
-                foreach (var o in _currentScene)
+
+                foreach (var keyValuePair in _currentScene)
                 {
-                    Destroy(o);
+                    Destroy(keyValuePair.Value);
                 }
 
                 _currentScene.Clear();
@@ -103,7 +105,7 @@ public class NetworkManager : MonoBehaviour
                         y = roomObject.Position.Y,
                         z = roomObject.Position.Z
                     }, Quaternion.identity);
-                    _currentScene.Add(obj);
+                    _currentScene.Add(roomObject.ObjectId, obj);
                 }
             });
         }));
@@ -115,7 +117,16 @@ public class NetworkManager : MonoBehaviour
 //                Thread.Sleep(1000);
 //                var r = new Random();
 //
-//                AddToken("Cube", new Vector3 {X = r.Next(-5, 5), Y = r.Next(-5, 5), Z = r.Next(-5, 0)});
+//                AddToken("Cube", new UnityEngine.Vector3(r.Next(-5, 5), r.Next(-5, 5), r.Next(-5, 0)));
+//            }
+//
+//            for (int i = 0; i < 10; i++)
+//            {
+//                Thread.Sleep(1000);
+//                var keys = _currentScene.Keys;
+//
+//                RemoveToken(keys.ElementAt(0));
+//                //AddToken("Cube", new UnityEngine.Vector3(r.Next(-5, 5), r.Next(-5, 5), r.Next(-5, 0)));
 //            }
 //        });
     }
@@ -129,19 +140,19 @@ public class NetworkManager : MonoBehaviour
         });
     }
 
-    public void AddToken(string prefab, Vector3 position)
+    public void AddToken(string prefab, UnityEngine.Vector3 position)
     {
         _client.AddToken(_roomId, _userId, _prefabLookUp[prefab], position);
     }
 
-    public void RemoveToken(string prefab, Vector3 position)
+    public void RemoveToken(string uuid)
     {
-        _client.RemoveToken(_roomId, _userId, _prefabLookUp[prefab], position);
+        _client.RemoveToken(_roomId, _userId, uuid);
     }
 
-    public void MoveToken(string prefab, Vector3 position)
+    public void MoveToken(string uuid, UnityEngine.Vector3 position)
     {
-        _client.MoveToken(_roomId, _userId, _prefabLookUp[prefab], position);
+        _client.MoveToken(_roomId, _userId, uuid, position);
     }
 
 
@@ -152,7 +163,7 @@ public class NetworkManager : MonoBehaviour
         _client.ChangeScene(_roomId, _userId, Convert.ToInt32(buildIndex));
     }
 
-    public void MoveUsers(Vector3 newPosition)
+    public void MoveUsers(UnityEngine.Vector3 newPosition)
     {
         _client.MoveUsers(_roomId, _userId, newPosition);
     }
