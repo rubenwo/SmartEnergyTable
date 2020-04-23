@@ -37,9 +37,9 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 		}
 		log.Println("player still connected")
 		start := time.Now()
-		objs := make([]*v1.GameObject, len(data.Objects))
+		objs := make([]*v1.Token, len(data.Objects))
 		for index, objData := range data.Objects {
-			objs[index] = &v1.GameObject{
+			objs[index] = &v1.Token{
 				ObjectName: objData.Name,
 				Position: &v1.Vector3{
 					X: objData.Position.X,
@@ -62,26 +62,26 @@ func (s *server) SaveRoom(ctx context.Context, room *v1.Room) (*v1.Empty, error)
 	panic("implement me")
 }
 
-func (s *server) AddGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
-	log.Println("Adding gameobject")
-	if err := s.manager.AddGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject); err != nil {
-		return &v1.Empty{}, fmt.Errorf("error occurred when removing gameobject: %s from the scene: %w", gameObject.ObjectName, err)
+func (s *server) AddToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
+	log.Println("Adding Token")
+	if err := s.manager.AddToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectName, err)
 	}
 	return &v1.Empty{}, nil
 }
 
-func (s *server) RemoveGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
-	log.Println("Removing gameobject")
-	if err := s.manager.RemoveGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject); err != nil {
-		return &v1.Empty{}, fmt.Errorf("error occurred when removing gameobject: %s from the scene: %w", gameObject.ObjectName, err)
+func (s *server) RemoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
+	log.Println("Removing Token")
+	if err := s.manager.RemoveToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectName, err)
 	}
 	return &v1.Empty{}, nil
 }
 
-func (s *server) MoveGameObject(ctx context.Context, gameObject *v1.GameObject) (*v1.Empty, error) {
-	log.Println("Moving gameobject")
-	if err := s.manager.MoveGameObject(gameObject.RoomUser.Id, gameObject.RoomUser.UserId, gameObject); err != nil {
-		return &v1.Empty{}, fmt.Errorf("error occurred when removing gameobject: %s from the scene: %w", gameObject.ObjectName, err)
+func (s *server) MoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
+	log.Println("Moving Token")
+	if err := s.manager.MoveToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectName, err)
 	}
 	return &v1.Empty{}, nil
 }

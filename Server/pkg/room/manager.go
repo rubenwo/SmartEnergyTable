@@ -60,7 +60,7 @@ func (m *Manager) Room(id string) *Room {
 	return m.rooms[id]
 }
 
-func (m *Manager) AddGameObject(id string, user string, object *v1.GameObject) error {
+func (m *Manager) AddToken(id string, user string, object *v1.Token) error {
 	room, ok := m.rooms[id]
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
@@ -80,7 +80,7 @@ func (m *Manager) AddGameObject(id string, user string, object *v1.GameObject) e
 	return nil
 }
 
-func (m *Manager) RemoveGameObject(id string, user string, object *v1.GameObject) error {
+func (m *Manager) RemoveToken(id string, user string, object *v1.Token) error {
 	room, ok := m.rooms[id]
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
@@ -100,7 +100,7 @@ func (m *Manager) RemoveGameObject(id string, user string, object *v1.GameObject
 	return nil
 }
 
-func (m *Manager) MoveGameObject(id string, user string, object *v1.GameObject) error {
+func (m *Manager) MoveToken(id string, user string, object *v1.Token) error {
 	room, ok := m.rooms[id]
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)

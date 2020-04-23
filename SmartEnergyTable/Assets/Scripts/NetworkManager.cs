@@ -8,16 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
+    public string serverAddr;
+    public List<GameObject> objectLibrary = new List<GameObject>();
+
+
     private static NetworkManager s_Instance;
-    private readonly string _userId = Guid.NewGuid().ToString();
     private Channel _channel;
     private Client _client;
-
-    private string _roomId = "";
     private readonly Queue<Action> _actionQueue = new Queue<Action>();
 
-    public List<UnityEngine.GameObject> objectLibrary = new List<UnityEngine.GameObject>();
-    public string ServerAddr;
+
+    private readonly string _userId = Guid.NewGuid().ToString();
+    private string _roomId = "";
+    private bool _master;
 
     private void Awake()
     {
@@ -26,7 +29,7 @@ public class NetworkManager : MonoBehaviour
             s_Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            _channel = new Channel(ServerAddr, ChannelCredentials.Insecure);
+            _channel = new Channel(serverAddr, ChannelCredentials.Insecure);
             _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
         }
         else
@@ -49,6 +52,9 @@ public class NetworkManager : MonoBehaviour
             _actionQueue.Dequeue()();
     }
 
+
+    public bool IsMaster => _master;
+
     #region RPCs
 
     public void CreateRoom()
@@ -57,6 +63,7 @@ public class NetworkManager : MonoBehaviour
             return;
         var room = _client.CreateRoom();
         _roomId = room.Id;
+        _master = true;
         JoinRoom(_roomId);
     }
 
@@ -84,19 +91,19 @@ public class NetworkManager : MonoBehaviour
         });
     }
 
-    public void AddGameObject(string prefab, Vector3 position)
+    public void AddToken(string prefab, Vector3 position)
     {
-        _client.AddGameObject(_roomId, _userId, prefab, position);
+        _client.AddToken(_roomId, _userId, prefab, position);
     }
 
-    public void RemoveGameObject(string prefab, Vector3 position)
+    public void RemoveToken(string prefab, Vector3 position)
     {
-        _client.RemoveGameObject(_roomId, _userId, prefab, position);
+        _client.RemoveToken(_roomId, _userId, prefab, position);
     }
 
-    public void MoveGameObject(string prefab, Vector3 position)
+    public void MoveToken(string prefab, Vector3 position)
     {
-        _client.MoveGameObject(_roomId, _userId, prefab, position);
+        _client.MoveToken(_roomId, _userId, prefab, position);
     }
 
 

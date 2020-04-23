@@ -5,7 +5,7 @@ option go_package = "pkg/api/v1";
 message Empty {
 }
 
-message GameObject {
+message Token {
     RoomUser room_user = 1;
     string object_name = 2;
     string guid = 3;
@@ -20,7 +20,7 @@ message Vector3 {
 
 message Room {
     string id = 1;
-    repeated GameObject objects = 2;
+    repeated Token objects = 2;
     int32 sceneId = 3;
 }
 
@@ -56,13 +56,13 @@ service SmartEnergyTableService {
     rpc SaveRoom (Room) returns (Empty) {
     }
 
-    rpc AddGameObject (GameObject) returns (Empty) {
+    rpc AddToken (Token) returns (Empty) {
     }
 
-    rpc RemoveGameObject (GameObject) returns (Empty) {
+    rpc RemoveToken (Token) returns (Empty) {
     }
 
-    rpc MoveGameObject (GameObject) returns (Empty) {
+    rpc MoveToken (Token) returns (Empty) {
     }
 
     rpc ChangeScene (Scene) returns (Empty) {

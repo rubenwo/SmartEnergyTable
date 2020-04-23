@@ -15,7 +15,7 @@ public static partial class SmartEnergyTableService
   static readonly grpc::Marshaller<global::Room> __Marshaller_Room = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Room.Parser.ParseFrom);
   static readonly grpc::Marshaller<global::RoomUser> __Marshaller_RoomUser = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::RoomUser.Parser.ParseFrom);
   static readonly grpc::Marshaller<global::Update> __Marshaller_Update = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Update.Parser.ParseFrom);
-  static readonly grpc::Marshaller<global::GameObject> __Marshaller_GameObject = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::GameObject.Parser.ParseFrom);
+  static readonly grpc::Marshaller<global::Token> __Marshaller_Token = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Token.Parser.ParseFrom);
   static readonly grpc::Marshaller<global::Scene> __Marshaller_Scene = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Scene.Parser.ParseFrom);
   static readonly grpc::Marshaller<global::UserPosition> __Marshaller_UserPosition = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::UserPosition.Parser.ParseFrom);
 
@@ -40,25 +40,25 @@ public static partial class SmartEnergyTableService
       __Marshaller_Room,
       __Marshaller_Empty);
 
-  static readonly grpc::Method<global::GameObject, global::Empty> __Method_AddGameObject = new grpc::Method<global::GameObject, global::Empty>(
+  static readonly grpc::Method<global::Token, global::Empty> __Method_AddToken = new grpc::Method<global::Token, global::Empty>(
       grpc::MethodType.Unary,
       __ServiceName,
-      "AddGameObject",
-      __Marshaller_GameObject,
+      "AddToken",
+      __Marshaller_Token,
       __Marshaller_Empty);
 
-  static readonly grpc::Method<global::GameObject, global::Empty> __Method_RemoveGameObject = new grpc::Method<global::GameObject, global::Empty>(
+  static readonly grpc::Method<global::Token, global::Empty> __Method_RemoveToken = new grpc::Method<global::Token, global::Empty>(
       grpc::MethodType.Unary,
       __ServiceName,
-      "RemoveGameObject",
-      __Marshaller_GameObject,
+      "RemoveToken",
+      __Marshaller_Token,
       __Marshaller_Empty);
 
-  static readonly grpc::Method<global::GameObject, global::Empty> __Method_MoveGameObject = new grpc::Method<global::GameObject, global::Empty>(
+  static readonly grpc::Method<global::Token, global::Empty> __Method_MoveToken = new grpc::Method<global::Token, global::Empty>(
       grpc::MethodType.Unary,
       __ServiceName,
-      "MoveGameObject",
-      __Marshaller_GameObject,
+      "MoveToken",
+      __Marshaller_Token,
       __Marshaller_Empty);
 
   static readonly grpc::Method<global::Scene, global::Empty> __Method_ChangeScene = new grpc::Method<global::Scene, global::Empty>(
@@ -107,17 +107,17 @@ public static partial class SmartEnergyTableService
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
-    public virtual global::System.Threading.Tasks.Task<global::Empty> AddGameObject(global::GameObject request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::Empty> AddToken(global::Token request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
-    public virtual global::System.Threading.Tasks.Task<global::Empty> RemoveGameObject(global::GameObject request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::Empty> RemoveToken(global::Token request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
-    public virtual global::System.Threading.Tasks.Task<global::Empty> MoveGameObject(global::GameObject request, grpc::ServerCallContext context)
+    public virtual global::System.Threading.Tasks.Task<global::Empty> MoveToken(global::Token request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -202,53 +202,53 @@ public static partial class SmartEnergyTableService
     {
       return CallInvoker.AsyncUnaryCall(__Method_SaveRoom, null, options, request);
     }
-    public virtual global::Empty AddGameObject(global::GameObject request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::Empty AddToken(global::Token request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return AddGameObject(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return AddToken(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
-    public virtual global::Empty AddGameObject(global::GameObject request, grpc::CallOptions options)
+    public virtual global::Empty AddToken(global::Token request, grpc::CallOptions options)
     {
-      return CallInvoker.BlockingUnaryCall(__Method_AddGameObject, null, options, request);
+      return CallInvoker.BlockingUnaryCall(__Method_AddToken, null, options, request);
     }
-    public virtual grpc::AsyncUnaryCall<global::Empty> AddGameObjectAsync(global::GameObject request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::Empty> AddTokenAsync(global::Token request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return AddGameObjectAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return AddTokenAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
-    public virtual grpc::AsyncUnaryCall<global::Empty> AddGameObjectAsync(global::GameObject request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::Empty> AddTokenAsync(global::Token request, grpc::CallOptions options)
     {
-      return CallInvoker.AsyncUnaryCall(__Method_AddGameObject, null, options, request);
+      return CallInvoker.AsyncUnaryCall(__Method_AddToken, null, options, request);
     }
-    public virtual global::Empty RemoveGameObject(global::GameObject request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::Empty RemoveToken(global::Token request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return RemoveGameObject(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return RemoveToken(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
-    public virtual global::Empty RemoveGameObject(global::GameObject request, grpc::CallOptions options)
+    public virtual global::Empty RemoveToken(global::Token request, grpc::CallOptions options)
     {
-      return CallInvoker.BlockingUnaryCall(__Method_RemoveGameObject, null, options, request);
+      return CallInvoker.BlockingUnaryCall(__Method_RemoveToken, null, options, request);
     }
-    public virtual grpc::AsyncUnaryCall<global::Empty> RemoveGameObjectAsync(global::GameObject request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::Empty> RemoveTokenAsync(global::Token request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return RemoveGameObjectAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return RemoveTokenAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
-    public virtual grpc::AsyncUnaryCall<global::Empty> RemoveGameObjectAsync(global::GameObject request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::Empty> RemoveTokenAsync(global::Token request, grpc::CallOptions options)
     {
-      return CallInvoker.AsyncUnaryCall(__Method_RemoveGameObject, null, options, request);
+      return CallInvoker.AsyncUnaryCall(__Method_RemoveToken, null, options, request);
     }
-    public virtual global::Empty MoveGameObject(global::GameObject request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::Empty MoveToken(global::Token request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return MoveGameObject(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return MoveToken(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
-    public virtual global::Empty MoveGameObject(global::GameObject request, grpc::CallOptions options)
+    public virtual global::Empty MoveToken(global::Token request, grpc::CallOptions options)
     {
-      return CallInvoker.BlockingUnaryCall(__Method_MoveGameObject, null, options, request);
+      return CallInvoker.BlockingUnaryCall(__Method_MoveToken, null, options, request);
     }
-    public virtual grpc::AsyncUnaryCall<global::Empty> MoveGameObjectAsync(global::GameObject request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::Empty> MoveTokenAsync(global::Token request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
-      return MoveGameObjectAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      return MoveTokenAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
-    public virtual grpc::AsyncUnaryCall<global::Empty> MoveGameObjectAsync(global::GameObject request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::Empty> MoveTokenAsync(global::Token request, grpc::CallOptions options)
     {
-      return CallInvoker.AsyncUnaryCall(__Method_MoveGameObject, null, options, request);
+      return CallInvoker.AsyncUnaryCall(__Method_MoveToken, null, options, request);
     }
     public virtual global::Empty ChangeScene(global::Scene request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
@@ -313,9 +313,9 @@ public static partial class SmartEnergyTableService
         .AddMethod(__Method_CreateRoom, serviceImpl.CreateRoom)
         .AddMethod(__Method_JoinRoom, serviceImpl.JoinRoom)
         .AddMethod(__Method_SaveRoom, serviceImpl.SaveRoom)
-        .AddMethod(__Method_AddGameObject, serviceImpl.AddGameObject)
-        .AddMethod(__Method_RemoveGameObject, serviceImpl.RemoveGameObject)
-        .AddMethod(__Method_MoveGameObject, serviceImpl.MoveGameObject)
+        .AddMethod(__Method_AddToken, serviceImpl.AddToken)
+        .AddMethod(__Method_RemoveToken, serviceImpl.RemoveToken)
+        .AddMethod(__Method_MoveToken, serviceImpl.MoveToken)
         .AddMethod(__Method_ChangeScene, serviceImpl.ChangeScene)
         .AddMethod(__Method_MoveUsers, serviceImpl.MoveUsers)
         .AddMethod(__Method_LeaveRoom, serviceImpl.LeaveRoom).Build();
@@ -330,9 +330,9 @@ public static partial class SmartEnergyTableService
     serviceBinder.AddMethod(__Method_CreateRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Empty, global::Room>(serviceImpl.CreateRoom));
     serviceBinder.AddMethod(__Method_JoinRoom, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::RoomUser, global::Update>(serviceImpl.JoinRoom));
     serviceBinder.AddMethod(__Method_SaveRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Room, global::Empty>(serviceImpl.SaveRoom));
-    serviceBinder.AddMethod(__Method_AddGameObject, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GameObject, global::Empty>(serviceImpl.AddGameObject));
-    serviceBinder.AddMethod(__Method_RemoveGameObject, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GameObject, global::Empty>(serviceImpl.RemoveGameObject));
-    serviceBinder.AddMethod(__Method_MoveGameObject, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GameObject, global::Empty>(serviceImpl.MoveGameObject));
+    serviceBinder.AddMethod(__Method_AddToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Token, global::Empty>(serviceImpl.AddToken));
+    serviceBinder.AddMethod(__Method_RemoveToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Token, global::Empty>(serviceImpl.RemoveToken));
+    serviceBinder.AddMethod(__Method_MoveToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Token, global::Empty>(serviceImpl.MoveToken));
     serviceBinder.AddMethod(__Method_ChangeScene, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Scene, global::Empty>(serviceImpl.ChangeScene));
     serviceBinder.AddMethod(__Method_MoveUsers, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::UserPosition, global::Empty>(serviceImpl.MoveUsers));
     serviceBinder.AddMethod(__Method_LeaveRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RoomUser, global::Empty>(serviceImpl.LeaveRoom));
