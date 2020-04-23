@@ -153,6 +153,20 @@ func (m *Manager) RemoveClient(id string, user string) error {
 	return nil
 }
 
+func (m *Manager) ChangeMaster(id string, master string, newMaster string) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+
+	if room.master == master {
+		room.master = newMaster
+		return nil
+	}
+
+	return fmt.Errorf("you don't have the permissions to change the master")
+}
+
 func (m *Manager) RoomIDs() []string {
 	var ids []string
 	for key, _ := range m.rooms {

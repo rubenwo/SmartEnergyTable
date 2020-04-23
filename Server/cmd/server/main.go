@@ -106,6 +106,15 @@ func (s *server) LeaveRoom(ctx context.Context, roomId *v1.RoomUser) (*v1.Empty,
 	return &v1.Empty{}, nil
 }
 
+func (s *server) ChangeMaster(ctx context.Context, user *v1.MasterSwitch) (*v1.Empty, error) {
+	log.Println(fmt.Sprintf("ChangeMaster() => Old: %s => New: %s", user.MasterId, user.NewMasterId))
+	if err := s.manager.ChangeMaster(user.Id, user.MasterId, user.NewMasterId); err != nil {
+		log.Println(err)
+		return &v1.Empty{}, err
+	}
+	return &v1.Empty{}, nil
+}
+
 func main() {
 	roomManager, err := room.NewManager()
 	if err != nil {
