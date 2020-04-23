@@ -1,14 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CodeJoin : MonoBehaviour
+public class Create : MonoBehaviour
 {
-    public InputField codeField;
-
-    public NetworkManager Manager;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +14,8 @@ public class CodeJoin : MonoBehaviour
     {
     }
 
-    public void onClick()
+    public void OnClick()
     {
-        Debug.Log(codeField.text);
-        Manager.JoinRoom(codeField.text);
+        GameObject.Find("GameManager").GetComponent<NetworkManager>().CreateRoom();
     }
 }

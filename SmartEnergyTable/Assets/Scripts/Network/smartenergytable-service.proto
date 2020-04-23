@@ -7,9 +7,8 @@ message Empty {
 
 message Token {
     RoomUser room_user = 1;
-    string object_name = 2;
-    string guid = 3;
-    Vector3 position = 4;
+    int32 object_index = 2;
+    Vector3 position = 3;
 }
 
 message Vector3 {

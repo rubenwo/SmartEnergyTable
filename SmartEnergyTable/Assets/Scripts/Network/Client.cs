@@ -49,12 +49,12 @@ namespace Network
             return empty;
         }
 
-        internal Empty AddToken(string roomId, string userId, string objectName, Vector3 position)
+        internal Empty AddToken(string roomId, string userId, int index, Vector3 position)
         {
             var empty = _client.AddToken(new Token
             {
                 RoomUser = new RoomUser {Id = roomId, UserId = userId},
-                ObjectName = objectName,
+                ObjectIndex = index,
                 Position = new Vector3
                 {
                     X = position.X, Y = position.Y, Z = position.Z
@@ -63,12 +63,12 @@ namespace Network
             return empty;
         }
 
-        internal Empty RemoveToken(string roomId, string userId, string objectName, Vector3 position)
+        internal Empty RemoveToken(string roomId, string userId, int index, Vector3 position)
         {
             var empty = _client.RemoveToken(new Token
             {
                 RoomUser = new RoomUser {Id = roomId, UserId = userId},
-                ObjectName = objectName,
+                ObjectIndex = index,
                 Position = new Vector3
                 {
                     X = position.X, Y = position.Y, Z = position.Z
@@ -77,12 +77,12 @@ namespace Network
             return empty;
         }
 
-        internal Empty MoveToken(string roomId, string userId, string objectName, Vector3 position)
+        internal Empty MoveToken(string roomId, string userId, int index, Vector3 position)
         {
             var empty = _client.MoveToken(new Token
             {
                 RoomUser = new RoomUser {Id = roomId, UserId = userId},
-                ObjectName = objectName,
+                ObjectIndex = index,
                 Position = new Vector3
                 {
                     X = position.X, Y = position.Y, Z = position.Z
