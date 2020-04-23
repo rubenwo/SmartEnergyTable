@@ -40,7 +40,7 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 		objs := make([]*v1.Token, len(data.Objects))
 		for index, objData := range data.Objects {
 			objs[index] = &v1.Token{
-				ObjectName: objData.Name,
+				ObjectIndex: objData.Index,
 				Position: &v1.Vector3{
 					X: objData.Position.X,
 					Y: objData.Position.X,
@@ -65,7 +65,7 @@ func (s *server) SaveRoom(ctx context.Context, room *v1.Room) (*v1.Empty, error)
 func (s *server) AddToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
 	log.Println("Adding Token")
 	if err := s.manager.AddToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
-		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectName, err)
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectIndex, err)
 	}
 	return &v1.Empty{}, nil
 }
@@ -73,7 +73,7 @@ func (s *server) AddToken(ctx context.Context, Token *v1.Token) (*v1.Empty, erro
 func (s *server) RemoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
 	log.Println("Removing Token")
 	if err := s.manager.RemoveToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
-		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectName, err)
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectIndex, err)
 	}
 	return &v1.Empty{}, nil
 }
@@ -81,7 +81,7 @@ func (s *server) RemoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, e
 func (s *server) MoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
 	log.Println("Moving Token")
 	if err := s.manager.MoveToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
-		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectName, err)
+		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectIndex, err)
 	}
 	return &v1.Empty{}, nil
 }
@@ -102,6 +102,15 @@ func (s *server) LeaveRoom(ctx context.Context, roomId *v1.RoomUser) (*v1.Empty,
 	if err := s.manager.RemoveClient(roomId.Id, roomId.UserId); err != nil {
 		log.Println(err)
 		return &v1.Empty{}, nil
+	}
+	return &v1.Empty{}, nil
+}
+
+func (s *server) ChangeMaster(ctx context.Context, user *v1.MasterSwitch) (*v1.Empty, error) {
+	log.Println(fmt.Sprintf("ChangeMaster() => Old: %s => New: %s", user.MasterId, user.NewMasterId))
+	if err := s.manager.ChangeMaster(user.Id, user.MasterId, user.NewMasterId); err != nil {
+		log.Println(err)
+		return &v1.Empty{}, err
 	}
 	return &v1.Empty{}, nil
 }
@@ -137,6 +146,18 @@ func main() {
 			writer.WriteHeader(http.StatusInternalServerError)
 		}
 	})
+
+	//router.Post("/test", func(writer http.ResponseWriter, request *http.Request) {
+	//	for _, r := range roomManager.RoomIDs() {
+	//		err := roomManager.UpdateRoom(r, 1, []room.SceneObject{room.SceneObject{
+	//			Name:     "bla",
+	//			Position: room.Vector3{0, 0, 0},
+	//		}})
+	//		if err != nil {
+	//			log.Println(err)
+	//		}
+	//	}
+	//})
 
 	go func() {
 		log.Println("SmartEnergyTable API is running!")

@@ -7,9 +7,8 @@ message Empty {
 
 message Token {
     RoomUser room_user = 1;
-    string object_name = 2;
-    string guid = 3;
-    Vector3 position = 4;
+    int32 object_index = 2;
+    Vector3 position = 3;
 }
 
 message Vector3 {
@@ -22,6 +21,7 @@ message Room {
     string id = 1;
     repeated Token objects = 2;
     int32 sceneId = 3;
+    repeated string user_ids = 4;
 }
 
 message RoomUser {
@@ -32,6 +32,12 @@ message RoomUser {
 message UserPosition {
     RoomUser room_user = 1;
     Vector3 new_position = 2;
+}
+
+message MasterSwitch {
+    string id = 1;
+    string master_id = 2;
+    string new_master_id = 3;
 }
 
 message Scene {
@@ -72,5 +78,8 @@ service SmartEnergyTableService {
     }
 
     rpc LeaveRoom (RoomUser) returns (Empty) {
+    }
+
+    rpc ChangeMaster (MasterSwitch) returns (Empty) {
     }
 }

@@ -69,13 +69,14 @@ func (m *Manager) AddToken(id string, user string, object *v1.Token) error {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
 	room.Data.Objects = append(room.Data.Objects, SceneObject{
-		Name: object.ObjectName,
+		Index: object.ObjectIndex,
 		Position: Vector3{
 			X: object.Position.X,
 			Y: object.Position.Y,
 			Z: object.Position.Z,
 		},
 	})
+	log.Println("Added token")
 	room.Notify()
 	return nil
 }
@@ -89,7 +90,7 @@ func (m *Manager) RemoveToken(id string, user string, object *v1.Token) error {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
 	room.Data.Objects = append(room.Data.Objects, SceneObject{
-		Name: object.ObjectName,
+		Index: object.ObjectIndex,
 		Position: Vector3{
 			X: object.Position.X,
 			Y: object.Position.Y,
@@ -109,13 +110,14 @@ func (m *Manager) MoveToken(id string, user string, object *v1.Token) error {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
 	room.Data.Objects = append(room.Data.Objects, SceneObject{
-		Name: object.ObjectName,
+		Index: object.ObjectIndex,
 		Position: Vector3{
 			X: object.Position.X,
 			Y: object.Position.Y,
 			Z: object.Position.Z,
 		},
 	})
+	
 	room.Notify()
 	return nil
 }
@@ -151,6 +153,20 @@ func (m *Manager) RemoveClient(id string, user string) error {
 		delete(room.clients, user)
 	}
 	return nil
+}
+
+func (m *Manager) ChangeMaster(id string, master string, newMaster string) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+
+	if room.master == master {
+		room.master = newMaster
+		return nil
+	}
+
+	return fmt.Errorf("you don't have the permissions to change the master")
 }
 
 func (m *Manager) RoomIDs() []string {

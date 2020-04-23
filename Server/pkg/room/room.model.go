@@ -32,6 +32,6 @@ type Vector3 struct {
 }
 
 type SceneObject struct {
-	Name     string
+	Index    int32
 	Position Vector3
 }
