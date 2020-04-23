@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Grpc.Core;
+using UnityEditor;
 using UnityEngine;
 
 namespace Network
@@ -49,7 +50,7 @@ namespace Network
             return empty;
         }
 
-        internal Empty AddToken(string roomId, string userId, int index, Vector3 position)
+        internal Empty AddToken(string roomId, string userId, int index, UnityEngine.Vector3 position)
         {
             var empty = _client.AddToken(new Token
             {
@@ -57,35 +58,31 @@ namespace Network
                 ObjectIndex = index,
                 Position = new Vector3
                 {
-                    X = position.X, Y = position.Y, Z = position.Z
+                    X = position.x, Y = position.y, Z = position.z
                 }
             });
             return empty;
         }
 
-        internal Empty RemoveToken(string roomId, string userId, int index, Vector3 position)
+        internal Empty RemoveToken(string roomId, string userId, string uuid)
         {
             var empty = _client.RemoveToken(new Token
             {
                 RoomUser = new RoomUser {Id = roomId, UserId = userId},
-                ObjectIndex = index,
-                Position = new Vector3
-                {
-                    X = position.X, Y = position.Y, Z = position.Z
-                }
+                ObjectId = uuid
             });
             return empty;
         }
 
-        internal Empty MoveToken(string roomId, string userId, int index, Vector3 position)
+        internal Empty MoveToken(string roomId, string userId, string uuid, UnityEngine.Vector3 position)
         {
             var empty = _client.MoveToken(new Token
             {
                 RoomUser = new RoomUser {Id = roomId, UserId = userId},
-                ObjectIndex = index,
+                ObjectId = uuid,
                 Position = new Vector3
                 {
-                    X = position.X, Y = position.Y, Z = position.Z
+                    X = position.x, Y = position.y, Z = position.z
                 }
             });
             return empty;
@@ -101,7 +98,7 @@ namespace Network
             return empty;
         }
 
-        internal Empty MoveUsers(string roomId, string userId, Vector3 newPosition)
+        internal Empty MoveUsers(string roomId, string userId, UnityEngine.Vector3 newPosition)
         {
             var empty = _client.MoveUsers(new UserPosition
             {
@@ -110,7 +107,10 @@ namespace Network
                     Id = roomId,
                     UserId = userId
                 },
-                NewPosition = newPosition
+                NewPosition = new Vector3
+                {
+                    X = newPosition.x, Y = newPosition.y, Z = newPosition.z
+                }
             });
             return empty;
         }

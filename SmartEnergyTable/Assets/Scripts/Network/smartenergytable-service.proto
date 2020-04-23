@@ -9,6 +9,7 @@ message Token {
     RoomUser room_user = 1;
     int32 object_index = 2;
     Vector3 position = 3;
+    string object_id = 4;
 }
 
 message Vector3 {

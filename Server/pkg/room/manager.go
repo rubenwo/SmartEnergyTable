@@ -29,8 +29,8 @@ func (m *Manager) CreateRoom() (id string) {
 	m.rooms[id] = &Room{Data: struct {
 		ID      string
 		SceneID int
-		Objects []SceneObject
-	}{ID: id, SceneID: 1, Objects: make([]SceneObject, 0)}, master: "", clients: make(map[string]chan Data, 1)}
+		Objects map[string]SceneObject
+	}{ID: id, SceneID: 1, Objects: make(map[string]SceneObject)}, master: "", clients: make(map[string]chan Data, 1)}
 	log.Println("Created room:", id)
 	return id
 }
@@ -68,14 +68,15 @@ func (m *Manager) AddToken(id string, user string, object *v1.Token) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	room.Data.Objects = append(room.Data.Objects, SceneObject{
+	object.ObjectId = uuid.New().String()
+	room.Data.Objects[object.ObjectId] = SceneObject{
 		Index: object.ObjectIndex,
 		Position: Vector3{
 			X: object.Position.X,
 			Y: object.Position.Y,
 			Z: object.Position.Z,
 		},
-	})
+	}
 	log.Println("Added token")
 	room.Notify()
 	return nil
@@ -89,14 +90,7 @@ func (m *Manager) RemoveToken(id string, user string, object *v1.Token) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	room.Data.Objects = append(room.Data.Objects, SceneObject{
-		Index: object.ObjectIndex,
-		Position: Vector3{
-			X: object.Position.X,
-			Y: object.Position.Y,
-			Z: object.Position.Z,
-		},
-	})
+	delete(room.Data.Objects, object.ObjectId)
 	room.Notify()
 	return nil
 }
@@ -109,20 +103,22 @@ func (m *Manager) MoveToken(id string, user string, object *v1.Token) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	room.Data.Objects = append(room.Data.Objects, SceneObject{
-		Index: object.ObjectIndex,
-		Position: Vector3{
-			X: object.Position.X,
-			Y: object.Position.Y,
-			Z: object.Position.Z,
-		},
-	})
-	
+
+	obj, ok := room.Data.Objects[object.ObjectId]
+	if !ok {
+		return fmt.Errorf("object with id: %s doesn't exist", object.ObjectId)
+	}
+	obj.Position = Vector3{
+		X: object.Position.X,
+		Y: object.Position.Y,
+		Z: object.Position.Z,
+	}
+
 	room.Notify()
 	return nil
 }
 
-func (m *Manager) UpdateRoom(id string, sceneId int, objects []SceneObject) error {
+func (m *Manager) UpdateRoom(id string, sceneId int, objects map[string]SceneObject) error {
 	room, ok := m.rooms[id]
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)
