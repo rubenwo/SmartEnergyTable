@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectLibrary:
   - {fileID: 1399436938488828656, guid: a09693dfa5df20845998aa14b5ae7b14, type: 3}
-  ServerAddr: 192.168.2.14:8080
+  ServerAddr: smartenergytable.rubenwoldhuis.nl:8080
 --- !u!4 &2062534222
 Transform:
   m_ObjectHideFlags: 0
