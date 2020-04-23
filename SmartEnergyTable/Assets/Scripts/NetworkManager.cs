@@ -69,6 +69,8 @@ public class NetworkManager : MonoBehaviour
 
     public void JoinRoom(string id)
     {
+        if (_roomId == "")
+            _roomId = id;
         Task.Run(() => _client.JoinRoom(id, _userId, update =>
         {
             _actionQueue.Enqueue(() =>
