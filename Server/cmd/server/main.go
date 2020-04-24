@@ -23,12 +23,17 @@ type server struct {
 //CreateRoom is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.Room, error) {
 	id := s.manager.CreateRoom()
+
+	log.Println("CreateRoom() => instantiated room:", id)
+
 	return &v1.Room{Id: id}, nil
 }
 
 //JoinRoom is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService_JoinRoomServer) error {
-	log.Println("Someone joined room:", roomId.Id)
+
+	log.Println("JoinRoom() => A client:", roomId.UserId, "has joined room:", roomId.Id)
+
 	cb := make(chan room.Data)
 	if err := s.manager.JoinRoom(roomId.Id, roomId.UserId, cb); err != nil {
 		return err
@@ -41,7 +46,6 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 			break //Break the loop when the channel is closed. This happens when LeaveRoom is called.
 			// We also need to break in order to allow the client to close down. Especially as the Unity Editor will crash if we don't.
 		}
-		log.Println("player still connected")
 		start := time.Now() //Timer for debugging
 		objs := make([]*v1.Token, len(data.Objects))
 
@@ -63,43 +67,48 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 		if err := stream.Send(&v1.Update{Id: data.ID, Room: &v1.Room{Id: data.ID, SceneId: int32(data.SceneID), Objects: objs}, IsMaster: data.IsMaster}); err != nil {
 			return err
 		}
-		log.Println("Sending update message took:", time.Since(start).Microseconds(), "microseconds.")
+		log.Println("JoinRoom() => Update took:", time.Since(start).Microseconds(), "microseconds to client", roomId.UserId, ".")
 
 	}
-	log.Println("Closed")
+	log.Println("JoinRoom() => Connection to client:", roomId.UserId, "closed.")
 	return nil
 }
 
 //SaveRoom is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) SaveRoom(ctx context.Context, room *v1.Room) (*v1.Empty, error) {
 	//TODO: Implement saving the room
+
+	log.Println("SaveRoom() => Room:", room.Id, " is saved to the database.", "by:")
 	panic("implement me")
 }
 
 //AddToken is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) AddToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
-	log.Println("Adding Token")
 	if err := s.manager.AddToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
 		return &v1.Empty{}, fmt.Errorf("error occurred when adding Token: %d from the scene: %w", Token.ObjectIndex, err)
 	}
+	log.Println("AddToken() => Token with objectLibrary index:", Token.ObjectIndex, "has been added to room:", Token.RoomUser.Id, "by:", Token.RoomUser.UserId)
+
 	return &v1.Empty{}, nil
 }
 
 //RemoveToken is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) RemoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
-	log.Println("Removing Token")
 	if err := s.manager.RemoveToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
 		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w", Token.ObjectId, err)
 	}
+	log.Println("RemoveToken() => Token with uuid:", Token.ObjectId, "has been removed from room:", Token.RoomUser.Id, "by:", Token.RoomUser.UserId)
+
 	return &v1.Empty{}, nil
 }
 
 //MoveToken is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) MoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, error) {
-	log.Println("Moving Token")
 	if err := s.manager.MoveToken(Token.RoomUser.Id, Token.RoomUser.UserId, Token); err != nil {
 		return &v1.Empty{}, fmt.Errorf("error occurred when moving Token: %s in the scene: %w", Token.ObjectId, err)
 	}
+	log.Println("MoveToken() => Token with uuid:", Token.ObjectId, "has been moved in room:", Token.RoomUser.Id, "by:", Token.RoomUser.UserId)
+
 	return &v1.Empty{}, nil
 }
 
@@ -108,32 +117,35 @@ func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, e
 	if err := s.manager.ChangeScene(scene.RoomUser.Id, scene.RoomUser.UserId, int(scene.SceneId), nil); err != nil {
 		return &v1.Empty{}, err
 	}
+	log.Println("ChangeScene() => Scene in room:", scene.RoomUser.Id, "has been changed to:", scene.SceneId, "by:", scene.RoomUser.UserId)
 	return &v1.Empty{}, nil
 }
 
 //MoveUsers is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) MoveUsers(ctx context.Context, position *v1.UserPosition) (*v1.Empty, error) {
 	//TODO: Implement moving users in RoomManager
+	log.Println("MoveUsers() => Users in room:", position.RoomUser.Id, "have been moved to:", position.NewPosition, "by:", position.RoomUser.UserId)
 	panic("implement me")
 }
 
 //LeaveRoom is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) LeaveRoom(ctx context.Context, roomId *v1.RoomUser) (*v1.Empty, error) {
-	log.Println("LeaveRoom() =>", roomId.UserId)
 	if err := s.manager.RemoveClient(roomId.Id, roomId.UserId); err != nil {
 		log.Println(err)
 		return &v1.Empty{}, nil
 	}
+	log.Println("LeaveRoom() => User:", roomId.UserId, "left room:", roomId.Id)
 	return &v1.Empty{}, nil
 }
 
 //ChangeMaster is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) ChangeMaster(ctx context.Context, user *v1.MasterSwitch) (*v1.Empty, error) {
-	log.Println(fmt.Sprintf("ChangeMaster() => Old: %s => New: %s", user.MasterId, user.NewMasterId))
 	if err := s.manager.ChangeMaster(user.Id, user.MasterId, user.NewMasterId); err != nil {
 		log.Println(err)
 		return &v1.Empty{}, err
 	}
+	log.Println("ChangeMaster() =>", user.NewMasterId, "is now the new master of room:", user.Id, "by:", user.MasterId)
+
 	return &v1.Empty{}, nil
 }
 

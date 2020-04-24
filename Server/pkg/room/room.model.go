@@ -1,7 +1,5 @@
 package room
 
-import "log"
-
 //Data is a struct containing all room data the server needs to know and distribute.
 //This is the 'source of truth' for every client.
 type Data struct {
@@ -20,7 +18,6 @@ type Room struct {
 
 //Notify should be called after every altering of the Data struct inside the room.
 func (r *Room) Notify() {
-	log.Println("Sending room data:", r.Data)
 
 	//Loop over all the clients and send the updated Data concurrently.
 	for key, client := range r.clients {

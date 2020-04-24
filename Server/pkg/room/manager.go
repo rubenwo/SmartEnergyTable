@@ -35,7 +35,6 @@ func (m *Manager) CreateRoom() (id string) {
 		Objects  map[string]SceneObject
 		IsMaster bool
 	}{ID: id, SceneID: 1, Objects: make(map[string]SceneObject), IsMaster: false}, master: "", clients: make(map[string]chan Data, 1)}
-	log.Println("Created room:", id)
 	return id
 }
 
@@ -53,9 +52,9 @@ func (m *Manager) JoinRoom(id string, user string, callback chan Data) error {
 	//This is in ~100% of the cases the creator of the room as these functions are called directly after each other.
 	if room.master == "" {
 		room.master = user
-		log.Println("Master joined")
+		log.Println("JoinRoom() => Master joined")
 	} else {
-		log.Println("Client joined")
+		log.Println("JoinRoom() => Client join")
 	}
 	room.clients[user] = callback
 
@@ -96,7 +95,6 @@ func (m *Manager) AddToken(id string, user string, object *v1.Token) error {
 			Z: object.Position.Z,
 		},
 	}
-	log.Println("Added token")
 
 	room.Notify()
 	return nil
@@ -170,14 +168,14 @@ func (m *Manager) RemoveClient(id string, user string) error {
 		return fmt.Errorf("room with id: %s does not exist", id)
 	}
 	if room.master == user {
-		log.Println("Master left")
+		log.Println("RemoveClient() => Master left, all client are closing.")
 		for user, client := range room.clients {
 			close(client)
 			delete(room.clients, user)
 		}
 		delete(m.rooms, id)
 	} else {
-		log.Println("User left")
+		log.Println("RemoveClient() => Client left.")
 		close(room.clients[user])
 		delete(room.clients, user)
 		room.Notify() //Notify only when a single client has left.
