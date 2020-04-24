@@ -50,6 +50,7 @@ message Update {
     string id = 1;
     Room room = 2;
     Vector3 position = 3;
+    bool is_master = 4;
 }
 
 service SmartEnergyTableService {

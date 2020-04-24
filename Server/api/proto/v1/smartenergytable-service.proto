@@ -12,6 +12,7 @@ message Token {
     string object_id = 4;
 }
 
+//3D Vector
 message Vector3 {
     float x = 1;
     float y = 2;
@@ -50,10 +51,10 @@ message Update {
     string id = 1;
     Room room = 2;
     Vector3 position = 3;
+    bool is_master = 4;
 }
 
 service SmartEnergyTableService {
-
     rpc CreateRoom (Empty) returns (Room) {
     }
 
