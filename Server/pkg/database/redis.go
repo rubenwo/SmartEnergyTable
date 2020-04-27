@@ -34,35 +34,39 @@ func createRedisDatabase() (Database, error) {
 }
 
 //Set: Implementation of the database interface
-func (r *redisDB) Set(key string, value string) (string, error) {
+func (r *redisDB) Set(key string, value interface{}) error {
 	_, err := r.client.Set(key, value, 0).Result()
 	if err != nil {
-		return generateError("set", err)
+		return err
 	}
-	return key, nil
+	return nil
 }
 
 //Get: Implementation of the database interface
-func (r *redisDB) Get(key string) (string, error) {
+func (r *redisDB) Get(key string) (interface{}, error) {
 	value, err := r.client.Get(key).Result()
 	if err != nil {
-		return generateError("get", err)
+		return nil, err
 	}
 	return value, nil
 }
 
-//Delete: Implementation of the database interface
-func (r *redisDB) Delete(key string) (string, error) {
-	_, err := r.client.Del(key).Result()
-	if err != nil {
-		return generateError("delete", err)
-	}
-	return key, nil
+//Observe: Implementation of database interface
+func (r *redisDB) Observe(key string) (chan interface{}, error) {
+	c := make(chan interface{})
+
+	go func(channel chan interface{}) {
+		select {}
+	}(c)
+
+	return c, nil
 }
 
-func generateError(operation string, err error) (string, error) {
-	if err == redis.Nil {
-		return "", &OperationError{operation: operation}
+//Delete: Implementation of the database interface
+func (r *redisDB) Delete(key string) error {
+	_, err := r.client.Del(key).Result()
+	if err != nil {
+		return err
 	}
-	return "", &DownError{}
+	return nil
 }

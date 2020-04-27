@@ -22,41 +22,43 @@ public static partial class SmartenergytableServiceReflection {
   static SmartenergytableServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkiagoF",
-          "VG9rZW4SHAoJcm9vbV91c2VyGAEgASgLMgkuUm9vbVVzZXISFAoMb2JqZWN0",
-          "X2luZGV4GAIgASgFEhoKCHBvc2l0aW9uGAMgASgLMgguVmVjdG9yMxIRCglv",
-          "YmplY3RfaWQYBCABKAkiKgoHVmVjdG9yMxIJCgF4GAEgASgCEgkKAXkYAiAB",
-          "KAISCQoBehgDIAEoAiJOCgRSb29tEgoKAmlkGAEgASgJEhcKB29iamVjdHMY",
-          "AiADKAsyBi5Ub2tlbhIPCgdzY2VuZUlkGAMgASgFEhAKCHVzZXJfaWRzGAQg",
-          "AygJIicKCFJvb21Vc2VyEgoKAmlkGAEgASgJEg8KB3VzZXJfaWQYAiABKAki",
-          "TAoMVXNlclBvc2l0aW9uEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2Vy",
-          "Eh4KDG5ld19wb3NpdGlvbhgCIAEoCzIILlZlY3RvcjMiRAoMTWFzdGVyU3dp",
-          "dGNoEgoKAmlkGAEgASgJEhEKCW1hc3Rlcl9pZBgCIAEoCRIVCg1uZXdfbWFz",
-          "dGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgBIAEoCzIJLlJv",
-          "b21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiWAoGVXBkYXRlEgoKAmlkGAEgASgJ",
-          "EhMKBHJvb20YAiABKAsyBS5Sb29tEhoKCHBvc2l0aW9uGAMgASgLMgguVmVj",
-          "dG9yMxIRCglpc19tYXN0ZXIYBCABKAgy6QIKF1NtYXJ0RW5lcmd5VGFibGVT",
-          "ZXJ2aWNlEh0KCkNyZWF0ZVJvb20SBi5FbXB0eRoFLlJvb20iABIiCghKb2lu",
-          "Um9vbRIJLlJvb21Vc2VyGgcuVXBkYXRlIgAwARIbCghTYXZlUm9vbRIFLlJv",
-          "b20aBi5FbXB0eSIAEhwKCEFkZFRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8K",
-          "C1JlbW92ZVRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIG",
-          "LlRva2VuGgYuRW1wdHkiABIfCgtDaGFuZ2VTY2VuZRIGLlNjZW5lGgYuRW1w",
-          "dHkiABIkCglNb3ZlVXNlcnMSDS5Vc2VyUG9zaXRpb24aBi5FbXB0eSIAEiAK",
-          "CUxlYXZlUm9vbRIJLlJvb21Vc2VyGgYuRW1wdHkiABInCgxDaGFuZ2VNYXN0",
-          "ZXISDS5NYXN0ZXJTd2l0Y2gaBi5FbXB0eSIAQgxaCnBrZy9hcGkvdjFiBnBy",
-          "b3RvMw=="));
+          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkilQEK",
+          "BVRva2VuEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2VyEhQKDG9iamVj",
+          "dF9pbmRleBgCIAEoBRIaCghwb3NpdGlvbhgDIAEoCzIILlZlY3RvcjMSEQoJ",
+          "b2JqZWN0X2lkGAQgASgJEhoKCHJvdGF0aW9uGAUgASgLMgguVmVjdG9yMxIN",
+          "CgVzY2FsZRgGIAEoAiIqCgdWZWN0b3IzEgkKAXgYASABKAISCQoBeRgCIAEo",
+          "AhIJCgF6GAMgASgCIicKCFJvb21Vc2VyEgoKAmlkGAEgASgJEg8KB3VzZXJf",
+          "aWQYAiABKAkiTAoMVXNlclBvc2l0aW9uEhwKCXJvb21fdXNlchgBIAEoCzIJ",
+          "LlJvb21Vc2VyEh4KDG5ld19wb3NpdGlvbhgCIAEoCzIILlZlY3RvcjMiRAoM",
+          "TWFzdGVyU3dpdGNoEgoKAmlkGAEgASgJEhEKCW1hc3Rlcl9pZBgCIAEoCRIV",
+          "Cg1uZXdfbWFzdGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgB",
+          "IAEoCzIJLlJvb21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiZAoERGlmZhIcCgZh",
+          "Y3Rpb24YASABKA4yDC5EaWZmLkFjdGlvbhIVCgV0b2tlbhgCIAEoCzIGLlRv",
+          "a2VuIicKBkFjdGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIi",
+          "jQEKBVBhdGNoEg8KB3Jvb21faWQYASABKAkSEAoIc2NlbmVfaWQYAiABKAUS",
+          "HwoNdXNlcl9wb3NpdGlvbhgDIAEoCzIILlZlY3RvcjMSEQoJaXNfbWFzdGVy",
+          "GAQgASgIEhQKBWRpZmZzGAUgAygLMgUuRGlmZhIXCgdvYmplY3RzGAYgAygL",
+          "MgYuVG9rZW4y8AIKF1NtYXJ0RW5lcmd5VGFibGVTZXJ2aWNlEiEKCkNyZWF0",
+          "ZVJvb20SBi5FbXB0eRoJLlJvb21Vc2VyIgASIQoISm9pblJvb20SCS5Sb29t",
+          "VXNlchoGLlBhdGNoIgAwARIfCghTYXZlUm9vbRIJLlJvb21Vc2VyGgYuRW1w",
+          "dHkiABIcCghBZGRUb2tlbhIGLlRva2VuGgYuRW1wdHkiABIfCgtSZW1vdmVU",
+          "b2tlbhIGLlRva2VuGgYuRW1wdHkiABIdCglNb3ZlVG9rZW4SBi5Ub2tlbhoG",
+          "LkVtcHR5IgASHwoLQ2hhbmdlU2NlbmUSBi5TY2VuZRoGLkVtcHR5IgASJAoJ",
+          "TW92ZVVzZXJzEg0uVXNlclBvc2l0aW9uGgYuRW1wdHkiABIgCglMZWF2ZVJv",
+          "b20SCS5Sb29tVXNlchoGLkVtcHR5IgASJwoMQ2hhbmdlTWFzdGVyEg0uTWFz",
+          "dGVyU3dpdGNoGgYuRW1wdHkiAEIMWgpwa2cvYXBpL3YxYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Vector3), global::Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Room), global::Room.Parser, new[]{ "Id", "Objects", "SceneId", "UserIds" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RoomUser), global::RoomUser.Parser, new[]{ "Id", "UserId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UserPosition), global::UserPosition.Parser, new[]{ "RoomUser", "NewPosition" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MasterSwitch), global::MasterSwitch.Parser, new[]{ "Id", "MasterId", "NewMasterId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Scene), global::Scene.Parser, new[]{ "RoomUser", "SceneId" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Update), global::Update.Parser, new[]{ "Id", "Room", "Position", "IsMaster" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::Diff), global::Diff.Parser, new[]{ "Action", "Token" }, null, new[]{ typeof(global::Diff.Types.Action) }, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "Objects" }, null, null, null)
         }));
   }
   #endregion
@@ -193,6 +195,8 @@ public sealed partial class Token : pb::IMessage<Token> {
     objectIndex_ = other.objectIndex_;
     position_ = other.position_ != null ? other.position_.Clone() : null;
     objectId_ = other.objectId_;
+    rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
+    scale_ = other.scale_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -245,6 +249,28 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
   }
 
+  /// <summary>Field number for the "rotation" field.</summary>
+  public const int RotationFieldNumber = 5;
+  private global::Vector3 rotation_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::Vector3 Rotation {
+    get { return rotation_; }
+    set {
+      rotation_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "scale" field.</summary>
+  public const int ScaleFieldNumber = 6;
+  private float scale_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public float Scale {
+    get { return scale_; }
+    set {
+      scale_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Token);
@@ -262,6 +288,8 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (ObjectIndex != other.ObjectIndex) return false;
     if (!object.Equals(Position, other.Position)) return false;
     if (ObjectId != other.ObjectId) return false;
+    if (!object.Equals(Rotation, other.Rotation)) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Scale, other.Scale)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -272,6 +300,8 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (ObjectIndex != 0) hash ^= ObjectIndex.GetHashCode();
     if (position_ != null) hash ^= Position.GetHashCode();
     if (ObjectId.Length != 0) hash ^= ObjectId.GetHashCode();
+    if (rotation_ != null) hash ^= Rotation.GetHashCode();
+    if (Scale != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Scale);
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -301,6 +331,14 @@ public sealed partial class Token : pb::IMessage<Token> {
       output.WriteRawTag(34);
       output.WriteString(ObjectId);
     }
+    if (rotation_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(Rotation);
+    }
+    if (Scale != 0F) {
+      output.WriteRawTag(53);
+      output.WriteFloat(Scale);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -320,6 +358,12 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (ObjectId.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(ObjectId);
+    }
+    if (rotation_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
+    }
+    if (Scale != 0F) {
+      size += 1 + 4;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -349,6 +393,15 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (other.ObjectId.Length != 0) {
       ObjectId = other.ObjectId;
+    }
+    if (other.rotation_ != null) {
+      if (rotation_ == null) {
+        Rotation = new global::Vector3();
+      }
+      Rotation.MergeFrom(other.Rotation);
+    }
+    if (other.Scale != 0F) {
+      Scale = other.Scale;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -381,6 +434,17 @@ public sealed partial class Token : pb::IMessage<Token> {
         }
         case 34: {
           ObjectId = input.ReadString();
+          break;
+        }
+        case 42: {
+          if (rotation_ == null) {
+            Rotation = new global::Vector3();
+          }
+          input.ReadMessage(Rotation);
+          break;
+        }
+        case 53: {
+          Scale = input.ReadFloat();
           break;
         }
       }
@@ -574,203 +638,6 @@ public sealed partial class Vector3 : pb::IMessage<Vector3> {
 
 }
 
-public sealed partial class Room : pb::IMessage<Room> {
-  private static readonly pb::MessageParser<Room> _parser = new pb::MessageParser<Room>(() => new Room());
-  private pb::UnknownFieldSet _unknownFields;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<Room> Parser { get { return _parser; } }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[3]; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  pbr::MessageDescriptor pb::IMessage.Descriptor {
-    get { return Descriptor; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Room() {
-    OnConstruction();
-  }
-
-  partial void OnConstruction();
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Room(Room other) : this() {
-    id_ = other.id_;
-    objects_ = other.objects_.Clone();
-    sceneId_ = other.sceneId_;
-    userIds_ = other.userIds_.Clone();
-    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Room Clone() {
-    return new Room(this);
-  }
-
-  /// <summary>Field number for the "id" field.</summary>
-  public const int IdFieldNumber = 1;
-  private string id_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public string Id {
-    get { return id_; }
-    set {
-      id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
-  /// <summary>Field number for the "objects" field.</summary>
-  public const int ObjectsFieldNumber = 2;
-  private static readonly pb::FieldCodec<global::Token> _repeated_objects_codec
-      = pb::FieldCodec.ForMessage(18, global::Token.Parser);
-  private readonly pbc::RepeatedField<global::Token> objects_ = new pbc::RepeatedField<global::Token>();
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public pbc::RepeatedField<global::Token> Objects {
-    get { return objects_; }
-  }
-
-  /// <summary>Field number for the "sceneId" field.</summary>
-  public const int SceneIdFieldNumber = 3;
-  private int sceneId_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public int SceneId {
-    get { return sceneId_; }
-    set {
-      sceneId_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "user_ids" field.</summary>
-  public const int UserIdsFieldNumber = 4;
-  private static readonly pb::FieldCodec<string> _repeated_userIds_codec
-      = pb::FieldCodec.ForString(34);
-  private readonly pbc::RepeatedField<string> userIds_ = new pbc::RepeatedField<string>();
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public pbc::RepeatedField<string> UserIds {
-    get { return userIds_; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public override bool Equals(object other) {
-    return Equals(other as Room);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(Room other) {
-    if (ReferenceEquals(other, null)) {
-      return false;
-    }
-    if (ReferenceEquals(other, this)) {
-      return true;
-    }
-    if (Id != other.Id) return false;
-    if(!objects_.Equals(other.objects_)) return false;
-    if (SceneId != other.SceneId) return false;
-    if(!userIds_.Equals(other.userIds_)) return false;
-    return Equals(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public override int GetHashCode() {
-    int hash = 1;
-    if (Id.Length != 0) hash ^= Id.GetHashCode();
-    hash ^= objects_.GetHashCode();
-    if (SceneId != 0) hash ^= SceneId.GetHashCode();
-    hash ^= userIds_.GetHashCode();
-    if (_unknownFields != null) {
-      hash ^= _unknownFields.GetHashCode();
-    }
-    return hash;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public override string ToString() {
-    return pb::JsonFormatter.ToDiagnosticString(this);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void WriteTo(pb::CodedOutputStream output) {
-    if (Id.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Id);
-    }
-    objects_.WriteTo(output, _repeated_objects_codec);
-    if (SceneId != 0) {
-      output.WriteRawTag(24);
-      output.WriteInt32(SceneId);
-    }
-    userIds_.WriteTo(output, _repeated_userIds_codec);
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(output);
-    }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public int CalculateSize() {
-    int size = 0;
-    if (Id.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
-    }
-    size += objects_.CalculateSize(_repeated_objects_codec);
-    if (SceneId != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeInt32Size(SceneId);
-    }
-    size += userIds_.CalculateSize(_repeated_userIds_codec);
-    if (_unknownFields != null) {
-      size += _unknownFields.CalculateSize();
-    }
-    return size;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(Room other) {
-    if (other == null) {
-      return;
-    }
-    if (other.Id.Length != 0) {
-      Id = other.Id;
-    }
-    objects_.Add(other.objects_);
-    if (other.SceneId != 0) {
-      SceneId = other.SceneId;
-    }
-    userIds_.Add(other.userIds_);
-    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(pb::CodedInputStream input) {
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-          break;
-        case 10: {
-          Id = input.ReadString();
-          break;
-        }
-        case 18: {
-          objects_.AddEntriesFrom(input, _repeated_objects_codec);
-          break;
-        }
-        case 24: {
-          SceneId = input.ReadInt32();
-          break;
-        }
-        case 34: {
-          userIds_.AddEntriesFrom(input, _repeated_userIds_codec);
-          break;
-        }
-      }
-    }
-  }
-
-}
-
 public sealed partial class RoomUser : pb::IMessage<RoomUser> {
   private static readonly pb::MessageParser<RoomUser> _parser = new pb::MessageParser<RoomUser>(() => new RoomUser());
   private pb::UnknownFieldSet _unknownFields;
@@ -779,7 +646,7 @@ public sealed partial class RoomUser : pb::IMessage<RoomUser> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[4]; }
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[3]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -936,7 +803,7 @@ public sealed partial class UserPosition : pb::IMessage<UserPosition> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[5]; }
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[4]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1105,7 +972,7 @@ public sealed partial class MasterSwitch : pb::IMessage<MasterSwitch> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[6]; }
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[5]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1290,7 +1157,7 @@ public sealed partial class Scene : pb::IMessage<Scene> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[7]; }
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[6]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1445,11 +1312,187 @@ public sealed partial class Scene : pb::IMessage<Scene> {
 
 }
 
-public sealed partial class Update : pb::IMessage<Update> {
-  private static readonly pb::MessageParser<Update> _parser = new pb::MessageParser<Update>(() => new Update());
+public sealed partial class Diff : pb::IMessage<Diff> {
+  private static readonly pb::MessageParser<Diff> _parser = new pb::MessageParser<Diff>(() => new Diff());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<Update> Parser { get { return _parser; } }
+  public static pb::MessageParser<Diff> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[7]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public Diff() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public Diff(Diff other) : this() {
+    action_ = other.action_;
+    token_ = other.token_ != null ? other.token_.Clone() : null;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public Diff Clone() {
+    return new Diff(this);
+  }
+
+  /// <summary>Field number for the "action" field.</summary>
+  public const int ActionFieldNumber = 1;
+  private global::Diff.Types.Action action_ = global::Diff.Types.Action.Add;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::Diff.Types.Action Action {
+    get { return action_; }
+    set {
+      action_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "token" field.</summary>
+  public const int TokenFieldNumber = 2;
+  private global::Token token_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::Token Token {
+    get { return token_; }
+    set {
+      token_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as Diff);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(Diff other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Action != other.Action) return false;
+    if (!object.Equals(Token, other.Token)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Action != global::Diff.Types.Action.Add) hash ^= Action.GetHashCode();
+    if (token_ != null) hash ^= Token.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Action != global::Diff.Types.Action.Add) {
+      output.WriteRawTag(8);
+      output.WriteEnum((int) Action);
+    }
+    if (token_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Token);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Action != global::Diff.Types.Action.Add) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Action);
+    }
+    if (token_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Token);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(Diff other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Action != global::Diff.Types.Action.Add) {
+      Action = other.Action;
+    }
+    if (other.token_ != null) {
+      if (token_ == null) {
+        Token = new global::Token();
+      }
+      Token.MergeFrom(other.Token);
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          Action = (global::Diff.Types.Action) input.ReadEnum();
+          break;
+        }
+        case 18: {
+          if (token_ == null) {
+            Token = new global::Token();
+          }
+          input.ReadMessage(Token);
+          break;
+        }
+      }
+    }
+  }
+
+  #region Nested types
+  /// <summary>Container for nested types declared in the Diff message type.</summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static partial class Types {
+    public enum Action {
+      [pbr::OriginalName("ADD")] Add = 0,
+      [pbr::OriginalName("DELETE")] Delete = 1,
+      [pbr::OriginalName("MOVE")] Move = 2,
+    }
+
+  }
+  #endregion
+
+}
+
+public sealed partial class Patch : pb::IMessage<Patch> {
+  private static readonly pb::MessageParser<Patch> _parser = new pb::MessageParser<Patch>(() => new Patch());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<Patch> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
@@ -1462,56 +1505,58 @@ public sealed partial class Update : pb::IMessage<Update> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Update() {
+  public Patch() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Update(Update other) : this() {
-    id_ = other.id_;
-    room_ = other.room_ != null ? other.room_.Clone() : null;
-    position_ = other.position_ != null ? other.position_.Clone() : null;
+  public Patch(Patch other) : this() {
+    roomId_ = other.roomId_;
+    sceneId_ = other.sceneId_;
+    userPosition_ = other.userPosition_ != null ? other.userPosition_.Clone() : null;
     isMaster_ = other.isMaster_;
+    diffs_ = other.diffs_.Clone();
+    objects_ = other.objects_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Update Clone() {
-    return new Update(this);
+  public Patch Clone() {
+    return new Patch(this);
   }
 
-  /// <summary>Field number for the "id" field.</summary>
-  public const int IdFieldNumber = 1;
-  private string id_ = "";
+  /// <summary>Field number for the "room_id" field.</summary>
+  public const int RoomIdFieldNumber = 1;
+  private string roomId_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public string Id {
-    get { return id_; }
+  public string RoomId {
+    get { return roomId_; }
     set {
-      id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
-  /// <summary>Field number for the "room" field.</summary>
-  public const int RoomFieldNumber = 2;
-  private global::Room room_;
+  /// <summary>Field number for the "scene_id" field.</summary>
+  public const int SceneIdFieldNumber = 2;
+  private int sceneId_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Room Room {
-    get { return room_; }
+  public int SceneId {
+    get { return sceneId_; }
     set {
-      room_ = value;
+      sceneId_ = value;
     }
   }
 
-  /// <summary>Field number for the "position" field.</summary>
-  public const int PositionFieldNumber = 3;
-  private global::Vector3 position_;
+  /// <summary>Field number for the "user_position" field.</summary>
+  public const int UserPositionFieldNumber = 3;
+  private global::Vector3 userPosition_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Vector3 Position {
-    get { return position_; }
+  public global::Vector3 UserPosition {
+    get { return userPosition_; }
     set {
-      position_ = value;
+      userPosition_ = value;
     }
   }
 
@@ -1526,33 +1571,57 @@ public sealed partial class Update : pb::IMessage<Update> {
     }
   }
 
+  /// <summary>Field number for the "diffs" field.</summary>
+  public const int DiffsFieldNumber = 5;
+  private static readonly pb::FieldCodec<global::Diff> _repeated_diffs_codec
+      = pb::FieldCodec.ForMessage(42, global::Diff.Parser);
+  private readonly pbc::RepeatedField<global::Diff> diffs_ = new pbc::RepeatedField<global::Diff>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public override bool Equals(object other) {
-    return Equals(other as Update);
+  public pbc::RepeatedField<global::Diff> Diffs {
+    get { return diffs_; }
+  }
+
+  /// <summary>Field number for the "objects" field.</summary>
+  public const int ObjectsFieldNumber = 6;
+  private static readonly pb::FieldCodec<global::Token> _repeated_objects_codec
+      = pb::FieldCodec.ForMessage(50, global::Token.Parser);
+  private readonly pbc::RepeatedField<global::Token> objects_ = new pbc::RepeatedField<global::Token>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::Token> Objects {
+    get { return objects_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(Update other) {
+  public override bool Equals(object other) {
+    return Equals(other as Patch);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(Patch other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Id != other.Id) return false;
-    if (!object.Equals(Room, other.Room)) return false;
-    if (!object.Equals(Position, other.Position)) return false;
+    if (RoomId != other.RoomId) return false;
+    if (SceneId != other.SceneId) return false;
+    if (!object.Equals(UserPosition, other.UserPosition)) return false;
     if (IsMaster != other.IsMaster) return false;
+    if(!diffs_.Equals(other.diffs_)) return false;
+    if(!objects_.Equals(other.objects_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
-    if (Id.Length != 0) hash ^= Id.GetHashCode();
-    if (room_ != null) hash ^= Room.GetHashCode();
-    if (position_ != null) hash ^= Position.GetHashCode();
+    if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
+    if (SceneId != 0) hash ^= SceneId.GetHashCode();
+    if (userPosition_ != null) hash ^= UserPosition.GetHashCode();
     if (IsMaster != false) hash ^= IsMaster.GetHashCode();
+    hash ^= diffs_.GetHashCode();
+    hash ^= objects_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1566,22 +1635,24 @@ public sealed partial class Update : pb::IMessage<Update> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
-    if (Id.Length != 0) {
+    if (RoomId.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteString(Id);
+      output.WriteString(RoomId);
     }
-    if (room_ != null) {
-      output.WriteRawTag(18);
-      output.WriteMessage(Room);
+    if (SceneId != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(SceneId);
     }
-    if (position_ != null) {
+    if (userPosition_ != null) {
       output.WriteRawTag(26);
-      output.WriteMessage(Position);
+      output.WriteMessage(UserPosition);
     }
     if (IsMaster != false) {
       output.WriteRawTag(32);
       output.WriteBool(IsMaster);
     }
+    diffs_.WriteTo(output, _repeated_diffs_codec);
+    objects_.WriteTo(output, _repeated_objects_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1590,18 +1661,20 @@ public sealed partial class Update : pb::IMessage<Update> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
-    if (Id.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
+    if (RoomId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
     }
-    if (room_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Room);
+    if (SceneId != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(SceneId);
     }
-    if (position_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+    if (userPosition_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserPosition);
     }
     if (IsMaster != false) {
       size += 1 + 1;
     }
+    size += diffs_.CalculateSize(_repeated_diffs_codec);
+    size += objects_.CalculateSize(_repeated_objects_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1609,28 +1682,27 @@ public sealed partial class Update : pb::IMessage<Update> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(Update other) {
+  public void MergeFrom(Patch other) {
     if (other == null) {
       return;
     }
-    if (other.Id.Length != 0) {
-      Id = other.Id;
+    if (other.RoomId.Length != 0) {
+      RoomId = other.RoomId;
     }
-    if (other.room_ != null) {
-      if (room_ == null) {
-        Room = new global::Room();
-      }
-      Room.MergeFrom(other.Room);
+    if (other.SceneId != 0) {
+      SceneId = other.SceneId;
     }
-    if (other.position_ != null) {
-      if (position_ == null) {
-        Position = new global::Vector3();
+    if (other.userPosition_ != null) {
+      if (userPosition_ == null) {
+        UserPosition = new global::Vector3();
       }
-      Position.MergeFrom(other.Position);
+      UserPosition.MergeFrom(other.UserPosition);
     }
     if (other.IsMaster != false) {
       IsMaster = other.IsMaster;
     }
+    diffs_.Add(other.diffs_);
+    objects_.Add(other.objects_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1643,25 +1715,30 @@ public sealed partial class Update : pb::IMessage<Update> {
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          Id = input.ReadString();
+          RoomId = input.ReadString();
           break;
         }
-        case 18: {
-          if (room_ == null) {
-            Room = new global::Room();
-          }
-          input.ReadMessage(Room);
+        case 16: {
+          SceneId = input.ReadInt32();
           break;
         }
         case 26: {
-          if (position_ == null) {
-            Position = new global::Vector3();
+          if (userPosition_ == null) {
+            UserPosition = new global::Vector3();
           }
-          input.ReadMessage(Position);
+          input.ReadMessage(UserPosition);
           break;
         }
         case 32: {
           IsMaster = input.ReadBool();
+          break;
+        }
+        case 42: {
+          diffs_.AddEntriesFrom(input, _repeated_diffs_codec);
+          break;
+        }
+        case 50: {
+          objects_.AddEntriesFrom(input, _repeated_objects_codec);
           break;
         }
       }

@@ -1,46 +1,83 @@
 package room
 
-//Data is a struct containing all room data the server needs to know and distribute.
-//This is the 'source of truth' for every client.
-type Data struct {
-	ID       string
-	SceneID  int
-	Objects  map[string]SceneObject //A Map of all the tokens.
-	IsMaster bool
+import (
+	v1 "github.com/rubenwo/SmartEnergyTable/Server/pkg/api/v1"
+	"sync"
+)
+
+type Action uint
+
+const (
+	ADD Action = iota
+	DELETE
+	MOVE
+)
+
+type Diff struct {
+	Action Action
+	Token  *v1.Token
+}
+
+type Patch struct {
+	RoomID string
+	Tokens []*v1.Token
+
+	SceneID      int
+	Diffs        []Diff
+	UserPosition v1.Vector3
+	IsMaster     bool
+}
+
+type scene struct {
+	id           int
+	tokens       map[string]*v1.Token
+	userPosition v1.Vector3
 }
 
 type Room struct {
-	Data Data
+	Lock   sync.Mutex
+	RoomID string
+
+	changes []Diff
+
+	history []Patch
+
+	scenes       []scene
+	currentScene int
 
 	master  string
-	clients map[string]chan Data //clients are just a map with key:userId and value:callback channel
+	clients map[string]chan Patch //clients are just a map with key:userId and value:callback channel
+}
+
+//Size returns the amount of connected clients in the room.
+func (r *Room) Size() int {
+	return len(r.clients)
 }
 
 //Notify should be called after every altering of the Data struct inside the room.
 func (r *Room) Notify() {
-
-	//Loop over all the clients and send the updated Data concurrently.
-	for key, client := range r.clients {
-		go func(c chan Data) {
-			if key == r.master {
-				r.Data.IsMaster = true
-			} else {
-				r.Data.IsMaster = false
-			}
-			c <- r.Data
-		}(client)
+	r.Lock.Lock()
+	//patch := r.generatePatch()
+	patch := Patch{
+		RoomID:       r.RoomID,
+		SceneID:      r.currentScene,
+		Diffs:        r.changes,
+		UserPosition: r.scenes[r.currentScene].userPosition,
+		IsMaster:     false,
+		Tokens:       make([]*v1.Token, len(r.scenes[r.currentScene].tokens)),
 	}
-}
+	index := 0
+	for _, token := range r.scenes[r.currentScene].tokens {
+		patch.Tokens[index] = token
+		index++
+	}
 
-//Vector3 is a 3-dimensional vector.
-type Vector3 struct {
-	X float32
-	Y float32
-	Z float32
-}
+	r.changes = []Diff{}
 
-//SceneObject has an index which should correspond to the index in the objectLibrary and a position.
-type SceneObject struct {
-	Index    int32
-	Position Vector3
+	r.history = append(r.history, patch)
+	for user, c := range r.clients {
+		patch.IsMaster = user == r.master
+		c <- patch
+	}
+	r.Lock.Unlock()
 }

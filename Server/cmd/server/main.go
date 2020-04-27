@@ -18,15 +18,13 @@ type server struct {
 	manager *room.Manager
 }
 
-//TODO: Add logs for every call. (Abuse & Bug detection)
-
 //CreateRoom is a implementation of the gRPC services interface created by the .proto file.
-func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.Room, error) {
+func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.RoomUser, error) {
 	id := s.manager.CreateRoom()
 
 	log.Println("CreateRoom() => instantiated room:", id)
 
-	return &v1.Room{Id: id}, nil
+	return &v1.RoomUser{Id: id}, nil
 }
 
 //JoinRoom is a implementation of the gRPC services interface created by the .proto file.
@@ -34,40 +32,56 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 
 	log.Println("JoinRoom() => A client:", roomId.UserId, "has joined room:", roomId.Id)
 
-	cb := make(chan room.Data)
-	if err := s.manager.JoinRoom(roomId.Id, roomId.UserId, cb); err != nil {
+	patches := make(chan room.Patch)
+	if err := s.manager.JoinRoom(roomId.Id, roomId.UserId, patches); err != nil {
 		return err
 	}
 
+	//TODO: Create Diff and Patch
 	for {
-		//No select statement as we're only listening from 1 channel. This also insures we never send multiple message concurrently over the same 'stream.Send' channel.
-		data, ok := <-cb // Start listening for the data structs on the callback channel. This is blocking.
+		//No select statement as we're only listening from 1 channel. This also insures we never send multiple message concurrently over the same 'stream' channel.
+		patch, ok := <-patches // Start listening for patches on the callback channel. This is blocking, now we have an event-based update loop.
 		if !ok {
 			break //Break the loop when the channel is closed. This happens when LeaveRoom is called.
 			// We also need to break in order to allow the client to close down. Especially as the Unity Editor will crash if we don't.
 		}
 		start := time.Now() //Timer for debugging
-		objs := make([]*v1.Token, len(data.Objects))
 
-		//Copy SceneObjects to protocol 'Token' message.
-		index := 0
-		for key, objData := range data.Objects {
-			objs[index] = &v1.Token{
-				ObjectIndex: objData.Index,
-				ObjectId:    key,
-				Position: &v1.Vector3{
-					X: objData.Position.X,
-					Y: objData.Position.X,
-					Z: objData.Position.Z,
-				},
+		//Copy the diffs from our internal architecture to the protocol messages.
+		diffs := make([]*v1.Diff, len(patch.Diffs))
+		for i, diff := range patch.Diffs {
+
+			diffs[i] = &v1.Diff{
+				Action: 0,
+				Token:  diff.Token,
 			}
-			index++
+
+			switch diff.Action {
+			case room.MOVE:
+				diffs[i].Action = v1.Diff_MOVE
+				break
+			case room.ADD:
+				diffs[i].Action = v1.Diff_ADD
+				break
+			case room.DELETE:
+				diffs[i].Action = v1.Diff_DELETE
+				break
+			}
 		}
+
 		//Finally send the update message to the client
-		if err := stream.Send(&v1.Update{Id: data.ID, Room: &v1.Room{Id: data.ID, SceneId: int32(data.SceneID), Objects: objs}, IsMaster: data.IsMaster}); err != nil {
+		if err := stream.Send(&v1.Patch{
+			RoomId:       patch.RoomID,
+			SceneId:      int32(patch.SceneID),
+			UserPosition: &patch.UserPosition,
+			IsMaster:     patch.IsMaster,
+			Diffs:        diffs,
+			Objects:      patch.Tokens,
+		}); err != nil {
+			log.Println(err)
 			return err
 		}
-		log.Println("JoinRoom() => Update took:", time.Since(start).Microseconds(), "microseconds to client", roomId.UserId, ".")
+		log.Println("JoinRoom() => Update took:", time.Since(start).Microseconds(), "microseconds to client", roomId.UserId)
 
 	}
 	log.Println("JoinRoom() => Connection to client:", roomId.UserId, "closed.")
@@ -75,11 +89,13 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 }
 
 //SaveRoom is a implementation of the gRPC services interface created by the .proto file.
-func (s *server) SaveRoom(ctx context.Context, room *v1.Room) (*v1.Empty, error) {
-	//TODO: Implement saving the room
+func (s *server) SaveRoom(ctx context.Context, room *v1.RoomUser) (*v1.Empty, error) {
+	if err := s.manager.SaveRoom(room.Id); err != nil {
+		return &v1.Empty{}, fmt.Errorf("error occurred when saving room: %s error: %w", room.Id, err)
+	}
 
 	log.Println("SaveRoom() => Room:", room.Id, " is saved to the database.", "by:")
-	panic("implement me")
+	return &v1.Empty{}, nil
 }
 
 //AddToken is a implementation of the gRPC services interface created by the .proto file.
@@ -114,7 +130,7 @@ func (s *server) MoveToken(ctx context.Context, Token *v1.Token) (*v1.Empty, err
 
 //ChangeScene is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, error) {
-	if err := s.manager.ChangeScene(scene.RoomUser.Id, scene.RoomUser.UserId, int(scene.SceneId), nil); err != nil {
+	if err := s.manager.ChangeScene(scene.RoomUser.Id, scene.RoomUser.UserId, int(scene.SceneId)); err != nil {
 		return &v1.Empty{}, err
 	}
 	log.Println("ChangeScene() => Scene in room:", scene.RoomUser.Id, "has been changed to:", scene.SceneId, "by:", scene.RoomUser.UserId)
@@ -123,9 +139,11 @@ func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, e
 
 //MoveUsers is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) MoveUsers(ctx context.Context, position *v1.UserPosition) (*v1.Empty, error) {
-	//TODO: Implement moving users in RoomManager
+	if err := s.manager.MoveUsers(position.RoomUser.Id, position.RoomUser.UserId, *position.NewPosition); err != nil {
+		return &v1.Empty{}, err
+	}
 	log.Println("MoveUsers() => Users in room:", position.RoomUser.Id, "have been moved to:", position.NewPosition, "by:", position.RoomUser.UserId)
-	panic("implement me")
+	return &v1.Empty{}, nil
 }
 
 //LeaveRoom is a implementation of the gRPC services interface created by the .proto file.

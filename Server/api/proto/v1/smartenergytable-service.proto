@@ -10,20 +10,14 @@ message Token {
     int32 object_index = 2;
     Vector3 position = 3;
     string object_id = 4;
+    Vector3 rotation = 5;
+    float scale = 6;
 }
 
-//3D Vector
 message Vector3 {
     float x = 1;
     float y = 2;
     float z = 3;
-}
-
-message Room {
-    string id = 1;
-    repeated Token objects = 2;
-    int32 sceneId = 3;
-    repeated string user_ids = 4;
 }
 
 message RoomUser {
@@ -47,21 +41,33 @@ message Scene {
     int32 sceneId = 2;
 }
 
-message Update {
-    string id = 1;
-    Room room = 2;
-    Vector3 position = 3;
+message Diff {
+    enum Action {
+        ADD = 0;
+        DELETE = 1;
+        MOVE = 2;
+    }
+    Action action = 1;
+    Token token = 2;
+}
+
+message Patch {
+    string room_id = 1;
+    int32 scene_id = 2;
+    Vector3 user_position = 3;
     bool is_master = 4;
+    repeated Diff diffs = 5;
+    repeated Token objects = 6;
 }
 
 service SmartEnergyTableService {
-    rpc CreateRoom (Empty) returns (Room) {
+    rpc CreateRoom (Empty) returns (RoomUser) {
     }
 
-    rpc JoinRoom (RoomUser) returns (stream Update) {
+    rpc JoinRoom (RoomUser) returns (stream Patch) {
     }
 
-    rpc SaveRoom (Room) returns (Empty) {
+    rpc SaveRoom (RoomUser) returns (Empty) {
     }
 
     rpc AddToken (Token) returns (Empty) {
