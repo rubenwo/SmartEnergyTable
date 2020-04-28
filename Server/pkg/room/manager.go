@@ -168,7 +168,12 @@ func (m *Manager) ChangeScene(id string, user string, sceneId int) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-
+	if sceneId > len(room.scenes)-1 {
+		size := len(room.scenes) - 1
+		for i := 0; i < sceneId-size; i++ {
+			room.scenes = append(room.scenes, scene{id: i + size + 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}})
+		}
+	}
 	room.currentScene = sceneId
 
 	return nil

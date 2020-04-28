@@ -37,7 +37,6 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 		return err
 	}
 
-	//TODO: Create Diff and Patch
 	for {
 		//No select statement as we're only listening from 1 channel. This also insures we never send multiple message concurrently over the same 'stream' channel.
 		patch, ok := <-patches // Start listening for patches on the callback channel. This is blocking, now we have an event-based update loop.
