@@ -1,6 +1,7 @@
 package room
 
 import (
+	"encoding/json"
 	v1 "github.com/rubenwo/SmartEnergyTable/Server/pkg/api/v1"
 	"sync"
 )
@@ -80,4 +81,15 @@ func (r *Room) Notify() {
 		c <- patch
 	}
 	r.Lock.Unlock()
+}
+
+func (r *Room) MarshalBinary() ([]byte, error) {
+	return json.Marshal(r)
+}
+
+func (r *Room) UnmarshalBinary(data []byte) error {
+	if err := json.Unmarshal(data, &r); err != nil {
+		return err
+	}
+	return nil
 }

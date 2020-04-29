@@ -17,7 +17,7 @@ type Manager struct {
 //NewManager creates a manager object and instantiates a connection to the backend database.
 //The function returns nil if an error occurred with the database creation.
 func NewManager() (*Manager, error) {
-	db, err := database.Factory("jsonDB")
+	db, err := database.Factory("redis")
 	if err != nil {
 		return nil, err
 	}

@@ -90,6 +90,7 @@ public sealed class NetworkManager : MonoBehaviour
 
     //IsMaster can be used in UI elements to show a "master" only view.
     public bool IsMaster => _master;
+    public string SessionID => _roomId;
 
     #region RPCs
 

@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using ZXing;
+using ZXing.QrCode;
 
 namespace UI
 {
@@ -22,12 +22,19 @@ namespace UI
 
         #endregion
 
-        #region MyRegion
+        #region TokenSelection
 
         public GameObject tokenSelectionPanel;
         public Button cubeButton;
         public Button sphereButton;
         public Button capsuleButton;
+
+        #endregion
+
+        #region QRCode
+
+        public GameObject qrCodePanel;
+        private bool _showQrCode;
 
         #endregion
 
@@ -43,7 +50,7 @@ namespace UI
                 gameObject.SetActive(false);
             }
 
-            addTokenButton.onClick.AddListener(() => { tokenSelectionPanel.SetActive(true); });
+            addTokenButton.onClick.AddListener(() => tokenSelectionPanel.SetActive(true));
 
             cubeButton.onClick.AddListener(() =>
             {
@@ -81,11 +88,40 @@ namespace UI
 
             saveSessionButton.onClick.AddListener(() => { _networkManager.SaveRoom(); });
             leaveSessionButton.onClick.AddListener(() => { _networkManager.LeaveRoom(); });
-            shareSessionButton.onClick.AddListener(() => { Debug.Log("Share Session"); });
+            shareSessionButton.onClick.AddListener(() =>
+            {
+                _showQrCode = !_showQrCode;
+                qrCodePanel.SetActive(_showQrCode);
+                qrCodePanel.GetComponent<RawImage>().texture = GenerateQrCode(_networkManager.SessionID);
+            });
             stopSessionButton.onClick.AddListener(() => { Debug.Log("Stop Session"); });
             clearButton.onClick.AddListener(() => { _networkManager.ClearScene(); });
             moveUsersButton.onClick.AddListener(() => { Debug.Log("Move"); });
             changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
+        }
+
+        private static Color32[] Encode(string textForEncoding,
+            int width, int height)
+        {
+            var writer = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new QrCodeEncodingOptions
+                {
+                    Height = height,
+                    Width = width
+                }
+            };
+            return writer.Write(textForEncoding);
+        }
+
+        private Texture2D GenerateQrCode(string text)
+        {
+            var encoded = new Texture2D(256, 256);
+            var color32 = Encode(text, encoded.width, encoded.height);
+            encoded.SetPixels32(color32);
+            encoded.Apply();
+            return encoded;
         }
     }
 }
