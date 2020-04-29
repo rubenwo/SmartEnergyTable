@@ -68,6 +68,21 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 			}
 		}
 
+		history := make([]*v1.Diff, len(patch.History))
+		for i, diff := range patch.History {
+			history[i] = &v1.Diff{
+				Action: 0,
+				Token:  diff.Token,
+			}
+			switch diff.Action {
+			case room.ADD:
+				history[i].Action = v1.Diff_ADD
+				break
+			default:
+				log.Println("JoinRoom() => ERROR: cleaning of the history didn't work correctly, there was a:", diff.Action, "left")
+			}
+		}
+
 		//Finally send the update message to the client
 		if err := stream.Send(&v1.Patch{
 			RoomId:       patch.RoomID,
@@ -75,7 +90,7 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 			UserPosition: &patch.UserPosition,
 			IsMaster:     patch.IsMaster,
 			Diffs:        diffs,
-			Objects:      patch.Tokens,
+			History:      history,
 		}); err != nil {
 			log.Println(err)
 			return err

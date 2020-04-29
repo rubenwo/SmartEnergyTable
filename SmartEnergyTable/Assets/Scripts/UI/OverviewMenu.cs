@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
@@ -50,7 +51,19 @@ namespace UI
                 gameObject.SetActive(false);
             }
 
-            addTokenButton.onClick.AddListener(() => tokenSelectionPanel.SetActive(true));
+            addTokenButton.onClick.AddListener(() =>
+            {
+//                Task.Run(() =>
+//                {
+//                    for (int i = 0; i < 1000; i++)
+//                    {
+//                        var r = new System.Random();
+//                        _networkManager.AddToken("Cube",
+//                            new UnityEngine.Vector3(r.Next(-5, 5), r.Next(-5, 5), r.Next(0, 5)));
+//                    }
+//                });
+                tokenSelectionPanel.SetActive(true);
+            });
 
             cubeButton.onClick.AddListener(() =>
             {

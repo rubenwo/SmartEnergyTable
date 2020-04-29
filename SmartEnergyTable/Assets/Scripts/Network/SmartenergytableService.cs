@@ -35,18 +35,18 @@ public static partial class SmartenergytableServiceReflection {
           "IAEoCzIJLlJvb21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiZAoERGlmZhIcCgZh",
           "Y3Rpb24YASABKA4yDC5EaWZmLkFjdGlvbhIVCgV0b2tlbhgCIAEoCzIGLlRv",
           "a2VuIicKBkFjdGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIi",
-          "jQEKBVBhdGNoEg8KB3Jvb21faWQYASABKAkSEAoIc2NlbmVfaWQYAiABKAUS",
+          "jAEKBVBhdGNoEg8KB3Jvb21faWQYASABKAkSEAoIc2NlbmVfaWQYAiABKAUS",
           "HwoNdXNlcl9wb3NpdGlvbhgDIAEoCzIILlZlY3RvcjMSEQoJaXNfbWFzdGVy",
-          "GAQgASgIEhQKBWRpZmZzGAUgAygLMgUuRGlmZhIXCgdvYmplY3RzGAYgAygL",
-          "MgYuVG9rZW4y8AIKF1NtYXJ0RW5lcmd5VGFibGVTZXJ2aWNlEiEKCkNyZWF0",
-          "ZVJvb20SBi5FbXB0eRoJLlJvb21Vc2VyIgASIQoISm9pblJvb20SCS5Sb29t",
-          "VXNlchoGLlBhdGNoIgAwARIfCghTYXZlUm9vbRIJLlJvb21Vc2VyGgYuRW1w",
-          "dHkiABIcCghBZGRUb2tlbhIGLlRva2VuGgYuRW1wdHkiABIfCgtSZW1vdmVU",
-          "b2tlbhIGLlRva2VuGgYuRW1wdHkiABIdCglNb3ZlVG9rZW4SBi5Ub2tlbhoG",
-          "LkVtcHR5IgASHwoLQ2hhbmdlU2NlbmUSBi5TY2VuZRoGLkVtcHR5IgASJAoJ",
-          "TW92ZVVzZXJzEg0uVXNlclBvc2l0aW9uGgYuRW1wdHkiABIgCglMZWF2ZVJv",
-          "b20SCS5Sb29tVXNlchoGLkVtcHR5IgASJwoMQ2hhbmdlTWFzdGVyEg0uTWFz",
-          "dGVyU3dpdGNoGgYuRW1wdHkiAEIMWgpwa2cvYXBpL3YxYgZwcm90bzM="));
+          "GAQgASgIEhQKBWRpZmZzGAUgAygLMgUuRGlmZhIWCgdoaXN0b3J5GAcgAygL",
+          "MgUuRGlmZjLwAgoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3JlYXRl",
+          "Um9vbRIGLkVtcHR5GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJvb21V",
+          "c2VyGgYuUGF0Y2giADABEh8KCFNhdmVSb29tEgkuUm9vbVVzZXIaBi5FbXB0",
+          "eSIAEhwKCEFkZFRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8KC1JlbW92ZVRv",
+          "a2VuEgYuVG9rZW4aBi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIGLlRva2VuGgYu",
+          "RW1wdHkiABIfCgtDaGFuZ2VTY2VuZRIGLlNjZW5lGgYuRW1wdHkiABIkCglN",
+          "b3ZlVXNlcnMSDS5Vc2VyUG9zaXRpb24aBi5FbXB0eSIAEiAKCUxlYXZlUm9v",
+          "bRIJLlJvb21Vc2VyGgYuRW1wdHkiABInCgxDaGFuZ2VNYXN0ZXISDS5NYXN0",
+          "ZXJTd2l0Y2gaBi5FbXB0eSIAQgxaCnBrZy9hcGkvdjFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,7 +58,7 @@ public static partial class SmartenergytableServiceReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::MasterSwitch), global::MasterSwitch.Parser, new[]{ "Id", "MasterId", "NewMasterId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Scene), global::Scene.Parser, new[]{ "RoomUser", "SceneId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Diff), global::Diff.Parser, new[]{ "Action", "Token" }, null, new[]{ typeof(global::Diff.Types.Action) }, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "Objects" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "History" }, null, null, null)
         }));
   }
   #endregion
@@ -1518,7 +1518,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     userPosition_ = other.userPosition_ != null ? other.userPosition_.Clone() : null;
     isMaster_ = other.isMaster_;
     diffs_ = other.diffs_.Clone();
-    objects_ = other.objects_.Clone();
+    history_ = other.history_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1581,14 +1581,14 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     get { return diffs_; }
   }
 
-  /// <summary>Field number for the "objects" field.</summary>
-  public const int ObjectsFieldNumber = 6;
-  private static readonly pb::FieldCodec<global::Token> _repeated_objects_codec
-      = pb::FieldCodec.ForMessage(50, global::Token.Parser);
-  private readonly pbc::RepeatedField<global::Token> objects_ = new pbc::RepeatedField<global::Token>();
+  /// <summary>Field number for the "history" field.</summary>
+  public const int HistoryFieldNumber = 7;
+  private static readonly pb::FieldCodec<global::Diff> _repeated_history_codec
+      = pb::FieldCodec.ForMessage(58, global::Diff.Parser);
+  private readonly pbc::RepeatedField<global::Diff> history_ = new pbc::RepeatedField<global::Diff>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public pbc::RepeatedField<global::Token> Objects {
-    get { return objects_; }
+  public pbc::RepeatedField<global::Diff> History {
+    get { return history_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1609,7 +1609,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     if (!object.Equals(UserPosition, other.UserPosition)) return false;
     if (IsMaster != other.IsMaster) return false;
     if(!diffs_.Equals(other.diffs_)) return false;
-    if(!objects_.Equals(other.objects_)) return false;
+    if(!history_.Equals(other.history_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1621,7 +1621,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     if (userPosition_ != null) hash ^= UserPosition.GetHashCode();
     if (IsMaster != false) hash ^= IsMaster.GetHashCode();
     hash ^= diffs_.GetHashCode();
-    hash ^= objects_.GetHashCode();
+    hash ^= history_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1652,7 +1652,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
       output.WriteBool(IsMaster);
     }
     diffs_.WriteTo(output, _repeated_diffs_codec);
-    objects_.WriteTo(output, _repeated_objects_codec);
+    history_.WriteTo(output, _repeated_history_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1674,7 +1674,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
       size += 1 + 1;
     }
     size += diffs_.CalculateSize(_repeated_diffs_codec);
-    size += objects_.CalculateSize(_repeated_objects_codec);
+    size += history_.CalculateSize(_repeated_history_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1702,7 +1702,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
       IsMaster = other.IsMaster;
     }
     diffs_.Add(other.diffs_);
-    objects_.Add(other.objects_);
+    history_.Add(other.history_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1737,8 +1737,8 @@ public sealed partial class Patch : pb::IMessage<Patch> {
           diffs_.AddEntriesFrom(input, _repeated_diffs_codec);
           break;
         }
-        case 50: {
-          objects_.AddEntriesFrom(input, _repeated_objects_codec);
+        case 58: {
+          history_.AddEntriesFrom(input, _repeated_history_codec);
           break;
         }
       }
