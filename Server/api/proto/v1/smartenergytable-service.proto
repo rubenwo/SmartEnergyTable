@@ -79,6 +79,9 @@ service SmartEnergyTableService {
     rpc MoveToken (Token) returns (Empty) {
     }
 
+    rpc ClearRoom (RoomUser) returns (Empty) {
+    }
+
     rpc ChangeScene (Scene) returns (Empty) {
     }
 

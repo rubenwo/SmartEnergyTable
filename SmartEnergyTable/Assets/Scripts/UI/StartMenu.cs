@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UI;
 using ZXing;
-using ZXing.QrCode;
 
 namespace UI
 {

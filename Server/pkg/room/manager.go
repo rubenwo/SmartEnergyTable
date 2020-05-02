@@ -156,6 +156,34 @@ func (m *Manager) MoveToken(id string, user string, object *v1.Token) error {
 	return nil
 }
 
+//ClearRoom creates a list of diffs to clear every token from the room
+//id is the room ID and user is the user ID. if the room is not found, an error is returned. If the user is not the master
+//of the room that will also result in an error.
+func (m *Manager) ClearRoom(id string, user string) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+	room.Lock.Lock()
+	defer room.Notify()
+	defer room.Lock.Unlock()
+
+	if room.master != user {
+		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
+	}
+
+	s := room.scenes[room.currentScene]
+	for _, token := range s.tokens {
+		room.changes = append(room.changes, Diff{
+			Action: DELETE,
+			Token:  token,
+		})
+	}
+	room.scenes[room.currentScene] = scene{id: s.id, tokens: map[string]*v1.Token{}, userPosition: s.userPosition}
+
+	return nil
+}
+
 //ChangeScene changes the scene from the room after checking that the user is the master.
 //Finally notifying all the clients in the room as there has been a change.
 func (m *Manager) ChangeScene(id string, user string, sceneId int) error {

@@ -113,6 +113,12 @@ namespace UI
             changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
         }
 
+        /*
+         * Encode is a function that returns a Color32[] containing the data for the QR code.
+         * @param textForEncoding: is a string containing the text that needs to be encoded to a QR Code.
+         * @param width: integer for the width of the texture.
+         * @param height: integer for the height of the texture.
+         */
         private static Color32[] Encode(string textForEncoding,
             int width, int height)
         {
@@ -128,7 +134,11 @@ namespace UI
             return writer.Write(textForEncoding);
         }
 
-        private Texture2D GenerateQrCode(string text)
+        /*
+         * GenerateQrCode is a function to create a Texture2D as a QR code from a string.
+         * @param text: the string that is to be encoded to a QR Code.
+         */
+        private static Texture2D GenerateQrCode(string text)
         {
             var encoded = new Texture2D(256, 256);
             var color32 = Encode(text, encoded.width, encoded.height);

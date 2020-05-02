@@ -61,6 +61,13 @@ public static partial class SmartEnergyTableService
       __Marshaller_Token,
       __Marshaller_Empty);
 
+  static readonly grpc::Method<global::RoomUser, global::Empty> __Method_ClearRoom = new grpc::Method<global::RoomUser, global::Empty>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "ClearRoom",
+      __Marshaller_RoomUser,
+      __Marshaller_Empty);
+
   static readonly grpc::Method<global::Scene, global::Empty> __Method_ChangeScene = new grpc::Method<global::Scene, global::Empty>(
       grpc::MethodType.Unary,
       __ServiceName,
@@ -125,6 +132,11 @@ public static partial class SmartEnergyTableService
     }
 
     public virtual global::System.Threading.Tasks.Task<global::Empty> MoveToken(global::Token request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    public virtual global::System.Threading.Tasks.Task<global::Empty> ClearRoom(global::RoomUser request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -262,6 +274,22 @@ public static partial class SmartEnergyTableService
     {
       return CallInvoker.AsyncUnaryCall(__Method_MoveToken, null, options, request);
     }
+    public virtual global::Empty ClearRoom(global::RoomUser request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return ClearRoom(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    public virtual global::Empty ClearRoom(global::RoomUser request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_ClearRoom, null, options, request);
+    }
+    public virtual grpc::AsyncUnaryCall<global::Empty> ClearRoomAsync(global::RoomUser request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return ClearRoomAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    public virtual grpc::AsyncUnaryCall<global::Empty> ClearRoomAsync(global::RoomUser request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_ClearRoom, null, options, request);
+    }
     public virtual global::Empty ChangeScene(global::Scene request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
       return ChangeScene(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -344,6 +372,7 @@ public static partial class SmartEnergyTableService
         .AddMethod(__Method_AddToken, serviceImpl.AddToken)
         .AddMethod(__Method_RemoveToken, serviceImpl.RemoveToken)
         .AddMethod(__Method_MoveToken, serviceImpl.MoveToken)
+        .AddMethod(__Method_ClearRoom, serviceImpl.ClearRoom)
         .AddMethod(__Method_ChangeScene, serviceImpl.ChangeScene)
         .AddMethod(__Method_MoveUsers, serviceImpl.MoveUsers)
         .AddMethod(__Method_LeaveRoom, serviceImpl.LeaveRoom)
@@ -362,6 +391,7 @@ public static partial class SmartEnergyTableService
     serviceBinder.AddMethod(__Method_AddToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Token, global::Empty>(serviceImpl.AddToken));
     serviceBinder.AddMethod(__Method_RemoveToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Token, global::Empty>(serviceImpl.RemoveToken));
     serviceBinder.AddMethod(__Method_MoveToken, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Token, global::Empty>(serviceImpl.MoveToken));
+    serviceBinder.AddMethod(__Method_ClearRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RoomUser, global::Empty>(serviceImpl.ClearRoom));
     serviceBinder.AddMethod(__Method_ChangeScene, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Scene, global::Empty>(serviceImpl.ChangeScene));
     serviceBinder.AddMethod(__Method_MoveUsers, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::UserPosition, global::Empty>(serviceImpl.MoveUsers));
     serviceBinder.AddMethod(__Method_LeaveRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RoomUser, global::Empty>(serviceImpl.LeaveRoom));

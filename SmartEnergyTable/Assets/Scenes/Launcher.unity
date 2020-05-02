@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493565abcae929a45bd7671cb4f4183a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverAddr: 192.168.2.14:8080
+  serverAddr: smartenergytable.rubenwoldhuis.nl:8080
   objectLibrary:
   - {fileID: 1399436938488828656, guid: a09693dfa5df20845998aa14b5ae7b14, type: 3}
   - {fileID: 2126366655232554057, guid: eb988ec34126a9d4286340a445c87ea9, type: 3}

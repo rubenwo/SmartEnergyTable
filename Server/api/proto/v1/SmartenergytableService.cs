@@ -38,15 +38,16 @@ public static partial class SmartenergytableServiceReflection {
           "jAEKBVBhdGNoEg8KB3Jvb21faWQYASABKAkSEAoIc2NlbmVfaWQYAiABKAUS",
           "HwoNdXNlcl9wb3NpdGlvbhgDIAEoCzIILlZlY3RvcjMSEQoJaXNfbWFzdGVy",
           "GAQgASgIEhQKBWRpZmZzGAUgAygLMgUuRGlmZhIWCgdoaXN0b3J5GAcgAygL",
-          "MgUuRGlmZjLwAgoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3JlYXRl",
+          "MgUuRGlmZjKSAwoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3JlYXRl",
           "Um9vbRIGLkVtcHR5GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJvb21V",
           "c2VyGgYuUGF0Y2giADABEh8KCFNhdmVSb29tEgkuUm9vbVVzZXIaBi5FbXB0",
           "eSIAEhwKCEFkZFRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8KC1JlbW92ZVRv",
           "a2VuEgYuVG9rZW4aBi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIGLlRva2VuGgYu",
-          "RW1wdHkiABIfCgtDaGFuZ2VTY2VuZRIGLlNjZW5lGgYuRW1wdHkiABIkCglN",
-          "b3ZlVXNlcnMSDS5Vc2VyUG9zaXRpb24aBi5FbXB0eSIAEiAKCUxlYXZlUm9v",
-          "bRIJLlJvb21Vc2VyGgYuRW1wdHkiABInCgxDaGFuZ2VNYXN0ZXISDS5NYXN0",
-          "ZXJTd2l0Y2gaBi5FbXB0eSIAQgxaCnBrZy9hcGkvdjFiBnByb3RvMw=="));
+          "RW1wdHkiABIgCglDbGVhclJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgASHwoL",
+          "Q2hhbmdlU2NlbmUSBi5TY2VuZRoGLkVtcHR5IgASJAoJTW92ZVVzZXJzEg0u",
+          "VXNlclBvc2l0aW9uGgYuRW1wdHkiABIgCglMZWF2ZVJvb20SCS5Sb29tVXNl",
+          "choGLkVtcHR5IgASJwoMQ2hhbmdlTWFzdGVyEg0uTWFzdGVyU3dpdGNoGgYu",
+          "RW1wdHkiAEIMWgpwa2cvYXBpL3YxYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

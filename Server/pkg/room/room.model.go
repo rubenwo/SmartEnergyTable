@@ -36,7 +36,8 @@ type scene struct {
 }
 
 type Room struct {
-	Lock   sync.Mutex
+	Lock sync.Mutex //Since gRPC call might be made concurrently we need to acquire a lock on the room object to avoid
+	//data races.
 	RoomID string
 
 	changes []Diff //This is a slice of the pending changes.

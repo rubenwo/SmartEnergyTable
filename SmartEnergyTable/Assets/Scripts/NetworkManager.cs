@@ -201,7 +201,7 @@ public sealed class NetworkManager : MonoBehaviour
                 {
                     _actionQueue.Enqueue(() =>
                     {
-                        _master = patch.IsMaster; // This is true if the master switched.
+                        _master = patch.IsMaster;
 
                         //Load the scene if it is not the currentScene, meaning the scene has changed.
                         if (patch.SceneId != SceneManager.GetActiveScene().buildIndex)
@@ -312,16 +312,13 @@ public sealed class NetworkManager : MonoBehaviour
 
     public void ClearScene()
     {
-        var uuids = new List<string>();
-        foreach (var currentSceneKey in _currentScene.Keys)
-        {
-            uuids.Add(currentSceneKey);
-        }
+//        var uuids = _currentScene.Keys;
+//        foreach (var uuid in uuids)
+//        {
+//            _client.RemoveToken(_roomId, _userId, uuid);
+//        }
 
-        foreach (var uuid in uuids)
-        {
-            _client.RemoveToken(_roomId, _userId, uuid);
-        }
+        _client.ClearRoom(_roomId, _userId);
     }
 
     /*
