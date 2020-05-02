@@ -36,7 +36,6 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 	if err := s.manager.JoinRoom(roomId.Id, roomId.UserId, patches); err != nil {
 		return err
 	}
-
 	for {
 		//No select statement as we're only listening from 1 channel. This also insures we never send multiple message concurrently over the same 'stream' channel.
 		patch, ok := <-patches // Start listening for patches on the callback channel. This is blocking, now we have an event-based update loop.
@@ -68,7 +67,9 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 			}
 		}
 
-		history := make([]*v1.Diff, len(patch.History))
+		var history []*v1.Diff
+
+		history = make([]*v1.Diff, len(patch.History)) //make instead of append for marginal performance benefits. ('make' allocates once)
 		for i, diff := range patch.History {
 			history[i] = &v1.Diff{
 				Action: 0,
@@ -96,7 +97,6 @@ func (s *server) JoinRoom(roomId *v1.RoomUser, stream v1.SmartEnergyTableService
 			return err
 		}
 		log.Println("JoinRoom() => Update took:", time.Since(start).Microseconds(), "microseconds to client", roomId.UserId)
-
 	}
 	log.Println("JoinRoom() => Connection to client:", roomId.UserId, "closed.")
 	return nil
