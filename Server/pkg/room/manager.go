@@ -37,9 +37,10 @@ func (m *Manager) CreateRoom() (id string) {
 		scenes: []scene{
 			{id: 0, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}},
 			{id: 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}}},
-		currentScene: 1,
-		master:       "",
-		clients:      map[string]chan Patch{},
+		currentScene:       1,
+		master:             "",
+		clients:            map[string]chan Patch{},
+		clientsNeedHistory: map[string]bool{},
 	}
 	return id
 }
@@ -70,6 +71,7 @@ func (m *Manager) JoinRoom(id string, user string, callback chan Patch) error {
 		log.Println("JoinRoom() => Client join")
 	}
 	room.clients[user] = callback
+	room.clientsNeedHistory[user] = true
 
 	return nil
 }

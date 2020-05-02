@@ -47,8 +47,9 @@ type Room struct {
 	scenes       []scene
 	currentScene int
 
-	master  string
-	clients map[string]chan Patch //clients are just a map with key:userId and value:callback channel
+	master             string
+	clients            map[string]chan Patch //clients are just a map with key:userId and value:callback channel
+	clientsNeedHistory map[string]bool       //if a client needs the history for any reason, this will keep track of those clients.
 }
 
 //Size returns the amount of connected clients in the room.
@@ -60,36 +61,33 @@ func (r *Room) Size() int {
 func (r *Room) Notify() {
 	r.Lock.Lock()
 
-	//patch := r.generatePatch()
 	patch := Patch{
 		RoomID:       r.RoomID,
 		SceneID:      r.currentScene,
 		Diffs:        r.changes,
 		UserPosition: r.scenes[r.currentScene].userPosition,
 		IsMaster:     false,
-		History:      r.history, //This history should be clean
-	}
-	if len(patch.History) == 0 { //The patch history is empty when a master just joined.
-		patch.History = append(r.history, r.changes...)
+		History:      []Diff{},
 	}
 
 	r.history = append(r.history, r.changes...) //Append the now processed changes to the history.
 	r.changes = []Diff{}                        //Clear the pending changes
-	r.Lock.Unlock()
-	go r.gcHistory() //Run a garbage collection on the history slice concurrently.
+	r.gcHistory()                               //Garbage collect the history. We don't need move/delete in the history
 
 	for user, c := range r.clients {
 		patch.IsMaster = user == r.master
+		if r.clientsNeedHistory[user] {
+			patch.History = r.history //Only send the complete history when a client needs it.
+		}
 		c <- patch //Push the patch to the client
+		r.clientsNeedHistory[user] = false
 	}
-
 }
 
 //gcHistory can be used to reduce the size of the history slice in the room by performing the 'Action' operations from a
 //Diff. First adding only the non-deleted diffs to the history, then setting the positions of those diffs if they have
 //been moved. This results in a slice where only 'ADD' actions remain.
 func (r *Room) gcHistory() {
-	r.Lock.Lock()
 
 	var add []Diff
 	var move []Diff
@@ -133,6 +131,13 @@ func (r *Room) gcHistory() {
 					diff.Token.Rotation = d.Token.Rotation
 				}
 			}
+		}
+	}
+
+	//If the history is smaller or equal to one we want to send the history on the next update.
+	if len(r.history) <= 1 {
+		for s, _ := range r.clientsNeedHistory {
+			r.clientsNeedHistory[s] = true
 		}
 	}
 

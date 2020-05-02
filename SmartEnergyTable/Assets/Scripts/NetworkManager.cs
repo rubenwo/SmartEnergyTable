@@ -240,6 +240,8 @@ public sealed class NetworkManager : MonoBehaviour
                         {
                             _uuidLookUp.Add(keyValuePair.Value, keyValuePair.Key);
                         }
+
+                        Debug.Log(_currentScene.Count);
                     });
                 }
             });
