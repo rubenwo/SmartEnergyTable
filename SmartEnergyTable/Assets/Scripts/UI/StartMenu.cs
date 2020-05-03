@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Network;
+using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UI;
 using ZXing;

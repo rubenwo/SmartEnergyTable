@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Network;
 using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
@@ -89,13 +89,11 @@ namespace UI
             removeTokenButton.onClick.AddListener(() =>
             {
                 //TODO: Implement remove token button.
-                //_networkManager.RemoveToken();
                 Debug.Log("Remove Token");
             });
             moveTokenButton.onClick.AddListener(() =>
             {
                 //TODO: Implement Move token button
-                //_networkManager.MoveToken();
                 Debug.Log("Move Token");
             });
 
@@ -105,12 +103,32 @@ namespace UI
             {
                 _showQrCode = !_showQrCode;
                 qrCodePanel.SetActive(_showQrCode);
-                qrCodePanel.GetComponent<RawImage>().texture = GenerateQrCode(_networkManager.SessionID);
+                if (_showQrCode)
+                    qrCodePanel.GetComponent<RawImage>().texture = GenerateQrCode(_networkManager.SessionID);
             });
-            stopSessionButton.onClick.AddListener(() => { Debug.Log("Stop Session"); });
+            stopSessionButton.onClick.AddListener(() =>
+            {
+                _networkManager.SaveRoom();
+                _networkManager.LeaveRoom();
+            });
             clearButton.onClick.AddListener(() => { _networkManager.ClearScene(); });
             moveUsersButton.onClick.AddListener(() => { Debug.Log("Move"); });
             changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
+        }
+
+
+        private void Update()
+        {
+            if (!_networkManager.IsMaster || tokenSelectionPanel.activeSelf)
+                return;
+            if (!Input.GetMouseButtonDown(0))
+                return;
+            if (Camera.main == null)
+                return;
+
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hit, 100.0f))
+                _networkManager.RemoveToken(hit.transform.gameObject);
         }
 
         /*
