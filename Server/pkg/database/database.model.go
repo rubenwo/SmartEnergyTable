@@ -14,7 +14,7 @@ type Database interface {
 }
 
 //Factory is a factory function that creates a database based on the databaseName param.
-//eg. databaseName == 'redis' creates a Database that uses redis for it's backend.
+//The databaseName must be "redis" or "jsonDB".
 func Factory(databaseName string) (Database, error) {
 	switch databaseName {
 	case "redis":

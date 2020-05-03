@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.com/go-redis/redis"
+	"log"
 	"time"
 )
 
@@ -35,6 +36,8 @@ func createRedisDatabase() (Database, error) {
 
 //Set: Implementation of the database interface
 func (r *redisDB) Set(key string, value interface{}) error {
+	log.Println("(Redis DB): saving data:", value, " for key:", key)
+
 	_, err := r.client.Set(key, value, 0).Result()
 	if err != nil {
 		return err
@@ -44,6 +47,8 @@ func (r *redisDB) Set(key string, value interface{}) error {
 
 //Get: Implementation of the database interface
 func (r *redisDB) Get(key string) (interface{}, error) {
+	log.Println("(Redis DB): retrieving value from key:", key)
+
 	value, err := r.client.Get(key).Result()
 	if err != nil {
 		return nil, err
@@ -54,7 +59,7 @@ func (r *redisDB) Get(key string) (interface{}, error) {
 //Observe: Implementation of database interface
 func (r *redisDB) Observe(key string) (chan interface{}, error) {
 	c := make(chan interface{})
-
+	//TODO: Implement observer pattern so the server becomes stateless
 	go func(channel chan interface{}) {
 		select {}
 	}(c)
@@ -64,6 +69,8 @@ func (r *redisDB) Observe(key string) (chan interface{}, error) {
 
 //Delete: Implementation of the database interface
 func (r *redisDB) Delete(key string) error {
+	log.Println("(Redis DB): deleting value from key:", key)
+
 	_, err := r.client.Del(key).Result()
 	if err != nil {
 		return err

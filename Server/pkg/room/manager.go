@@ -17,7 +17,7 @@ type Manager struct {
 //NewManager creates a manager object and instantiates a connection to the backend database.
 //The function returns nil if an error occurred with the database creation.
 func NewManager() (*Manager, error) {
-	db, err := database.Factory("jsonDB")
+	db, err := database.Factory("redis")
 	if err != nil {
 		return nil, err
 	}
@@ -37,9 +37,10 @@ func (m *Manager) CreateRoom() (id string) {
 		scenes: []scene{
 			{id: 0, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}},
 			{id: 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}}},
-		currentScene: 1,
-		master:       "",
-		clients:      map[string]chan Patch{},
+		currentScene:       1,
+		master:             "",
+		clients:            map[string]chan Patch{},
+		clientsNeedHistory: map[string]bool{},
 	}
 	return id
 }
@@ -70,6 +71,7 @@ func (m *Manager) JoinRoom(id string, user string, callback chan Patch) error {
 		log.Println("JoinRoom() => Client join")
 	}
 	room.clients[user] = callback
+	room.clientsNeedHistory[user] = true
 
 	return nil
 }
@@ -154,6 +156,34 @@ func (m *Manager) MoveToken(id string, user string, object *v1.Token) error {
 	return nil
 }
 
+//ClearRoom creates a list of diffs to clear every token from the room
+//id is the room ID and user is the user ID. if the room is not found, an error is returned. If the user is not the master
+//of the room that will also result in an error.
+func (m *Manager) ClearRoom(id string, user string) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+	room.Lock.Lock()
+	defer room.Notify()
+	defer room.Lock.Unlock()
+
+	if room.master != user {
+		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
+	}
+
+	s := room.scenes[room.currentScene]
+	for _, token := range s.tokens {
+		room.changes = append(room.changes, Diff{
+			Action: DELETE,
+			Token:  token,
+		})
+	}
+	room.scenes[room.currentScene] = scene{id: s.id, tokens: map[string]*v1.Token{}, userPosition: s.userPosition}
+
+	return nil
+}
+
 //ChangeScene changes the scene from the room after checking that the user is the master.
 //Finally notifying all the clients in the room as there has been a change.
 func (m *Manager) ChangeScene(id string, user string, sceneId int) error {
@@ -168,7 +198,12 @@ func (m *Manager) ChangeScene(id string, user string, sceneId int) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-
+	if sceneId > len(room.scenes)-1 {
+		size := len(room.scenes) - 1
+		for i := 0; i < sceneId-size; i++ {
+			room.scenes = append(room.scenes, scene{id: i + size + 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}})
+		}
+	}
 	room.currentScene = sceneId
 
 	return nil

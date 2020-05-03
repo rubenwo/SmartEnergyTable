@@ -57,7 +57,7 @@ message Patch {
     Vector3 user_position = 3;
     bool is_master = 4;
     repeated Diff diffs = 5;
-    repeated Token objects = 6;
+    repeated Diff history = 7;
 }
 
 service SmartEnergyTableService {
@@ -77,6 +77,9 @@ service SmartEnergyTableService {
     }
 
     rpc MoveToken (Token) returns (Empty) {
+    }
+
+    rpc ClearRoom (RoomUser) returns (Empty) {
     }
 
     rpc ChangeScene (Scene) returns (Empty) {

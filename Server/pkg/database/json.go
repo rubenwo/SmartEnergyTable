@@ -26,13 +26,13 @@ func createJsonDb() *jsonDb {
 
 //Set: Implementation of the database interface
 func (jdb *jsonDb) Set(key string, value interface{}) error {
-
+	log.Println("(JSON DB): saving data:", value, " for key:", key)
 	return nil
 }
 
 //Get: Implementation of the database interface
 func (jdb *jsonDb) Get(key string) (interface{}, error) {
-
+	log.Println("(JSON DB): retrieving value from key:", key)
 	return nil, nil
 }
 
@@ -49,6 +49,7 @@ func (jdb *jsonDb) Observe(key string) (chan interface{}, error) {
 
 //Delete: Implementation of the database interface
 func (jdb *jsonDb) Delete(key string) error {
+	log.Println("(JSON DB): deleting value from key:", key)
 
 	return nil
 }
