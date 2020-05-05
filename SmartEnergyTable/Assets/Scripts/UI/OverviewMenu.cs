@@ -39,63 +39,55 @@ namespace UI
 
         #endregion
 
+        private enum State
+        {
+            Idle,
+            PlacingToken,
+            RemovingToken,
+            MovingToken,
+            SelectedTokenForMoving
+        }
+
+        private string _prefab = "Cube";
+
 
         private NetworkManager _networkManager;
+        private State _state = State.Idle;
+        private Camera _camera;
+        private RaycastHit _selectedToken;
 
         private void Start()
         {
             _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+            _camera = Camera.main;
 
-            if (!_networkManager.IsMaster)
-            {
-                gameObject.SetActive(false);
-            }
 
+            _networkManager.ObserveMaster(isMaster => gameObject.SetActive(isMaster));
+            gameObject.SetActive(_networkManager.IsMaster);
+            
             addTokenButton.onClick.AddListener(() =>
             {
-//                Task.Run(() =>
-//                {
-//                    for (int i = 0; i < 1000; i++)
-//                    {
-//                        var r = new System.Random();
-//                        _networkManager.AddToken("Cube",
-//                            new UnityEngine.Vector3(r.Next(-5, 5), r.Next(-5, 5), r.Next(0, 5)));
-//                    }
-//                });
+                _state = State.PlacingToken;
                 tokenSelectionPanel.SetActive(true);
             });
 
             cubeButton.onClick.AddListener(() =>
             {
-                var r = new System.Random();
-                _networkManager.AddToken("Cube",
-                    new UnityEngine.Vector3(r.Next(-5, 5), r.Next(-5, 5), r.Next(0, 5)));
+                _prefab = "Cube";
                 tokenSelectionPanel.SetActive(false);
             });
             sphereButton.onClick.AddListener(() =>
             {
-                var r = new System.Random();
-                _networkManager.AddToken("Sphere",
-                    new UnityEngine.Vector3(r.Next(-5, 5), r.Next(-5, 5), r.Next(0, 5)));
+                _prefab = "Sphere";
                 tokenSelectionPanel.SetActive(false);
             });
             capsuleButton.onClick.AddListener(() =>
             {
-                var r = new System.Random();
-                _networkManager.AddToken("Capsule",
-                    new UnityEngine.Vector3(r.Next(-5, 5), r.Next(-5, 5), r.Next(0, 5)));
+                _prefab = "Capsule";
                 tokenSelectionPanel.SetActive(false);
             });
-            removeTokenButton.onClick.AddListener(() =>
-            {
-                //TODO: Implement remove token button.
-                Debug.Log("Remove Token");
-            });
-            moveTokenButton.onClick.AddListener(() =>
-            {
-                //TODO: Implement Move token button
-                Debug.Log("Move Token");
-            });
+            removeTokenButton.onClick.AddListener(() => { _state = State.RemovingToken; });
+            moveTokenButton.onClick.AddListener(() => { _state = State.MovingToken; });
 
             saveSessionButton.onClick.AddListener(() => { _networkManager.SaveRoom(); });
             leaveSessionButton.onClick.AddListener(() => { _networkManager.LeaveRoom(); });
@@ -123,13 +115,67 @@ namespace UI
                 return;
             if (!Input.GetMouseButtonDown(0))
                 return;
-            if (Camera.main == null)
-                return;
 
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit, 100.0f))
-                _networkManager.RemoveToken(hit.transform.gameObject);
+
+            RaycastHit hit;
+            bool ok;
+            switch (_state)
+            {
+                case State.Idle:
+                    break;
+                case State.PlacingToken:
+                    (hit, ok) = Select();
+                    if (ok)
+                    {
+                        _networkManager.AddToken(_prefab, hit.point);
+                        _state = State.Idle;
+                    }
+
+                    break;
+                case State.RemovingToken:
+                    (hit, ok) = Select();
+                    if (ok)
+                    {
+                        _networkManager.RemoveToken(hit.transform.gameObject);
+                        _state = State.Idle;
+                    }
+
+                    break;
+                case State.MovingToken:
+                    (hit, ok) = Select();
+                    if (ok)
+                    {
+                        _selectedToken = hit;
+                        _state = State.SelectedTokenForMoving;
+                    }
+
+                    break;
+                case State.SelectedTokenForMoving:
+                    (hit, ok) = Select();
+                    if (ok)
+                    {
+                        _networkManager.MoveToken(_selectedToken.transform.gameObject, hit.point);
+                        _state = State.Idle;
+                    }
+
+                    break;
+            }
         }
+
+        private (RaycastHit, bool) Select()
+        {
+            if (Camera.main == null)
+                return (new RaycastHit(), false);
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hit, 100.0f))
+            {
+                return (hit, true);
+            }
+
+            return (new RaycastHit(), false);
+        }
+
+        #region QrEncoder
 
         /*
          * Encode is a function that returns a Color32[] containing the data for the QR code.
@@ -164,5 +210,7 @@ namespace UI
             encoded.Apply();
             return encoded;
         }
+
+        #endregion
     }
 }

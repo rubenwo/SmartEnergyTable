@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Grpc.Core;
 using UnityEngine;
@@ -44,6 +47,8 @@ namespace Network
         ///<summary>_uuidLookUp is the same as the _currentScene dictionary except using GameObjects as value and uuid as key.
         ///When using collision systems like RayCasts this dictionary can be used to (re)move objects in the scene.</summary>
         private readonly Dictionary<GameObject, string> _uuidLookUp = new Dictionary<GameObject, string>();
+
+        private readonly List<Action<bool>> _masterChangeListeners = new List<Action<bool>>();
 
         private void Awake()
         {
@@ -110,6 +115,15 @@ namespace Network
         /// SessionID returns the current room ID.
         /// </summary>
         public string SessionID => _roomId;
+
+        /// <summary>
+        /// ObserveMaster adds the callback action to a list. When a patch changes the master role we update these listeners.
+        /// </summary>
+        /// <param name="callback">Action with bool as param</param>
+        public void ObserveMaster(Action<bool> callback)
+        {
+            _masterChangeListeners.Add(callback);
+        }
 
         #region RPCs
 
@@ -212,11 +226,18 @@ namespace Network
                         _actionQueue.Enqueue(() =>
                         {
                             _master = patch.IsMaster;
-
+                            _masterChangeListeners.ForEach(action =>
+                                action.Invoke(_master)); //Alert the listeners that the master has changed.
                             //Load the scene if it is not the currentScene, meaning the scene has changed.
                             if (patch.SceneId != SceneManager.GetActiveScene().buildIndex)
                             {
-                                StartCoroutine(LoadSceneAsync(patch.SceneId));
+                                //The master should only be able to change between scene 0 and 1 (Launcher and Overview).
+                                //The other clients should be able to change to any scene.
+                                if (!_master)
+                                    StartCoroutine(LoadSceneAsync(patch.SceneId));
+                                else if (!(patch.SceneId > 1))
+                                    StartCoroutine(
+                                        LoadSceneAsync(patch.SceneId));
                             }
 
                             //If the _currentScene is empty we want to process the entire history as this might mean we joined

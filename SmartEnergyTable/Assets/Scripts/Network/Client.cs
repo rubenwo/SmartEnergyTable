@@ -50,7 +50,6 @@ namespace Network
             catch (RpcException e)
             {
                 Debug.Log("RPC failed" + e);
-                throw;
             }
         }
 
