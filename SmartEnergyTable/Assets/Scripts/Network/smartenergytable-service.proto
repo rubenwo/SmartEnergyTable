@@ -51,6 +51,10 @@ message Diff {
     Token token = 2;
 }
 
+message EnergyData {
+    //Data from API?
+}
+
 message Patch {
     string room_id = 1;
     int32 scene_id = 2;
@@ -58,6 +62,7 @@ message Patch {
     bool is_master = 4;
     repeated Diff diffs = 5;
     repeated Diff history = 7;
+    EnergyData energy_data = 8;
 }
 
 service SmartEnergyTableService {

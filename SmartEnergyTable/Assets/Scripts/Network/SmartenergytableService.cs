@@ -35,20 +35,21 @@ public static partial class SmartenergytableServiceReflection {
           "dGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgBIAEoCzIJLlJv",
           "b21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiZAoERGlmZhIcCgZhY3Rpb24YASAB",
           "KA4yDC5EaWZmLkFjdGlvbhIVCgV0b2tlbhgCIAEoCzIGLlRva2VuIicKBkFj",
-          "dGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIilQEKBVBhdGNo",
-          "Eg8KB3Jvb21faWQYASABKAkSEAoIc2NlbmVfaWQYAiABKAUSKAoNdXNlcl9w",
-          "b3NpdGlvbhgDIAEoCzIRLlZlY3RvcjNfUHJvdG9jb2wSEQoJaXNfbWFzdGVy",
-          "GAQgASgIEhQKBWRpZmZzGAUgAygLMgUuRGlmZhIWCgdoaXN0b3J5GAcgAygL",
-          "MgUuRGlmZjKSAwoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3JlYXRl",
-          "Um9vbRIGLkVtcHR5GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJvb21V",
-          "c2VyGgYuUGF0Y2giADABEh8KCFNhdmVSb29tEgkuUm9vbVVzZXIaBi5FbXB0",
-          "eSIAEhwKCEFkZFRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8KC1JlbW92ZVRv",
-          "a2VuEgYuVG9rZW4aBi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIGLlRva2VuGgYu",
-          "RW1wdHkiABIgCglDbGVhclJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgASHwoL",
-          "Q2hhbmdlU2NlbmUSBi5TY2VuZRoGLkVtcHR5IgASJAoJTW92ZVVzZXJzEg0u",
-          "VXNlclBvc2l0aW9uGgYuRW1wdHkiABIgCglMZWF2ZVJvb20SCS5Sb29tVXNl",
-          "choGLkVtcHR5IgASJwoMQ2hhbmdlTWFzdGVyEg0uTWFzdGVyU3dpdGNoGgYu",
-          "RW1wdHkiAEIMWgpwa2cvYXBpL3YxYgZwcm90bzM="));
+          "dGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIiDAoKRW5lcmd5",
+          "RGF0YSK3AQoFUGF0Y2gSDwoHcm9vbV9pZBgBIAEoCRIQCghzY2VuZV9pZBgC",
+          "IAEoBRIoCg11c2VyX3Bvc2l0aW9uGAMgASgLMhEuVmVjdG9yM19Qcm90b2Nv",
+          "bBIRCglpc19tYXN0ZXIYBCABKAgSFAoFZGlmZnMYBSADKAsyBS5EaWZmEhYK",
+          "B2hpc3RvcnkYByADKAsyBS5EaWZmEiAKC2VuZXJneV9kYXRhGAggASgLMgsu",
+          "RW5lcmd5RGF0YTKSAwoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3Jl",
+          "YXRlUm9vbRIGLkVtcHR5GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJv",
+          "b21Vc2VyGgYuUGF0Y2giADABEh8KCFNhdmVSb29tEgkuUm9vbVVzZXIaBi5F",
+          "bXB0eSIAEhwKCEFkZFRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8KC1JlbW92",
+          "ZVRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIGLlRva2Vu",
+          "GgYuRW1wdHkiABIgCglDbGVhclJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgAS",
+          "HwoLQ2hhbmdlU2NlbmUSBi5TY2VuZRoGLkVtcHR5IgASJAoJTW92ZVVzZXJz",
+          "Eg0uVXNlclBvc2l0aW9uGgYuRW1wdHkiABIgCglMZWF2ZVJvb20SCS5Sb29t",
+          "VXNlchoGLkVtcHR5IgASJwoMQ2hhbmdlTWFzdGVyEg0uTWFzdGVyU3dpdGNo",
+          "GgYuRW1wdHkiAEIMWgpwa2cvYXBpL3YxYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -60,7 +61,8 @@ public static partial class SmartenergytableServiceReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::MasterSwitch), global::MasterSwitch.Parser, new[]{ "Id", "MasterId", "NewMasterId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Scene), global::Scene.Parser, new[]{ "RoomUser", "SceneId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Diff), global::Diff.Parser, new[]{ "Action", "Token" }, null, new[]{ typeof(global::Diff.Types.Action) }, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "History" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyData), global::EnergyData.Parser, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "History", "EnergyData" }, null, null, null)
         }));
   }
   #endregion
@@ -1490,6 +1492,110 @@ public sealed partial class Diff : pb::IMessage<Diff> {
 
 }
 
+/// <summary>
+///Data from API?
+/// </summary>
+public sealed partial class EnergyData : pb::IMessage<EnergyData> {
+  private static readonly pb::MessageParser<EnergyData> _parser = new pb::MessageParser<EnergyData>(() => new EnergyData());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<EnergyData> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[8]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyData() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyData(EnergyData other) : this() {
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyData Clone() {
+    return new EnergyData(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as EnergyData);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(EnergyData other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(EnergyData other) {
+    if (other == null) {
+      return;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+      }
+    }
+  }
+
+}
+
 public sealed partial class Patch : pb::IMessage<Patch> {
   private static readonly pb::MessageParser<Patch> _parser = new pb::MessageParser<Patch>(() => new Patch());
   private pb::UnknownFieldSet _unknownFields;
@@ -1498,7 +1604,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[8]; }
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[9]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1521,6 +1627,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     isMaster_ = other.isMaster_;
     diffs_ = other.diffs_.Clone();
     history_ = other.history_.Clone();
+    energyData_ = other.energyData_ != null ? other.energyData_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1593,6 +1700,17 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     get { return history_; }
   }
 
+  /// <summary>Field number for the "energy_data" field.</summary>
+  public const int EnergyDataFieldNumber = 8;
+  private global::EnergyData energyData_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::EnergyData EnergyData {
+    get { return energyData_; }
+    set {
+      energyData_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Patch);
@@ -1612,6 +1730,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     if (IsMaster != other.IsMaster) return false;
     if(!diffs_.Equals(other.diffs_)) return false;
     if(!history_.Equals(other.history_)) return false;
+    if (!object.Equals(EnergyData, other.EnergyData)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1624,6 +1743,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     if (IsMaster != false) hash ^= IsMaster.GetHashCode();
     hash ^= diffs_.GetHashCode();
     hash ^= history_.GetHashCode();
+    if (energyData_ != null) hash ^= EnergyData.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1655,6 +1775,10 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
     diffs_.WriteTo(output, _repeated_diffs_codec);
     history_.WriteTo(output, _repeated_history_codec);
+    if (energyData_ != null) {
+      output.WriteRawTag(66);
+      output.WriteMessage(EnergyData);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1677,6 +1801,9 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
     size += diffs_.CalculateSize(_repeated_diffs_codec);
     size += history_.CalculateSize(_repeated_history_codec);
+    if (energyData_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(EnergyData);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1705,6 +1832,12 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
     diffs_.Add(other.diffs_);
     history_.Add(other.history_);
+    if (other.energyData_ != null) {
+      if (energyData_ == null) {
+        EnergyData = new global::EnergyData();
+      }
+      EnergyData.MergeFrom(other.EnergyData);
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1741,6 +1874,13 @@ public sealed partial class Patch : pb::IMessage<Patch> {
         }
         case 58: {
           history_.AddEntriesFrom(input, _repeated_history_codec);
+          break;
+        }
+        case 66: {
+          if (energyData_ == null) {
+            EnergyData = new global::EnergyData();
+          }
+          input.ReadMessage(EnergyData);
           break;
         }
       }
