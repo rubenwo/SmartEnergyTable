@@ -22,21 +22,22 @@ public static partial class SmartenergytableServiceReflection {
   static SmartenergytableServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkilQEK",
+          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkipwEK",
           "BVRva2VuEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2VyEhQKDG9iamVj",
-          "dF9pbmRleBgCIAEoBRIaCghwb3NpdGlvbhgDIAEoCzIILlZlY3RvcjMSEQoJ",
-          "b2JqZWN0X2lkGAQgASgJEhoKCHJvdGF0aW9uGAUgASgLMgguVmVjdG9yMxIN",
-          "CgVzY2FsZRgGIAEoAiIqCgdWZWN0b3IzEgkKAXgYASABKAISCQoBeRgCIAEo",
-          "AhIJCgF6GAMgASgCIicKCFJvb21Vc2VyEgoKAmlkGAEgASgJEg8KB3VzZXJf",
-          "aWQYAiABKAkiTAoMVXNlclBvc2l0aW9uEhwKCXJvb21fdXNlchgBIAEoCzIJ",
-          "LlJvb21Vc2VyEh4KDG5ld19wb3NpdGlvbhgCIAEoCzIILlZlY3RvcjMiRAoM",
-          "TWFzdGVyU3dpdGNoEgoKAmlkGAEgASgJEhEKCW1hc3Rlcl9pZBgCIAEoCRIV",
-          "Cg1uZXdfbWFzdGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgB",
-          "IAEoCzIJLlJvb21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiZAoERGlmZhIcCgZh",
-          "Y3Rpb24YASABKA4yDC5EaWZmLkFjdGlvbhIVCgV0b2tlbhgCIAEoCzIGLlRv",
-          "a2VuIicKBkFjdGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIi",
-          "jAEKBVBhdGNoEg8KB3Jvb21faWQYASABKAkSEAoIc2NlbmVfaWQYAiABKAUS",
-          "HwoNdXNlcl9wb3NpdGlvbhgDIAEoCzIILlZlY3RvcjMSEQoJaXNfbWFzdGVy",
+          "dF9pbmRleBgCIAEoBRIjCghwb3NpdGlvbhgDIAEoCzIRLlZlY3RvcjNfUHJv",
+          "dG9jb2wSEQoJb2JqZWN0X2lkGAQgASgJEiMKCHJvdGF0aW9uGAUgASgLMhEu",
+          "VmVjdG9yM19Qcm90b2NvbBINCgVzY2FsZRgGIAEoAiIzChBWZWN0b3IzX1By",
+          "b3RvY29sEgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCIicKCFJv",
+          "b21Vc2VyEgoKAmlkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkiVQoMVXNlclBv",
+          "c2l0aW9uEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2VyEicKDG5ld19w",
+          "b3NpdGlvbhgCIAEoCzIRLlZlY3RvcjNfUHJvdG9jb2wiRAoMTWFzdGVyU3dp",
+          "dGNoEgoKAmlkGAEgASgJEhEKCW1hc3Rlcl9pZBgCIAEoCRIVCg1uZXdfbWFz",
+          "dGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgBIAEoCzIJLlJv",
+          "b21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiZAoERGlmZhIcCgZhY3Rpb24YASAB",
+          "KA4yDC5EaWZmLkFjdGlvbhIVCgV0b2tlbhgCIAEoCzIGLlRva2VuIicKBkFj",
+          "dGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIilQEKBVBhdGNo",
+          "Eg8KB3Jvb21faWQYASABKAkSEAoIc2NlbmVfaWQYAiABKAUSKAoNdXNlcl9w",
+          "b3NpdGlvbhgDIAEoCzIRLlZlY3RvcjNfUHJvdG9jb2wSEQoJaXNfbWFzdGVy",
           "GAQgASgIEhQKBWRpZmZzGAUgAygLMgUuRGlmZhIWCgdoaXN0b3J5GAcgAygL",
           "MgUuRGlmZjKSAwoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3JlYXRl",
           "Um9vbRIGLkVtcHR5GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJvb21V",
@@ -53,7 +54,7 @@ public static partial class SmartenergytableServiceReflection {
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Vector3), global::Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Vector3_Protocol), global::Vector3_Protocol.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RoomUser), global::RoomUser.Parser, new[]{ "Id", "UserId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UserPosition), global::UserPosition.Parser, new[]{ "RoomUser", "NewPosition" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MasterSwitch), global::MasterSwitch.Parser, new[]{ "Id", "MasterId", "NewMasterId" }, null, null, null),
@@ -230,9 +231,9 @@ public sealed partial class Token : pb::IMessage<Token> {
 
   /// <summary>Field number for the "position" field.</summary>
   public const int PositionFieldNumber = 3;
-  private global::Vector3 position_;
+  private global::Vector3_Protocol position_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Vector3 Position {
+  public global::Vector3_Protocol Position {
     get { return position_; }
     set {
       position_ = value;
@@ -252,9 +253,9 @@ public sealed partial class Token : pb::IMessage<Token> {
 
   /// <summary>Field number for the "rotation" field.</summary>
   public const int RotationFieldNumber = 5;
-  private global::Vector3 rotation_;
+  private global::Vector3_Protocol rotation_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Vector3 Rotation {
+  public global::Vector3_Protocol Rotation {
     get { return rotation_; }
     set {
       rotation_ = value;
@@ -388,7 +389,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (other.position_ != null) {
       if (position_ == null) {
-        Position = new global::Vector3();
+        Position = new global::Vector3_Protocol();
       }
       Position.MergeFrom(other.Position);
     }
@@ -397,7 +398,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (other.rotation_ != null) {
       if (rotation_ == null) {
-        Rotation = new global::Vector3();
+        Rotation = new global::Vector3_Protocol();
       }
       Rotation.MergeFrom(other.Rotation);
     }
@@ -428,7 +429,7 @@ public sealed partial class Token : pb::IMessage<Token> {
         }
         case 26: {
           if (position_ == null) {
-            Position = new global::Vector3();
+            Position = new global::Vector3_Protocol();
           }
           input.ReadMessage(Position);
           break;
@@ -439,7 +440,7 @@ public sealed partial class Token : pb::IMessage<Token> {
         }
         case 42: {
           if (rotation_ == null) {
-            Rotation = new global::Vector3();
+            Rotation = new global::Vector3_Protocol();
           }
           input.ReadMessage(Rotation);
           break;
@@ -454,11 +455,11 @@ public sealed partial class Token : pb::IMessage<Token> {
 
 }
 
-public sealed partial class Vector3 : pb::IMessage<Vector3> {
-  private static readonly pb::MessageParser<Vector3> _parser = new pb::MessageParser<Vector3>(() => new Vector3());
+public sealed partial class Vector3_Protocol : pb::IMessage<Vector3_Protocol> {
+  private static readonly pb::MessageParser<Vector3_Protocol> _parser = new pb::MessageParser<Vector3_Protocol>(() => new Vector3_Protocol());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public static pb::MessageParser<Vector3> Parser { get { return _parser; } }
+  public static pb::MessageParser<Vector3_Protocol> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
@@ -471,14 +472,14 @@ public sealed partial class Vector3 : pb::IMessage<Vector3> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Vector3() {
+  public Vector3_Protocol() {
     OnConstruction();
   }
 
   partial void OnConstruction();
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Vector3(Vector3 other) : this() {
+  public Vector3_Protocol(Vector3_Protocol other) : this() {
     x_ = other.x_;
     y_ = other.y_;
     z_ = other.z_;
@@ -486,8 +487,8 @@ public sealed partial class Vector3 : pb::IMessage<Vector3> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public Vector3 Clone() {
-    return new Vector3(this);
+  public Vector3_Protocol Clone() {
+    return new Vector3_Protocol(this);
   }
 
   /// <summary>Field number for the "x" field.</summary>
@@ -525,11 +526,11 @@ public sealed partial class Vector3 : pb::IMessage<Vector3> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
-    return Equals(other as Vector3);
+    return Equals(other as Vector3_Protocol);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public bool Equals(Vector3 other) {
+  public bool Equals(Vector3_Protocol other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
@@ -597,7 +598,7 @@ public sealed partial class Vector3 : pb::IMessage<Vector3> {
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public void MergeFrom(Vector3 other) {
+  public void MergeFrom(Vector3_Protocol other) {
     if (other == null) {
       return;
     }
@@ -844,9 +845,9 @@ public sealed partial class UserPosition : pb::IMessage<UserPosition> {
 
   /// <summary>Field number for the "new_position" field.</summary>
   public const int NewPositionFieldNumber = 2;
-  private global::Vector3 newPosition_;
+  private global::Vector3_Protocol newPosition_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Vector3 NewPosition {
+  public global::Vector3_Protocol NewPosition {
     get { return newPosition_; }
     set {
       newPosition_ = value;
@@ -930,7 +931,7 @@ public sealed partial class UserPosition : pb::IMessage<UserPosition> {
     }
     if (other.newPosition_ != null) {
       if (newPosition_ == null) {
-        NewPosition = new global::Vector3();
+        NewPosition = new global::Vector3_Protocol();
       }
       NewPosition.MergeFrom(other.NewPosition);
     }
@@ -954,7 +955,7 @@ public sealed partial class UserPosition : pb::IMessage<UserPosition> {
         }
         case 18: {
           if (newPosition_ == null) {
-            NewPosition = new global::Vector3();
+            NewPosition = new global::Vector3_Protocol();
           }
           input.ReadMessage(NewPosition);
           break;
@@ -1552,9 +1553,9 @@ public sealed partial class Patch : pb::IMessage<Patch> {
 
   /// <summary>Field number for the "user_position" field.</summary>
   public const int UserPositionFieldNumber = 3;
-  private global::Vector3 userPosition_;
+  private global::Vector3_Protocol userPosition_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::Vector3 UserPosition {
+  public global::Vector3_Protocol UserPosition {
     get { return userPosition_; }
     set {
       userPosition_ = value;
@@ -1695,7 +1696,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
     if (other.userPosition_ != null) {
       if (userPosition_ == null) {
-        UserPosition = new global::Vector3();
+        UserPosition = new global::Vector3_Protocol();
       }
       UserPosition.MergeFrom(other.UserPosition);
     }
@@ -1725,7 +1726,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
         }
         case 26: {
           if (userPosition_ == null) {
-            UserPosition = new global::Vector3();
+            UserPosition = new global::Vector3_Protocol();
           }
           input.ReadMessage(UserPosition);
           break;

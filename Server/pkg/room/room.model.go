@@ -25,14 +25,14 @@ type Patch struct {
 
 	SceneID      int
 	Diffs        []Diff
-	UserPosition v1.Vector3
+	UserPosition v1.Vector3_Protocol
 	IsMaster     bool
 }
 
 type scene struct {
 	id           int
 	tokens       map[string]*v1.Token
-	userPosition v1.Vector3
+	userPosition v1.Vector3_Protocol
 }
 
 type Room struct {
