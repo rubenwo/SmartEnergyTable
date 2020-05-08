@@ -1,7 +1,6 @@
 package server
 
 import (
-	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"github.com/go-chi/chi"
@@ -29,16 +28,16 @@ func (a *api) Run() error {
 	router.Use(middleware.Recoverer)
 	router.Use(middleware.URLFormat)
 	// Set a timeout value on the request context (ctx), that will signal
-	// through ctx.Done() that the request has timed out and further
+	// Through ctx.Done() that the request has timed out and further
 	// processing should be stopped.
 	router.Use(middleware.Timeout(60 * time.Second))
 
-	//Health check endpoint
+	// Health check endpoint
 	router.Get("/healthz", func(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(http.StatusOK)
 	})
 
-	//Debug endpoint
+	// Debug endpoint
 	router.Get("/rooms", func(writer http.ResponseWriter, request *http.Request) {
 		var r struct {
 			Rooms []string `json:"rooms"`
@@ -50,7 +49,7 @@ func (a *api) Run() error {
 		}
 	})
 
-	//Debug endpoint
+	// Debug endpoint
 	router.Post("/rooms", func(writer http.ResponseWriter, request *http.Request) {
 		var r struct {
 			ID string `json:"id"`
@@ -63,17 +62,14 @@ func (a *api) Run() error {
 	})
 
 	server := &http.Server{
-		Addr:    ":443",
-		Handler: router,
-		TLSConfig: &tls.Config{
-			MinVersion: tls.VersionTLS12,
-		},
+		Addr:         ":80",
+		Handler:      router,
 		ReadTimeout:  time.Second * 60,
 		WriteTimeout: time.Second * 60,
 		IdleTimeout:  time.Second * 120,
 	}
 
-	//Start the HTTP REST server.
+	// Start the HTTP REST server.
 	log.Println("SmartEnergyTable API is running on:", server.Addr)
-	return server.ListenAndServeTLS("/certs/fullchain.pem", "/certs/privkey.pem")
+	return server.ListenAndServe()
 }

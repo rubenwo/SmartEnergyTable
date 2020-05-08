@@ -11,16 +11,16 @@ type redisDB struct {
 }
 
 func createRedisDatabase() (Database, error) {
-	//create a new client with default options
-	//Addr is defined by the docker-compose.yml file
+	// create a new client with default options
+	// Addr is defined by the docker-compose.yml file
 	client := redis.NewClient(&redis.Options{
 		Addr:     "service.redis:6379",
 		Password: "",
 		DB:       0,
 	})
 	var err error
-	//Try to Ping the database, sometimes this doesn't work right away so we try it 10 times with a timeout of 1sec
-	//between tries.
+	// Try to Ping the database, sometimes this doesn't work right away so we try it 10 times with a timeout of 1sec
+	// between tries.
 	for i := 0; i < 10; i++ {
 		_, err = client.Ping().Result()
 		if err == nil {
@@ -34,7 +34,7 @@ func createRedisDatabase() (Database, error) {
 	return &redisDB{client: client}, nil
 }
 
-//Set: Implementation of the database interface
+// Set: Implementation of the database interface
 func (r *redisDB) Set(key string, value interface{}) error {
 	log.Println("(Redis DB): saving data:", value, " for key:", key)
 
@@ -45,7 +45,7 @@ func (r *redisDB) Set(key string, value interface{}) error {
 	return nil
 }
 
-//Get: Implementation of the database interface
+// Get: Implementation of the database interface
 func (r *redisDB) Get(key string) (interface{}, error) {
 	log.Println("(Redis DB): retrieving value from key:", key)
 
@@ -56,18 +56,15 @@ func (r *redisDB) Get(key string) (interface{}, error) {
 	return value, nil
 }
 
-//Observe: Implementation of database interface
+// Observe: Implementation of database interface
 func (r *redisDB) Observe(key string) (chan interface{}, error) {
 	c := make(chan interface{})
 	//TODO: Implement observer pattern so the server becomes stateless
-	go func(channel chan interface{}) {
-		select {}
-	}(c)
 
 	return c, nil
 }
 
-//Delete: Implementation of the database interface
+// Delete: Implementation of the database interface
 func (r *redisDB) Delete(key string) error {
 	log.Println("(Redis DB): deleting value from key:", key)
 
