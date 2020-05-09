@@ -143,13 +143,34 @@ func (r *Room) gcHistory() {
 
 // MarshalBinary is an implementation of the encoding.BinaryMarshaller interface.
 func (r *Room) MarshalBinary() ([]byte, error) {
-	return json.Marshal(r)
+	var s struct {
+		ID      string `json:"id"`
+		Master  string `json:"master"`
+		History []Diff `json:"history"`
+	}
+
+	s.ID = r.RoomID
+	s.Master = r.master
+	s.History = r.history
+
+	return json.Marshal(&s)
 }
 
 // UnmarshalBinary is an implementation of the encoding.BinaryMarshaller interface.
 func (r *Room) UnmarshalBinary(data []byte) error {
-	if err := json.Unmarshal(data, &r); err != nil {
+	var s struct {
+		ID      string `json:"id"`
+		Master  string `json:"master"`
+		History []Diff `json:"history"`
+	}
+
+	if err := json.Unmarshal(data, &s); err != nil {
 		return err
 	}
+
+	r.history = s.History
+	r.master = s.Master
+	r.RoomID = s.ID
+
 	return nil
 }

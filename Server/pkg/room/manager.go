@@ -52,9 +52,24 @@ func (m *Manager) JoinRoom(id, user string, callback chan Patch) error {
 	if callback == nil {
 		return fmt.Errorf("callback channel can't be nil")
 	}
-	room, ok := m.rooms[id]
+	var room *Room
+	var ok bool
+	room, ok = m.rooms[id]
 	if !ok {
-		return fmt.Errorf("room with id: %s does not exist", id)
+		// Room does not exist in memory
+		raw, err := m.db.Get(id)
+		if err != nil {
+			log.Println(err)
+			return fmt.Errorf("room with id: %s does not exist", id)
+		}
+		room, ok = raw.(*Room)
+		if !ok{
+			log.Println("Conversion from interface to Room didn't work")
+			return fmt.Errorf("internal error with the casting of interface{} to Room from database")
+		}
+		// TODO: Implement proper load-balancing
+		room.master = user // As the room needs to be loaded from the database, this means the master might not be the
+		// same
 	}
 	room.Lock.Lock()
 	defer func() {
@@ -88,6 +103,16 @@ func (m *Manager) SaveRoom(id string) error {
 	if err := m.db.Set(id, room); err != nil {
 		return fmt.Errorf("error saving room with id: %s, with error: %w", id, err)
 	}
+	raw, err := m.db.Get(id)
+	if err != nil{
+		log.Println(err)
+	}
+	fmt.Println(raw)
+	r, ok := raw.(*Room)
+	if !ok{
+		log.Println("Conversion failed")
+	}
+	fmt.Println(r)
 	return nil
 }
 

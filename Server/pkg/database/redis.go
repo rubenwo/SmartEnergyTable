@@ -53,6 +53,7 @@ func (r *redisDB) Get(key string) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return value, nil
 }
 
