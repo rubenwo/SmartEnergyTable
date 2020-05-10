@@ -35,8 +35,8 @@ func (m *Manager) CreateRoom() (id string) {
 		Lock:   sync.Mutex{},
 		RoomID: id,
 		scenes: []scene{
-			{id: 0, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}},
-			{id: 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}}},
+			{id: 0, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3_Protocol{}},
+			{id: 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3_Protocol{}}},
 		currentScene:       1,
 		master:             "",
 		clients:            map[string]chan Patch{},
@@ -201,7 +201,7 @@ func (m *Manager) ChangeScene(id string, user string, sceneId int) error {
 	if sceneId > len(room.scenes)-1 {
 		size := len(room.scenes) - 1
 		for i := 0; i < sceneId-size; i++ {
-			room.scenes = append(room.scenes, scene{id: i + size + 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3{}})
+			room.scenes = append(room.scenes, scene{id: i + size + 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3_Protocol{}})
 		}
 	}
 	room.currentScene = sceneId
@@ -254,7 +254,7 @@ func (m *Manager) ChangeMaster(id string, master string, newMaster string) error
 
 //ChangeUserPosition changes the position of the users after check that the caller is the master of the room
 //and the room exists
-func (m *Manager) MoveUsers(id string, master string, position v1.Vector3) error {
+func (m *Manager) MoveUsers(id string, master string, position v1.Vector3_Protocol) error {
 	room, ok := m.rooms[id]
 	if !ok {
 		return fmt.Errorf("room with id: %s does not exist", id)

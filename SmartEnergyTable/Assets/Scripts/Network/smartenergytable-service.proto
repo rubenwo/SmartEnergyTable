@@ -8,13 +8,13 @@ message Empty {
 message Token {
     RoomUser room_user = 1;
     int32 object_index = 2;
-    Vector3 position = 3;
+    Vector3_Protocol position = 3;
     string object_id = 4;
-    Vector3 rotation = 5;
+    Vector3_Protocol rotation = 5;
     float scale = 6;
 }
 
-message Vector3 {
+message Vector3_Protocol {
     float x = 1;
     float y = 2;
     float z = 3;
@@ -27,7 +27,7 @@ message RoomUser {
 
 message UserPosition {
     RoomUser room_user = 1;
-    Vector3 new_position = 2;
+    Vector3_Protocol new_position = 2;
 }
 
 message MasterSwitch {
@@ -51,13 +51,18 @@ message Diff {
     Token token = 2;
 }
 
+message EnergyData {
+    //Data from API?
+}
+
 message Patch {
     string room_id = 1;
     int32 scene_id = 2;
-    Vector3 user_position = 3;
+    Vector3_Protocol user_position = 3;
     bool is_master = 4;
     repeated Diff diffs = 5;
     repeated Diff history = 7;
+    EnergyData energy_data = 8;
 }
 
 service SmartEnergyTableService {
