@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Grpc.Core.Api;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -74,8 +75,12 @@ namespace Network
                     Prefabs.Add(objectLibrary[i].name);
                 }
 
+
+                SslCredentials secureCredentials = new SslCredentials(File.ReadAllText(
+                    "C:/Users/diabl/Documents/SmartEnergyTable/SmartEnergyTable/Assets/Scripts/Network/certs/server.pem"));
+
                 //Create the gRPC channel and client
-                _channel = new Channel(serverAddr, ChannelCredentials.Insecure);
+                _channel = new Channel(serverAddr, secureCredentials);
                 _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
             }
             else

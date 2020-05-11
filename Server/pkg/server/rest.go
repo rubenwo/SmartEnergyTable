@@ -62,7 +62,7 @@ func (a *api) Run() error {
 	})
 
 	server := &http.Server{
-		Addr:         ":80",
+		Addr:         ":443",
 		Handler:      router,
 		ReadTimeout:  time.Second * 60,
 		WriteTimeout: time.Second * 60,
@@ -71,5 +71,5 @@ func (a *api) Run() error {
 
 	// Start the HTTP REST server.
 	log.Println("SmartEnergyTable API is running on:", server.Addr)
-	return server.ListenAndServe()
+	return server.ListenAndServeTLS("/certs/server.pem", "/certs/server.key")
 }
