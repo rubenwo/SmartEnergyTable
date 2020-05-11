@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.com/go-redis/redis"
+	"log"
 	"time"
 )
 
@@ -10,12 +11,16 @@ type redisDB struct {
 }
 
 func createRedisDatabase() (Database, error) {
+	//create a new client with default options
+	//Addr is defined by the docker-compose.yml file
 	client := redis.NewClient(&redis.Options{
 		Addr:     "service.redis:6379",
 		Password: "",
 		DB:       0,
 	})
 	var err error
+	//Try to Ping the database, sometimes this doesn't work right away so we try it 10 times with a timeout of 1sec
+	//between tries.
 	for i := 0; i < 10; i++ {
 		_, err = client.Ping().Result()
 		if err == nil {
@@ -29,33 +34,46 @@ func createRedisDatabase() (Database, error) {
 	return &redisDB{client: client}, nil
 }
 
-func (r *redisDB) Set(key string, value string) (string, error) {
+//Set: Implementation of the database interface
+func (r *redisDB) Set(key string, value interface{}) error {
+	log.Println("(Redis DB): saving data:", value, " for key:", key)
+
 	_, err := r.client.Set(key, value, 0).Result()
 	if err != nil {
-		return generateError("set", err)
+		return err
 	}
-	return key, nil
+	return nil
 }
 
-func (r *redisDB) Get(key string) (string, error) {
+//Get: Implementation of the database interface
+func (r *redisDB) Get(key string) (interface{}, error) {
+	log.Println("(Redis DB): retrieving value from key:", key)
+
 	value, err := r.client.Get(key).Result()
 	if err != nil {
-		return generateError("get", err)
+		return nil, err
 	}
 	return value, nil
 }
 
-func (r *redisDB) Delete(key string) (string, error) {
-	_, err := r.client.Del(key).Result()
-	if err != nil {
-		return generateError("delete", err)
-	}
-	return key, nil
+//Observe: Implementation of database interface
+func (r *redisDB) Observe(key string) (chan interface{}, error) {
+	c := make(chan interface{})
+	//TODO: Implement observer pattern so the server becomes stateless
+	go func(channel chan interface{}) {
+		select {}
+	}(c)
+
+	return c, nil
 }
 
-func generateError(operation string, err error) (string, error) {
-	if err == redis.Nil {
-		return "", &OperationError{operation: operation}
+//Delete: Implementation of the database interface
+func (r *redisDB) Delete(key string) error {
+	log.Println("(Redis DB): deleting value from key:", key)
+
+	_, err := r.client.Del(key).Result()
+	if err != nil {
+		return err
 	}
-	return "", &DownError{}
+	return nil
 }

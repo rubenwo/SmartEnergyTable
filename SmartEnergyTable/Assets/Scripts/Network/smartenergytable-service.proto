@@ -5,22 +5,19 @@ option go_package = "pkg/api/v1";
 message Empty {
 }
 
-message GameObject {
+message Token {
     RoomUser room_user = 1;
-    string object_name = 2;
-    Vector3 position = 3;
+    int32 object_index = 2;
+    Vector3_Protocol position = 3;
+    string object_id = 4;
+    Vector3_Protocol rotation = 5;
+    float scale = 6;
 }
 
-message Vector3 {
+message Vector3_Protocol {
     float x = 1;
     float y = 2;
     float z = 3;
-}
-
-message Room {
-    string id = 1;
-    repeated GameObject objects = 2;
-    int32 sceneId = 3;
 }
 
 message RoomUser {
@@ -30,7 +27,13 @@ message RoomUser {
 
 message UserPosition {
     RoomUser room_user = 1;
-    Vector3 new_position = 2;
+    Vector3_Protocol new_position = 2;
+}
+
+message MasterSwitch {
+    string id = 1;
+    string master_id = 2;
+    string new_master_id = 3;
 }
 
 message Scene {
@@ -38,30 +41,50 @@ message Scene {
     int32 sceneId = 2;
 }
 
-message Update {
-    string id = 1;
-    Room room = 2;
-    Vector3 position = 3;
+message Diff {
+    enum Action {
+        ADD = 0;
+        DELETE = 1;
+        MOVE = 2;
+    }
+    Action action = 1;
+    Token token = 2;
+}
+
+message EnergyData {
+    //Data from API?
+}
+
+message Patch {
+    string room_id = 1;
+    int32 scene_id = 2;
+    Vector3_Protocol user_position = 3;
+    bool is_master = 4;
+    repeated Diff diffs = 5;
+    repeated Diff history = 7;
+    EnergyData energy_data = 8;
 }
 
 service SmartEnergyTableService {
-
-    rpc CreateRoom (Empty) returns (Room) {
+    rpc CreateRoom (Empty) returns (RoomUser) {
     }
 
-    rpc JoinRoom (RoomUser) returns (stream Update) {
+    rpc JoinRoom (RoomUser) returns (stream Patch) {
     }
 
-    rpc SaveRoom (Room) returns (Empty) {
+    rpc SaveRoom (RoomUser) returns (Empty) {
     }
 
-    rpc AddGameObject (GameObject) returns (Empty) {
+    rpc AddToken (Token) returns (Empty) {
     }
 
-    rpc RemoveGameObject (GameObject) returns (Empty) {
+    rpc RemoveToken (Token) returns (Empty) {
     }
 
-    rpc MoveGameObject (GameObject) returns (Empty) {
+    rpc MoveToken (Token) returns (Empty) {
+    }
+
+    rpc ClearRoom (RoomUser) returns (Empty) {
     }
 
     rpc ChangeScene (Scene) returns (Empty) {
@@ -71,5 +94,8 @@ service SmartEnergyTableService {
     }
 
     rpc LeaveRoom (RoomUser) returns (Empty) {
+    }
+
+    rpc ChangeMaster (MasterSwitch) returns (Empty) {
     }
 }
