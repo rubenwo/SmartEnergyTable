@@ -274,9 +274,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstPersonCamera: {fileID: 1655920774}
-  GameObjectVerticalPlanePrefab: {fileID: 0}
-  GameObjectHorizontalPlanePrefab: {fileID: 0}
-  GameObjectPointPrefab: {fileID: 0}
+  GameObjectMapPrefab: {fileID: 8258363632114779451, guid: bedfd445186cb1642afcaa430e34aca5,
+    type: 3}
+  projectionPlaneCenter:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  projectionPlaneFound: 0
 --- !u!4 &1600450463
 Transform:
   m_ObjectHideFlags: 0

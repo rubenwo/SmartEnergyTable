@@ -43,19 +43,19 @@ namespace GoogleARCore.Examples.HelloAR
         public Camera FirstPersonCamera;
 
         /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a vertical plane.
-        /// </summary>
-        public GameObject GameObjectVerticalPlanePrefab;
-
-        /// <summary>
         /// A prefab to place when a raycast from a user touch hits a horizontal plane.
         /// </summary>
-        public GameObject GameObjectHorizontalPlanePrefab;
+        public GameObject GameObjectMapPrefab;  
 
         /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a feature point.
+        /// Plane the map gets rendered on when selected by user.
         /// </summary>
-        public GameObject GameObjectPointPrefab;
+        public Pose projectionPlaneCenter;
+
+        /// <summary>
+        /// Disable the plane scanning when projectionplane is found.
+        /// </summary>
+        public bool projectionPlaneFound = false;
 
         /// <summary>
         /// The rotation in degrees need to apply to prefab when it is placed.
@@ -67,8 +67,6 @@ namespace GoogleARCore.Examples.HelloAR
         /// otherwise false.
         /// </summary>
         private bool m_IsQuitting = false;
-
-        private DetectedPlane projectionPlane;
 
         /// <summary>
         /// The Unity Awake() method.
@@ -99,50 +97,67 @@ namespace GoogleARCore.Examples.HelloAR
             {
                 return;
             }
-
+            
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
-            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
-                TrackableHitFlags.FeaturePointWithSurfaceNormal;
+            TrackableHitFlags raycastFilter = TrackableHitFlags.Default;
 
-            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
-            {
-                Debug.Log("Screen tapped");
+            if(!projectionPlaneFound && Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))    { 
+                //Debug.Log("Screen tapped");
                 // Use hit pose and camera pose to check if hit test is from the
                 // back of the plane, if it is, no need to create the anchor.
-                //if ((hit.Trackable is DetectedPlane) &&
-                //    Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
-                //        hit.Pose.rotation * Vector3.up) < 0)
-                //{
-                //    Debug.Log("Hit at back of the current DetectedPlane");
-                //}
-                //else
-                if (hit.Trackable is DetectedPlane)
+                if ((hit.Trackable is DetectedPlane) &&
+                    Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
+                        hit.Pose.rotation * Vector3.up) < 0)
                 {
-                    Debug.Log("Plane tapped");
+                    Debug.Log("Hit at back of the current DetectedPlane");
+                }
+                else if (hit.Trackable is DetectedPlane)
+                {
+                    projectionPlaneFound = true;
+
                     // Choose the prefab based on the Trackable that got hit.
-                    GameObject prefab = GameObjectPointPrefab;
-                    projectionPlane = hit.Trackable as DetectedPlane;
-                        
-                        //TODO Set hit plane as projection plane
-
-                        //TODO instantiate mapbox instance on projection plane
-                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-
-                    // Compensate for the hitPose rotation facing away from the raycast (i.e.
-                    // camera).
-                    gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-
-                    // Create an anchor to allow ARCore to track the hitpoint as understanding of
-                    // the physical world evolves.
-                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-                    // Make game object a child of the anchor.
-                    gameObject.transform.parent = anchor.transform;
+                    var plane = hit.Trackable as DetectedPlane;
+                    projectionPlaneCenter = plane.CenterPose;
 
                     //Disable plane detection and visualisation.
-                    //gameObject.Find<PlaneDiscovery>().SetActive(false);
-                    GameObject.Find("PlaneDiscovery").SetActive(false);
+                    var session = GameObject.Find("ARCore Device").GetComponent<ARCoreSession>();
+                    session.SessionConfig.PlaneFindingMode = DetectedPlaneFindingMode.Disabled;
+
+                    //foreach (var dp in GameObject.FindObjectsOfType<DetectedPlaneVisualizer>())
+                    //{
+                    //dp.GetComponent<DetectedPlaneVisualizer>();
+                    //    DestroyImmediate(dp);
+                    //}
+                    List<GameObject> theObjects = new List<GameObject>();
+                    theObjects.Add(GameObject.Find("ARController"));
+                    theObjects.Add(GameObject.Find("ARCore Device"));
+                    theObjects.Add(GameObject.Find("First Person Camera"));
+                    theObjects.Add(GameObject.Find("Environmental Light"));
+                    theObjects.Add(GameObject.Find("EventSystem"));
+
+                    GameObject[] allObjects = FindObjectsOfType<GameObject>();
+                    List<GameObject> objectsToDisable = new List<GameObject>(allObjects);
+                    foreach (GameObject a in allObjects)
+                    {
+                        foreach (GameObject b in theObjects)
+                        {
+                            if (a.name == b.name)
+                                objectsToDisable.Remove(a);
+                        }
+                    }
+                    foreach (GameObject a in objectsToDisable)
+                        a.SetActive(false);
+
+                    // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical world evolves.
+                    Session.CreateAnchor(projectionPlaneCenter);
+
+                    //Initialize the mapbox prefab on the found location.
+                    projectionPlaneCenter.position += new Vector3(0f, 0.25f, 0f);
+                    var map = Instantiate(GameObjectMapPrefab, projectionPlaneCenter.position, hit.Pose.rotation);
+
+                    // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
+                    map.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
                 }
             }
         }

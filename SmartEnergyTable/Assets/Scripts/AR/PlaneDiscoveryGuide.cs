@@ -73,40 +73,40 @@ namespace GoogleARCore.Examples.Common
         /// <summary>
         /// The RawImage that provides rotating hand animation.
         /// </summary>
-        [Tooltip("The RawImage that provides rotating hand animation.")]
-        [SerializeField] private RawImage m_HandAnimation = null;
+        //[Tooltip("The RawImage that provides rotating hand animation.")]
+        //[SerializeField] private RawImage m_HandAnimation = null;
 
         /// <summary>
         /// The snackbar Game Object.
         /// </summary>
-        [Tooltip("The snackbar Game Object.")]
-        [SerializeField] private GameObject m_SnackBar = null;
+        //[Tooltip("The snackbar Game Object.")]
+        //[SerializeField] private GameObject m_SnackBar = null;
 
         /// <summary>
         /// The snackbar text.
         /// </summary>
-        [Tooltip("The snackbar text.")]
-        [SerializeField] private Text m_SnackBarText = null;
+        //[Tooltip("The snackbar text.")]
+        //[SerializeField] private Text m_SnackBarText = null;
 
         /// <summary>
         /// The Game Object that contains the button to open the help window.
         /// </summary>
-        [Tooltip("The Game Object that contains the button to open the help window.")]
-        [SerializeField] private GameObject m_OpenButton = null;
+        //[Tooltip("The Game Object that contains the button to open the help window.")]
+        //[SerializeField] private GameObject m_OpenButton = null;
 
         /// <summary>
         /// The Game Object that contains the window with more instructions on how to find a plane.
         /// </summary>
-        [Tooltip(
-            "The Game Object that contains the window with more instructions on how to find " +
-            "a plane.")]
-        [SerializeField] private GameObject m_MoreHelpWindow = null;
+        //[Tooltip(
+        //    "The Game Object that contains the window with more instructions on how to find " +
+        //    "a plane.")]
+        //[SerializeField] private GameObject m_MoreHelpWindow = null;
 
         /// <summary>
         /// The Game Object that contains the button to close the help window.
         /// </summary>
-        [Tooltip("The Game Object that contains the button to close the help window.")]
-        [SerializeField] private Button m_GotItButton = null;
+        //[Tooltip("The Game Object that contains the button to close the help window.")]
+        //[SerializeField] private Button m_GotItButton = null;
 
         /// <summary>
         /// The elapsed time ARCore has been detecting at least one plane.
@@ -133,11 +133,11 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public void Start()
         {
-            m_OpenButton.GetComponent<Button>().onClick.AddListener(_OnOpenButtonClicked);
-            m_GotItButton.onClick.AddListener(_OnGotItButtonClicked);
+            //m_OpenButton.GetComponent<Button>().onClick.AddListener(_OnOpenButtonClicked);
+            //m_GotItButton.onClick.AddListener(_OnGotItButtonClicked);
 
-            _CheckFieldsAreNotNull();
-            m_MoreHelpWindow.SetActive(false);
+            //_CheckFieldsAreNotNull();
+            //m_MoreHelpWindow.SetActive(false);
             m_IsLostTrackingDisplayed = false;
             m_NotDetectedPlaneElapsed = DisplayGuideDelay - k_OnStartDelay;
         }
@@ -147,8 +147,8 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public void OnDestroy()
         {
-            m_OpenButton.GetComponent<Button>().onClick.RemoveListener(_OnOpenButtonClicked);
-            m_GotItButton.onClick.RemoveListener(_OnGotItButtonClicked);
+            //m_OpenButton.GetComponent<Button>().onClick.RemoveListener(_OnOpenButtonClicked);
+            //m_GotItButton.onClick.RemoveListener(_OnGotItButtonClicked);
         }
 
         /// <summary>
@@ -163,24 +163,23 @@ namespace GoogleARCore.Examples.Common
         /// <summary>
         /// Callback executed when the open button has been clicked by the user.
         /// </summary>
-        private void _OnOpenButtonClicked()
-        {
-            m_MoreHelpWindow.SetActive(true);
-
-            enabled = false;
-            m_FeaturePoints.SetActive(false);
-            m_HandAnimation.enabled = false;
-            m_SnackBar.SetActive(false);
-        }
+        //private void _OnOpenButtonClicked()
+        //{
+        //    m_MoreHelpWindow.SetActive(true);
+        //    enabled = false;
+            //m_FeaturePoints.SetActive(false);
+            //m_HandAnimation.enabled = false;
+            //m_SnackBar.SetActive(false);
+        //}
 
         /// <summary>
         /// Callback executed when the got-it button has been clicked by the user.
         /// </summary>
-        private void _OnGotItButtonClicked()
-        {
-            m_MoreHelpWindow.SetActive(false);
-            enabled = true;
-        }
+        //private void _OnGotItButtonClicked()
+        //{
+        //    m_MoreHelpWindow.SetActive(false);
+        //    enabled = true;
+        //}
 
         /// <summary>
         /// Checks whether at least one plane being actively tracked exists.
@@ -217,9 +216,9 @@ namespace GoogleARCore.Examples.Common
             {
                 // The session has lost tracking.
                 m_FeaturePoints.SetActive(false);
-                m_HandAnimation.enabled = false;
-                m_SnackBar.SetActive(true);
-                switch (Session.LostTrackingReason)
+                //m_HandAnimation.enabled = false;
+                //m_SnackBar.SetActive(true);
+                /**switch (Session.LostTrackingReason)
                 {
                     case LostTrackingReason.InsufficientLight:
                         m_SnackBarText.text = "Too dark. Try moving to a well-lit area.";
@@ -238,15 +237,16 @@ namespace GoogleARCore.Examples.Common
                         m_SnackBarText.text = "Motion tracking is lost.";
                         break;
                 }
-
+               
                 m_OpenButton.SetActive(false);
+                **/
                 m_IsLostTrackingDisplayed = true;
                 return;
             }
             else if (m_IsLostTrackingDisplayed)
             {
                 // The session has moved from the lost tracking state.
-                m_SnackBar.SetActive(false);
+                //m_SnackBar.SetActive(false);
                 m_IsLostTrackingDisplayed = false;
             }
 
@@ -256,24 +256,24 @@ namespace GoogleARCore.Examples.Common
                 // 'DisplayGuideDelay'.
                 m_FeaturePoints.SetActive(true);
 
-                if (!m_HandAnimation.enabled)
-                {
-                    m_HandAnimation.GetComponent<CanvasRenderer>().SetAlpha(0f);
-                    m_HandAnimation.CrossFadeAlpha(1f, k_AnimationFadeDuration, false);
-                }
+                //if (!m_HandAnimation.enabled)
+                //{
+                //    m_HandAnimation.GetComponent<CanvasRenderer>().SetAlpha(0f);
+                //    m_HandAnimation.CrossFadeAlpha(1f, k_AnimationFadeDuration, false);
+                //}
 
-                m_HandAnimation.enabled = true;
-                m_SnackBar.SetActive(true);
+                //m_HandAnimation.enabled = true;
+                //m_SnackBar.SetActive(true);
 
                 if (m_NotDetectedPlaneElapsed > OfferDetailedInstructionsDelay)
                 {
-                    m_SnackBarText.text = "Need Help?";
-                    m_OpenButton.SetActive(true);
+                    //m_SnackBarText.text = "Need Help?";
+                    //m_OpenButton.SetActive(true);
                 }
                 else
                 {
-                    m_SnackBarText.text = "Point your camera to where you want to place an object.";
-                    m_OpenButton.SetActive(false);
+                    //m_SnackBarText.text = "Point your camera to where you want to place an object.";
+                    //m_OpenButton.SetActive(false);
                 }
             }
             else if (m_NotDetectedPlaneElapsed > 0f || m_DetectedPlaneElapsed > k_HideGuideDelay)
@@ -282,23 +282,23 @@ namespace GoogleARCore.Examples.Common
                 // 'DisplayGuideDelay' or at least one plane has been tracking for more than
                 // 'k_HideGuideDelay'.
                 m_FeaturePoints.SetActive(false);
-                m_SnackBar.SetActive(false);
-                m_OpenButton.SetActive(false);
+                //m_SnackBar.SetActive(false);
+                //m_OpenButton.SetActive(false);
 
-                if (m_HandAnimation.enabled)
-                {
-                    m_HandAnimation.GetComponent<CanvasRenderer>().SetAlpha(1f);
-                    m_HandAnimation.CrossFadeAlpha(0f, k_AnimationFadeDuration, false);
-                }
+                //if (m_HandAnimation.enabled)
+                //{
+                //    m_HandAnimation.GetComponent<CanvasRenderer>().SetAlpha(1f);
+                //    m_HandAnimation.CrossFadeAlpha(0f, k_AnimationFadeDuration, false);
+                //}
 
-                m_HandAnimation.enabled = false;
+                //m_HandAnimation.enabled = false;
             }
         }
 
         /// <summary>
         /// Checks the required fields are not null, and logs a Warning otherwise.
         /// </summary>
-        private void _CheckFieldsAreNotNull()
+        /**private void _CheckFieldsAreNotNull()
         {
             if (m_MoreHelpWindow == null)
             {
@@ -338,6 +338,6 @@ namespace GoogleARCore.Examples.Common
             {
                 Debug.LogError("FeaturePoints is null");
             }
-        }
+        }**/
     }
 }
