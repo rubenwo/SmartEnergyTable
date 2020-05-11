@@ -157,7 +157,7 @@ namespace GoogleARCore.Examples.HelloAR
                     var map = Instantiate(GameObjectMapPrefab, projectionPlaneCenter.position, hit.Pose.rotation);
 
                     // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
-                    map.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                    map.transform.Rotate(0, k_PrefabRotation + 180f, 0, Space.Self);
                 }
             }
         }
