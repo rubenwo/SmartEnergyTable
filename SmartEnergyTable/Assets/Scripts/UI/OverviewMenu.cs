@@ -52,8 +52,10 @@ namespace UI
         }
 
         private string _prefab = "Cube";
+
         private int _efficiency = 0;
 
+        //private GameObject test;
         private readonly string _uuid = Guid.NewGuid().ToString();
 
         private NetworkManager _networkManager;
@@ -68,8 +70,8 @@ namespace UI
         {
             _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
             _camera = Camera.main;
-
-
+//            test = GameObject.Find("TransformThing");
+//            _networkManager.SetTransformForTokens(test.transform);
             _networkManager.ObserveMaster(_uuid, isMaster => gameObject.SetActive(isMaster));
 
             for (var i = 0; i < _networkManager.Prefabs.Count; i++)
