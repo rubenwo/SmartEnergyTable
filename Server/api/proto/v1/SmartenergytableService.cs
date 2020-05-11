@@ -22,39 +22,40 @@ public static partial class SmartenergytableServiceReflection {
   static SmartenergytableServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkipwEK",
+          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkiuwEK",
           "BVRva2VuEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2VyEhQKDG9iamVj",
           "dF9pbmRleBgCIAEoBRIjCghwb3NpdGlvbhgDIAEoCzIRLlZlY3RvcjNfUHJv",
           "dG9jb2wSEQoJb2JqZWN0X2lkGAQgASgJEiMKCHJvdGF0aW9uGAUgASgLMhEu",
-          "VmVjdG9yM19Qcm90b2NvbBINCgVzY2FsZRgGIAEoAiIzChBWZWN0b3IzX1By",
-          "b3RvY29sEgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCIicKCFJv",
-          "b21Vc2VyEgoKAmlkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkiVQoMVXNlclBv",
-          "c2l0aW9uEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2VyEicKDG5ld19w",
-          "b3NpdGlvbhgCIAEoCzIRLlZlY3RvcjNfUHJvdG9jb2wiRAoMTWFzdGVyU3dp",
-          "dGNoEgoKAmlkGAEgASgJEhEKCW1hc3Rlcl9pZBgCIAEoCRIVCg1uZXdfbWFz",
-          "dGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgBIAEoCzIJLlJv",
-          "b21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiZAoERGlmZhIcCgZhY3Rpb24YASAB",
-          "KA4yDC5EaWZmLkFjdGlvbhIVCgV0b2tlbhgCIAEoCzIGLlRva2VuIicKBkFj",
-          "dGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIiDAoKRW5lcmd5",
-          "RGF0YSK3AQoFUGF0Y2gSDwoHcm9vbV9pZBgBIAEoCRIQCghzY2VuZV9pZBgC",
-          "IAEoBRIoCg11c2VyX3Bvc2l0aW9uGAMgASgLMhEuVmVjdG9yM19Qcm90b2Nv",
-          "bBIRCglpc19tYXN0ZXIYBCABKAgSFAoFZGlmZnMYBSADKAsyBS5EaWZmEhYK",
-          "B2hpc3RvcnkYByADKAsyBS5EaWZmEiAKC2VuZXJneV9kYXRhGAggASgLMgsu",
-          "RW5lcmd5RGF0YTKSAwoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3Jl",
-          "YXRlUm9vbRIGLkVtcHR5GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJv",
-          "b21Vc2VyGgYuUGF0Y2giADABEh8KCFNhdmVSb29tEgkuUm9vbVVzZXIaBi5F",
-          "bXB0eSIAEhwKCEFkZFRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8KC1JlbW92",
-          "ZVRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIGLlRva2Vu",
-          "GgYuRW1wdHkiABIgCglDbGVhclJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgAS",
-          "HwoLQ2hhbmdlU2NlbmUSBi5TY2VuZRoGLkVtcHR5IgASJAoJTW92ZVVzZXJz",
-          "Eg0uVXNlclBvc2l0aW9uGgYuRW1wdHkiABIgCglMZWF2ZVJvb20SCS5Sb29t",
-          "VXNlchoGLkVtcHR5IgASJwoMQ2hhbmdlTWFzdGVyEg0uTWFzdGVyU3dpdGNo",
-          "GgYuRW1wdHkiAEIMWgpwa2cvYXBpL3YxYgZwcm90bzM="));
+          "VmVjdG9yM19Qcm90b2NvbBINCgVzY2FsZRgGIAEoAhISCgplZmZpY2llbmN5",
+          "GAcgASgFIjMKEFZlY3RvcjNfUHJvdG9jb2wSCQoBeBgBIAEoAhIJCgF5GAIg",
+          "ASgCEgkKAXoYAyABKAIiJwoIUm9vbVVzZXISCgoCaWQYASABKAkSDwoHdXNl",
+          "cl9pZBgCIAEoCSJVCgxVc2VyUG9zaXRpb24SHAoJcm9vbV91c2VyGAEgASgL",
+          "MgkuUm9vbVVzZXISJwoMbmV3X3Bvc2l0aW9uGAIgASgLMhEuVmVjdG9yM19Q",
+          "cm90b2NvbCJECgxNYXN0ZXJTd2l0Y2gSCgoCaWQYASABKAkSEQoJbWFzdGVy",
+          "X2lkGAIgASgJEhUKDW5ld19tYXN0ZXJfaWQYAyABKAkiNgoFU2NlbmUSHAoJ",
+          "cm9vbV91c2VyGAEgASgLMgkuUm9vbVVzZXISDwoHc2NlbmVJZBgCIAEoBSJk",
+          "CgREaWZmEhwKBmFjdGlvbhgBIAEoDjIMLkRpZmYuQWN0aW9uEhUKBXRva2Vu",
+          "GAIgASgLMgYuVG9rZW4iJwoGQWN0aW9uEgcKA0FERBAAEgoKBkRFTEVURRAB",
+          "EggKBE1PVkUQAiIMCgpFbmVyZ3lEYXRhIrcBCgVQYXRjaBIPCgdyb29tX2lk",
+          "GAEgASgJEhAKCHNjZW5lX2lkGAIgASgFEigKDXVzZXJfcG9zaXRpb24YAyAB",
+          "KAsyES5WZWN0b3IzX1Byb3RvY29sEhEKCWlzX21hc3RlchgEIAEoCBIUCgVk",
+          "aWZmcxgFIAMoCzIFLkRpZmYSFgoHaGlzdG9yeRgHIAMoCzIFLkRpZmYSIAoL",
+          "ZW5lcmd5X2RhdGEYCCABKAsyCy5FbmVyZ3lEYXRhMpIDChdTbWFydEVuZXJn",
+          "eVRhYmxlU2VydmljZRIhCgpDcmVhdGVSb29tEgYuRW1wdHkaCS5Sb29tVXNl",
+          "ciIAEiEKCEpvaW5Sb29tEgkuUm9vbVVzZXIaBi5QYXRjaCIAMAESHwoIU2F2",
+          "ZVJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgASHAoIQWRkVG9rZW4SBi5Ub2tl",
+          "bhoGLkVtcHR5IgASHwoLUmVtb3ZlVG9rZW4SBi5Ub2tlbhoGLkVtcHR5IgAS",
+          "HQoJTW92ZVRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEiAKCUNsZWFyUm9vbRIJ",
+          "LlJvb21Vc2VyGgYuRW1wdHkiABIfCgtDaGFuZ2VTY2VuZRIGLlNjZW5lGgYu",
+          "RW1wdHkiABIkCglNb3ZlVXNlcnMSDS5Vc2VyUG9zaXRpb24aBi5FbXB0eSIA",
+          "EiAKCUxlYXZlUm9vbRIJLlJvb21Vc2VyGgYuRW1wdHkiABInCgxDaGFuZ2VN",
+          "YXN0ZXISDS5NYXN0ZXJTd2l0Y2gaBi5FbXB0eSIAQgxaCnBrZy9hcGkvdjFi",
+          "BnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale", "Efficiency" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Vector3_Protocol), global::Vector3_Protocol.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RoomUser), global::RoomUser.Parser, new[]{ "Id", "UserId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UserPosition), global::UserPosition.Parser, new[]{ "RoomUser", "NewPosition" }, null, null, null),
@@ -201,6 +202,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     objectId_ = other.objectId_;
     rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
     scale_ = other.scale_;
+    efficiency_ = other.efficiency_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -275,6 +277,17 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
   }
 
+  /// <summary>Field number for the "efficiency" field.</summary>
+  public const int EfficiencyFieldNumber = 7;
+  private int efficiency_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Efficiency {
+    get { return efficiency_; }
+    set {
+      efficiency_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Token);
@@ -294,6 +307,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (ObjectId != other.ObjectId) return false;
     if (!object.Equals(Rotation, other.Rotation)) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Scale, other.Scale)) return false;
+    if (Efficiency != other.Efficiency) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -306,6 +320,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (ObjectId.Length != 0) hash ^= ObjectId.GetHashCode();
     if (rotation_ != null) hash ^= Rotation.GetHashCode();
     if (Scale != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Scale);
+    if (Efficiency != 0) hash ^= Efficiency.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -343,6 +358,10 @@ public sealed partial class Token : pb::IMessage<Token> {
       output.WriteRawTag(53);
       output.WriteFloat(Scale);
     }
+    if (Efficiency != 0) {
+      output.WriteRawTag(56);
+      output.WriteInt32(Efficiency);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -368,6 +387,9 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (Scale != 0F) {
       size += 1 + 4;
+    }
+    if (Efficiency != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Efficiency);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -406,6 +428,9 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (other.Scale != 0F) {
       Scale = other.Scale;
+    }
+    if (other.Efficiency != 0) {
+      Efficiency = other.Efficiency;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -449,6 +474,10 @@ public sealed partial class Token : pb::IMessage<Token> {
         }
         case 53: {
           Scale = input.ReadFloat();
+          break;
+        }
+        case 56: {
+          Efficiency = input.ReadInt32();
           break;
         }
       }

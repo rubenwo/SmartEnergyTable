@@ -72,7 +72,7 @@ namespace Network
         /// <param name="index">index in the objectLibrary that contains the prefabs.</param>
         /// <param name="position">UnityEngine version of the Vector3. This contains the x,y,z coordinates where the token should be placed</param>
         /// <returns></returns>
-        internal Empty AddToken(string roomId, string userId, int index, Vector3 position)
+        internal Empty AddToken(string roomId, string userId, int index, int efficiency, Vector3 position)
         {
             var empty = _client.AddToken(new Token
             {
@@ -81,7 +81,8 @@ namespace Network
                 Position = new Vector3_Protocol
                 {
                     X = position.x, Y = position.y, Z = position.z
-                }
+                },
+                Efficiency = efficiency
             });
             return empty;
         }
