@@ -12,6 +12,7 @@ message Token {
     string object_id = 4;
     Vector3_Protocol rotation = 5;
     float scale = 6;
+    int32 efficiency = 7;
 }
 
 message Vector3_Protocol {

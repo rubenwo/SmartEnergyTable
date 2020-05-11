@@ -26,6 +26,8 @@ namespace Network
         ///To make the life of developers easier the _prefabLookup returns the index for the objectLibrary based on the name of the prefab.
         private readonly Dictionary<string, int> _prefabLookUp = new Dictionary<string, int>();
 
+        public readonly List<string> Prefabs = new List<string>();
+
         ///Static instance so there is only 1 NetworkManager
         private static NetworkManager _instance;
 
@@ -37,6 +39,7 @@ namespace Network
         private readonly string _userId = Guid.NewGuid().ToString(); //Generate a new GUID as userId.
         private string _roomId = "";
         private bool _master;
+        private EnergyData _energyData;
         private bool _connected;
         private bool _sceneLoaded = true;
 
@@ -48,7 +51,11 @@ namespace Network
         ///When using collision systems like RayCasts this dictionary can be used to (re)move objects in the scene.</summary>
         private readonly Dictionary<GameObject, string> _uuidLookUp = new Dictionary<GameObject, string>();
 
-        private readonly List<Action<bool>> _masterChangeListeners = new List<Action<bool>>();
+        private readonly Dictionary<string, Action<bool>> _masterChangeListeners =
+            new Dictionary<string, Action<bool>>();
+
+        private readonly Dictionary<string, Action<EnergyData>> _energyDataListeners =
+            new Dictionary<string, Action<EnergyData>>();
 
         private void Awake()
         {
@@ -62,6 +69,7 @@ namespace Network
                 for (var i = 0; i < objectLibrary.Count; i++)
                 {
                     _prefabLookUp[objectLibrary[i].name] = i;
+                    Prefabs.Add(objectLibrary[i].name);
                 }
 
                 //Create the gRPC channel and client
@@ -117,13 +125,58 @@ namespace Network
         public string SessionID => _roomId;
 
         /// <summary>
+        /// Getter for the EnergyData. 
+        /// </summary>
+        public EnergyData EnergyData => _energyData;
+
+        /// <summary>
         /// ObserveMaster adds the callback action to a list. When a patch changes the master role we update these listeners.
         /// </summary>
-        /// <param name="callback">Action with bool as param</param>
-        public void ObserveMaster(Action<bool> callback)
+        /// <param name="callback">Action with bool as param, this is called when a patch comes in</param>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void ObserveMaster(string uuid, Action<bool> callback)
         {
-            _masterChangeListeners.Add(callback);
+            _masterChangeListeners.Add(uuid, callback);
+            foreach (var masterChangeListener in _masterChangeListeners)
+            {
+                masterChangeListener.Value.Invoke(_master);
+            }
         }
+
+        /// <summary>
+        /// ObserveEnergyData adds a callback to the internal list. When a patch updates the energy data, these callbacks
+        /// are invoked.
+        /// </summary>
+        /// <param name="callback">Action(EnergyData), an action that is called when the EnergyData has changed</param>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void ObserveEnergyData(string uuid, Action<EnergyData> callback)
+        {
+            _energyDataListeners.Add(uuid, callback);
+            foreach (var energyDataListener in _energyDataListeners)
+            {
+                energyDataListener.Value.Invoke(_energyData);
+            }
+        }
+
+
+        /// <summary>
+        /// UnObserveMaster: When a listener no longer needs to listen they should unsubscribe.
+        /// </summary>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void UnObserveMaster(string uuid)
+        {
+            _masterChangeListeners.Remove(uuid);
+        }
+
+        /// <summary>
+        /// UnObserveEnergyData: When a listener no longer needs to listen they should unsubscribe.
+        /// </summary>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void UnObserveEnergyData(string uuid)
+        {
+            _energyDataListeners.Remove(uuid);
+        }
+
 
         #region RPCs
 
@@ -226,8 +279,17 @@ namespace Network
                         _actionQueue.Enqueue(() =>
                         {
                             _master = patch.IsMaster;
-                            _masterChangeListeners.ForEach(action =>
-                                action.Invoke(_master)); //Alert the listeners that the master has changed.
+                            foreach (var masterChangeListener in _masterChangeListeners)
+                            {
+                                masterChangeListener.Value.Invoke(_master);
+                            }
+
+                            _energyData = patch.EnergyData;
+                            foreach (var energyDataListener in _energyDataListeners)
+                            {
+                                energyDataListener.Value.Invoke(_energyData);
+                            }
+
                             //Load the scene if it is not the currentScene, meaning the scene has changed.
                             if (patch.SceneId != SceneManager.GetActiveScene().buildIndex)
                             {
@@ -285,10 +347,13 @@ namespace Network
         /// AddToken calls the server to add a new Token to the room.
         /// </summary>
         /// <param name="prefab">the name of the prefab of the token. This is case sensitive.</param>
+        /// <param name="efficiency">The efficiency of the token. This value should be between 0 & 100</param>
         /// <param name="position">UnityEngine version of the Vector3 class. This is the position of a newly placed token.</param>
-        public void AddToken(string prefab, UnityEngine.Vector3 position)
+        public void AddToken(string prefab, int efficiency, Vector3 position)
         {
-            _client.AddToken(_roomId, _userId, _prefabLookUp[prefab], position);
+            if (efficiency < 0) efficiency = 0;
+            if (efficiency > 100) efficiency = 100;
+            _client.AddToken(_roomId, _userId, _prefabLookUp[prefab], efficiency, position);
         }
 
 

@@ -1,4 +1,7 @@
-﻿using Network;
+﻿using System;
+using System.Collections.Generic;
+using Network;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
@@ -26,9 +29,6 @@ namespace UI
         #region TokenSelection
 
         public GameObject tokenSelectionPanel;
-        public Button cubeButton;
-        public Button sphereButton;
-        public Button capsuleButton;
 
         #endregion
 
@@ -38,6 +38,9 @@ namespace UI
         private bool _showQrCode;
 
         #endregion
+
+
+        public Button PrefabButton;
 
         private enum State
         {
@@ -49,12 +52,17 @@ namespace UI
         }
 
         private string _prefab = "Cube";
+        private int _efficiency = 0;
 
+        private readonly string _uuid = Guid.NewGuid().ToString();
 
         private NetworkManager _networkManager;
         private State _state = State.Idle;
         private Camera _camera;
         private RaycastHit _selectedToken;
+
+        private readonly List<Button> _buttons = new List<Button>();
+        public InputField efficiencyInputField;
 
         private void Start()
         {
@@ -62,30 +70,31 @@ namespace UI
             _camera = Camera.main;
 
 
-            _networkManager.ObserveMaster(isMaster => gameObject.SetActive(isMaster));
-            gameObject.SetActive(_networkManager.IsMaster);
-            
+            _networkManager.ObserveMaster(_uuid, isMaster => gameObject.SetActive(isMaster));
+
+            for (var i = 0; i < _networkManager.Prefabs.Count; i++)
+            {
+                var pos = tokenSelectionPanel.transform.position;
+                pos.x += i * 100;
+                var button = Instantiate(PrefabButton, pos, Quaternion.identity,
+                    tokenSelectionPanel.transform) as Button;
+                button.GetComponentInChildren<TextMeshProUGUI>().text = _networkManager.Prefabs[i];
+                button.onClick.AddListener(() =>
+                {
+                    _prefab = button.GetComponentInChildren<TextMeshProUGUI>().text;
+                    var e = efficiencyInputField.text;
+                    _efficiency = e != "" ? int.Parse(e) : 0;
+                    tokenSelectionPanel.SetActive(false);
+                });
+                _buttons.Add(button);
+            }
+
             addTokenButton.onClick.AddListener(() =>
             {
                 _state = State.PlacingToken;
                 tokenSelectionPanel.SetActive(true);
             });
 
-            cubeButton.onClick.AddListener(() =>
-            {
-                _prefab = "Cube";
-                tokenSelectionPanel.SetActive(false);
-            });
-            sphereButton.onClick.AddListener(() =>
-            {
-                _prefab = "Sphere";
-                tokenSelectionPanel.SetActive(false);
-            });
-            capsuleButton.onClick.AddListener(() =>
-            {
-                _prefab = "Capsule";
-                tokenSelectionPanel.SetActive(false);
-            });
             removeTokenButton.onClick.AddListener(() => { _state = State.RemovingToken; });
             moveTokenButton.onClick.AddListener(() => { _state = State.MovingToken; });
 
@@ -127,7 +136,7 @@ namespace UI
                     (hit, ok) = Select();
                     if (ok)
                     {
-                        _networkManager.AddToken(_prefab, hit.point);
+                        _networkManager.AddToken(_prefab, _efficiency, hit.point);
                         _state = State.Idle;
                     }
 
@@ -160,6 +169,12 @@ namespace UI
 
                     break;
             }
+        }
+
+        private void OnDestroy()
+        {
+            _buttons.ForEach(button => Destroy(button));
+            _networkManager.UnObserveMaster(_uuid);
         }
 
         private (RaycastHit, bool) Select()

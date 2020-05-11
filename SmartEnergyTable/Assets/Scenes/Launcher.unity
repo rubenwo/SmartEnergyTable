@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1200,9 +1200,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverAddr: smartenergytable.rubenwoldhuis.nl:8080
   objectLibrary:
-  - {fileID: 1399436938488828656, guid: a09693dfa5df20845998aa14b5ae7b14, type: 3}
-  - {fileID: 2126366655232554057, guid: eb988ec34126a9d4286340a445c87ea9, type: 3}
-  - {fileID: 8256011728061695843, guid: 65e0c77bf756ce949b878cd19a146c46, type: 3}
+  - {fileID: 3982725035389428693, guid: 2b16a71b113a1c2478303d9b46ad6c1c, type: 3}
+  - {fileID: 5340245463872486525, guid: c43866122694d60498468f7cf6dd1844, type: 3}
+  - {fileID: 2107540054094941032, guid: 51c1185b77b8b3c44aa0e968c4257bf3, type: 3}
 --- !u!4 &2062534222
 Transform:
   m_ObjectHideFlags: 0
