@@ -12,7 +12,11 @@ import (
 )
 
 type api struct {
-	manager *room.Manager
+	manager    *room.Manager
+	EnergyData *struct {
+		EnergyUser         []EnergyUser
+		EnergyDemandHourly []EnergyDemandHourly
+	} `json:"energy_data"`
 }
 
 func (a *api) Run() error {
@@ -43,6 +47,7 @@ func (a *api) Run() error {
 			Rooms []string `json:"rooms"`
 		}
 		r.Rooms = a.manager.RoomIDs()
+		writer.Header().Set("content-type", "application/json")
 		if err := json.NewEncoder(writer).Encode(&r); err != nil {
 			log.Println(err)
 			writer.WriteHeader(http.StatusInternalServerError)
@@ -55,7 +60,16 @@ func (a *api) Run() error {
 			ID string `json:"id"`
 		}
 		r.ID = a.manager.CreateRoom()
+		writer.Header().Set("content-type", "application/json")
 		if err := json.NewEncoder(writer).Encode(&r); err != nil {
+			log.Println(err)
+			writer.WriteHeader(http.StatusInternalServerError)
+		}
+	})
+
+	router.Get("/energydata", func(writer http.ResponseWriter, request *http.Request) {
+		writer.Header().Set("content-type", "application/json")
+		if err := json.NewEncoder(writer).Encode(a.EnergyData); err != nil {
 			log.Println(err)
 			writer.WriteHeader(http.StatusInternalServerError)
 		}

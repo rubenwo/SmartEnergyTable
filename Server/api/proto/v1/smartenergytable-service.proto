@@ -52,8 +52,50 @@ message Diff {
     Token token = 2;
 }
 
+message EnergyUser {
+    string time = 1;
+    string label = 2;
+    string name = 3;
+    string source_id = 4;
+    string total_demand = 5;
+    string lighting = 6;
+    string hvac = 7;
+    string appliances = 8;
+    string lab = 9;
+    string pv = 10;
+    string unit = 11;
+}
+
+message EnergyDemandHourly {
+    string id = 1;
+    string date = 2;
+    string year = 3;
+    string month = 4;
+    string day = 5;
+    string hour = 6;
+    string minutes = 7;
+    string source_id = 8;
+    string channel_id = 9;
+    string unit = 10;
+    string total_demand = 11;
+    string delta_value = 12;
+    string source_tag = 13;
+    string channel_tag = 14;
+    string label = 15;
+    string name = 16;
+    string height = 17;
+    string area = 18;
+    string wind_speed = 19;
+    string temperature = 20;
+    string solar_rad = 21;
+    string electricity_price = 22;
+    string supply = 23;
+    string renewables = 24;
+}
+
 message EnergyData {
-    //Data from API?
+    repeated EnergyUser energy_users = 1;
+    repeated EnergyDemandHourly energy_demand_hourly = 2;
 }
 
 message Patch {
@@ -63,7 +105,6 @@ message Patch {
     bool is_master = 4;
     repeated Diff diffs = 5;
     repeated Diff history = 7;
-    EnergyData energy_data = 8;
 }
 
 service SmartEnergyTableService {
@@ -98,5 +139,8 @@ service SmartEnergyTableService {
     }
 
     rpc ChangeMaster (MasterSwitch) returns (Empty) {
+    }
+
+    rpc GetEnergyData (RoomUser) returns (EnergyData) {
     }
 }
