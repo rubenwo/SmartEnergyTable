@@ -39,7 +39,7 @@ namespace Network
         private readonly string _userId = Guid.NewGuid().ToString(); //Generate a new GUID as userId.
         private string _roomId = "";
         private bool _master;
-        private EnergyData _energyData;
+        private EnergyData _energyData = null;
         private bool _connected;
         private bool _sceneLoaded = true;
 
@@ -288,6 +288,7 @@ namespace Network
                 {
                     lock (_actionQueue)
                     {
+                        GetEnergyData();
                         _actionQueue.Enqueue(() =>
                         {
                             _master = patch.IsMaster;
@@ -296,7 +297,6 @@ namespace Network
                                 masterChangeListener.Value.Invoke(_master);
                             }
 
-                            _energyData = patch.EnergyData;
                             foreach (var energyDataListener in _energyDataListeners)
                             {
                                 energyDataListener.Value.Invoke(_energyData);
@@ -472,6 +472,13 @@ namespace Network
             lock (_actionQueue)
                 _actionQueue.Clear();
             _uuidLookUp.Clear();
+        }
+
+        public EnergyData GetEnergyData()
+        {
+            if (_energyData == null)
+                _energyData = _client.GetEnergyData(_roomId, _userId);
+            return _energyData;
         }
 
         #endregion

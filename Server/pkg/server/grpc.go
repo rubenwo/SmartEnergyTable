@@ -13,7 +13,11 @@ import (
 )
 
 type server struct {
-	manager *room.Manager
+	manager    *room.Manager
+	energyData *struct {
+		energyUser         []EnergyUser
+		energyDemandHourly []EnergyDemandHourly
+	}
 }
 
 func (s *server) Run() error {
@@ -215,4 +219,58 @@ func (s *server) ChangeMaster(ctx context.Context, user *v1.MasterSwitch) (*v1.E
 	log.Println("ChangeMaster() =>", user.NewMasterId, "is now the new master of room:", user.Id, "by:", user.MasterId)
 
 	return &v1.Empty{}, nil
+}
+
+func (s *server) GetEnergyData(ctx context.Context, roomID *v1.RoomUser) (*v1.EnergyData, error) {
+	energyUser := make([]*v1.EnergyUser, len(s.energyData.energyUser))
+	energyDataHourly := make([]*v1.EnergyDemandHourly, len(s.energyData.energyDemandHourly))
+	for index, data := range s.energyData.energyUser {
+		energyUser[index] = &v1.EnergyUser{
+			Time:        data.Time,
+			Label:       data.Label,
+			Name:        data.Name,
+			SourceId:    data.SourceId,
+			TotalDemand: data.TotalDemand,
+			Lighting:    data.Lighting,
+			Hvac:        data.HVAC,
+			Appliances:  data.Appliances,
+			Lab:         data.Lab,
+			Pv:          data.PV,
+			Unit:        data.Unit,
+		}
+	}
+	for index, data := range s.energyData.energyDemandHourly {
+		energyDataHourly[index] = &v1.EnergyDemandHourly{
+			Id:               data.Id,
+			Date:             data.Date,
+			Year:             data.Year,
+			Month:            data.Month,
+			Day:              data.Day,
+			Hour:             data.Hour,
+			Minutes:          data.Minutes,
+			SourceId:         data.SourceId,
+			ChannelId:        data.ChannelId,
+			Unit:             data.Unit,
+			TotalDemand:      data.TotalDemand,
+			DeltaValue:       data.DeltaValue,
+			SourceTag:        data.SourceTag,
+			ChannelTag:       data.ChannelTag,
+			Label:            data.Label,
+			Name:             data.Name,
+			Height:           data.Height,
+			Area:             data.Area,
+			WindSpeed:        data.WindSpeed,
+			Temperature:      data.Temperature,
+			SolarRad:         data.SolarRad,
+			ElectricityPrice: data.ElectricityPrice,
+			Supply:           data.Supply,
+			Renewables:       data.Renewables,
+		}
+	}
+	log.Println("GetEnergyData() => User:", roomID.UserId, "requested the energy data.")
+
+	return &v1.EnergyData{
+		EnergyUsers:        energyUser,
+		EnergyDemandHourly: energyDataHourly,
+	}, nil
 }
