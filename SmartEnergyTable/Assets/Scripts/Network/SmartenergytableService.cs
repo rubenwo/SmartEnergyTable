@@ -22,47 +22,66 @@ public static partial class SmartenergytableServiceReflection {
   static SmartenergytableServiceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkipwEK",
+          "Ch5zbWFydGVuZXJneXRhYmxlLXNlcnZpY2UucHJvdG8iBwoFRW1wdHkiuwEK",
           "BVRva2VuEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2VyEhQKDG9iamVj",
           "dF9pbmRleBgCIAEoBRIjCghwb3NpdGlvbhgDIAEoCzIRLlZlY3RvcjNfUHJv",
           "dG9jb2wSEQoJb2JqZWN0X2lkGAQgASgJEiMKCHJvdGF0aW9uGAUgASgLMhEu",
-          "VmVjdG9yM19Qcm90b2NvbBINCgVzY2FsZRgGIAEoAiIzChBWZWN0b3IzX1By",
-          "b3RvY29sEgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCIicKCFJv",
-          "b21Vc2VyEgoKAmlkGAEgASgJEg8KB3VzZXJfaWQYAiABKAkiVQoMVXNlclBv",
-          "c2l0aW9uEhwKCXJvb21fdXNlchgBIAEoCzIJLlJvb21Vc2VyEicKDG5ld19w",
-          "b3NpdGlvbhgCIAEoCzIRLlZlY3RvcjNfUHJvdG9jb2wiRAoMTWFzdGVyU3dp",
-          "dGNoEgoKAmlkGAEgASgJEhEKCW1hc3Rlcl9pZBgCIAEoCRIVCg1uZXdfbWFz",
-          "dGVyX2lkGAMgASgJIjYKBVNjZW5lEhwKCXJvb21fdXNlchgBIAEoCzIJLlJv",
-          "b21Vc2VyEg8KB3NjZW5lSWQYAiABKAUiZAoERGlmZhIcCgZhY3Rpb24YASAB",
-          "KA4yDC5EaWZmLkFjdGlvbhIVCgV0b2tlbhgCIAEoCzIGLlRva2VuIicKBkFj",
-          "dGlvbhIHCgNBREQQABIKCgZERUxFVEUQARIICgRNT1ZFEAIiDAoKRW5lcmd5",
-          "RGF0YSK3AQoFUGF0Y2gSDwoHcm9vbV9pZBgBIAEoCRIQCghzY2VuZV9pZBgC",
-          "IAEoBRIoCg11c2VyX3Bvc2l0aW9uGAMgASgLMhEuVmVjdG9yM19Qcm90b2Nv",
-          "bBIRCglpc19tYXN0ZXIYBCABKAgSFAoFZGlmZnMYBSADKAsyBS5EaWZmEhYK",
-          "B2hpc3RvcnkYByADKAsyBS5EaWZmEiAKC2VuZXJneV9kYXRhGAggASgLMgsu",
-          "RW5lcmd5RGF0YTKSAwoXU21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3Jl",
-          "YXRlUm9vbRIGLkVtcHR5GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJv",
-          "b21Vc2VyGgYuUGF0Y2giADABEh8KCFNhdmVSb29tEgkuUm9vbVVzZXIaBi5F",
-          "bXB0eSIAEhwKCEFkZFRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8KC1JlbW92",
-          "ZVRva2VuEgYuVG9rZW4aBi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIGLlRva2Vu",
-          "GgYuRW1wdHkiABIgCglDbGVhclJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgAS",
-          "HwoLQ2hhbmdlU2NlbmUSBi5TY2VuZRoGLkVtcHR5IgASJAoJTW92ZVVzZXJz",
-          "Eg0uVXNlclBvc2l0aW9uGgYuRW1wdHkiABIgCglMZWF2ZVJvb20SCS5Sb29t",
-          "VXNlchoGLkVtcHR5IgASJwoMQ2hhbmdlTWFzdGVyEg0uTWFzdGVyU3dpdGNo",
-          "GgYuRW1wdHkiAEIMWgpwa2cvYXBpL3YxYgZwcm90bzM="));
+          "VmVjdG9yM19Qcm90b2NvbBINCgVzY2FsZRgGIAEoAhISCgplZmZpY2llbmN5",
+          "GAcgASgFIjMKEFZlY3RvcjNfUHJvdG9jb2wSCQoBeBgBIAEoAhIJCgF5GAIg",
+          "ASgCEgkKAXoYAyABKAIiJwoIUm9vbVVzZXISCgoCaWQYASABKAkSDwoHdXNl",
+          "cl9pZBgCIAEoCSJVCgxVc2VyUG9zaXRpb24SHAoJcm9vbV91c2VyGAEgASgL",
+          "MgkuUm9vbVVzZXISJwoMbmV3X3Bvc2l0aW9uGAIgASgLMhEuVmVjdG9yM19Q",
+          "cm90b2NvbCJECgxNYXN0ZXJTd2l0Y2gSCgoCaWQYASABKAkSEQoJbWFzdGVy",
+          "X2lkGAIgASgJEhUKDW5ld19tYXN0ZXJfaWQYAyABKAkiNgoFU2NlbmUSHAoJ",
+          "cm9vbV91c2VyGAEgASgLMgkuUm9vbVVzZXISDwoHc2NlbmVJZBgCIAEoBSJk",
+          "CgREaWZmEhwKBmFjdGlvbhgBIAEoDjIMLkRpZmYuQWN0aW9uEhUKBXRva2Vu",
+          "GAIgASgLMgYuVG9rZW4iJwoGQWN0aW9uEgcKA0FERBAAEgoKBkRFTEVURRAB",
+          "EggKBE1PVkUQAiK7AQoKRW5lcmd5VXNlchIMCgR0aW1lGAEgASgJEg0KBWxh",
+          "YmVsGAIgASgJEgwKBG5hbWUYAyABKAkSEQoJc291cmNlX2lkGAQgASgJEhQK",
+          "DHRvdGFsX2RlbWFuZBgFIAEoCRIQCghsaWdodGluZxgGIAEoCRIMCgRodmFj",
+          "GAcgASgJEhIKCmFwcGxpYW5jZXMYCCABKAkSCwoDbGFiGAkgASgJEgoKAnB2",
+          "GAogASgJEgwKBHVuaXQYCyABKAkitgMKEkVuZXJneURlbWFuZEhvdXJseRIK",
+          "CgJpZBgBIAEoCRIMCgRkYXRlGAIgASgJEgwKBHllYXIYAyABKAkSDQoFbW9u",
+          "dGgYBCABKAkSCwoDZGF5GAUgASgJEgwKBGhvdXIYBiABKAkSDwoHbWludXRl",
+          "cxgHIAEoCRIRCglzb3VyY2VfaWQYCCABKAkSEgoKY2hhbm5lbF9pZBgJIAEo",
+          "CRIMCgR1bml0GAogASgJEhQKDHRvdGFsX2RlbWFuZBgLIAEoCRITCgtkZWx0",
+          "YV92YWx1ZRgMIAEoCRISCgpzb3VyY2VfdGFnGA0gASgJEhMKC2NoYW5uZWxf",
+          "dGFnGA4gASgJEg0KBWxhYmVsGA8gASgJEgwKBG5hbWUYECABKAkSDgoGaGVp",
+          "Z2h0GBEgASgJEgwKBGFyZWEYEiABKAkSEgoKd2luZF9zcGVlZBgTIAEoCRIT",
+          "Cgt0ZW1wZXJhdHVyZRgUIAEoCRIRCglzb2xhcl9yYWQYFSABKAkSGQoRZWxl",
+          "Y3RyaWNpdHlfcHJpY2UYFiABKAkSDgoGc3VwcGx5GBcgASgJEhIKCnJlbmV3",
+          "YWJsZXMYGCABKAkiYgoKRW5lcmd5RGF0YRIhCgxlbmVyZ3lfdXNlcnMYASAD",
+          "KAsyCy5FbmVyZ3lVc2VyEjEKFGVuZXJneV9kZW1hbmRfaG91cmx5GAIgAygL",
+          "MhMuRW5lcmd5RGVtYW5kSG91cmx5IpUBCgVQYXRjaBIPCgdyb29tX2lkGAEg",
+          "ASgJEhAKCHNjZW5lX2lkGAIgASgFEigKDXVzZXJfcG9zaXRpb24YAyABKAsy",
+          "ES5WZWN0b3IzX1Byb3RvY29sEhEKCWlzX21hc3RlchgEIAEoCBIUCgVkaWZm",
+          "cxgFIAMoCzIFLkRpZmYSFgoHaGlzdG9yeRgHIAMoCzIFLkRpZmYyvQMKF1Nt",
+          "YXJ0RW5lcmd5VGFibGVTZXJ2aWNlEiEKCkNyZWF0ZVJvb20SBi5FbXB0eRoJ",
+          "LlJvb21Vc2VyIgASIQoISm9pblJvb20SCS5Sb29tVXNlchoGLlBhdGNoIgAw",
+          "ARIfCghTYXZlUm9vbRIJLlJvb21Vc2VyGgYuRW1wdHkiABIcCghBZGRUb2tl",
+          "bhIGLlRva2VuGgYuRW1wdHkiABIfCgtSZW1vdmVUb2tlbhIGLlRva2VuGgYu",
+          "RW1wdHkiABIdCglNb3ZlVG9rZW4SBi5Ub2tlbhoGLkVtcHR5IgASIAoJQ2xl",
+          "YXJSb29tEgkuUm9vbVVzZXIaBi5FbXB0eSIAEh8KC0NoYW5nZVNjZW5lEgYu",
+          "U2NlbmUaBi5FbXB0eSIAEiQKCU1vdmVVc2VycxINLlVzZXJQb3NpdGlvbhoG",
+          "LkVtcHR5IgASIAoJTGVhdmVSb29tEgkuUm9vbVVzZXIaBi5FbXB0eSIAEicK",
+          "DENoYW5nZU1hc3RlchINLk1hc3RlclN3aXRjaBoGLkVtcHR5IgASKQoNR2V0",
+          "RW5lcmd5RGF0YRIJLlJvb21Vc2VyGgsuRW5lcmd5RGF0YSIAQgxaCnBrZy9h",
+          "cGkvdjFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale", "Efficiency" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Vector3_Protocol), global::Vector3_Protocol.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::RoomUser), global::RoomUser.Parser, new[]{ "Id", "UserId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::UserPosition), global::UserPosition.Parser, new[]{ "RoomUser", "NewPosition" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::MasterSwitch), global::MasterSwitch.Parser, new[]{ "Id", "MasterId", "NewMasterId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Scene), global::Scene.Parser, new[]{ "RoomUser", "SceneId" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Diff), global::Diff.Parser, new[]{ "Action", "Token" }, null, new[]{ typeof(global::Diff.Types.Action) }, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyData), global::EnergyData.Parser, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "History", "EnergyData" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyUser), global::EnergyUser.Parser, new[]{ "Time", "Label", "Name", "SourceId", "TotalDemand", "Lighting", "Hvac", "Appliances", "Lab", "Pv", "Unit" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyDemandHourly), global::EnergyDemandHourly.Parser, new[]{ "Id", "Date", "Year", "Month", "Day", "Hour", "Minutes", "SourceId", "ChannelId", "Unit", "TotalDemand", "DeltaValue", "SourceTag", "ChannelTag", "Label", "Name", "Height", "Area", "WindSpeed", "Temperature", "SolarRad", "ElectricityPrice", "Supply", "Renewables" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyData), global::EnergyData.Parser, new[]{ "EnergyUsers", "EnergyDemandHourly" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "History" }, null, null, null)
         }));
   }
   #endregion
@@ -201,6 +220,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     objectId_ = other.objectId_;
     rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
     scale_ = other.scale_;
+    efficiency_ = other.efficiency_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -275,6 +295,17 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
   }
 
+  /// <summary>Field number for the "efficiency" field.</summary>
+  public const int EfficiencyFieldNumber = 7;
+  private int efficiency_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int Efficiency {
+    get { return efficiency_; }
+    set {
+      efficiency_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Token);
@@ -294,6 +325,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (ObjectId != other.ObjectId) return false;
     if (!object.Equals(Rotation, other.Rotation)) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Scale, other.Scale)) return false;
+    if (Efficiency != other.Efficiency) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -306,6 +338,7 @@ public sealed partial class Token : pb::IMessage<Token> {
     if (ObjectId.Length != 0) hash ^= ObjectId.GetHashCode();
     if (rotation_ != null) hash ^= Rotation.GetHashCode();
     if (Scale != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Scale);
+    if (Efficiency != 0) hash ^= Efficiency.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -343,6 +376,10 @@ public sealed partial class Token : pb::IMessage<Token> {
       output.WriteRawTag(53);
       output.WriteFloat(Scale);
     }
+    if (Efficiency != 0) {
+      output.WriteRawTag(56);
+      output.WriteInt32(Efficiency);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -368,6 +405,9 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (Scale != 0F) {
       size += 1 + 4;
+    }
+    if (Efficiency != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Efficiency);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -406,6 +446,9 @@ public sealed partial class Token : pb::IMessage<Token> {
     }
     if (other.Scale != 0F) {
       Scale = other.Scale;
+    }
+    if (other.Efficiency != 0) {
+      Efficiency = other.Efficiency;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -449,6 +492,10 @@ public sealed partial class Token : pb::IMessage<Token> {
         }
         case 53: {
           Scale = input.ReadFloat();
+          break;
+        }
+        case 56: {
+          Efficiency = input.ReadInt32();
           break;
         }
       }
@@ -1492,9 +1539,1188 @@ public sealed partial class Diff : pb::IMessage<Diff> {
 
 }
 
-/// <summary>
-///Data from API?
-/// </summary>
+public sealed partial class EnergyUser : pb::IMessage<EnergyUser> {
+  private static readonly pb::MessageParser<EnergyUser> _parser = new pb::MessageParser<EnergyUser>(() => new EnergyUser());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<EnergyUser> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[8]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyUser() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyUser(EnergyUser other) : this() {
+    time_ = other.time_;
+    label_ = other.label_;
+    name_ = other.name_;
+    sourceId_ = other.sourceId_;
+    totalDemand_ = other.totalDemand_;
+    lighting_ = other.lighting_;
+    hvac_ = other.hvac_;
+    appliances_ = other.appliances_;
+    lab_ = other.lab_;
+    pv_ = other.pv_;
+    unit_ = other.unit_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyUser Clone() {
+    return new EnergyUser(this);
+  }
+
+  /// <summary>Field number for the "time" field.</summary>
+  public const int TimeFieldNumber = 1;
+  private string time_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Time {
+    get { return time_; }
+    set {
+      time_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "label" field.</summary>
+  public const int LabelFieldNumber = 2;
+  private string label_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Label {
+    get { return label_; }
+    set {
+      label_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "name" field.</summary>
+  public const int NameFieldNumber = 3;
+  private string name_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Name {
+    get { return name_; }
+    set {
+      name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "source_id" field.</summary>
+  public const int SourceIdFieldNumber = 4;
+  private string sourceId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string SourceId {
+    get { return sourceId_; }
+    set {
+      sourceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "total_demand" field.</summary>
+  public const int TotalDemandFieldNumber = 5;
+  private string totalDemand_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string TotalDemand {
+    get { return totalDemand_; }
+    set {
+      totalDemand_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "lighting" field.</summary>
+  public const int LightingFieldNumber = 6;
+  private string lighting_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Lighting {
+    get { return lighting_; }
+    set {
+      lighting_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "hvac" field.</summary>
+  public const int HvacFieldNumber = 7;
+  private string hvac_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Hvac {
+    get { return hvac_; }
+    set {
+      hvac_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "appliances" field.</summary>
+  public const int AppliancesFieldNumber = 8;
+  private string appliances_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Appliances {
+    get { return appliances_; }
+    set {
+      appliances_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "lab" field.</summary>
+  public const int LabFieldNumber = 9;
+  private string lab_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Lab {
+    get { return lab_; }
+    set {
+      lab_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "pv" field.</summary>
+  public const int PvFieldNumber = 10;
+  private string pv_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Pv {
+    get { return pv_; }
+    set {
+      pv_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "unit" field.</summary>
+  public const int UnitFieldNumber = 11;
+  private string unit_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Unit {
+    get { return unit_; }
+    set {
+      unit_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as EnergyUser);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(EnergyUser other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Time != other.Time) return false;
+    if (Label != other.Label) return false;
+    if (Name != other.Name) return false;
+    if (SourceId != other.SourceId) return false;
+    if (TotalDemand != other.TotalDemand) return false;
+    if (Lighting != other.Lighting) return false;
+    if (Hvac != other.Hvac) return false;
+    if (Appliances != other.Appliances) return false;
+    if (Lab != other.Lab) return false;
+    if (Pv != other.Pv) return false;
+    if (Unit != other.Unit) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Time.Length != 0) hash ^= Time.GetHashCode();
+    if (Label.Length != 0) hash ^= Label.GetHashCode();
+    if (Name.Length != 0) hash ^= Name.GetHashCode();
+    if (SourceId.Length != 0) hash ^= SourceId.GetHashCode();
+    if (TotalDemand.Length != 0) hash ^= TotalDemand.GetHashCode();
+    if (Lighting.Length != 0) hash ^= Lighting.GetHashCode();
+    if (Hvac.Length != 0) hash ^= Hvac.GetHashCode();
+    if (Appliances.Length != 0) hash ^= Appliances.GetHashCode();
+    if (Lab.Length != 0) hash ^= Lab.GetHashCode();
+    if (Pv.Length != 0) hash ^= Pv.GetHashCode();
+    if (Unit.Length != 0) hash ^= Unit.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Time.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Time);
+    }
+    if (Label.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(Label);
+    }
+    if (Name.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(Name);
+    }
+    if (SourceId.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(SourceId);
+    }
+    if (TotalDemand.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(TotalDemand);
+    }
+    if (Lighting.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Lighting);
+    }
+    if (Hvac.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Hvac);
+    }
+    if (Appliances.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(Appliances);
+    }
+    if (Lab.Length != 0) {
+      output.WriteRawTag(74);
+      output.WriteString(Lab);
+    }
+    if (Pv.Length != 0) {
+      output.WriteRawTag(82);
+      output.WriteString(Pv);
+    }
+    if (Unit.Length != 0) {
+      output.WriteRawTag(90);
+      output.WriteString(Unit);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Time.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Time);
+    }
+    if (Label.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Label);
+    }
+    if (Name.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+    }
+    if (SourceId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(SourceId);
+    }
+    if (TotalDemand.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(TotalDemand);
+    }
+    if (Lighting.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Lighting);
+    }
+    if (Hvac.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Hvac);
+    }
+    if (Appliances.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Appliances);
+    }
+    if (Lab.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Lab);
+    }
+    if (Pv.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Pv);
+    }
+    if (Unit.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Unit);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(EnergyUser other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Time.Length != 0) {
+      Time = other.Time;
+    }
+    if (other.Label.Length != 0) {
+      Label = other.Label;
+    }
+    if (other.Name.Length != 0) {
+      Name = other.Name;
+    }
+    if (other.SourceId.Length != 0) {
+      SourceId = other.SourceId;
+    }
+    if (other.TotalDemand.Length != 0) {
+      TotalDemand = other.TotalDemand;
+    }
+    if (other.Lighting.Length != 0) {
+      Lighting = other.Lighting;
+    }
+    if (other.Hvac.Length != 0) {
+      Hvac = other.Hvac;
+    }
+    if (other.Appliances.Length != 0) {
+      Appliances = other.Appliances;
+    }
+    if (other.Lab.Length != 0) {
+      Lab = other.Lab;
+    }
+    if (other.Pv.Length != 0) {
+      Pv = other.Pv;
+    }
+    if (other.Unit.Length != 0) {
+      Unit = other.Unit;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          Time = input.ReadString();
+          break;
+        }
+        case 18: {
+          Label = input.ReadString();
+          break;
+        }
+        case 26: {
+          Name = input.ReadString();
+          break;
+        }
+        case 34: {
+          SourceId = input.ReadString();
+          break;
+        }
+        case 42: {
+          TotalDemand = input.ReadString();
+          break;
+        }
+        case 50: {
+          Lighting = input.ReadString();
+          break;
+        }
+        case 58: {
+          Hvac = input.ReadString();
+          break;
+        }
+        case 66: {
+          Appliances = input.ReadString();
+          break;
+        }
+        case 74: {
+          Lab = input.ReadString();
+          break;
+        }
+        case 82: {
+          Pv = input.ReadString();
+          break;
+        }
+        case 90: {
+          Unit = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class EnergyDemandHourly : pb::IMessage<EnergyDemandHourly> {
+  private static readonly pb::MessageParser<EnergyDemandHourly> _parser = new pb::MessageParser<EnergyDemandHourly>(() => new EnergyDemandHourly());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<EnergyDemandHourly> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[9]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyDemandHourly() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyDemandHourly(EnergyDemandHourly other) : this() {
+    id_ = other.id_;
+    date_ = other.date_;
+    year_ = other.year_;
+    month_ = other.month_;
+    day_ = other.day_;
+    hour_ = other.hour_;
+    minutes_ = other.minutes_;
+    sourceId_ = other.sourceId_;
+    channelId_ = other.channelId_;
+    unit_ = other.unit_;
+    totalDemand_ = other.totalDemand_;
+    deltaValue_ = other.deltaValue_;
+    sourceTag_ = other.sourceTag_;
+    channelTag_ = other.channelTag_;
+    label_ = other.label_;
+    name_ = other.name_;
+    height_ = other.height_;
+    area_ = other.area_;
+    windSpeed_ = other.windSpeed_;
+    temperature_ = other.temperature_;
+    solarRad_ = other.solarRad_;
+    electricityPrice_ = other.electricityPrice_;
+    supply_ = other.supply_;
+    renewables_ = other.renewables_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public EnergyDemandHourly Clone() {
+    return new EnergyDemandHourly(this);
+  }
+
+  /// <summary>Field number for the "id" field.</summary>
+  public const int IdFieldNumber = 1;
+  private string id_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Id {
+    get { return id_; }
+    set {
+      id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "date" field.</summary>
+  public const int DateFieldNumber = 2;
+  private string date_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Date {
+    get { return date_; }
+    set {
+      date_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "year" field.</summary>
+  public const int YearFieldNumber = 3;
+  private string year_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Year {
+    get { return year_; }
+    set {
+      year_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "month" field.</summary>
+  public const int MonthFieldNumber = 4;
+  private string month_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Month {
+    get { return month_; }
+    set {
+      month_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "day" field.</summary>
+  public const int DayFieldNumber = 5;
+  private string day_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Day {
+    get { return day_; }
+    set {
+      day_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "hour" field.</summary>
+  public const int HourFieldNumber = 6;
+  private string hour_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Hour {
+    get { return hour_; }
+    set {
+      hour_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "minutes" field.</summary>
+  public const int MinutesFieldNumber = 7;
+  private string minutes_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Minutes {
+    get { return minutes_; }
+    set {
+      minutes_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "source_id" field.</summary>
+  public const int SourceIdFieldNumber = 8;
+  private string sourceId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string SourceId {
+    get { return sourceId_; }
+    set {
+      sourceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "channel_id" field.</summary>
+  public const int ChannelIdFieldNumber = 9;
+  private string channelId_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string ChannelId {
+    get { return channelId_; }
+    set {
+      channelId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "unit" field.</summary>
+  public const int UnitFieldNumber = 10;
+  private string unit_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Unit {
+    get { return unit_; }
+    set {
+      unit_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "total_demand" field.</summary>
+  public const int TotalDemandFieldNumber = 11;
+  private string totalDemand_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string TotalDemand {
+    get { return totalDemand_; }
+    set {
+      totalDemand_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "delta_value" field.</summary>
+  public const int DeltaValueFieldNumber = 12;
+  private string deltaValue_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string DeltaValue {
+    get { return deltaValue_; }
+    set {
+      deltaValue_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "source_tag" field.</summary>
+  public const int SourceTagFieldNumber = 13;
+  private string sourceTag_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string SourceTag {
+    get { return sourceTag_; }
+    set {
+      sourceTag_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "channel_tag" field.</summary>
+  public const int ChannelTagFieldNumber = 14;
+  private string channelTag_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string ChannelTag {
+    get { return channelTag_; }
+    set {
+      channelTag_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "label" field.</summary>
+  public const int LabelFieldNumber = 15;
+  private string label_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Label {
+    get { return label_; }
+    set {
+      label_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "name" field.</summary>
+  public const int NameFieldNumber = 16;
+  private string name_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Name {
+    get { return name_; }
+    set {
+      name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "height" field.</summary>
+  public const int HeightFieldNumber = 17;
+  private string height_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Height {
+    get { return height_; }
+    set {
+      height_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "area" field.</summary>
+  public const int AreaFieldNumber = 18;
+  private string area_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Area {
+    get { return area_; }
+    set {
+      area_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "wind_speed" field.</summary>
+  public const int WindSpeedFieldNumber = 19;
+  private string windSpeed_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string WindSpeed {
+    get { return windSpeed_; }
+    set {
+      windSpeed_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "temperature" field.</summary>
+  public const int TemperatureFieldNumber = 20;
+  private string temperature_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Temperature {
+    get { return temperature_; }
+    set {
+      temperature_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "solar_rad" field.</summary>
+  public const int SolarRadFieldNumber = 21;
+  private string solarRad_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string SolarRad {
+    get { return solarRad_; }
+    set {
+      solarRad_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "electricity_price" field.</summary>
+  public const int ElectricityPriceFieldNumber = 22;
+  private string electricityPrice_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string ElectricityPrice {
+    get { return electricityPrice_; }
+    set {
+      electricityPrice_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "supply" field.</summary>
+  public const int SupplyFieldNumber = 23;
+  private string supply_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Supply {
+    get { return supply_; }
+    set {
+      supply_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "renewables" field.</summary>
+  public const int RenewablesFieldNumber = 24;
+  private string renewables_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Renewables {
+    get { return renewables_; }
+    set {
+      renewables_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as EnergyDemandHourly);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(EnergyDemandHourly other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Id != other.Id) return false;
+    if (Date != other.Date) return false;
+    if (Year != other.Year) return false;
+    if (Month != other.Month) return false;
+    if (Day != other.Day) return false;
+    if (Hour != other.Hour) return false;
+    if (Minutes != other.Minutes) return false;
+    if (SourceId != other.SourceId) return false;
+    if (ChannelId != other.ChannelId) return false;
+    if (Unit != other.Unit) return false;
+    if (TotalDemand != other.TotalDemand) return false;
+    if (DeltaValue != other.DeltaValue) return false;
+    if (SourceTag != other.SourceTag) return false;
+    if (ChannelTag != other.ChannelTag) return false;
+    if (Label != other.Label) return false;
+    if (Name != other.Name) return false;
+    if (Height != other.Height) return false;
+    if (Area != other.Area) return false;
+    if (WindSpeed != other.WindSpeed) return false;
+    if (Temperature != other.Temperature) return false;
+    if (SolarRad != other.SolarRad) return false;
+    if (ElectricityPrice != other.ElectricityPrice) return false;
+    if (Supply != other.Supply) return false;
+    if (Renewables != other.Renewables) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Id.Length != 0) hash ^= Id.GetHashCode();
+    if (Date.Length != 0) hash ^= Date.GetHashCode();
+    if (Year.Length != 0) hash ^= Year.GetHashCode();
+    if (Month.Length != 0) hash ^= Month.GetHashCode();
+    if (Day.Length != 0) hash ^= Day.GetHashCode();
+    if (Hour.Length != 0) hash ^= Hour.GetHashCode();
+    if (Minutes.Length != 0) hash ^= Minutes.GetHashCode();
+    if (SourceId.Length != 0) hash ^= SourceId.GetHashCode();
+    if (ChannelId.Length != 0) hash ^= ChannelId.GetHashCode();
+    if (Unit.Length != 0) hash ^= Unit.GetHashCode();
+    if (TotalDemand.Length != 0) hash ^= TotalDemand.GetHashCode();
+    if (DeltaValue.Length != 0) hash ^= DeltaValue.GetHashCode();
+    if (SourceTag.Length != 0) hash ^= SourceTag.GetHashCode();
+    if (ChannelTag.Length != 0) hash ^= ChannelTag.GetHashCode();
+    if (Label.Length != 0) hash ^= Label.GetHashCode();
+    if (Name.Length != 0) hash ^= Name.GetHashCode();
+    if (Height.Length != 0) hash ^= Height.GetHashCode();
+    if (Area.Length != 0) hash ^= Area.GetHashCode();
+    if (WindSpeed.Length != 0) hash ^= WindSpeed.GetHashCode();
+    if (Temperature.Length != 0) hash ^= Temperature.GetHashCode();
+    if (SolarRad.Length != 0) hash ^= SolarRad.GetHashCode();
+    if (ElectricityPrice.Length != 0) hash ^= ElectricityPrice.GetHashCode();
+    if (Supply.Length != 0) hash ^= Supply.GetHashCode();
+    if (Renewables.Length != 0) hash ^= Renewables.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (Id.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Id);
+    }
+    if (Date.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(Date);
+    }
+    if (Year.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(Year);
+    }
+    if (Month.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(Month);
+    }
+    if (Day.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(Day);
+    }
+    if (Hour.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Hour);
+    }
+    if (Minutes.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(Minutes);
+    }
+    if (SourceId.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(SourceId);
+    }
+    if (ChannelId.Length != 0) {
+      output.WriteRawTag(74);
+      output.WriteString(ChannelId);
+    }
+    if (Unit.Length != 0) {
+      output.WriteRawTag(82);
+      output.WriteString(Unit);
+    }
+    if (TotalDemand.Length != 0) {
+      output.WriteRawTag(90);
+      output.WriteString(TotalDemand);
+    }
+    if (DeltaValue.Length != 0) {
+      output.WriteRawTag(98);
+      output.WriteString(DeltaValue);
+    }
+    if (SourceTag.Length != 0) {
+      output.WriteRawTag(106);
+      output.WriteString(SourceTag);
+    }
+    if (ChannelTag.Length != 0) {
+      output.WriteRawTag(114);
+      output.WriteString(ChannelTag);
+    }
+    if (Label.Length != 0) {
+      output.WriteRawTag(122);
+      output.WriteString(Label);
+    }
+    if (Name.Length != 0) {
+      output.WriteRawTag(130, 1);
+      output.WriteString(Name);
+    }
+    if (Height.Length != 0) {
+      output.WriteRawTag(138, 1);
+      output.WriteString(Height);
+    }
+    if (Area.Length != 0) {
+      output.WriteRawTag(146, 1);
+      output.WriteString(Area);
+    }
+    if (WindSpeed.Length != 0) {
+      output.WriteRawTag(154, 1);
+      output.WriteString(WindSpeed);
+    }
+    if (Temperature.Length != 0) {
+      output.WriteRawTag(162, 1);
+      output.WriteString(Temperature);
+    }
+    if (SolarRad.Length != 0) {
+      output.WriteRawTag(170, 1);
+      output.WriteString(SolarRad);
+    }
+    if (ElectricityPrice.Length != 0) {
+      output.WriteRawTag(178, 1);
+      output.WriteString(ElectricityPrice);
+    }
+    if (Supply.Length != 0) {
+      output.WriteRawTag(186, 1);
+      output.WriteString(Supply);
+    }
+    if (Renewables.Length != 0) {
+      output.WriteRawTag(194, 1);
+      output.WriteString(Renewables);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (Id.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
+    }
+    if (Date.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Date);
+    }
+    if (Year.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Year);
+    }
+    if (Month.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Month);
+    }
+    if (Day.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Day);
+    }
+    if (Hour.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Hour);
+    }
+    if (Minutes.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Minutes);
+    }
+    if (SourceId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(SourceId);
+    }
+    if (ChannelId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ChannelId);
+    }
+    if (Unit.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Unit);
+    }
+    if (TotalDemand.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(TotalDemand);
+    }
+    if (DeltaValue.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(DeltaValue);
+    }
+    if (SourceTag.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(SourceTag);
+    }
+    if (ChannelTag.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ChannelTag);
+    }
+    if (Label.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Label);
+    }
+    if (Name.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Name);
+    }
+    if (Height.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Height);
+    }
+    if (Area.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Area);
+    }
+    if (WindSpeed.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(WindSpeed);
+    }
+    if (Temperature.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Temperature);
+    }
+    if (SolarRad.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(SolarRad);
+    }
+    if (ElectricityPrice.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(ElectricityPrice);
+    }
+    if (Supply.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Supply);
+    }
+    if (Renewables.Length != 0) {
+      size += 2 + pb::CodedOutputStream.ComputeStringSize(Renewables);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(EnergyDemandHourly other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Id.Length != 0) {
+      Id = other.Id;
+    }
+    if (other.Date.Length != 0) {
+      Date = other.Date;
+    }
+    if (other.Year.Length != 0) {
+      Year = other.Year;
+    }
+    if (other.Month.Length != 0) {
+      Month = other.Month;
+    }
+    if (other.Day.Length != 0) {
+      Day = other.Day;
+    }
+    if (other.Hour.Length != 0) {
+      Hour = other.Hour;
+    }
+    if (other.Minutes.Length != 0) {
+      Minutes = other.Minutes;
+    }
+    if (other.SourceId.Length != 0) {
+      SourceId = other.SourceId;
+    }
+    if (other.ChannelId.Length != 0) {
+      ChannelId = other.ChannelId;
+    }
+    if (other.Unit.Length != 0) {
+      Unit = other.Unit;
+    }
+    if (other.TotalDemand.Length != 0) {
+      TotalDemand = other.TotalDemand;
+    }
+    if (other.DeltaValue.Length != 0) {
+      DeltaValue = other.DeltaValue;
+    }
+    if (other.SourceTag.Length != 0) {
+      SourceTag = other.SourceTag;
+    }
+    if (other.ChannelTag.Length != 0) {
+      ChannelTag = other.ChannelTag;
+    }
+    if (other.Label.Length != 0) {
+      Label = other.Label;
+    }
+    if (other.Name.Length != 0) {
+      Name = other.Name;
+    }
+    if (other.Height.Length != 0) {
+      Height = other.Height;
+    }
+    if (other.Area.Length != 0) {
+      Area = other.Area;
+    }
+    if (other.WindSpeed.Length != 0) {
+      WindSpeed = other.WindSpeed;
+    }
+    if (other.Temperature.Length != 0) {
+      Temperature = other.Temperature;
+    }
+    if (other.SolarRad.Length != 0) {
+      SolarRad = other.SolarRad;
+    }
+    if (other.ElectricityPrice.Length != 0) {
+      ElectricityPrice = other.ElectricityPrice;
+    }
+    if (other.Supply.Length != 0) {
+      Supply = other.Supply;
+    }
+    if (other.Renewables.Length != 0) {
+      Renewables = other.Renewables;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          Id = input.ReadString();
+          break;
+        }
+        case 18: {
+          Date = input.ReadString();
+          break;
+        }
+        case 26: {
+          Year = input.ReadString();
+          break;
+        }
+        case 34: {
+          Month = input.ReadString();
+          break;
+        }
+        case 42: {
+          Day = input.ReadString();
+          break;
+        }
+        case 50: {
+          Hour = input.ReadString();
+          break;
+        }
+        case 58: {
+          Minutes = input.ReadString();
+          break;
+        }
+        case 66: {
+          SourceId = input.ReadString();
+          break;
+        }
+        case 74: {
+          ChannelId = input.ReadString();
+          break;
+        }
+        case 82: {
+          Unit = input.ReadString();
+          break;
+        }
+        case 90: {
+          TotalDemand = input.ReadString();
+          break;
+        }
+        case 98: {
+          DeltaValue = input.ReadString();
+          break;
+        }
+        case 106: {
+          SourceTag = input.ReadString();
+          break;
+        }
+        case 114: {
+          ChannelTag = input.ReadString();
+          break;
+        }
+        case 122: {
+          Label = input.ReadString();
+          break;
+        }
+        case 130: {
+          Name = input.ReadString();
+          break;
+        }
+        case 138: {
+          Height = input.ReadString();
+          break;
+        }
+        case 146: {
+          Area = input.ReadString();
+          break;
+        }
+        case 154: {
+          WindSpeed = input.ReadString();
+          break;
+        }
+        case 162: {
+          Temperature = input.ReadString();
+          break;
+        }
+        case 170: {
+          SolarRad = input.ReadString();
+          break;
+        }
+        case 178: {
+          ElectricityPrice = input.ReadString();
+          break;
+        }
+        case 186: {
+          Supply = input.ReadString();
+          break;
+        }
+        case 194: {
+          Renewables = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
 public sealed partial class EnergyData : pb::IMessage<EnergyData> {
   private static readonly pb::MessageParser<EnergyData> _parser = new pb::MessageParser<EnergyData>(() => new EnergyData());
   private pb::UnknownFieldSet _unknownFields;
@@ -1503,7 +2729,7 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[8]; }
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[10]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1520,12 +2746,34 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public EnergyData(EnergyData other) : this() {
+    energyUsers_ = other.energyUsers_.Clone();
+    energyDemandHourly_ = other.energyDemandHourly_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public EnergyData Clone() {
     return new EnergyData(this);
+  }
+
+  /// <summary>Field number for the "energy_users" field.</summary>
+  public const int EnergyUsersFieldNumber = 1;
+  private static readonly pb::FieldCodec<global::EnergyUser> _repeated_energyUsers_codec
+      = pb::FieldCodec.ForMessage(10, global::EnergyUser.Parser);
+  private readonly pbc::RepeatedField<global::EnergyUser> energyUsers_ = new pbc::RepeatedField<global::EnergyUser>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::EnergyUser> EnergyUsers {
+    get { return energyUsers_; }
+  }
+
+  /// <summary>Field number for the "energy_demand_hourly" field.</summary>
+  public const int EnergyDemandHourlyFieldNumber = 2;
+  private static readonly pb::FieldCodec<global::EnergyDemandHourly> _repeated_energyDemandHourly_codec
+      = pb::FieldCodec.ForMessage(18, global::EnergyDemandHourly.Parser);
+  private readonly pbc::RepeatedField<global::EnergyDemandHourly> energyDemandHourly_ = new pbc::RepeatedField<global::EnergyDemandHourly>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::EnergyDemandHourly> EnergyDemandHourly {
+    get { return energyDemandHourly_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1541,12 +2789,16 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
     if (ReferenceEquals(other, this)) {
       return true;
     }
+    if(!energyUsers_.Equals(other.energyUsers_)) return false;
+    if(!energyDemandHourly_.Equals(other.energyDemandHourly_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override int GetHashCode() {
     int hash = 1;
+    hash ^= energyUsers_.GetHashCode();
+    hash ^= energyDemandHourly_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1560,6 +2812,8 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public void WriteTo(pb::CodedOutputStream output) {
+    energyUsers_.WriteTo(output, _repeated_energyUsers_codec);
+    energyDemandHourly_.WriteTo(output, _repeated_energyDemandHourly_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1568,6 +2822,8 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public int CalculateSize() {
     int size = 0;
+    size += energyUsers_.CalculateSize(_repeated_energyUsers_codec);
+    size += energyDemandHourly_.CalculateSize(_repeated_energyDemandHourly_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1579,6 +2835,8 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
     if (other == null) {
       return;
     }
+    energyUsers_.Add(other.energyUsers_);
+    energyDemandHourly_.Add(other.energyDemandHourly_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1590,6 +2848,14 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
+        case 10: {
+          energyUsers_.AddEntriesFrom(input, _repeated_energyUsers_codec);
+          break;
+        }
+        case 18: {
+          energyDemandHourly_.AddEntriesFrom(input, _repeated_energyDemandHourly_codec);
+          break;
+        }
       }
     }
   }
@@ -1604,7 +2870,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[9]; }
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[11]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1627,7 +2893,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     isMaster_ = other.isMaster_;
     diffs_ = other.diffs_.Clone();
     history_ = other.history_.Clone();
-    energyData_ = other.energyData_ != null ? other.energyData_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1700,17 +2965,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     get { return history_; }
   }
 
-  /// <summary>Field number for the "energy_data" field.</summary>
-  public const int EnergyDataFieldNumber = 8;
-  private global::EnergyData energyData_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public global::EnergyData EnergyData {
-    get { return energyData_; }
-    set {
-      energyData_ = value;
-    }
-  }
-
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Patch);
@@ -1730,7 +2984,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     if (IsMaster != other.IsMaster) return false;
     if(!diffs_.Equals(other.diffs_)) return false;
     if(!history_.Equals(other.history_)) return false;
-    if (!object.Equals(EnergyData, other.EnergyData)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1743,7 +2996,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     if (IsMaster != false) hash ^= IsMaster.GetHashCode();
     hash ^= diffs_.GetHashCode();
     hash ^= history_.GetHashCode();
-    if (energyData_ != null) hash ^= EnergyData.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1775,10 +3027,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
     diffs_.WriteTo(output, _repeated_diffs_codec);
     history_.WriteTo(output, _repeated_history_codec);
-    if (energyData_ != null) {
-      output.WriteRawTag(66);
-      output.WriteMessage(EnergyData);
-    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1801,9 +3049,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
     size += diffs_.CalculateSize(_repeated_diffs_codec);
     size += history_.CalculateSize(_repeated_history_codec);
-    if (energyData_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(EnergyData);
-    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1832,12 +3077,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
     diffs_.Add(other.diffs_);
     history_.Add(other.history_);
-    if (other.energyData_ != null) {
-      if (energyData_ == null) {
-        EnergyData = new global::EnergyData();
-      }
-      EnergyData.MergeFrom(other.EnergyData);
-    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1874,13 +3113,6 @@ public sealed partial class Patch : pb::IMessage<Patch> {
         }
         case 58: {
           history_.AddEntriesFrom(input, _repeated_history_codec);
-          break;
-        }
-        case 66: {
-          if (energyData_ == null) {
-            EnergyData = new global::EnergyData();
-          }
-          input.ReadMessage(EnergyData);
           break;
         }
       }

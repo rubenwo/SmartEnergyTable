@@ -7,6 +7,9 @@ services:
     ports:
       - 80:80
       - 8080:8080
+    volumes:
+      - ./data:/data
+      - ./certs:/certs
 
   service.redis:
     image: bitnami/redis:5.0

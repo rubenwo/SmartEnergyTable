@@ -15,7 +15,7 @@ type jsonDb struct {
 	documents map[string]interface{}
 }
 
-func createJsonDb() *jsonDb {
+func createJSONDb() *jsonDb {
 	db := &jsonDb{
 		queue:     make(chan job),
 		documents: make(map[string]interface{}),
@@ -39,10 +39,6 @@ func (jdb *jsonDb) Get(key string) (interface{}, error) {
 //Observe: Implementation of database interface
 func (jdb *jsonDb) Observe(key string) (chan interface{}, error) {
 	c := make(chan interface{})
-
-	go func(channel chan interface{}) {
-		select {}
-	}(c)
 
 	return c, nil
 }
