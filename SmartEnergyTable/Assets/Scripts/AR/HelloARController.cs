@@ -50,12 +50,12 @@ namespace GoogleARCore.Examples.HelloAR
         /// <summary>
         /// Plane the map gets rendered on when selected by user.
         /// </summary>
-        public Pose projectionPlaneCenter;
+        private Pose projectionPlaneCenter;
 
         /// <summary>
         /// Disable the plane scanning when projectionplane is found.
         /// </summary>
-        public bool projectionPlaneFound = false;
+        private bool projectionPlaneFound = false;
 
         /// <summary>
         /// The rotation in degrees need to apply to prefab when it is placed.
@@ -124,28 +124,22 @@ namespace GoogleARCore.Examples.HelloAR
                     var session = GameObject.Find("ARCore Device").GetComponent<ARCoreSession>();
                     session.SessionConfig.PlaneFindingMode = DetectedPlaneFindingMode.Disabled;
 
-                    //foreach (var dp in GameObject.FindObjectsOfType<DetectedPlaneVisualizer>())
-                    //{
-                    //dp.GetComponent<DetectedPlaneVisualizer>();
-                    //    DestroyImmediate(dp);
-                    //}
                     List<GameObject> theObjects = new List<GameObject>();
                     theObjects.Add(GameObject.Find("ARController"));
                     theObjects.Add(GameObject.Find("ARCore Device"));
                     theObjects.Add(GameObject.Find("First Person Camera"));
                     theObjects.Add(GameObject.Find("Environmental Light"));
                     theObjects.Add(GameObject.Find("EventSystem"));
+                    theObjects.Add(GameObject.Find("Canvas"));
 
                     GameObject[] allObjects = FindObjectsOfType<GameObject>();
                     List<GameObject> objectsToDisable = new List<GameObject>(allObjects);
+
                     foreach (GameObject a in allObjects)
-                    {
                         foreach (GameObject b in theObjects)
-                        {
                             if (a.name == b.name)
                                 objectsToDisable.Remove(a);
-                        }
-                    }
+
                     foreach (GameObject a in objectsToDisable)
                         a.SetActive(false);
 
@@ -153,11 +147,11 @@ namespace GoogleARCore.Examples.HelloAR
                     Session.CreateAnchor(projectionPlaneCenter);
 
                     //Initialize the mapbox prefab on the found location.
-                    projectionPlaneCenter.position += new Vector3(0f, 0.25f, 0f);
+                    //projectionPlaneCenter.position.y += 200f; //new Vector3(0f, 200f, 0f);
                     var map = Instantiate(GameObjectMapPrefab, projectionPlaneCenter.position, hit.Pose.rotation);
-
+                    map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
                     // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
-                    map.transform.Rotate(0, k_PrefabRotation + 180f, 0, Space.Self);
+                    map.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
                 }
             }
         }
