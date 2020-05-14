@@ -76,8 +76,8 @@ namespace Network
                 }
 
 
-                SslCredentials secureCredentials = new SslCredentials(File.ReadAllText(
-                    "C:/Users/diabl/Documents/SmartEnergyTable/SmartEnergyTable/Assets/Scripts/Network/certs/server.pem"));
+                var secureCredentials = new SslCredentials(File.ReadAllText(
+                    "Assets/Resources/certs/server.pem"));
 
                 //Create the gRPC channel and client
                 _channel = new Channel(serverAddr, secureCredentials);
@@ -131,10 +131,6 @@ namespace Network
         /// </summary>
         public string SessionID => _roomId;
 
-        /// <summary>
-        /// Getter for the EnergyData. 
-        /// </summary>
-        public EnergyData EnergyData => _energyData;
 
         /// <summary>
         /// ObserveMaster adds the callback action to a list. When a patch changes the master role we update these listeners.
