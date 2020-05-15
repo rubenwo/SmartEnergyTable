@@ -7,6 +7,7 @@ import (
 	v1 "github.com/rubenwo/SmartEnergyTable/Server/pkg/api/v1"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/room"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"log"
 	"net"
 	"time"
@@ -26,11 +27,17 @@ func (s *server) Run() error {
 		return errors.New("room manager is nil")
 	}
 	// Start the gRPC server in the main goroutine to avoid exiting.
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 8080))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 8443))
 	if err != nil {
-		log.Fatal("can't listen on port 8080")
+		log.Fatal("can't listen on port: 8443", err)
 	}
-	grpcServer := grpc.NewServer()
+
+	creds, err := credentials.NewServerTLSFromFile("/certs/server.pem", "/certs/server.key")
+	if err != nil {
+		log.Fatal("can't load certificates:", err)
+	}
+
+	grpcServer := grpc.NewServer(grpc.Creds(creds))
 	v1.RegisterSmartEnergyTableServiceServer(grpcServer, s)
 	log.Println("grpc server started listening on port:", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {
