@@ -76,12 +76,19 @@ namespace Network
                 }
 
 
-                var secureCredentials = new SslCredentials(File.ReadAllText(
-                    "Assets/Resources/certs/server.pem"));
+                try
+                {
+                    var secureCredentials = new SslCredentials();
 
-                //Create the gRPC channel and client
-                _channel = new Channel(serverAddr, secureCredentials);
-                _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+                    //Create the gRPC channel and client
+                    _channel = new Channel(serverAddr, secureCredentials);
+                    _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
+                    throw;
+                }
             }
             else
             {
