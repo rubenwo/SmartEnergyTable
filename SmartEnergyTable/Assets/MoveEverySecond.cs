@@ -19,16 +19,18 @@ public class MoveEverySecond : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        this.transform.position = Camera.main.transform.position;
+        this.transform.rotation = Camera.main.transform.rotation;
 
-        this.Seconds++;
 
-        if (this.Seconds > 30)
-        {
-            gameObject.transform.Translate(1, 0, 0);
-            this.Seconds = 0;
+        //this.Seconds++;
 
-        }
+        //if (this.Seconds > 30)
+        //{
+        //    gameObject.transform.Translate(1, 0, 0);
+        //    this.Seconds = 0;
+
+        //}
         //SceneManager.LoadScene("Launcher");
     }
 }
