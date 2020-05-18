@@ -71,44 +71,6 @@ namespace GoogleARCore.Examples.Common
         [SerializeField] private GameObject m_FeaturePoints = null;
 
         /// <summary>
-        /// The RawImage that provides rotating hand animation.
-        /// </summary>
-        //[Tooltip("The RawImage that provides rotating hand animation.")]
-        //[SerializeField] private RawImage m_HandAnimation = null;
-
-        /// <summary>
-        /// The snackbar Game Object.
-        /// </summary>
-        //[Tooltip("The snackbar Game Object.")]
-        //[SerializeField] private GameObject m_SnackBar = null;
-
-        /// <summary>
-        /// The snackbar text.
-        /// </summary>
-        //[Tooltip("The snackbar text.")]
-        //[SerializeField] private Text m_SnackBarText = null;
-
-        /// <summary>
-        /// The Game Object that contains the button to open the help window.
-        /// </summary>
-        //[Tooltip("The Game Object that contains the button to open the help window.")]
-        //[SerializeField] private GameObject m_OpenButton = null;
-
-        /// <summary>
-        /// The Game Object that contains the window with more instructions on how to find a plane.
-        /// </summary>
-        //[Tooltip(
-        //    "The Game Object that contains the window with more instructions on how to find " +
-        //    "a plane.")]
-        //[SerializeField] private GameObject m_MoreHelpWindow = null;
-
-        /// <summary>
-        /// The Game Object that contains the button to close the help window.
-        /// </summary>
-        //[Tooltip("The Game Object that contains the button to close the help window.")]
-        //[SerializeField] private Button m_GotItButton = null;
-
-        /// <summary>
         /// The elapsed time ARCore has been detecting at least one plane.
         /// </summary>
         private float m_DetectedPlaneElapsed;
@@ -133,9 +95,6 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public void Start()
         {
-            //m_OpenButton.GetComponent<Button>().onClick.AddListener(_OnOpenButtonClicked);
-            //m_GotItButton.onClick.AddListener(_OnGotItButtonClicked);
-
             //_CheckFieldsAreNotNull();
             //m_MoreHelpWindow.SetActive(false);
             m_IsLostTrackingDisplayed = false;
@@ -160,28 +119,7 @@ namespace GoogleARCore.Examples.Common
             _UpdateUI();
         }
 
-        /// <summary>
-        /// Callback executed when the open button has been clicked by the user.
-        /// </summary>
-        //private void _OnOpenButtonClicked()
-        //{
-        //    m_MoreHelpWindow.SetActive(true);
-        //    enabled = false;
-            //m_FeaturePoints.SetActive(false);
-            //m_HandAnimation.enabled = false;
-            //m_SnackBar.SetActive(false);
-        //}
-
-        /// <summary>
-        /// Callback executed when the got-it button has been clicked by the user.
-        /// </summary>
-        //private void _OnGotItButtonClicked()
-        //{
-        //    m_MoreHelpWindow.SetActive(false);
-        //    enabled = true;
-        //}
-
-        /// <summary>
+        /// <summary>   
         /// Checks whether at least one plane being actively tracked exists.
         /// </summary>
         private void _UpdateDetectedPlaneTrackingState()

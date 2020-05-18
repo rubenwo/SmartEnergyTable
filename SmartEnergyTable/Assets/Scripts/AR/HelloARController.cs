@@ -18,7 +18,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GoogleARCore.Examples.HelloAR
+namespace GoogleARCore.Examples.Common
 {
     using System.Collections.Generic;
     using GoogleARCore;
@@ -69,6 +69,15 @@ namespace GoogleARCore.Examples.HelloAR
         private bool m_IsQuitting = false;
 
         /// <summary>
+        /// A prefab for tracking and visualizing detected planes.
+        /// </summary>
+        public GameObject DetectedPlanePrefab;
+
+        private List<GameObject> _platforms = new List<GameObject>();
+
+        private List<DetectedPlane> m_NewPlanes = new List<DetectedPlane>();
+
+        /// <summary>
         /// The Unity Awake() method.
         /// </summary>
         public void Awake()
@@ -85,6 +94,26 @@ namespace GoogleARCore.Examples.HelloAR
         {
             _UpdateApplicationLifecycle();
 
+            // Check that motion tracking is tracking.
+            if (Session.Status != SessionStatus.Tracking)
+            {
+                return;
+            }
+
+            // Iterate over planes found in this frame and instantiate corresponding GameObjects to
+            // visualize them.
+            Session.GetTrackables<DetectedPlane>(m_NewPlanes, TrackableQueryFilter.New);
+            for (int i = 0; i < m_NewPlanes.Count; i++)
+            {
+                // Instantiate a plane visualization prefab and set it to track the new plane. The
+                // transform is set to the origin with an identity rotation since the mesh for our
+                // prefab is updated in Unity World coordinates.
+                if (m_NewPlanes[i].PlaneType == DetectedPlaneType.HorizontalUpwardFacing)
+                {
+                    AddFoundPlane(m_NewPlanes[i]);
+                }
+            }
+
             // If the player has not touched the screen, we are done with this update.
             Touch touch;
             if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
@@ -97,7 +126,7 @@ namespace GoogleARCore.Examples.HelloAR
             {
                 return;
             }
-            
+
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.Default;
@@ -124,25 +153,6 @@ namespace GoogleARCore.Examples.HelloAR
                     var session = GameObject.Find("ARCore Device").GetComponent<ARCoreSession>();
                     session.SessionConfig.PlaneFindingMode = DetectedPlaneFindingMode.Disabled;
 
-                    List<GameObject> theObjects = new List<GameObject>();
-                    theObjects.Add(GameObject.Find("ARController"));
-                    theObjects.Add(GameObject.Find("ARCore Device"));
-                    theObjects.Add(GameObject.Find("First Person Camera"));
-                    theObjects.Add(GameObject.Find("Environmental Light"));
-                    theObjects.Add(GameObject.Find("EventSystem"));
-                    theObjects.Add(GameObject.Find("Canvas"));
-
-                    GameObject[] allObjects = FindObjectsOfType<GameObject>();
-                    List<GameObject> objectsToDisable = new List<GameObject>(allObjects);
-
-                    foreach (GameObject a in allObjects)
-                        foreach (GameObject b in theObjects)
-                            if (a.name == b.name)
-                                objectsToDisable.Remove(a);
-
-                    foreach (GameObject a in objectsToDisable)
-                        a.SetActive(false);
-
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical world evolves.
                     Session.CreateAnchor(projectionPlaneCenter);
 
@@ -152,6 +162,11 @@ namespace GoogleARCore.Examples.HelloAR
                     map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
                     // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
                     map.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+
+                    foreach (GameObject g in _platforms)
+                    {
+                        Destroy(g);
+                    }
                 }
             }
         }
@@ -228,6 +243,13 @@ namespace GoogleARCore.Examples.HelloAR
                     toastObject.Call("show");
                 }));
             }
+        }
+
+        public void AddFoundPlane(DetectedPlane plane)
+        {
+            GameObject planeObject = Instantiate(DetectedPlanePrefab, Vector3.zero, Quaternion.identity, transform);
+            planeObject.GetComponent<DetectedPlaneVisualizer>().Initialize(plane);
+            _platforms.Add(planeObject);
         }
     }
 }

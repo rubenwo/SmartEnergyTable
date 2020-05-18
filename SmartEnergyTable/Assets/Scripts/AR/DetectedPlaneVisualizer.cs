@@ -44,8 +44,6 @@ namespace GoogleARCore.Examples.Common
 
         private MeshRenderer m_MeshRenderer;
 
-        private bool currentlyVisible = true;
-
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -60,7 +58,7 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public void Update()
         {
-            if (m_DetectedPlane == null || !currentlyVisible)
+            if (m_DetectedPlane == null)
             {
                 return;
             }

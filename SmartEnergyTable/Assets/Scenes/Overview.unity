@@ -121,75 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &79021185
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872321, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062039261527872323, guid: ba14d002982c6e34abda49c4499cfa99,
-        type: 3}
-      propertyPath: m_Name
-      value: PlaneGenerator
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ba14d002982c6e34abda49c4499cfa99, type: 3}
 --- !u!21 &115154797
 Material:
   serializedVersion: 6
@@ -805,7 +736,7 @@ GameObject:
   - component: {fileID: 289180334}
   m_Layer: 5
   m_Name: ShareSessionButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -973,7 +904,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330232267
 GameObject:
@@ -1175,7 +1106,7 @@ PrefabInstance:
     - target: {fileID: 1727902197932559117, guid: 2e92e7ef87ff2ac40b75e2ecc2bd0321,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1727902197932559117, guid: 2e92e7ef87ff2ac40b75e2ecc2bd0321,
         type: 3}
@@ -1367,7 +1298,7 @@ GameObject:
   - component: {fileID: 492363180}
   m_Layer: 5
   m_Name: QRCodePanel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1593,7 +1524,7 @@ GameObject:
   - component: {fileID: 581102372}
   m_Layer: 5
   m_Name: MoveUsersButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1728,7 +1659,7 @@ GameObject:
   - component: {fileID: 712656980}
   m_Layer: 5
   m_Name: MoveTokenButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2001,7 +1932,7 @@ GameObject:
   - component: {fileID: 870673910}
   m_Layer: 5
   m_Name: ClearButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2210,7 +2141,7 @@ RectTransform:
   - {fileID: 492363179}
   - {fileID: 1881512335}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2241,6 +2172,8 @@ MonoBehaviour:
   changeSceneButton: {fileID: 1598144381}
   tokenSelectionPanel: {fileID: 2041421298}
   qrCodePanel: {fileID: 492363178}
+  PrefabButton: {fileID: 0}
+  efficiencyInputField: {fileID: 0}
 --- !u!1 &920556744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,8 +2203,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1539777751}
+  m_Children: []
   m_Father: {fileID: 2041421299}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2372,7 +2304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1257486800756004, guid: e6b749c6d877f4c19a5a5c3c0783d53b, type: 3}
       propertyPath: m_TagString
-      value: MainCamera
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 4867834046800562, guid: e6b749c6d877f4c19a5a5c3c0783d53b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3156,7 +3088,7 @@ GameObject:
   - component: {fileID: 1223551607}
   m_Layer: 5
   m_Name: SaveSessionButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3274,7 +3206,7 @@ GameObject:
   - component: {fileID: 1223670036}
   m_Layer: 5
   m_Name: RemoveTokenButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3550,7 +3482,7 @@ GameObject:
   - component: {fileID: 1494945613}
   m_Layer: 5
   m_Name: AddTokenButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3978,7 +3910,7 @@ GameObject:
   - component: {fileID: 1598144381}
   m_Layer: 5
   m_Name: ChangeSceneButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4097,6 +4029,8 @@ MonoBehaviour:
   FirstPersonCamera: {fileID: 1605190852}
   GameObjectMapPrefab: {fileID: 1290224484336908, guid: 5bb46bae81bf04608ac699be504c5e66,
     type: 3}
+  DetectedPlanePrefab: {fileID: 1654175882956584, guid: 6a35c744e5010405c847fad90282d2be,
+    type: 3}
 --- !u!4 &1600450463
 Transform:
   m_ObjectHideFlags: 0
@@ -4203,8 +4137,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 763741088}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4298,13 +4232,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1657065837}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -4418,7 +4352,7 @@ GameObject:
   - component: {fileID: 1685122101}
   m_Layer: 5
   m_Name: StopSessionButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4536,7 +4470,7 @@ GameObject:
   - component: {fileID: 1731669720}
   m_Layer: 5
   m_Name: LeaveSessionButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4669,8 +4603,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 755790942}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4764,13 +4698,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1768050584}
-    characterCount: 7
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -4969,7 +4903,7 @@ GameObject:
   - component: {fileID: 2041421300}
   m_Layer: 5
   m_Name: TokenSelectionPanel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4986,6 +4920,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 197400403}
+  - {fileID: 920556745}
   m_Father: {fileID: 876213458}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
