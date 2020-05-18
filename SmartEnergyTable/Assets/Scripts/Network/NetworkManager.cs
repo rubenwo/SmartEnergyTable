@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Grpc.Core.Api;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -74,9 +75,20 @@ namespace Network
                     Prefabs.Add(objectLibrary[i].name);
                 }
 
-                //Create the gRPC channel and client
-                _channel = new Channel(serverAddr, ChannelCredentials.Insecure);
-                _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+
+                try
+                {
+                    var secureCredentials = new SslCredentials();
+
+                    //Create the gRPC channel and client
+                    _channel = new Channel(serverAddr, secureCredentials);
+                    _client = new Client(new SmartEnergyTableService.SmartEnergyTableServiceClient(_channel));
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
+                    throw;
+                }
             }
             else
             {
@@ -126,10 +138,6 @@ namespace Network
         /// </summary>
         public string SessionID => _roomId;
 
-        /// <summary>
-        /// Getter for the EnergyData. 
-        /// </summary>
-        public EnergyData EnergyData => _energyData;
 
         /// <summary>
         /// ObserveMaster adds the callback action to a list. When a patch changes the master role we update these listeners.
