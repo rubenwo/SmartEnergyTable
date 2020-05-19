@@ -8,20 +8,23 @@ public class AddPointsToLineRenderer : MonoBehaviour
     public Color c1 = Color.yellow;
     public Color c2 = Color.red;
 
+    public Color TextColor = Color.blue;
+
     // Represents all our raw data
-    List<Vector3> _points = new List<Vector3>();
-    List<float> _values = new List<float>(new float[] { 25, 50, 45, 18, 29, 12 });
+    private List<Vector3> _points = new List<Vector3>();
+    private List<float> _values = new List<float>(new float[] { 25, 50, 45, 18, 29, 12 });
+    private List<string> _names = new List<string>(new string[] { "Lab", "Helix", "Auditorium", "HVAC", "ICT", "Laplace" });
 
-    List<Vector3> infoLabelPoints = new List<Vector3>();
-
-    private int _counter = 0;
-
-    public Material material;
-    private Mesh tileMesh;
 
     // Start is called before the first frame update
     void Start()
     {
+        LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.widthMultiplier = 1f;
+        lineRenderer.positionCount = _points.Count;
+        lineRenderer.transform.rotation = gameObject.transform.rotation;
+
         float relX, relY, relZ;
 
         RectTransform b = gameObject.GetComponent<RectTransform>();
@@ -40,14 +43,17 @@ public class AddPointsToLineRenderer : MonoBehaviour
         // Generate 4 points for each raw value
         foreach (int val in _values)
         {
-            // Draw graph
-            _points.Add(new Vector3(relX + counter * diffX, relY, relZ));
-            _points.Add(new Vector3(relX + counter * diffX, relY + val * diffYPerX, relZ));
-            _points.Add(new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX, relZ));
-            _points.Add(new Vector3(relX + counter * diffX + diffX, relY, relZ));
+            float startX = relX + counter * diffX;
+            float endX = relX + counter * diffX + diffX;
 
-            // Add right bottom and left top corners to the list
-           // AddRect("Lab", (new Vector3(relX + counter * diffX, relY, relZ), new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX, relZ)));
+            for (float c = startX; c < endX; c++)
+            {
+                // Draw graph
+                _points.Add(new Vector3(c, relY, relZ));
+                _points.Add(new Vector3(c, relY + val * diffYPerX, relZ));
+                _points.Add(new Vector3(c+1, relY + val * diffYPerX, relZ));
+                _points.Add(new Vector3(c+1, relY, relZ));
+            }
 
             AddText(val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX, relZ),
                                            new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX, relZ));
@@ -57,10 +63,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
             counter++;
         }
 
-        LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.widthMultiplier = 1f;
-        lineRenderer.positionCount = _points.Count;
+
 
         // A simple 2 color gradient with a fixed alpha of 1.0f.
         float alpha = 1.0f;
@@ -74,48 +77,23 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
     }
 
-    //private void AddRect(string text, (Vector3, Vector3) p)
-    //{
-    //    GameObject textGO = new GameObject("colormesh-" + text);
-    //    textGO.transform.parent = GameObject.Find("Plane (1)").transform;
-    //    //var canvas = textGO.AddComponent<Canvas>();
-    //    var render = textGO.AddComponent<MeshRenderer>();
-    //    //render.transform.position = 
-    //    render.material.color = Color.gray;
-
-    //    //((RectTransform)textGO.transform).sizeDelta = new Vector2(p.Item2.x - p.Item1.x, p.Item2.y - p.Item1.y);
-    //    textGO.transform.position = p.Item1;
-
-
-    //}
-
     private void AddText(string text, Vector3 start, Vector3 end)
     {
-        //Canvas myTextCanvas = gameObject.AddComponent<Canvas>();
-        //myTextCanvas.name = text;
-        //myTextCanvas.transform.rotation = myTextCanvas.transform.rotation;
-
-        //Text myText = myTextCanvas.gameObject.transform.parent.gameObject.AddComponent<Text>();
-        //myText.text = text;
-        //Debug.Log(gameObject.transform.parent.gameObject.name);
-        //gameObject.transform.parent.gameObject.name = "TEST";
-
         // Create the Text GameObject.
         GameObject textGO = new GameObject("infolabel"+text);
         textGO.transform.parent = GameObject.Find("Plane (1)").transform;
         var textMesh = textGO.AddComponent<TextMesh>();
         textMesh.fontSize = 30;
-        textMesh.color = Color.red;
+        textMesh.color = TextColor;
         textMesh.alignment = TextAlignment.Center;
         textMesh.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
 
         var rTransf = (RectTransform)gameObject.transform;
 
-        start.y += rTransf.rect.height/15;
+        start.y += rTransf.rect.height/10;
         textMesh.transform.position = start;
         ((RectTransform)gameObject.transform).sizeDelta = new Vector2(end.x - start.x, end.y - start.y);
-        textMesh.text = text;
-
+        textMesh.text = _names.ElementAt(_values.IndexOf(int.Parse(text))) + "\n "+ text;
 
         //label.transform.position = start;
     }
@@ -124,7 +102,6 @@ public class AddPointsToLineRenderer : MonoBehaviour
     void Update()
     {
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
-        var t = Time.time;
         int counter = 0;
         foreach (var point in _points)
         {
