@@ -16,15 +16,11 @@ type Manager struct {
 
 // NewManager creates a manager object and instantiates a connection to the backend database.
 // The function returns nil if an error occurred with the database creation.
-func NewManager() (*Manager, error) {
-	db, err := database.Factory("redis")
-	if err != nil {
-		return nil, err
-	}
+func NewManager(db database.Database) *Manager {
 	return &Manager{
 		db:    db,
 		rooms: make(map[string]*Room),
-	}, nil
+	}
 }
 
 // CreateRoom creates a new uuid and creates a room. It then returns that ID.
@@ -63,7 +59,7 @@ func (m *Manager) JoinRoom(id, user string, callback chan Patch) error {
 			return fmt.Errorf("room with id: %s does not exist", id)
 		}
 		room, ok = raw.(*Room)
-		if !ok{
+		if !ok {
 			log.Println("Conversion from interface to Room didn't work")
 			return fmt.Errorf("internal error with the casting of interface{} to Room from database")
 		}
@@ -104,12 +100,12 @@ func (m *Manager) SaveRoom(id string) error {
 		return fmt.Errorf("error saving room with id: %s, with error: %w", id, err)
 	}
 	raw, err := m.db.Get(id)
-	if err != nil{
+	if err != nil {
 		log.Println(err)
 	}
 	fmt.Println(raw)
 	r, ok := raw.(*Room)
-	if !ok{
+	if !ok {
 		log.Println("Conversion failed")
 	}
 	fmt.Println(r)
