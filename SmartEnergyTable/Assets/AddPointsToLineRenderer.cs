@@ -18,7 +18,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
     // Which Json value do you want to show? (Must exist else won't show)
     public string GraphPropertyName = "TotalDemand";
-    private string DisplayPropertyName { get => GraphPropertyName + "FieldNumber"; }
+    private string DisplayPropertyName { get => "totalDemand_"; }
 
     // Represents all our raw data
     private List<Vector3> _points = new List<Vector3>();
@@ -50,8 +50,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
             //object value = field.GetValue(_energy[1]);
             //float levelValue = (float)value;
 
-            //foreach (var f in _energy[1].GetType().GetFields())
-            //    Debug.Log(f.Name);
+            foreach (var f in _energy[1].GetType().GetRuntimeFields())
+                Debug.Log(f.Name);
 
 
             float relX, relY, relZ;
@@ -63,11 +63,10 @@ public class AddPointsToLineRenderer : MonoBehaviour
             relZ = 50;
 
             // Calculate Graph size
-            _energy = _energy.Take(10).ToArray();
-            Debug.Log(_energy[1].TotalDemand);
-            Debug.Log(_energy[1].GetType().GetField(DisplayPropertyName).GetValue(_energy[1]).GetType());
-            float maxY = _energy.Max(eData => (int)eData.GetType().GetField(DisplayPropertyName).GetValue(eData));
-            Debug.Log("Max: " + maxY);
+            _energy = _energy.Take(10).Skip(1).ToArray();
+            int maxY = _energy.Max(eData => (int)Convert.ToDouble(eData.TotalDemand));
+
+
             float diffYPerX = b.rect.height / maxY * 0.9f;
             float diffX = b.rect.width / _energy.Length;
 
@@ -75,7 +74,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
             // Generate 4 points for each raw value
             foreach (var values in _energy)
             {
-                var val = (int)values.GetType().GetField(DisplayPropertyName).GetValue(values);
+                var val = (float)Convert.ToDouble(values.TotalDemand);
 
                 float startX = relX + counter * diffX;
                 float endX = relX + counter * diffX + diffX;
@@ -118,17 +117,15 @@ public class AddPointsToLineRenderer : MonoBehaviour
     void Start()
     {
         StartCoroutine(GetHourly());
-
-
-
     }
+
     private void AddText(string text, string value, Vector3 start, Vector3 end)
     {
         // Create the Text GameObject.
         GameObject textGO = new GameObject("infolabel"+text);
         textGO.transform.parent = GameObject.Find("GraphCanvas").transform;
         var textMesh = textGO.AddComponent<TextMesh>();
-        textMesh.fontSize = 30;
+        textMesh.fontSize = 20;
         textMesh.color = TextColor;
         textMesh.alignment = TextAlignment.Center;
         textMesh.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
@@ -137,7 +134,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         textMesh.transform.position = start;
         rTransf.sizeDelta = new Vector2(Math.Abs(end.x - start.x), Math.Abs(end.y - start.y));
-        textMesh.text = text + ": " + value;
+        textMesh.text = text + "\n " + value;
 
         //label.transform.position = start;
     }
