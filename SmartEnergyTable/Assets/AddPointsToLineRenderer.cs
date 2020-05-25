@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,16 +19,11 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
     // Which Json value do you want to show? (Must exist else won't show)
     public string GraphPropertyName = "TotalDemand";
-    private string DisplayPropertyName { get => "totalDemand_"; }
 
     // Represents all our raw data
     private List<Vector3> _points = new List<Vector3>();
-    //private List<float> _values = new List<float>(new float[] { 25, 50, 45, 18, 29, 12 });
-    //private List<string> _names = new List<string>(new string[] { "Lab", "Helix", "Auditorium", "HVAC", "ICT", "Laplace" });
 
-    private EnergyDemandHourly[] _energy;
-
-    
+    private EnergyDemandHourly2[] _energy;
 
     IEnumerator GetHourly()
     {
@@ -40,18 +36,13 @@ public class AddPointsToLineRenderer : MonoBehaviour
         }
         else
         {
-            _energy = JsonConvert.DeserializeObject<EnergyDemandHourly[]>(www.downloadHandler.text);
-            Debug.Log(_energy[1]);
+            _energy = JsonConvert.DeserializeObject<EnergyDemandHourly2[]>(www.downloadHandler.text);
 
             //var hourlyData = UnityWebRequest.Get("http://localhost:8080/Hourly");
             //var monthlyData = UnityWebRequest.Get("http://localhost:8080/Monthly");
-            //Type type = _energy[1].GetType();
-            //FieldInfo field = type.GetField("TotalDemand");
-            //object value = field.GetValue(_energy[1]);
-            //float levelValue = (float)value;
 
-            foreach (var f in _energy[1].GetType().GetRuntimeFields())
-                Debug.Log(f.Name);
+            // Set Title bar
+            GameObject.Find("TitleBar").GetComponent<TextMeshPro>().text = GraphPropertyName;
 
 
             float relX, relY, relZ;
@@ -64,8 +55,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
             // Calculate Graph size
             _energy = _energy.Take(10).Skip(1).ToArray();
-            int maxY = _energy.Max(eData => (int)Convert.ToDouble(eData.TotalDemand));
-
+            int maxY = _energy.Max(eData => (int)Convert.ToDouble(eData.GetType().GetProperty(GraphPropertyName).GetValue(eData)));
 
             float diffYPerX = b.rect.height / maxY * 0.9f;
             float diffX = b.rect.width / _energy.Length;
@@ -74,7 +64,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
             // Generate 4 points for each raw value
             foreach (var values in _energy)
             {
-                var val = (float)Convert.ToDouble(values.TotalDemand);
+                var val = (float)Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName).GetValue(values));
 
                 float startX = relX + counter * diffX;
                 float endX = relX + counter * diffX + diffX;
@@ -110,7 +100,16 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             lineRenderer.colorGradient = gradient;
+
+            //LineRenderer lineRenderer = GetComponent<LineRenderer>();
+            counter = 0;
+            foreach (var point in _points)
+            {
+                lineRenderer.SetPosition(counter++, point);
+            }
         }
+
+
     }
 
     // Start is called before the first frame update
@@ -134,66 +133,71 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         textMesh.transform.position = start;
         rTransf.sizeDelta = new Vector2(Math.Abs(end.x - start.x), Math.Abs(end.y - start.y));
-        textMesh.text = text + "\n " + value;
+        textMesh.text = text + "\n" + value;
 
-        //label.transform.position = start;
     }
 
     // Update is called once per frame
     void Update()
     {
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
-        int counter = 0;
-        foreach (var point in _points)
-        {
-            lineRenderer.SetPosition(counter++, point);
-        }
+
 
     }
 
 
 }
 
-//class EnergyUser {
+class EnergyUser2
+{
+    public string Time { get; set; }
+    public string Label { get; set; }
+    public string Name { get; set; }
 
-//    public string Time { get; set; }
-//    public string Label { get; set; }
-//    public string Name { get;set; }
+    public string SourceId { get; set; }
+    public string TotalDemand { get; set; }
+    public string Lighting { get; set; }
+    public string HVAC { get; set; }
+    public string Appliances { get; set; }
+    public string Lab { get; set; }
+    public string PV { get; set; }
+    public string Unit { get; set; }
 
-//	public string SourceId {get;set; }
-//	public string TotalDemand { get;set; }
-//	public string Lighting { get;set; }
-//	public string HVAC { get;set; }
-//	public string Appliances  { get;set; }
-//	public string Lab   { get;set; }
-//	public string PV   { get;set; }
-//	public string Unit   { get;set; }
-//}
+    public override string ToString()
+    {
+        return TotalDemand.ToString();
+    }
+}
 
-//class EnergyDemandHourly {
+class EnergyDemandHourly2
+{
 
-//    public string Id { get; set; }
-//    public string Date { get; set; }
-//    public string Year { get;set; }
-//    public string Month { get;set; }
-//	public string Day { get;set; }
-//	public string Hour { get;set; }
-//	public string Minutes { get;set; }
-//	public string SourceId { get;set; }	
-//	public string ChannelId { get;set; }
-//	public string Unit { get;set; }
-//	public string TotalDemand { get;set; }
-//	public string DeltaValue { get;set; }
-//	public string SourceTag { get; set; }
-//    public string ChannelTag { get; set; }
-//    public string Label { get; set; }
-//    public string Name { get; set; }
-//    public string Height { get; set; }
-//    public string Area { get; set; }
-//    public string WindSpeed { get; set; }
-//    public string Temperature { get; set; }
-//    public string SolarRad { get; set; }
-//    public string ElectricityPrice { get; set; }
-//    public string supply { get; set; }
-//    public string renewables { get; set; }
-//}
+    public string Id { get; set; }
+    public string Date { get; set; }
+    public string Year { get; set; }
+    public string Month { get; set; }
+    public string Day { get; set; }
+    public string Hour { get; set; }
+    public string Minutes { get; set; }
+    public string SourceId { get; set; }
+    public string ChannelId { get; set; }
+    public string Unit { get; set; }
+    public string TotalDemand { get; set; }
+    public string DeltaValue { get; set; }
+    public string SourceTag { get; set; }
+    public string ChannelTag { get; set; }
+    public string Label { get; set; }
+    public string Name { get; set; }
+    public string Height { get; set; }
+    public string Area { get; set; }
+    public string WindSpeed { get; set; }
+    public string Temperature { get; set; }
+    public string SolarRad { get; set; }
+    public string ElectricityPrice { get; set; }
+    public string supply { get; set; }
+    public string renewables { get; set; }
+
+    public override string ToString()
+    {
+        return TotalDemand.ToString();
+    }
+}
