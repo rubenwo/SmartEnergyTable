@@ -172,6 +172,12 @@ namespace Network
             }
         }
 
+        /// <summary>
+        /// ObserveUserPosition adds a callback to the internal list. When a patch updates the user position, thses callbacks
+        /// are invoked.
+        /// </summary>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        /// <param name="callback">Action(Vector3), an action that is called when the UserPosition has changed</param>
         public void ObserveUserPosition(string uuid, Action<Vector3> callback)
         {
             _userPositionListeners.Add(uuid, callback);
@@ -200,6 +206,10 @@ namespace Network
             _energyDataListeners.Remove(uuid);
         }
 
+        /// <summary>
+        /// UnObserveUserPosition: When a listener no longer needs to listen they should unsubscribe.
+        /// </summary>
+        /// <param name="uuid">This is an identifier for the listener</param>
         public void UnObserveUserPosition(string uuid)
         {
             _userPositionListeners.Remove(uuid);
@@ -506,6 +516,10 @@ namespace Network
             _uuidLookUp.Clear();
         }
 
+        /// <summary>
+        /// GetEnergyData gets the energydata form the server. After which this data is cached in memory.
+        /// </summary>
+        /// <returns>EnergyData from the server</returns>
         public EnergyData GetEnergyData()
         {
             if (_energyData == null)

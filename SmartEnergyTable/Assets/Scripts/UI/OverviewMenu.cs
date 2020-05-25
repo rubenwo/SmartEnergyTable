@@ -48,7 +48,8 @@ namespace UI
             PlacingToken,
             RemovingToken,
             MovingToken,
-            SelectedTokenForMoving
+            SelectedTokenForMoving,
+            MoveUsers
         }
 
         private string _prefab = "Cube";
@@ -115,7 +116,7 @@ namespace UI
                 _networkManager.LeaveRoom();
             });
             clearButton.onClick.AddListener(() => { _networkManager.ClearScene(); });
-            moveUsersButton.onClick.AddListener(() => { Debug.Log("Move"); });
+            moveUsersButton.onClick.AddListener(() => { _state = State.MoveUsers; });
             changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
         }
 
@@ -166,6 +167,15 @@ namespace UI
                     if (ok)
                     {
                         _networkManager.MoveToken(_selectedToken.transform.gameObject, hit.point);
+                        _state = State.Idle;
+                    }
+
+                    break;
+                case State.MoveUsers:
+                    (hit, ok) = Select();
+                    if (ok)
+                    {
+                        _networkManager.MoveUsers(hit.point);
                         _state = State.Idle;
                     }
 
