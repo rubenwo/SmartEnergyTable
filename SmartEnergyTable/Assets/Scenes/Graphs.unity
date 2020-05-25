@@ -698,6 +698,7 @@ MonoBehaviour:
   c1: {r: 0, g: 0, b: 0, a: 1}
   c2: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 1}
   TextColor: {r: 0.9433962, g: 0.1124495, b: 0.06674972, a: 1}
+  GraphPropertyName: TotalDemand
 --- !u!222 &923203946
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -720,7 +721,7 @@ GameObject:
   - component: {fileID: 965025219}
   - component: {fileID: 965025218}
   m_Layer: 0
-  m_Name: Title
+  m_Name: TitleBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
