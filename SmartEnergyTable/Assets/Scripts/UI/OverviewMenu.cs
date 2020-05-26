@@ -70,14 +70,13 @@ namespace UI
         {
             _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
             _camera = Camera.main;
-//            test = GameObject.Find("TransformThing");
-//            _networkManager.SetTransformForTokens(test.transform);
             _networkManager.ObserveMaster(_uuid, isMaster => gameObject.SetActive(isMaster));
+
+            var pos = tokenSelectionPanel.transform.position;
+            pos.x -= _networkManager.Prefabs.Count / 2 * 300;
 
             for (var i = 0; i < _networkManager.Prefabs.Count; i++)
             {
-                var pos = tokenSelectionPanel.transform.position;
-                pos.x += i * 100;
                 var button = Instantiate(PrefabButton, pos, Quaternion.identity,
                     tokenSelectionPanel.transform) as Button;
                 button.GetComponentInChildren<TextMeshProUGUI>().text = _networkManager.Prefabs[i];
@@ -89,6 +88,7 @@ namespace UI
                     tokenSelectionPanel.SetActive(false);
                 });
                 _buttons.Add(button);
+                pos.x += 300;
             }
 
             addTokenButton.onClick.AddListener(() =>
@@ -142,7 +142,7 @@ namespace UI
                     (hit, ok) = Select();
                     if (ok)
                     {
-                        _networkManager.AddToken(_prefab, _efficiency, hit.point);
+                        _networkManager.AddToken(_prefab, _efficiency, hit.point, 0.005f);
                         _state = State.Idle;
                     }
 
