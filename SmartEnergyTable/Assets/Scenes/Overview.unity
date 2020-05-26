@@ -3982,6 +3982,8 @@ MonoBehaviour:
   FirstPersonCamera: {fileID: 1605190852}
   GameObjectMapPrefab: {fileID: 1290224484336908, guid: 5bb46bae81bf04608ac699be504c5e66,
     type: 3}
+  DetectedPlanePrefab: {fileID: 1654175882956584, guid: 6a35c744e5010405c847fad90282d2be,
+    type: 3}
 --- !u!4 &1600450463
 Transform:
   m_ObjectHideFlags: 0
