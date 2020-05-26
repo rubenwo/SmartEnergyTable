@@ -266,7 +266,7 @@ namespace Network
                                 y = diff.Token.Position.Y,
                                 z = diff.Token.Position.Z
                             }, Quaternion.identity);
-                        //obj.transform.parent = t;
+                        obj.transform.localScale *= diff.Token.Scale;
                         _currentScene.Add(diff.Token.ObjectId, obj);
                         break;
                     case Diff.Types.Action.Delete:
@@ -386,11 +386,11 @@ namespace Network
         /// <param name="prefab">the name of the prefab of the token. This is case sensitive.</param>
         /// <param name="efficiency">The efficiency of the token. This value should be between 0 & 100</param>
         /// <param name="position">UnityEngine version of the Vector3 class. This is the position of a newly placed token.</param>
-        public void AddToken(string prefab, int efficiency, Vector3 position)
+        public void AddToken(string prefab, int efficiency, Vector3 position, float scale = 1)
         {
             if (efficiency < 0) efficiency = 0;
             if (efficiency > 100) efficiency = 100;
-            _client.AddToken(_roomId, _userId, _prefabLookUp[prefab], efficiency, position);
+            _client.AddToken(_roomId, _userId, _prefabLookUp[prefab], efficiency, position, scale);
         }
 
 
