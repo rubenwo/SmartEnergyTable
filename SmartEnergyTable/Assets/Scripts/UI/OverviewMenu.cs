@@ -96,6 +96,10 @@ namespace UI
                 _state = State.PlacingToken;
                 tokenSelectionPanel.SetActive(true);
             });
+            foreach (var data in _networkManager.GeneratedEnergy.Data)
+            {
+                Debug.Log(data.Energy);
+            }
 
             removeTokenButton.onClick.AddListener(() => { _state = State.RemovingToken; });
             moveTokenButton.onClick.AddListener(() => { _state = State.MovingToken; });

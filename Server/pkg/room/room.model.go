@@ -23,10 +23,11 @@ type Patch struct {
 	RoomID  string
 	History []Diff
 
-	SceneID      int
-	Diffs        []Diff
-	UserPosition v1.Vector3_Protocol
-	IsMaster     bool
+	SceneID       int
+	Diffs         []Diff
+	UserPosition  v1.Vector3_Protocol
+	IsMaster      bool
+	GenEnergyData []*v1.GeneratedEnergy_Data
 }
 
 type scene struct {
@@ -63,12 +64,24 @@ func (r *Room) Notify() {
 	r.Lock.Lock()
 
 	patch := Patch{
-		RoomID:       r.RoomID,
-		SceneID:      r.currentScene,
-		Diffs:        r.changes,
-		UserPosition: r.scenes[r.currentScene].userPosition,
-		IsMaster:     false,
-		History:      []Diff{},
+		RoomID:        r.RoomID,
+		SceneID:       r.currentScene,
+		Diffs:         r.changes,
+		UserPosition:  r.scenes[r.currentScene].userPosition,
+		IsMaster:      false,
+		History:       []Diff{},
+		GenEnergyData: []*v1.GeneratedEnergy_Data{},
+	}
+
+	for _, token := range r.scenes[r.currentScene].tokens {
+		switch token.ObjectIndex {
+		case 0: // Battery
+			patch.GenEnergyData = append(patch.GenEnergyData, &v1.GeneratedEnergy_Data{Token: token, Energy: 1 * float32(token.Efficiency) / 100})
+		case 1: // Solar panel
+			patch.GenEnergyData = append(patch.GenEnergyData, &v1.GeneratedEnergy_Data{Token: token, Energy: 0.62 * float32(token.Efficiency) / 100})
+		case 2: // Windmill
+			patch.GenEnergyData = append(patch.GenEnergyData, &v1.GeneratedEnergy_Data{Token: token, Energy: 0.73 * float32(token.Efficiency) / 100})
+		}
 	}
 
 	r.history = append(r.history, r.changes...) // Append the now processed changes to the history.
