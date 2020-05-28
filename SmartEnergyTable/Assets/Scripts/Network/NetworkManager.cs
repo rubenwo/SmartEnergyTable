@@ -234,21 +234,6 @@ namespace Network
             _generatedEnergyListeners.Remove(uuid);
         }
 
-        /// <summary>
-        /// ObserveUserPosition adds a callback to the internal list. When a patch updates the user position this will trigger a callback.
-        /// are invoked.
-        /// </summary>
-        /// <param name="callback">Action(Vector3), an action that is called when the UserPosition has changed</param>
-        /// <param name="uuid">This is an identifier for the listener</param>
-        public void ObserveUserPosition(string uuid, Action<Vector3> callback)
-        {
-            _userPositionListeners.Add(uuid, callback);
-            foreach (var userPositionListener in _userPositionListeners)
-            {
-                userPositionListener.Value.Invoke(_userPosition);
-            }
-        }
-
 
         /// <summary>
         /// UnObserveUserPosition: When a listener no longer needs to listen they should unsubscribe.
