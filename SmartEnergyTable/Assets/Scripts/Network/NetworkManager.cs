@@ -127,8 +127,7 @@ namespace Network
         private void OnApplicationQuit()
         {
             Debug.Log("OnApplicationQuit()");
-            if (SceneManager.GetActiveScene().buildIndex != 0
-            ) //If we are on the Launcher menu we have no room to leave.
+            if (SceneManager.GetActiveScene().buildIndex != 0) //If we are on the Launcher menu we have no room to leave.
                 _client.LeaveRoom(_roomId, _userId); //Leave the room before we shutdown.
             //Shutdown the channel synchronously to avoid bugs.
             _channel.ShutdownAsync().Wait();

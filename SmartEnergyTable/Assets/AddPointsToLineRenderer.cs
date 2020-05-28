@@ -156,18 +156,10 @@ public class AddPointsToLineRenderer : MonoBehaviour
             }
         }
     }
-
     // Start is called before the first frame update
     void Start()
     {
-        var str = Guid.NewGuid().ToString();
         _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
-        _networkManager.CreateRoom();
-        _networkManager.AddToken("Windmill", 90, new Vector3(0, 0, 0), 1);
-        _networkManager.ObserveEnergyData(_networkManager._userId, (en) =>
-        {
-            Debug.Log("Got this: "+ en.EnergyUsers[1].Pv);
-        });
 
         StartCoroutine(GetHourly());
     }
