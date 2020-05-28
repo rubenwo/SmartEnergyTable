@@ -65,6 +65,8 @@ namespace Network
         private readonly Dictionary<string, Action<Vector3>> _userPositionListeners =
             new Dictionary<string, Action<Vector3>>();
 
+        private readonly Dictionary<string, Action<GeneratedEnergy>> _generatedEnergyListeners =
+            new Dictionary<string, Action<GeneratedEnergy>>();
 
         private void Awake()
         {
@@ -192,6 +194,58 @@ namespace Network
         {
             _energyDataListeners.Remove(uuid);
         }
+
+
+        /// <summary>
+        /// ObserveGeneratedEnergy adds a callback to the internal list. When a patch updates the generated these callbacks are triggered
+        /// are invoked.
+        /// </summary>
+        /// <param name="callback">Action(GeneratedEnergy), an action that is called when the EnergyData has changed</param>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void ObserveGeneratedEnergy(string uuid, Action<GeneratedEnergy> callback)
+        {
+            _generatedEnergyListeners.Add(uuid, callback);
+            foreach (var generatedEnergyListener in _generatedEnergyListeners)
+            {
+                generatedEnergyListener.Value.Invoke(_generatedEnergy);
+            }
+        }
+
+
+        /// <summary>
+        /// UnObserveMaster: When a listener no longer needs to listen they should unsubscribe.
+        /// </summary>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void UnObserveGeneratedEnergy(string uuid)
+        {
+            _generatedEnergyListeners.Remove(uuid);
+        }
+
+        /// <summary>
+        /// ObserveUserPosition adds a callback to the internal list. When a patch updates the user position this will trigger a callback.
+        /// are invoked.
+        /// </summary>
+        /// <param name="callback">Action(Vector3), an action that is called when the UserPosition has changed</param>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void ObserveUserPosition(string uuid, Action<Vector3> callback)
+        {
+            _userPositionListeners.Add(uuid, callback);
+            foreach (var userPositionListener in _userPositionListeners)
+            {
+                userPositionListener.Value.Invoke(_userPosition);
+            }
+        }
+
+
+        /// <summary>
+        /// UnObserveUserPosition: When a listener no longer needs to listen they should unsubscribe.
+        /// </summary>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void UnObserveUserPosition(string uuid)
+        {
+            _userPositionListeners.Remove(uuid);
+        }
+
 
         /// <summary>
         /// SetTransformForTokens sets the transform of the parent for the tokens. useful when the tokens need to be in local space.
