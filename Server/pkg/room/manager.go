@@ -28,11 +28,10 @@ func (m *Manager) CreateRoom() (id string) {
 	id = uuid.New().String()
 
 	m.rooms[id] = &Room{
-		Lock:   sync.Mutex{},
-		RoomID: id,
-		scenes: []scene{
-			{id: 0, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3_Protocol{}},
-			{id: 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3_Protocol{}}},
+		Lock:               sync.Mutex{},
+		RoomID:             id,
+		tokens:             map[string]*v1.Token{},
+		userPosition:       v1.Vector3_Protocol{},
 		currentScene:       1,
 		master:             "",
 		clients:            map[string]chan Patch{},
@@ -128,7 +127,7 @@ func (m *Manager) AddToken(id, user string, object *v1.Token) error {
 	}
 	object.ObjectId = uuid.New().String() // Generate a uuid for the new object.
 	// Set the token
-	room.scenes[room.currentScene].tokens[object.ObjectId] = object
+	room.tokens[object.ObjectId] = object
 	room.changes = append(room.changes, Diff{
 		Action: ADD,
 		Token:  object,
@@ -149,7 +148,7 @@ func (m *Manager) RemoveToken(id, user string, object *v1.Token) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	delete(room.scenes[room.currentScene].tokens, object.ObjectId)
+	delete(room.tokens, object.ObjectId)
 	room.changes = append(room.changes, Diff{
 		Action: DELETE,
 		Token:  object,
@@ -171,7 +170,7 @@ func (m *Manager) MoveToken(id, user string, object *v1.Token) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	room.scenes[room.currentScene].tokens[object.ObjectId] = object
+	room.tokens[object.ObjectId] = object
 	room.changes = append(room.changes, Diff{
 		Action: MOVE,
 		Token:  object,
@@ -195,15 +194,13 @@ func (m *Manager) ClearRoom(id, user string) error {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
 
-	s := room.scenes[room.currentScene]
-	for _, token := range s.tokens {
+	for _, token := range room.tokens {
 		room.changes = append(room.changes, Diff{
 			Action: DELETE,
 			Token:  token,
 		})
 	}
-	room.scenes[room.currentScene] = scene{id: s.id, tokens: map[string]*v1.Token{}, userPosition: s.userPosition}
-
+	room.tokens = map[string]*v1.Token{}
 	return nil
 }
 
@@ -221,13 +218,7 @@ func (m *Manager) ChangeScene(id, user string, sceneID int) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	if sceneID > len(room.scenes)-1 {
-		size := len(room.scenes) - 1
-		for i := 0; i < sceneID-size; i++ {
-			room.scenes = append(room.scenes, scene{id: i + size + 1, tokens: make(map[string]*v1.Token),
-				userPosition: v1.Vector3_Protocol{}})
-		}
-	}
+
 	room.currentScene = sceneID
 
 	return nil
@@ -289,7 +280,7 @@ func (m *Manager) MoveUsers(id, master string, position v1.Vector3_Protocol) err
 	if room.master != master {
 		return fmt.Errorf("you don't have the permissions to change the master")
 	}
-	room.scenes[room.currentScene].userPosition = position
+	room.userPosition = position
 
 	return nil
 }
