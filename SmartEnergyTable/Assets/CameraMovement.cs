@@ -22,8 +22,8 @@ public class CameraMovement : MonoBehaviour
         _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
         {
             this._camera.transform.position = vec3;
-            Debug.Log(String.Format("Got: {0}", vec3));
         });
+
     }
 
     // Update is called once per frame

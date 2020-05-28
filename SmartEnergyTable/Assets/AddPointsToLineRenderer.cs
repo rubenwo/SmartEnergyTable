@@ -10,6 +10,8 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using Microsoft.CSharp;
+using NetworkManager = Network.NetworkManager;
 
 public class AddPointsToLineRenderer : MonoBehaviour
 {
@@ -18,8 +20,12 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
     public Color TextColor = Color.black;
 
-    public enum GraphType { DAILY, MONTHLY };
-    public GraphType GraphTypeToDisplay = GraphType.DAILY;
+    private Vector3 _lastRootRotation;
+
+    public enum GraphType { DAILY, MONTHLY, POWER_UNIT };
+    public GraphType GraphTypeToDisplay = GraphType.POWER_UNIT;
+
+    private NetworkManager _networkManager;
 
     // Which Json value do you want to show? (Must exist else won't show)
     public string GraphPropertyName = "TotalDemand";
@@ -42,25 +48,33 @@ public class AddPointsToLineRenderer : MonoBehaviour
         }
         else
         {
-
             EnergyDataStore = JsonConvert.DeserializeObject<EnergyDataContainer>(www.downloadHandler.text);
-            Debug.Log(EnergyDataStore.EnergyUser[0].Name);
             // First entries are invalid and cause errors.
             EnergyDataStore.removeWrongEntries();
             EnergyDataStore.limitBy(10);
 
-            dynamic data = new List<object>();
+            List<object> data = new List<object>();
 
             switch (GraphTypeToDisplay)
             {
-                case GraphType.DAILY: data = EnergyDataStore.EnergyUser; break;
-                case GraphType.MONTHLY: data = EnergyDataStore.EnergyDemand; break;
+                case GraphType.DAILY: EnergyDataStore.EnergyUser.ForEach(e => data.Add(e)); break;
+                case GraphType.MONTHLY: EnergyDataStore.EnergyDemand.ForEach(e => data.Add(e)); break;
+                case GraphType.POWER_UNIT: {
+                    foreach (var energy in _networkManager.GeneratedEnergy.Data)
+                    {
+                        data.Add(energy);
+                    }
+                        GraphPropertyName = "energy";
+                    break;
+                }
             }
 
             // Set Title bar
             GameObject.Find("TitleBar").GetComponent<TextMeshPro>().text = GraphPropertyName;
 
             float relX, relY, relZ;
+            // Set current rotation to a variable so we can compare changes
+            _lastRootRotation = GameObject.Find("GraphCanvas").transform.eulerAngles;
 
             RectTransform b = gameObject.GetComponent<RectTransform>();
 
@@ -72,10 +86,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
             foreach (var a in data)
             {
-                int num = (int)Double.Parse(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
+                int num = (int)Convert.ToDouble(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
                 // Get value and see if it's higher. Then make it our new highest number, if higher.
-                Debug.Log(num);
-
                 if (num > maxY)
                     maxY = num;
             }
@@ -94,13 +106,6 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 float endX = relX + counter * diffX + diffX;
                 float upperY = relY + val * diffYPerX;
 
-                //Debug.Log("Start");
-                //Debug.Log(diffYPerX);
-                //Debug.Log(diffX);
-                //Debug.Log(startX);
-                //Debug.Log(endX);
-                //Debug.Log(upperY);
-
                 for (float c = startX; c < endX; c++)
                 {
                     // Draw graph
@@ -110,9 +115,20 @@ public class AddPointsToLineRenderer : MonoBehaviour
                     _points.Add(new Vector3(c + 1, relY, relZ));
                 }
 
-                //Add text above our graph bar here
-                AddText(values.Name, val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
-                                                    new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
+                if (GraphTypeToDisplay == GraphType.POWER_UNIT)
+                {
+                    AddText(values.GetType().GetProperty("token").GetValue(values).ToString(),
+                            val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
+                            new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
+
+                }
+                else
+                {
+                    //Add text above our graph bar here
+                    AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
+                            val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
+                            new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
+                }
 
                 counter++;
             }
@@ -139,19 +155,21 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 lineRenderer.SetPosition(counter++, point);
             }
         }
-
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        var str = Guid.NewGuid().ToString();
+        _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+        _networkManager.CreateRoom();
+        _networkManager.AddToken("Windmill", 90, new Vector3(0, 0, 0), 1);
+        _networkManager.ObserveEnergyData(_networkManager._userId, (en) =>
+        {
+            Debug.Log("Got this: "+ en.EnergyUsers[1].Pv);
+        });
+
         StartCoroutine(GetHourly());
-    }
-
-    void calculateAverage(string unitName, string property)
-    {
-
     }
 
     private void AddText(string text, string value, Vector3 start, Vector3 end)
@@ -176,9 +194,44 @@ public class AddPointsToLineRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Rotate();
 
     }
+
+    void Rotate()
+    {
+        if (_lastRootRotation == GameObject.Find("GraphCanvas").transform.eulerAngles)
+            return;
+
+        var pivot = GameObject.Find("GraphCanvas").GetComponent<Transform>();
+
+        List<Vector3> newPoints = new List<Vector3>();
+        foreach (var point in _points)
+        {
+            var dir = point - pivot.position; // get point direction relative to pivot
+            dir = Quaternion.Euler(pivot.eulerAngles) * dir; // rotate it
+            var newPoint = dir + pivot.position; // calculate rotated point
+
+            newPoints.Add(newPoint);
+            Debug.Log(String.Format("Rotation From {0} To {1}", point, newPoint));
+        }
+
+        _points = newPoints;
+
+        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+
+        short counter = 0;
+        lineRenderer.positionCount = 0;
+        lineRenderer.positionCount = newPoints.Count;
+
+        foreach (var point in newPoints)
+        {
+            lineRenderer.SetPosition(counter++, point);
+        }
+
+        _lastRootRotation = GameObject.Find("GraphCanvas").transform.eulerAngles;
+    }
+
 
 
 }

@@ -81,7 +81,6 @@ namespace Network
                     Prefabs.Add(objectLibrary[i].name);
                 }
 
-
                 try
                 {
                     var secureCredentials = new SslCredentials();
@@ -106,6 +105,21 @@ namespace Network
         {
             if (Application.platform == RuntimePlatform.Android && pauseStatus)
                 OnApplicationQuit();
+        }
+
+        /// <summary>
+        /// ObserveUserPosition adds a callback to the internal list. When a patch updates the user position, thses callbacks
+        /// are invoked.
+        /// </summary>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        /// <param name="callback">Action(Vector3), an action that is called when the UserPosition has changed</param>
+        public void ObserveUserPosition(string uuid, Action<Vector3> callback)
+        {
+            _userPositionListeners.Add(uuid, callback);
+            foreach (var userPositionListener in _userPositionListeners)
+            {
+                userPositionListener.Value.Invoke(_userPosition);
+            }
         }
 
         private void OnApplicationQuit()
@@ -174,7 +188,6 @@ namespace Network
             }
         }
 
-
         /// <summary>
         /// UnObserveMaster: When a listener no longer needs to listen they should unsubscribe.
         /// </summary>
@@ -201,7 +214,6 @@ namespace Network
         {
             _parentTransformForTokens = t;
         }
-
 
         public GeneratedEnergy GeneratedEnergy => _generatedEnergy;
 
