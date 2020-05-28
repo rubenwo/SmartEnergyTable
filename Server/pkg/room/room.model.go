@@ -30,12 +30,6 @@ type Patch struct {
 	GenEnergyData []*v1.GeneratedEnergy_Data
 }
 
-type scene struct {
-	id           int
-	tokens       map[string]*v1.Token
-	userPosition v1.Vector3_Protocol
-}
-
 type Room struct {
 	Lock sync.Mutex // Since gRPC call might be made concurrently we need to acquire a lock on the room object to avoid
 	// data races.
@@ -45,8 +39,9 @@ type Room struct {
 
 	history []Diff // This is a slice that contains every action that has taken place during the session. When the
 	// changes slice is processed those diffs are appended to the history.
+	userPosition v1.Vector3_Protocol
 
-	scenes       []scene
+	tokens       map[string]*v1.Token
 	currentScene int
 
 	master             string
@@ -67,13 +62,13 @@ func (r *Room) Notify() {
 		RoomID:        r.RoomID,
 		SceneID:       r.currentScene,
 		Diffs:         r.changes,
-		UserPosition:  r.scenes[r.currentScene].userPosition,
+		UserPosition:  r.userPosition,
 		IsMaster:      false,
 		History:       []Diff{},
 		GenEnergyData: []*v1.GeneratedEnergy_Data{},
 	}
 
-	for _, token := range r.scenes[r.currentScene].tokens {
+	for _, token := range r.tokens {
 		switch token.ObjectIndex {
 		case 0: // Battery
 			patch.GenEnergyData = append(patch.GenEnergyData, &v1.GeneratedEnergy_Data{Token: token, Energy: 1 * float32(token.Efficiency) / 100})
