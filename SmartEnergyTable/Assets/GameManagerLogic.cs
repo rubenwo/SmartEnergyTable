@@ -12,20 +12,27 @@ public class GameManagerLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _netMan = GameObject.Find("GameManager").GetComponent<NetworkManager>();
-        _netMan.ObserveMaster(_id, (state) =>
+        try
         {
-            Debug.Log("Steet: " + state);
-        });
+            _netMan = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+            _netMan.ObserveMaster(_id, (state) =>
+            {
+                Debug.Log("Steet: " + state);
+            });
 
-        _netMan.ObserveEnergyData(_id, (ener) =>
+            _netMan.ObserveEnergyData(_id, (ener) =>
+            {
+                Debug.Log("Got this: " + ener.EnergyUsers[1].Pv);
+            });
+
+            EnergyData en = _netMan.GetEnergyData();
+
+            _netMan.AddToken("Windmill", 90, new Vector3(50, 0, 0), 1);
+        } catch
         {
-            Debug.Log("Got this: " + ener.EnergyUsers[1].Pv);
-        });
 
-        EnergyData en = _netMan.GetEnergyData();
+        }
 
-        _netMan.AddToken("Windmill", 90, new Vector3(50, 0, 0), 1);
 
 
     }

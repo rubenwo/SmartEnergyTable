@@ -15,14 +15,22 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
-        _camera = GameObject.Find("Camera Rig");
-
-        // Controls Here
-        _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
+        // Won't start when not started from Launcher, so this is a bypass.
+        // We don't need Camera movement from server wehn we're in editor mode anyway
+        try
         {
-            this._camera.transform.position = vec3;
-        });
+            _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+            _camera = GameObject.Find("Camera Rig");
+
+            // Controls Here
+            _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
+            {
+                this._camera.transform.position = vec3;
+            });
+        } catch
+        {
+
+        }
 
     }
 

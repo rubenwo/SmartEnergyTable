@@ -94,6 +94,7 @@ namespace UI
 
             addTokenButton.onClick.AddListener(() =>
             {
+                Debug.Log("Working");
                 _state = State.PlacingToken;
                 tokenSelectionPanel.SetActive(true);
             });
