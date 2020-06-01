@@ -49,7 +49,6 @@ public class ARVRSwitcher : MonoBehaviour
 
         if (ArEnabled) {
             Source.image.sprite = OffSprite;
-            Debug.Log("offSprite");
             unSetVRComponents();
             setARComponents();
 
@@ -62,23 +61,11 @@ public class ARVRSwitcher : MonoBehaviour
                 StartCoroutine(LoadDevice("None"));
 
             Source.image.sprite = OnSprite;
-            Debug.Log("OnSprite");
             unsetARComponents();
             setVRComponents();
         }
     }
 
-    void addGraphToScene(GameObject ob)
-    {
-        var graphCanvas = Object.Instantiate(GameObject.Find("GraphCanvas"));
-
-        var obPos = ob.transform.position;
-        obPos.y += 10;
-        obPos.z += 10;
-
-        graphCanvas.transform.parent = this.gameObject.transform;
-
-    }
 
     void setARComponents()
     {

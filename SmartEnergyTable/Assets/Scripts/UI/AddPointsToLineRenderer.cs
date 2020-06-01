@@ -52,6 +52,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
             case GraphType.POWER_UNIT: {
                 foreach (var energy in _networkManager.GeneratedEnergy.Data)
                 {
+                    Debug.Log(energy.GetType() + " "+ energy.ToString());
                     data.Add(energy);
                 }
                     
@@ -66,7 +67,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         float relX, relY, relZ;
         // Set current rotation to a variable so we can compare changes
-        _lastRootRotation = GameObject.Find("GraphCanvas").transform.eulerAngles;
+        _lastRootRotation = gameObject.transform.eulerAngles;
 
         RectTransform b = gameObject.GetComponent<RectTransform>();
 
@@ -183,7 +184,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
     void Rotate()
     {
         // Don't rotate if rotation wasnt changed
-        if (_lastRootRotation == GameObject.Find("GraphCanvas").transform.eulerAngles)
+        if (_lastRootRotation == gameObject.transform.eulerAngles)
             return;
 
         Debug.Log("Rotating");
