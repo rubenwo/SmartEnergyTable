@@ -5,6 +5,8 @@
 #pragma warning disable 1591, 0612, 3021
 #region Designer generated code
 
+using System;
+using System.Linq;
 using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
@@ -1462,7 +1464,7 @@ public sealed partial class Diff : pb::IMessage<Diff> {
   public void WriteTo(pb::CodedOutputStream output) {
     if (Action != global::Diff.Types.Action.Add) {
       output.WriteRawTag(8);
-      output.WriteEnum((int) Action);
+      output.WriteEnum((int)Action);
     }
     if (token_ != null) {
       output.WriteRawTag(18);
@@ -1477,7 +1479,7 @@ public sealed partial class Diff : pb::IMessage<Diff> {
   public int CalculateSize() {
     int size = 0;
     if (Action != global::Diff.Types.Action.Add) {
-      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Action);
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int)Action);
     }
     if (token_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Token);
@@ -1494,7 +1496,7 @@ public sealed partial class Diff : pb::IMessage<Diff> {
       return;
     }
     if (other.Action != global::Diff.Types.Action.Add) {
-      Action = other.Action;
+            Action = other.Action;
     }
     if (other.token_ != null) {
       if (token_ == null) {
@@ -1514,7 +1516,7 @@ public sealed partial class Diff : pb::IMessage<Diff> {
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 8: {
-          Action = (global::Diff.Types.Action) input.ReadEnum();
+                        Action = (global::Diff.Types.Action) input.ReadEnum();
           break;
         }
         case 18: {
@@ -2863,6 +2865,7 @@ public sealed partial class EnergyData : pb::IMessage<EnergyData> {
       }
     }
   }
+
 
 }
 

@@ -393,12 +393,12 @@ namespace Network
                             //later on and some object might not be send through the 'normal' diffs.
                             if (_currentScene.Count == 0)
                             {
-                                Debug.Log("Process patch history...");
+                                //Debug.Log("Process patch history...");
                                 StartCoroutine(ProcessDiffs(patch.History));
                             }
                             else
                             {
-                                Debug.Log("Applying patches...");
+                                //Debug.Log("Applying patches...");
                                 StartCoroutine(ProcessDiffs(patch.Diffs));
                             }
 
@@ -408,7 +408,6 @@ namespace Network
                                 _uuidLookUp.Add(keyValuePair.Value, keyValuePair.Key);
                             }
 
-                            Debug.Log(_currentScene.Count);
                         });
                     }
                 });
