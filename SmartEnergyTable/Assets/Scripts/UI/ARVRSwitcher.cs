@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VR;
 using UnityEngine.XR;
+using Network;
 
 public class ARVRSwitcher : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ARVRSwitcher : MonoBehaviour
     // All AR/VR Objects present in the scene
     private List<GameObject> ARObjects;
     private List<GameObject> VRObjects;
+    private NetworkManager _networkManager;
 
     private Button Source { get => gameObject.GetComponent<Button>(); }
 
@@ -32,6 +34,7 @@ public class ARVRSwitcher : MonoBehaviour
             GameObject.Find("Camera Rig")
         };
 
+        _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
 
         unSetVRComponents();
     }
@@ -49,20 +52,29 @@ public class ARVRSwitcher : MonoBehaviour
 
         if (ArEnabled) {
             Source.image.sprite = OffSprite;
-            unSetVRComponents();
-            setARComponents();
 
-            if (XRSettings.loadedDeviceName == "cardboard")
-                StartCoroutine(LoadDevice("None"));
+            //send to server: swap all clients to AR
+            _networkManager.LoadScene(1 );
+
+            //unSetVRComponents();
+            //setARComponents();
+
+            //if (XRSettings.loadedDeviceName == "cardboard")
+            //StartCoroutine(LoadDevice("None"));
         }
         else
         {
-            if (XRSettings.loadedDeviceName == "None")
-                StartCoroutine(LoadDevice("cardboard"));
+            //if (XRSettings.loadedDeviceName == "None")
+                //StartCoroutine(LoadDevice("cardboard"));
 
             Source.image.sprite = OnSprite;
-            unsetARComponents();
-            setVRComponents();
+
+            //send to server: swap all clients to VR
+            _networkManager.LoadScene(2);
+            
+
+            //unsetARComponents();
+            //setVRComponents();
         }
     }
 

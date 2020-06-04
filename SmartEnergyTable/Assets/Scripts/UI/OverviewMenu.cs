@@ -138,7 +138,7 @@ namespace UI
                     (hit, ok) = Select();
                     if (ok)
                     {
-                        _networkManager.AddToken(_prefab, _efficiency, hit.point);
+                        _networkManager.AddToken(_prefab, _efficiency, hit.point, 0.01f);
                         _state = State.Idle;
                     }
 

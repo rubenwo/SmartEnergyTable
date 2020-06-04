@@ -77,6 +77,8 @@ namespace GoogleARCore.Examples.Common
 
         private List<DetectedPlane> m_NewPlanes = new List<DetectedPlane>();
 
+        private GameObject _canvasRig;
+
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -85,6 +87,9 @@ namespace GoogleARCore.Examples.Common
             // Enable ARCore to target 60fps camera capture frame rate on supported devices.
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
+
+            _canvasRig = GameObject.Find("Canvas Rig");
+            _canvasRig.SetActive(false);
         }
 
         /// <summary>
@@ -167,6 +172,8 @@ namespace GoogleARCore.Examples.Common
                     {
                         Destroy(g);
                     }
+
+                    _canvasRig.SetActive(true);
                 }
             }
         }
