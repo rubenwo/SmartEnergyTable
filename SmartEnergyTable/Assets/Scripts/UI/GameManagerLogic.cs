@@ -36,10 +36,6 @@ public class GameManagerLogic : MonoBehaviour
                 //Debug.Log("Got " + en.EnergyDemandHourly.Count + " items");
             });
 
-            
-            // Cheats
-            _netMan.AddToken("Windmill", 90, new Vector3(50, 0, 0), 2);
-            //_netMan.Add
         } catch
         {
 

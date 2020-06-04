@@ -88,7 +88,7 @@ namespace GoogleARCore.Examples.Common
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
 
-            _canvasRig = GameObject.Find("Canvas Rig");
+            _canvasRig = GameObject.Find("Canvas");
             _canvasRig.SetActive(false);
         }
 

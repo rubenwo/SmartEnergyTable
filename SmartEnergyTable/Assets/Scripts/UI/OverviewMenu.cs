@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Network;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using ZXing;
 using ZXing.QrCode;
 
@@ -22,6 +24,7 @@ namespace UI
         public Button stopSessionButton;
         public Button clearButton;
         public Button moveUsersButton;
+        public Button graphButton;
         public Button changeSceneButton;
 
         #endregion
@@ -41,6 +44,7 @@ namespace UI
 
 
         public Button PrefabButton;
+        public GameObject GraphsPrefab;
 
         private enum State
         {
@@ -54,6 +58,7 @@ namespace UI
         private string _prefab = "Cube";
 
         private int _efficiency = 0;
+        private bool _graphsActive = false;
 
         //private GameObject test;
         private readonly string _uuid = Guid.NewGuid().ToString();
@@ -70,14 +75,13 @@ namespace UI
         {
             _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
             _camera = Camera.main;
-//            test = GameObject.Find("TransformThing");
-//            _networkManager.SetTransformForTokens(test.transform);
             _networkManager.ObserveMaster(_uuid, isMaster => gameObject.SetActive(isMaster));
+
+            var pos = tokenSelectionPanel.transform.position;
+            pos.x -= _networkManager.Prefabs.Count / 2 * 300;
 
             for (var i = 0; i < _networkManager.Prefabs.Count; i++)
             {
-                var pos = tokenSelectionPanel.transform.position;
-                pos.x += i * 100;
                 var button = Instantiate(PrefabButton, pos, Quaternion.identity,
                     tokenSelectionPanel.transform) as Button;
                 button.GetComponentInChildren<TextMeshProUGUI>().text = _networkManager.Prefabs[i];
@@ -89,6 +93,7 @@ namespace UI
                     tokenSelectionPanel.SetActive(false);
                 });
                 _buttons.Add(button);
+                pos.x += 300;
             }
 
             addTokenButton.onClick.AddListener(() =>
@@ -117,6 +122,8 @@ namespace UI
             clearButton.onClick.AddListener(() => { _networkManager.ClearScene(); });
             moveUsersButton.onClick.AddListener(() => { Debug.Log("Move"); });
             changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
+
+            graphButton.onClick.AddListener(() => showGraphs());
         }
 
 
@@ -173,12 +180,56 @@ namespace UI
             }
         }
 
+        #region Graph functions
+
+        public void showGraphs()
+        {
+            _graphsActive = !_graphsActive;
+
+
+            if (_graphsActive)
+            {
+                var data = _networkManager.GetEnergyData();
+
+                foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("Windmill") || ob.name.Contains("Solar Panel") || name.Contains("Battery")))
+                {
+                    addGraphToScene((GameObject)token);
+                }
+            }
+            else
+            {
+                foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("GenGraph")))
+                {
+                    token.Destroy();
+                }
+            }
+        }
+
+        void addGraphToScene(GameObject ob)
+        {
+            // Get our already existing graph
+            var graphCanvas = Instantiate(GraphsPrefab);
+
+            var obPos = ob.transform.position;
+            obPos.y += 10;
+            obPos.z += 10;
+
+            graphCanvas.name = "GenGraph" + ob.name;
+
+            var graphScript = graphCanvas.GetComponent<AddPointsToLineRenderer>();
+            graphScript.GraphTypeToDisplay = AddPointsToLineRenderer.GraphType.POWER_UNIT;
+
+            graphCanvas.transform.parent = this.gameObject.transform;
+
+        }
+        #endregion
+
         private void OnDestroy()
         {
             _buttons.ForEach(button => Destroy(button));
             _networkManager.UnObserveMaster(_uuid);
         }
-
+        
         private (RaycastHit, bool) Select()
         {
             if (Camera.main == null)
