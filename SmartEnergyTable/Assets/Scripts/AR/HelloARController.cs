@@ -79,6 +79,8 @@ namespace GoogleARCore.Examples.Common
 
         private GameObject _canvasRig;
 
+        private static HelloARController _instance;
+
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -86,6 +88,12 @@ namespace GoogleARCore.Examples.Common
         {
             // Enable ARCore to target 60fps camera capture frame rate on supported devices.
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
+            if (_instance == null)
+                _instance = new HelloARController();
+        }
+
+        public void OnEnable()
+        {
             Application.targetFrameRate = 60;
 
             _canvasRig = GameObject.Find("Canvas");
@@ -162,9 +170,10 @@ namespace GoogleARCore.Examples.Common
                     Session.CreateAnchor(projectionPlaneCenter);
 
                     //Initialize the mapbox prefab on the found location.
-                    //projectionPlaneCenter.position.y += 200f; //new Vector3(0f, 200f, 0f);
                     var map = Instantiate(GameObjectMapPrefab, projectionPlaneCenter.position, hit.Pose.rotation);
                     map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                    map.tag = "map";
+
                     // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
                     map.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
 

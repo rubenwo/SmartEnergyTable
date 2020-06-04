@@ -24,7 +24,6 @@ namespace UI
         public Button stopSessionButton;
         public Button clearButton;
         public Button moveUsersButton;
-        public Button graphButton;
         public Button changeSceneButton;
 
         #endregion
@@ -74,7 +73,6 @@ namespace UI
         private void Start()
         {
             _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
-            _camera = Camera.main;
             _networkManager.ObserveMaster(_uuid, isMaster => gameObject.SetActive(isMaster));
 
             var pos = tokenSelectionPanel.transform.position;
@@ -122,8 +120,6 @@ namespace UI
             clearButton.onClick.AddListener(() => { _networkManager.ClearScene(); });
             moveUsersButton.onClick.AddListener(() => { Debug.Log("Move"); });
             changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
-
-            graphButton.onClick.AddListener(() => showGraphs());
         }
 
 
@@ -138,13 +134,15 @@ namespace UI
             RaycastHit hit;
             bool ok;
             switch (_state)
-            {
+            { 
                 case State.Idle:
                     break;
                 case State.PlacingToken:
+                    Debug.Log("Placing Token" + _prefab);
                     (hit, ok) = Select();
                     if (ok)
                     {
+                        Debug.Log(hit.point);
                         _networkManager.AddToken(_prefab, _efficiency, hit.point, 0.01f);
                         _state = State.Idle;
                     }
@@ -180,49 +178,22 @@ namespace UI
             }
         }
 
-        #region Graph functions
-
-        public void showGraphs()
+        private void EnableButtons(bool master)
         {
-            _graphsActive = !_graphsActive;
-
-
-            if (_graphsActive)
+            if (!master)
             {
-                var data = _networkManager.GetEnergyData();
-
-                foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("Windmill") || ob.name.Contains("Solar Panel") || name.Contains("Battery")))
+                GameObject[] btns;
+                //get all the objects with the tag "clientButton"
+                btns = GameObject.FindGameObjectsWithTag("clientButton");
+                //loop through the returned array of game objects and set each to active false
+                foreach (GameObject btn in btns)
                 {
-                    addGraphToScene((GameObject)token);
+                    btn.SetActive(true);
                 }
             }
-            else
-            {
-                foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("GenGraph")))
-                {
-                    token.Destroy();
-                }
-            }
+            //else if(master)
+               //gameObject.SetActive(master);
         }
-
-        void addGraphToScene(GameObject ob)
-        {
-            // Get our already existing graph
-            var graphCanvas = Instantiate(GraphsPrefab);
-
-            var obPos = ob.transform.position;
-            obPos.y += 10;
-            obPos.z += 10;
-
-            graphCanvas.name = "GenGraph" + ob.name;
-
-            var graphScript = graphCanvas.GetComponent<AddPointsToLineRenderer>();
-            graphScript.GraphTypeToDisplay = AddPointsToLineRenderer.GraphType.POWER_UNIT;
-
-            graphCanvas.transform.parent = this.gameObject.transform;
-
-        }
-        #endregion
 
         private void OnDestroy()
         {
@@ -232,14 +203,16 @@ namespace UI
         
         private (RaycastHit, bool) Select()
         {
+            Debug.Log("Select");
             if (Camera.main == null)
                 return (new RaycastHit(), false);
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Debug.Log("Camera != null");
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, 100.0f))
             {
                 return (hit, true);
             }
-
+            Debug.Log("No hit");
             return (new RaycastHit(), false);
         }
 

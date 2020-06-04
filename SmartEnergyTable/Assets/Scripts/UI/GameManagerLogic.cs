@@ -42,7 +42,6 @@ public class GameManagerLogic : MonoBehaviour
         }
 
         graphButton.onClick.AddListener(() => showGraphs());
-
     }
 
     // Update is called once per frame
