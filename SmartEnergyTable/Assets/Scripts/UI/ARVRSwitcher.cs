@@ -26,12 +26,10 @@ public class ARVRSwitcher : MonoBehaviour
     {
         // Insert all our objects into the right lists (Other ojects are rendered in both scenes)
         ARObjects = new List<GameObject>() {
-            GameObject.Find("Map"),
             GameObject.Find("PlaneDiscovery")
         };
         VRObjects = new List<GameObject>() {
-            GameObject.Find("CitySimulatorMap"),
-            GameObject.Find("PlaneDiscovery")
+            GameObject.Find("Camera Rig")
         };
 
 
