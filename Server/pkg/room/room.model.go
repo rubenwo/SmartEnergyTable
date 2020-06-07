@@ -179,6 +179,7 @@ func (r *Room) UnmarshalBinary(data []byte) error {
 	r.history = s.History
 	r.master = s.Master
 	r.RoomID = s.ID
+	r.currentScene = 1
 
 	return nil
 }

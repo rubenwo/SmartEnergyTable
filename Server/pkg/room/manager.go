@@ -23,6 +23,21 @@ func NewManager(db database.Database) *Manager {
 	}
 }
 
+func (m *Manager) LoadRoomFromDB(id string) {
+	raw, err := m.db.Get(id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	s := raw.(string)
+	var r Room
+	err = r.UnmarshalBinary([]byte(s))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(r)
+	log.Println("room conversion ok")
+}
+
 // CreateRoom creates a new uuid and creates a room. It then returns that ID.
 func (m *Manager) CreateRoom() (id string) {
 	id = uuid.New().String()
@@ -57,14 +72,17 @@ func (m *Manager) JoinRoom(id, user string, callback chan Patch) error {
 			log.Println(err)
 			return fmt.Errorf("room with id: %s does not exist", id)
 		}
-		room, ok = raw.(*Room)
-		if !ok {
-			log.Println("Conversion from interface to Room didn't work")
-			return fmt.Errorf("internal error with the casting of interface{} to Room from database")
+		s := raw.(string)
+		err = room.UnmarshalBinary([]byte(s))
+		if err != nil {
+			log.Println("Conversion from bytes to Room didn't work")
+			return fmt.Errorf("error unmarshalling room data from the database")
 		}
+		log.Println("room conversion ok")
+
 		// TODO: Implement proper load-balancing
 		room.master = user // As the room needs to be loaded from the database, this means the master might not be the
-		// same
+		// same, so we set the user to the requesting user.
 	}
 	room.Lock.Lock()
 	defer func() {
@@ -98,16 +116,6 @@ func (m *Manager) SaveRoom(id string) error {
 	if err := m.db.Set(id, room); err != nil {
 		return fmt.Errorf("error saving room with id: %s, with error: %w", id, err)
 	}
-	raw, err := m.db.Get(id)
-	if err != nil {
-		log.Println(err)
-	}
-	fmt.Println(raw)
-	r, ok := raw.(*Room)
-	if !ok {
-		log.Println("Conversion failed")
-	}
-	fmt.Println(r)
 	return nil
 }
 
