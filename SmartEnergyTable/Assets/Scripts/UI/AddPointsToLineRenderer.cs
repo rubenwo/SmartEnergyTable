@@ -35,6 +35,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
     private EnergyData EnergyDataStore;
 
+    private Token Tok { get => this.GetComponent<TokenData>().Tok; set => this.GetComponent<TokenData>().Tok = value; }
+
     void GetHourly()
     {
         this.EnergyDataStore = _networkManager.GetEnergyData();
@@ -52,7 +54,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
             case GraphType.POWER_UNIT: {
                 foreach (var energy in _networkManager.GeneratedEnergy.Data)
                 {
-                    data.Add(energy);
+                    if (energy.Token.ObjectId == Tok.ObjectId)
+                        data.Add(energy);
                 }
                     
                 GraphPropertyName = "Energy";
@@ -231,87 +234,3 @@ public class AddPointsToLineRenderer : MonoBehaviour
         _lastRootRotation = GameObject.Find("GraphCanvas").transform.eulerAngles;
     }
 }
-// Class used to deserialize complex json array
-//public class EnergyDataContainer
-//{
-//    public List<EnergyUser> EnergyUser { get; set; }
-//    public List<EnergyDemandHourly> EnergyDemand { get; set; }
-
-//    public EnergyDataContainer()
-//    {
-//        EnergyUser = new List<EnergyUser>();
-//        EnergyDemand = new List<EnergyDemandHourly>();
-//    }
-
-//    public void removeWrongEntries()
-//    {
-//        //Debug.Log(EnergyUser.FindIndex(0, EnergyUser.Count, (user) => user.Name == "Laplace"));
-//        EnergyUser = EnergyUser.Where(user => user.Name != "Name").ToList();
-//        EnergyDemand = EnergyDemand.Where(user => user.Name != "Name").ToList();
-
-//        limitBy(10);
-//    }
-
-//    internal void limitBy(int v)
-//    {
-//        EnergyUser = EnergyUser.Take(v).ToList();
-//        EnergyDemand = EnergyDemand.Take(v).ToList();
-//    }
-//}
-
-//// Classes are also loaded in gRPC but serializing to these classes seems to give our objects other variablenames for some reason
-//// Quick-fix: Use 2 new classes and serialize them into these.
-//public class EnergyUser2
-//{
-//    public string Time { get; set; }
-//    public string Label { get; set; }
-//    public string Name { get; set; }
-
-//    public string SourceId { get; set; }
-//    public string TotalDemand { get; set; }
-//    public string Lighting { get; set; }
-//    public string HVAC { get; set; }
-//    public string Appliances { get; set; }
-//    public string Lab { get; set; }
-//    public string PV { get; set; }
-//    public string Unit { get; set; }
-
-//    public override string ToString()
-//    {
-//        return TotalDemand.ToString();
-//    }
-//}
-
-//public class EnergyDemandHourly2
-//{
-
-//    public string Id { get; set; }
-//    public string Date { get; set; }
-//    public string Year { get; set; }
-//    public string Month { get; set; }
-//    public string Day { get; set; }
-//    public string Hour { get; set; }
-//    public string Minutes { get; set; }
-//    public string SourceId { get; set; }
-//    public string ChannelId { get; set; }
-//    public string Unit { get; set; }
-//    public string TotalDemand { get; set; }
-//    public string DeltaValue { get; set; }
-//    public string SourceTag { get; set; }
-//    public string ChannelTag { get; set; }
-//    public string Label { get; set; }
-//    public string Name { get; set; }
-//    public string Height { get; set; }
-//    public string Area { get; set; }
-//    public string WindSpeed { get; set; }
-//    public string Temperature { get; set; }
-//    public string SolarRad { get; set; }
-//    public string ElectricityPrice { get; set; }
-//    public string supply { get; set; }
-//    public string renewables { get; set; }
-
-//    public override string ToString()
-//    {
-//        return TotalDemand.ToString();
-//    }
-//}

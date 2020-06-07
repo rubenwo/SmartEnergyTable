@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 80539817626554822}
   - component: {fileID: 8009085155147145825}
   m_Layer: 0
-  m_Name: BAT 1
-  m_TagString: Untagged
+  m_Name: BAT
+  m_TagString: ID
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

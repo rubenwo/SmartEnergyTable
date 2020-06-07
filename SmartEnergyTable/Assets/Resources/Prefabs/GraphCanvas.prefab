@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 6104564577397804448}
   - component: {fileID: 6104564577397804451}
   - component: {fileID: 6104564577397804450}
+  - component: {fileID: 6762037236089848274}
   m_Layer: 0
   m_Name: GraphCanvas
   m_TagString: Untagged
@@ -427,3 +428,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6104564577397804125}
   m_CullTransparentMesh: 0
+--- !u!114 &6762037236089848274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6104564577397804125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ae20dee7e5f248b3b30b20f5c1670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

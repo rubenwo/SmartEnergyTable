@@ -14,6 +14,10 @@ public class GameManagerLogic : MonoBehaviour
 
     private bool _graphsActive;
 
+    private Token Tok { get => this.GetComponent<TokenData>().Tok; set => this.GetComponent<TokenData>().Tok = value; }
+
+    public GameObject prefab;
+     
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +44,8 @@ public class GameManagerLogic : MonoBehaviour
         {
 
         }
+
+        _netMan.AddToken("Windmill", 1, new Vector3(10, 0, 0), 0.05f);
 
         graphButton.onClick.AddListener(() => showGraphs());
     }
@@ -81,9 +87,10 @@ public class GameManagerLogic : MonoBehaviour
     void addGraphToScene(GameObject ob)
     {
         // Get our already existing graph
-        var graphCanvas = UnityEngine.Object.Instantiate(SceneManager.GetActiveScene().GetRootGameObjects().First(obj => obj.name.Contains("GraphCanvas")));
-
+        var graphCanvas = UnityEngine.Object.Instantiate(prefab, ob.transform.position, ob.transform.rotation);
+        graphCanvas.GetComponent<TokenData>().Tok = ob.GetComponent<TokenData>().Tok;
         var obPos = ob.transform.position;
+        ob.transform.localScale *= ob.GetComponent<TokenData>().Tok.Scale;
         obPos.y += 10;
         obPos.z += 10;
 
