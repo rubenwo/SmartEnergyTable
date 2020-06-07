@@ -134,7 +134,7 @@ namespace UI
             RaycastHit hit;
             bool ok;
             switch (_state)
-            { 
+            {
                 case State.Idle:
                     break;
                 case State.PlacingToken:
@@ -191,8 +191,9 @@ namespace UI
                     btn.SetActive(true);
                 }
             }
+
             //else if(master)
-               //gameObject.SetActive(master);
+            //gameObject.SetActive(master);
         }
 
         private void OnDestroy()
@@ -200,7 +201,7 @@ namespace UI
             _buttons.ForEach(button => Destroy(button));
             _networkManager.UnObserveMaster(_uuid);
         }
-        
+
         private (RaycastHit, bool) Select()
         {
             Debug.Log("Select");
@@ -212,6 +213,7 @@ namespace UI
             {
                 return (hit, true);
             }
+
             Debug.Log("No hit");
             return (new RaycastHit(), false);
         }

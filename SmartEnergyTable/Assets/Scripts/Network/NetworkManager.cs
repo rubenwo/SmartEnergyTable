@@ -140,7 +140,8 @@ namespace Network
         private void OnApplicationQuit()
         {
             Debug.Log("OnApplicationQuit()");
-            if (SceneManager.GetActiveScene().buildIndex != 0) //If we are on the Launcher menu we have no room to leave.
+            if (SceneManager.GetActiveScene().buildIndex != 0
+            ) //If we are on the Launcher menu we have no room to leave.
                 _client.LeaveRoom(_roomId, _userId); //Leave the room before we shutdown.
             //Shutdown the channel synchronously to avoid bugs.
             _channel.ShutdownAsync().Wait();
@@ -264,6 +265,15 @@ namespace Network
         public void SetTransformForTokens(Transform t)
         {
             _parentTransformForTokens = t;
+            foreach (var keyValuePair in _currentScene)
+            {
+                var oldX = keyValuePair.Value.transform.position.x - _parentTransformForTokens.position.x;
+                var oldY = keyValuePair.Value.transform.position.y - _parentTransformForTokens.position.y;
+                var oldZ = keyValuePair.Value.transform.position.z - _parentTransformForTokens.position.z;
+
+                var pos = new Vector3(t.position.x + oldX, t.position.y + oldY, t.position.z + oldZ);
+                keyValuePair.Value.transform.Translate(pos);
+            }
         }
 
         public GeneratedEnergy GeneratedEnergy => _generatedEnergy;
@@ -330,6 +340,7 @@ namespace Network
                                 z = diff.Token.Position.Z
                             }, Quaternion.identity);
                         obj.transform.localScale *= diff.Token.Scale;
+                        Debug.Log(obj.transform.position);
                         _currentScene.Add(diff.Token.ObjectId, obj);
                         break;
                     case Diff.Types.Action.Delete:
@@ -371,10 +382,13 @@ namespace Network
                         GetEnergyData();
                         _actionQueue.Enqueue(() =>
                         {
-                            _master = patch.IsMaster;
-                            foreach (var masterChangeListener in _masterChangeListeners)
+                            if (_master != patch.IsMaster) // Only do something if it's a change.
                             {
-                                masterChangeListener.Value.Invoke(_master);
+                                _master = patch.IsMaster;
+                                foreach (var masterChangeListener in _masterChangeListeners)
+                                {
+                                    masterChangeListener.Value.Invoke(_master);
+                                }
                             }
 
                             foreach (var energyDataListener in _energyDataListeners)
@@ -390,6 +404,11 @@ namespace Network
                             }
 
                             _generatedEnergy = patch.Energy;
+                            foreach (var generatedEnergyListener in _generatedEnergyListeners)
+                            {
+                                generatedEnergyListener.Value.Invoke(_generatedEnergy);
+                            }
+
                             //Load the scene if it is not the currentScene, meaning the scene has changed.
                             if (patch.SceneId != SceneManager.GetActiveScene().buildIndex)
                             {
@@ -420,7 +439,6 @@ namespace Network
                             {
                                 _uuidLookUp.Add(keyValuePair.Value, keyValuePair.Key);
                             }
-
                         });
                     }
                 });
