@@ -343,7 +343,7 @@ namespace Network
                                 y = diff.Token.Position.Y,
                                 z = diff.Token.Position.Z
                             }, Quaternion.identity);
-                        //    obj.GetComponent<TokenData>().Tok = diff.Token;
+                        obj.GetComponent<TokenData>().Tok = diff.Token;
                         obj.transform.localScale *= diff.Token.Scale;
                         _currentScene.Add(diff.Token.ObjectId, obj);
                         break;

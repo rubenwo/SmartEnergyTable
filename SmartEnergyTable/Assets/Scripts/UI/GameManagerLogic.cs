@@ -40,6 +40,7 @@ public class GameManagerLogic : MonoBehaviour
                 //Debug.Log("Got " + en.EnergyDemandHourly.Count + " items");
             });
 
+
         } catch
         {
 
