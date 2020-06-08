@@ -2,13 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Grpc.Core.Api;
-using Mapbox.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,7 +25,7 @@ namespace Network
         public List<GameObject> objectLibrary = new List<GameObject>();
 
         ///To make the life of developers easier the _prefabLookup returns the index for the objectLibrary based on the name of the prefab.
-        public readonly Dictionary<string, int> _prefabLookUp = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _prefabLookUp = new Dictionary<string, int>();
 
         public readonly List<string> Prefabs = new List<string>();
 
@@ -70,17 +68,6 @@ namespace Network
         private readonly Dictionary<string, Action<GeneratedEnergy>> _generatedEnergyListeners =
             new Dictionary<string, Action<GeneratedEnergy>>();
 
-        public string getTokenNameById(string uuid)
-        {
-            GameObject val;
-            var a = _currentScene.TryGetValue(uuid, out val);
-
-            if (a)
-                return val.name;
-
-            return null;
-        }
-
         private void Awake()
         {
             if (_instance == null)
@@ -95,6 +82,7 @@ namespace Network
                     _prefabLookUp[objectLibrary[i].name] = i;
                     Prefabs.Add(objectLibrary[i].name);
                 }
+
 
                 try
                 {
@@ -120,21 +108,6 @@ namespace Network
         {
             if (Application.platform == RuntimePlatform.Android && pauseStatus)
                 OnApplicationQuit();
-        }
-
-        /// <summary>
-        /// ObserveUserPosition adds a callback to the internal list. When a patch updates the user position, thses callbacks
-        /// are invoked.
-        /// </summary>
-        /// <param name="uuid">This is an identifier for the listener</param>
-        /// <param name="callback">Action(Vector3), an action that is called when the UserPosition has changed</param>
-        public void ObserveUserPosition(string uuid, Action<Vector3> callback)
-        {
-            _userPositionListeners.Add(uuid, callback);
-            foreach (var userPositionListener in _userPositionListeners)
-            {
-                userPositionListener.Value.Invoke(_userPosition);
-            }
         }
 
         private void OnApplicationQuit()
@@ -203,6 +176,7 @@ namespace Network
             }
         }
 
+
         /// <summary>
         /// UnObserveMaster: When a listener no longer needs to listen they should unsubscribe.
         /// </summary>
@@ -247,6 +221,21 @@ namespace Network
             _generatedEnergyListeners.Remove(uuid);
         }
 
+        /// <summary>
+        /// ObserveUserPosition adds a callback to the internal list. When a patch updates the user position this will trigger a callback.
+        /// are invoked.
+        /// </summary>
+        /// <param name="callback">Action(Vector3), an action that is called when the UserPosition has changed</param>
+        /// <param name="uuid">This is an identifier for the listener</param>
+        public void ObserveUserPosition(string uuid, Action<Vector3> callback)
+        {
+            _userPositionListeners.Add(uuid, callback);
+            foreach (var userPositionListener in _userPositionListeners)
+            {
+                userPositionListener.Value.Invoke(_userPosition);
+            }
+        }
+
 
         /// <summary>
         /// UnObserveUserPosition: When a listener no longer needs to listen they should unsubscribe.
@@ -265,16 +254,8 @@ namespace Network
         public void SetTransformForTokens(Transform t)
         {
             _parentTransformForTokens = t;
-            foreach (var keyValuePair in _currentScene)
-            {
-                var oldX = keyValuePair.Value.transform.position.x - _parentTransformForTokens.position.x;
-                var oldY = keyValuePair.Value.transform.position.y - _parentTransformForTokens.position.y;
-                var oldZ = keyValuePair.Value.transform.position.z - _parentTransformForTokens.position.z;
-
-                var pos = new Vector3(t.position.x + oldX, t.position.y + oldY, t.position.z + oldZ);
-                keyValuePair.Value.transform.Translate(pos);
-            }
         }
+
 
         public GeneratedEnergy GeneratedEnergy => _generatedEnergy;
 
@@ -339,9 +320,7 @@ namespace Network
                                 y = diff.Token.Position.Y,
                                 z = diff.Token.Position.Z
                             }, Quaternion.identity);
-                        obj.GetComponent<TokenData>().Tok = diff.Token;
                         obj.transform.localScale *= diff.Token.Scale;
-                        Debug.Log(obj.transform.position);
                         _currentScene.Add(diff.Token.ObjectId, obj);
                         break;
                     case Diff.Types.Action.Delete:
@@ -383,13 +362,10 @@ namespace Network
                         GetEnergyData();
                         _actionQueue.Enqueue(() =>
                         {
-                            if (_master != patch.IsMaster) // Only do something if it's a change.
+                            _master = patch.IsMaster;
+                            foreach (var masterChangeListener in _masterChangeListeners)
                             {
-                                _master = patch.IsMaster;
-                                foreach (var masterChangeListener in _masterChangeListeners)
-                                {
-                                    masterChangeListener.Value.Invoke(_master);
-                                }
+                                masterChangeListener.Value.Invoke(_master);
                             }
 
                             foreach (var energyDataListener in _energyDataListeners)
@@ -405,11 +381,6 @@ namespace Network
                             }
 
                             _generatedEnergy = patch.Energy;
-                            foreach (var generatedEnergyListener in _generatedEnergyListeners)
-                            {
-                                generatedEnergyListener.Value.Invoke(_generatedEnergy);
-                            }
-
                             //Load the scene if it is not the currentScene, meaning the scene has changed.
                             if (patch.SceneId != SceneManager.GetActiveScene().buildIndex)
                             {
@@ -426,12 +397,12 @@ namespace Network
                             //later on and some object might not be send through the 'normal' diffs.
                             if (_currentScene.Count == 0)
                             {
-                                //Debug.Log("Process patch history...");
+                                Debug.Log("Process patch history...");
                                 StartCoroutine(ProcessDiffs(patch.History));
                             }
                             else
                             {
-                                //Debug.Log("Applying patches...");
+                                Debug.Log("Applying patches...");
                                 StartCoroutine(ProcessDiffs(patch.Diffs));
                             }
 
@@ -440,6 +411,8 @@ namespace Network
                             {
                                 _uuidLookUp.Add(keyValuePair.Value, keyValuePair.Key);
                             }
+
+                            Debug.Log(_currentScene.Count);
                         });
                     }
                 });
