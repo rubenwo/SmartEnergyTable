@@ -178,6 +178,7 @@ namespace GoogleARCore.Examples.Common
                     //Initialize the mapbox prefab on the found location.
                     var map = Instantiate(GameObjectMapPrefab, projectionPlaneCenter.position, hit.Pose.rotation);
                     map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                    map.transform.Rotate(0,180,0);
                     map.tag = "map";
 
                     // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
