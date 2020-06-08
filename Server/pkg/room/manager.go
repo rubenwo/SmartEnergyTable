@@ -63,7 +63,7 @@ func (m *Manager) JoinRoom(id, user string, callback chan Patch) error {
 			return fmt.Errorf("room with id: %s does not exist", id)
 		}
 		room, ok = raw.(*Room)
-		if !ok{
+		if !ok {
 			log.Println("Conversion from interface to Room didn't work")
 			return fmt.Errorf("internal error with the casting of interface{} to Room from database")
 		}
@@ -104,12 +104,12 @@ func (m *Manager) SaveRoom(id string) error {
 		return fmt.Errorf("error saving room with id: %s, with error: %w", id, err)
 	}
 	raw, err := m.db.Get(id)
-	if err != nil{
+	if err != nil {
 		log.Println(err)
 	}
 	fmt.Println(raw)
 	r, ok := raw.(*Room)
-	if !ok{
+	if !ok {
 		log.Println("Conversion failed")
 	}
 	fmt.Println(r)
@@ -291,7 +291,7 @@ func (m *Manager) MoveUsers(id, master string, position v1.Vector3_Protocol) err
 	defer room.Notify()
 	defer room.Lock.Unlock()
 	if room.master != master {
-		return fmt.Errorf("you don't have the permissions to change the master")
+		return fmt.Errorf("you don't have the permissions to move the users")
 	}
 	room.scenes[room.currentScene].userPosition = position
 
@@ -305,4 +305,20 @@ func (m *Manager) RoomIDs() []string {
 		ids = append(ids, key)
 	}
 	return ids
+}
+
+func (m *Manager) SwitchRoomMode(id, master string, mode v1.ViewMode) error {
+	room, ok := m.rooms[id]
+	if !ok {
+		return fmt.Errorf("room with id: %s does not exist", id)
+	}
+	room.Lock.Lock()
+	defer room.Notify()
+	defer room.Lock.Unlock()
+	if room.master != master {
+		return fmt.Errorf("you don't have the permissions to switch the modes")
+	}
+	room.Mode = mode
+
+	return nil
 }

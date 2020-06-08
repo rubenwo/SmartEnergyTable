@@ -19,6 +19,7 @@ public static partial class SmartEnergyTableService
   static readonly grpc::Marshaller<global::UserPosition> __Marshaller_UserPosition = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::UserPosition.Parser.ParseFrom);
   static readonly grpc::Marshaller<global::MasterSwitch> __Marshaller_MasterSwitch = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MasterSwitch.Parser.ParseFrom);
   static readonly grpc::Marshaller<global::EnergyData> __Marshaller_EnergyData = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::EnergyData.Parser.ParseFrom);
+  static readonly grpc::Marshaller<global::ModeSwitch> __Marshaller_ModeSwitch = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::ModeSwitch.Parser.ParseFrom);
 
   static readonly grpc::Method<global::Empty, global::RoomUser> __Method_CreateRoom = new grpc::Method<global::Empty, global::RoomUser>(
       grpc::MethodType.Unary,
@@ -104,6 +105,13 @@ public static partial class SmartEnergyTableService
       __Marshaller_RoomUser,
       __Marshaller_EnergyData);
 
+  static readonly grpc::Method<global::ModeSwitch, global::Empty> __Method_SwitchMode = new grpc::Method<global::ModeSwitch, global::Empty>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "SwitchMode",
+      __Marshaller_ModeSwitch,
+      __Marshaller_Empty);
+
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
   {
@@ -170,6 +178,11 @@ public static partial class SmartEnergyTableService
     }
 
     public virtual global::System.Threading.Tasks.Task<global::EnergyData> GetEnergyData(global::RoomUser request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    public virtual global::System.Threading.Tasks.Task<global::Empty> SwitchMode(global::ModeSwitch request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -383,6 +396,22 @@ public static partial class SmartEnergyTableService
     {
       return CallInvoker.AsyncUnaryCall(__Method_GetEnergyData, null, options, request);
     }
+    public virtual global::Empty SwitchMode(global::ModeSwitch request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return SwitchMode(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    public virtual global::Empty SwitchMode(global::ModeSwitch request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_SwitchMode, null, options, request);
+    }
+    public virtual grpc::AsyncUnaryCall<global::Empty> SwitchModeAsync(global::ModeSwitch request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return SwitchModeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    public virtual grpc::AsyncUnaryCall<global::Empty> SwitchModeAsync(global::ModeSwitch request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_SwitchMode, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     protected override SmartEnergyTableServiceClient NewInstance(ClientBaseConfiguration configuration)
     {
@@ -406,7 +435,8 @@ public static partial class SmartEnergyTableService
         .AddMethod(__Method_MoveUsers, serviceImpl.MoveUsers)
         .AddMethod(__Method_LeaveRoom, serviceImpl.LeaveRoom)
         .AddMethod(__Method_ChangeMaster, serviceImpl.ChangeMaster)
-        .AddMethod(__Method_GetEnergyData, serviceImpl.GetEnergyData).Build();
+        .AddMethod(__Method_GetEnergyData, serviceImpl.GetEnergyData)
+        .AddMethod(__Method_SwitchMode, serviceImpl.SwitchMode).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -427,6 +457,7 @@ public static partial class SmartEnergyTableService
     serviceBinder.AddMethod(__Method_LeaveRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RoomUser, global::Empty>(serviceImpl.LeaveRoom));
     serviceBinder.AddMethod(__Method_ChangeMaster, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::MasterSwitch, global::Empty>(serviceImpl.ChangeMaster));
     serviceBinder.AddMethod(__Method_GetEnergyData, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::RoomUser, global::EnergyData>(serviceImpl.GetEnergyData));
+    serviceBinder.AddMethod(__Method_SwitchMode, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::ModeSwitch, global::Empty>(serviceImpl.SwitchMode));
   }
 
 }

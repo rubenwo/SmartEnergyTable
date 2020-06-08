@@ -27,6 +27,7 @@ type Patch struct {
 	Diffs        []Diff
 	UserPosition v1.Vector3_Protocol
 	IsMaster     bool
+	Mode         v1.ViewMode
 }
 
 type scene struct {
@@ -38,8 +39,8 @@ type scene struct {
 type Room struct {
 	Lock sync.Mutex // Since gRPC call might be made concurrently we need to acquire a lock on the room object to avoid
 	// data races.
-	RoomID string
-
+	RoomID  string
+	Mode    v1.ViewMode
 	changes []Diff // This is a slice of the pending changes.
 
 	history []Diff // This is a slice that contains every action that has taken place during the session. When the
@@ -69,6 +70,7 @@ func (r *Room) Notify() {
 		UserPosition: r.scenes[r.currentScene].userPosition,
 		IsMaster:     false,
 		History:      []Diff{},
+		Mode:         r.Mode,
 	}
 
 	r.history = append(r.history, r.changes...) // Append the now processed changes to the history.

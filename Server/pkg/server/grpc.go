@@ -281,3 +281,13 @@ func (s *server) GetEnergyData(ctx context.Context, roomID *v1.RoomUser) (*v1.En
 		EnergyDemandHourly: energyDataHourly,
 	}, nil
 }
+
+func (s *server) SwitchMode(ctx context.Context, modeSwitch *v1.ModeSwitch) (*v1.Empty, error) {
+	if err := s.manager.SwitchRoomMode(modeSwitch.RoomUser.Id, modeSwitch.RoomUser.UserId, modeSwitch.Mode); err != nil {
+		log.Println(err)
+		return &v1.Empty{}, err
+	}
+	log.Println("SwitchMode() =>", modeSwitch.RoomUser.UserId, "switched mode to:", modeSwitch.Mode.String())
+
+	return &v1.Empty{}, nil
+}
