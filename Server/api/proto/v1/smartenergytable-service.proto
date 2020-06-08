@@ -99,8 +99,7 @@ message EnergyData {
 }
 enum ViewMode {
     Overview = 0;
-    AR = 1;
-    VR = 2;
+    StreetView = 1;
 }
 
 message GeneratedEnergy {

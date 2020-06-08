@@ -61,7 +61,7 @@ public static partial class SmartenergytableServiceReflection {
           "BS5EaWZmEiAKBmVuZXJneRgIIAEoCzIQLkdlbmVyYXRlZEVuZXJneRIXCgRt",
           "b2RlGAkgASgOMgkuVmlld01vZGUiQwoKTW9kZVN3aXRjaBIcCglyb29tX3Vz",
           "ZXIYASABKAsyCS5Sb29tVXNlchIXCgRtb2RlGAIgASgOMgkuVmlld01vZGUq",
-          "KAoIVmlld01vZGUSDAoIT3ZlcnZpZXcQABIGCgJBUhABEgYKAlZSEAIy4gMK",
+          "KAoIVmlld01vZGUSDAoIT3ZlcnZpZXcQABIOCgpTdHJlZXRWaWV3EAEy4gMK",
           "F1NtYXJ0RW5lcmd5VGFibGVTZXJ2aWNlEiEKCkNyZWF0ZVJvb20SBi5FbXB0",
           "eRoJLlJvb21Vc2VyIgASIQoISm9pblJvb20SCS5Sb29tVXNlchoGLlBhdGNo",
           "IgAwARIfCghTYXZlUm9vbRIJLlJvb21Vc2VyGgYuRW1wdHkiABIcCghBZGRU",
@@ -99,8 +99,7 @@ public static partial class SmartenergytableServiceReflection {
 #region Enums
 public enum ViewMode {
   [pbr::OriginalName("Overview")] Overview = 0,
-  [pbr::OriginalName("AR")] Ar = 1,
-  [pbr::OriginalName("VR")] Vr = 2,
+  [pbr::OriginalName("StreetView")] StreetView = 1,
 }
 
 #endregion
