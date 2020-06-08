@@ -64,7 +64,7 @@ MonoBehaviour:
           visibleBuffer: 0
           disposeBuffer: 0
     placementOptions:
-      placementType: 1
+      placementType: 0
       snapMapToZero: 0
     scalingOptions:
       scalingType: 1

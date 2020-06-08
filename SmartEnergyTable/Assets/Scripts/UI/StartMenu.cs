@@ -11,7 +11,7 @@ namespace UI
         public Button create;
         public Button join;
         public RawImage qrImage;
-
+        public InputField codeField;
 
         private NetworkManager _networkManager;
 
@@ -48,15 +48,18 @@ namespace UI
         {
             if (drawQr)
             {
-                IBarcodeReader reader = new BarcodeReader();
-
-                var result = reader.Decode(_camTexture.GetPixels32(), _camTexture.width, _camTexture.height);
-                if (result != null)
+                if (Application.platform == RuntimePlatform.Android)
                 {
-                    Debug.Log(result.Text);
-                    drawQr = false;
-                    _camTexture.Stop();
-                    _networkManager.JoinRoom(result.Text);
+                    IBarcodeReader reader = new BarcodeReader();
+
+                    var result = reader.Decode(_camTexture.GetPixels32(), _camTexture.width, _camTexture.height);
+                    if (result != null)
+                    {
+                        Debug.Log(result.Text);
+                        drawQr = false;
+                        _camTexture.Stop();
+                        _networkManager.JoinRoom(result.Text);
+                    }
                 }
             }
         }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Network;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using ZXing;
 using ZXing.QrCode;
 
@@ -41,6 +43,7 @@ namespace UI
 
 
         public Button PrefabButton;
+        public GameObject GraphsPrefab;
 
         private enum State
         {
@@ -54,6 +57,7 @@ namespace UI
         private string _prefab = "Cube";
 
         private int _efficiency = 0;
+        private bool _graphsActive = false;
 
         //private GameObject test;
         private readonly string _uuid = Guid.NewGuid().ToString();
@@ -70,6 +74,8 @@ namespace UI
         {
             _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
             _camera = Camera.main;
+//            test = GameObject.Find("TransformThing");
+//            _networkManager.SetTransformForTokens(test.transform);
             _networkManager.ObserveMaster(_uuid, isMaster => gameObject.SetActive(isMaster));
 
             var pos = tokenSelectionPanel.transform.position;
@@ -139,6 +145,7 @@ namespace UI
                 case State.Idle:
                     break;
                 case State.PlacingToken:
+                    Debug.Log("Placing Token" + _prefab);
                     (hit, ok) = Select();
                     if (ok)
                     {
@@ -177,6 +184,24 @@ namespace UI
             }
         }
 
+        private void EnableButtons(bool master)
+        {
+            if (!master)
+            {
+                GameObject[] btns;
+                //get all the objects with the tag "clientButton"
+                btns = GameObject.FindGameObjectsWithTag("clientButton");
+                //loop through the returned array of game objects and set each to active false
+                foreach (GameObject btn in btns)
+                {
+                    btn.SetActive(true);
+                }
+            }
+
+            //else if(master)
+            //gameObject.SetActive(master);
+        }
+
         private void OnDestroy()
         {
             _buttons.ForEach(button => Destroy(button));
@@ -185,14 +210,17 @@ namespace UI
 
         private (RaycastHit, bool) Select()
         {
+            Debug.Log("Select");
             if (Camera.main == null)
                 return (new RaycastHit(), false);
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Debug.Log("Camera != null");
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, 100.0f))
             {
                 return (hit, true);
             }
 
+            Debug.Log("No hit");
             return (new RaycastHit(), false);
         }
 

@@ -18,17 +18,19 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GoogleARCore.Examples.HelloAR
+using Network;
+
+namespace GoogleARCore.Examples.Common
 {
     using System.Collections.Generic;
     using GoogleARCore;
     using GoogleARCore.Examples.Common;
     using UnityEngine;
     using UnityEngine.EventSystems;
-
 #if UNITY_EDITOR
     // Set up touch input propagation while using Instant Preview in the editor.
     using Input = InstantPreviewInput;
+
 #endif
 
     /// <summary>
@@ -45,7 +47,7 @@ namespace GoogleARCore.Examples.HelloAR
         /// <summary>
         /// A prefab to place when a raycast from a user touch hits a horizontal plane.
         /// </summary>
-        public GameObject GameObjectMapPrefab;  
+        public GameObject GameObjectMapPrefab;
 
         /// <summary>
         /// Plane the map gets rendered on when selected by user.
@@ -77,6 +79,12 @@ namespace GoogleARCore.Examples.HelloAR
 
         private List<DetectedPlane> m_NewPlanes = new List<DetectedPlane>();
 
+        private GameObject _canvasRig;
+
+        private static HelloARController _instance;
+
+        private NetworkManager _networkManager;
+
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -84,7 +92,17 @@ namespace GoogleARCore.Examples.HelloAR
         {
             // Enable ARCore to target 60fps camera capture frame rate on supported devices.
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
+            if (_instance == null)
+                _instance = new HelloARController();
+            _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+        }
+
+        public void OnEnable()
+        {
             Application.targetFrameRate = 60;
+
+            _canvasRig = GameObject.Find("Canvas");
+            _canvasRig.SetActive(false);
         }
 
         /// <summary>
@@ -126,12 +144,13 @@ namespace GoogleARCore.Examples.HelloAR
             {
                 return;
             }
-            
+
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.Default;
 
-            if(!projectionPlaneFound && Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))    { 
+            if (!projectionPlaneFound && Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
+            {
                 //Debug.Log("Screen tapped");
                 // Use hit pose and camera pose to check if hit test is from the
                 // back of the plane, if it is, no need to create the anchor.
@@ -157,16 +176,19 @@ namespace GoogleARCore.Examples.HelloAR
                     Session.CreateAnchor(projectionPlaneCenter);
 
                     //Initialize the mapbox prefab on the found location.
-                    //projectionPlaneCenter.position.y += 200f; //new Vector3(0f, 200f, 0f);
                     var map = Instantiate(GameObjectMapPrefab, projectionPlaneCenter.position, hit.Pose.rotation);
                     map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                    map.tag = "map";
+
                     // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
                     map.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-
+                    _networkManager.SetTransformForTokens(map.transform);
                     foreach (GameObject g in _platforms)
                     {
                         Destroy(g);
                     }
+
+                    _canvasRig.SetActive(true);
                 }
             }
         }
