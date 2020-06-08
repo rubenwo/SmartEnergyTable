@@ -442,13 +442,11 @@ namespace Network
                                 userPositionListener.Value.Invoke(_userPosition);
                             }
 
-                            if (!_generatedEnergy.Equals(patch.Energy))
+
+                            _generatedEnergy = patch.Energy;
+                            foreach (var generatedEnergyListener in _generatedEnergyListeners)
                             {
-                                _generatedEnergy = patch.Energy;
-                                foreach (var generatedEnergyListener in _generatedEnergyListeners)
-                                {
-                                    generatedEnergyListener.Value.Invoke(_generatedEnergy);
-                                }
+                                generatedEnergyListener.Value.Invoke(_generatedEnergy);
                             }
 
                             //Load the scene if it is not the currentScene, meaning the scene has changed.
