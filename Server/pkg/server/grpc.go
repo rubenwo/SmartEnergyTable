@@ -121,6 +121,7 @@ func (s *server) JoinRoom(roomID *v1.RoomUser, stream v1.SmartEnergyTableService
 			Diffs:        diffs,
 			History:      history,
 			Energy:       &v1.GeneratedEnergy{Data: patch.GenEnergyData},
+			Mode:         patch.Mode,
 		}); err != nil {
 			log.Println(err)
 			return err

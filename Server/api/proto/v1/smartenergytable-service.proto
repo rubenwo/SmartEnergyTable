@@ -120,8 +120,7 @@ message Patch {
     repeated Diff diffs = 5;
     repeated Diff history = 7;
     GeneratedEnergy energy = 8;
-
-    ViewMode mode = 8;
+    ViewMode mode = 9;
 }
 
 message ModeSwitch {
