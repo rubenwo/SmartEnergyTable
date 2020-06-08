@@ -97,6 +97,11 @@ message EnergyData {
     repeated EnergyUser energy_users = 1;
     repeated EnergyDemandHourly energy_demand_hourly = 2;
 }
+enum ViewMode {
+    Overview = 0;
+    AR = 1;
+    VR = 2;
+}
 
 message GeneratedEnergy {
     message Data {
@@ -115,6 +120,12 @@ message Patch {
     repeated Diff diffs = 5;
     repeated Diff history = 7;
     GeneratedEnergy energy = 8;
+    ViewMode mode = 9;
+}
+
+message ModeSwitch {
+    RoomUser room_user = 1;
+    ViewMode mode = 2;
 }
 
 service SmartEnergyTableService {
@@ -152,5 +163,8 @@ service SmartEnergyTableService {
     }
 
     rpc GetEnergyData (RoomUser) returns (EnergyData) {
+    }
+
+    rpc SwitchMode (ModeSwitch) returns (Empty) {
     }
 }

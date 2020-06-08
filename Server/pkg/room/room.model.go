@@ -28,13 +28,14 @@ type Patch struct {
 	UserPosition  v1.Vector3_Protocol
 	IsMaster      bool
 	GenEnergyData []*v1.GeneratedEnergy_Data
+	Mode         v1.ViewMode
 }
 
 type Room struct {
 	Lock sync.Mutex // Since gRPC call might be made concurrently we need to acquire a lock on the room object to avoid
 	// data races.
-	RoomID string
-
+	RoomID  string
+	Mode    v1.ViewMode
 	changes []Diff // This is a slice of the pending changes.
 
 	history []Diff // This is a slice that contains every action that has taken place during the session. When the
@@ -66,6 +67,7 @@ func (r *Room) Notify() {
 		IsMaster:      false,
 		History:       []Diff{},
 		GenEnergyData: []*v1.GeneratedEnergy_Data{},
+		Mode:         r.Mode,
 	}
 
 	for _, token := range r.tokens {

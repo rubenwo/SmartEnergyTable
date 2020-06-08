@@ -54,43 +54,57 @@ public static partial class SmartenergytableServiceReflection {
           "KAsyCy5FbmVyZ3lVc2VyEjEKFGVuZXJneV9kZW1hbmRfaG91cmx5GAIgAygL",
           "MhMuRW5lcmd5RGVtYW5kSG91cmx5ImUKD0dlbmVyYXRlZEVuZXJneRIjCgRk",
           "YXRhGAEgAygLMhUuR2VuZXJhdGVkRW5lcmd5LkRhdGEaLQoERGF0YRIVCgV0",
-          "b2tlbhgBIAEoCzIGLlRva2VuEg4KBmVuZXJneRgCIAEoAiK3AQoFUGF0Y2gS",
+          "b2tlbhgBIAEoCzIGLlRva2VuEg4KBmVuZXJneRgCIAEoAiLQAQoFUGF0Y2gS",
           "DwoHcm9vbV9pZBgBIAEoCRIQCghzY2VuZV9pZBgCIAEoBRIoCg11c2VyX3Bv",
           "c2l0aW9uGAMgASgLMhEuVmVjdG9yM19Qcm90b2NvbBIRCglpc19tYXN0ZXIY",
           "BCABKAgSFAoFZGlmZnMYBSADKAsyBS5EaWZmEhYKB2hpc3RvcnkYByADKAsy",
-          "BS5EaWZmEiAKBmVuZXJneRgIIAEoCzIQLkdlbmVyYXRlZEVuZXJneTK9AwoX",
-          "U21hcnRFbmVyZ3lUYWJsZVNlcnZpY2USIQoKQ3JlYXRlUm9vbRIGLkVtcHR5",
-          "GgkuUm9vbVVzZXIiABIhCghKb2luUm9vbRIJLlJvb21Vc2VyGgYuUGF0Y2gi",
-          "ADABEh8KCFNhdmVSb29tEgkuUm9vbVVzZXIaBi5FbXB0eSIAEhwKCEFkZFRv",
-          "a2VuEgYuVG9rZW4aBi5FbXB0eSIAEh8KC1JlbW92ZVRva2VuEgYuVG9rZW4a",
-          "Bi5FbXB0eSIAEh0KCU1vdmVUb2tlbhIGLlRva2VuGgYuRW1wdHkiABIgCglD",
-          "bGVhclJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgASHwoLQ2hhbmdlU2NlbmUS",
-          "Bi5TY2VuZRoGLkVtcHR5IgASJAoJTW92ZVVzZXJzEg0uVXNlclBvc2l0aW9u",
-          "GgYuRW1wdHkiABIgCglMZWF2ZVJvb20SCS5Sb29tVXNlchoGLkVtcHR5IgAS",
-          "JwoMQ2hhbmdlTWFzdGVyEg0uTWFzdGVyU3dpdGNoGgYuRW1wdHkiABIpCg1H",
-          "ZXRFbmVyZ3lEYXRhEgkuUm9vbVVzZXIaCy5FbmVyZ3lEYXRhIgBCDFoKcGtn",
-          "L2FwaS92MWIGcHJvdG8z"));
+          "BS5EaWZmEiAKBmVuZXJneRgIIAEoCzIQLkdlbmVyYXRlZEVuZXJneRIXCgRt",
+          "b2RlGAkgASgOMgkuVmlld01vZGUiQwoKTW9kZVN3aXRjaBIcCglyb29tX3Vz",
+          "ZXIYASABKAsyCS5Sb29tVXNlchIXCgRtb2RlGAIgASgOMgkuVmlld01vZGUq",
+          "KAoIVmlld01vZGUSDAoIT3ZlcnZpZXcQABIGCgJBUhABEgYKAlZSEAIy4gMK",
+          "F1NtYXJ0RW5lcmd5VGFibGVTZXJ2aWNlEiEKCkNyZWF0ZVJvb20SBi5FbXB0",
+          "eRoJLlJvb21Vc2VyIgASIQoISm9pblJvb20SCS5Sb29tVXNlchoGLlBhdGNo",
+          "IgAwARIfCghTYXZlUm9vbRIJLlJvb21Vc2VyGgYuRW1wdHkiABIcCghBZGRU",
+          "b2tlbhIGLlRva2VuGgYuRW1wdHkiABIfCgtSZW1vdmVUb2tlbhIGLlRva2Vu",
+          "GgYuRW1wdHkiABIdCglNb3ZlVG9rZW4SBi5Ub2tlbhoGLkVtcHR5IgASIAoJ",
+          "Q2xlYXJSb29tEgkuUm9vbVVzZXIaBi5FbXB0eSIAEh8KC0NoYW5nZVNjZW5l",
+          "EgYuU2NlbmUaBi5FbXB0eSIAEiQKCU1vdmVVc2VycxINLlVzZXJQb3NpdGlv",
+          "bhoGLkVtcHR5IgASIAoJTGVhdmVSb29tEgkuUm9vbVVzZXIaBi5FbXB0eSIA",
+          "EicKDENoYW5nZU1hc3RlchINLk1hc3RlclN3aXRjaBoGLkVtcHR5IgASKQoN",
+          "R2V0RW5lcmd5RGF0YRIJLlJvb21Vc2VyGgsuRW5lcmd5RGF0YSIAEiMKClN3",
+          "aXRjaE1vZGUSCy5Nb2RlU3dpdGNoGgYuRW1wdHkiAEIMWgpwa2cvYXBpL3Yx",
+          "YgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale", "Efficiency" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Vector3_Protocol), global::Vector3_Protocol.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::RoomUser), global::RoomUser.Parser, new[]{ "Id", "UserId" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::UserPosition), global::UserPosition.Parser, new[]{ "RoomUser", "NewPosition" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::MasterSwitch), global::MasterSwitch.Parser, new[]{ "Id", "MasterId", "NewMasterId" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Scene), global::Scene.Parser, new[]{ "RoomUser", "SceneId" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Diff), global::Diff.Parser, new[]{ "Action", "Token" }, null, new[]{ typeof(global::Diff.Types.Action) }, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyUser), global::EnergyUser.Parser, new[]{ "Time", "Label", "Name", "SourceId", "TotalDemand", "Lighting", "Hvac", "Appliances", "Lab", "Pv", "Unit" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyDemandHourly), global::EnergyDemandHourly.Parser, new[]{ "Id", "Date", "Year", "Month", "Day", "Hour", "Minutes", "SourceId", "ChannelId", "Unit", "TotalDemand", "DeltaValue", "SourceTag", "ChannelTag", "Label", "Name", "Height", "Area", "WindSpeed", "Temperature", "SolarRad", "ElectricityPrice", "Supply", "Renewables" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyData), global::EnergyData.Parser, new[]{ "EnergyUsers", "EnergyDemandHourly" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::GeneratedEnergy), global::GeneratedEnergy.Parser, new[]{ "Data" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::GeneratedEnergy.Types.Data), global::GeneratedEnergy.Types.Data.Parser, new[]{ "Token", "Energy" }, null, null, null)}),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "History", "Energy" }, null, null, null)
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::ViewMode), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(typeof(global::Empty), global::Empty.Parser, null, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Token), global::Token.Parser, new[]{ "RoomUser", "ObjectIndex", "Position", "ObjectId", "Rotation", "Scale", "Efficiency" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Vector3_Protocol), global::Vector3_Protocol.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::RoomUser), global::RoomUser.Parser, new[]{ "Id", "UserId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::UserPosition), global::UserPosition.Parser, new[]{ "RoomUser", "NewPosition" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::MasterSwitch), global::MasterSwitch.Parser, new[]{ "Id", "MasterId", "NewMasterId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Scene), global::Scene.Parser, new[]{ "RoomUser", "SceneId" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Diff), global::Diff.Parser, new[]{ "Action", "Token" }, null, new[]{ typeof(global::Diff.Types.Action) }, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyUser), global::EnergyUser.Parser, new[]{ "Time", "Label", "Name", "SourceId", "TotalDemand", "Lighting", "Hvac", "Appliances", "Lab", "Pv", "Unit" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyDemandHourly), global::EnergyDemandHourly.Parser, new[]{ "Id", "Date", "Year", "Month", "Day", "Hour", "Minutes", "SourceId", "ChannelId", "Unit", "TotalDemand", "DeltaValue", "SourceTag", "ChannelTag", "Label", "Name", "Height", "Area", "WindSpeed", "Temperature", "SolarRad", "ElectricityPrice", "Supply", "Renewables" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::EnergyData), global::EnergyData.Parser, new[]{ "EnergyUsers", "EnergyDemandHourly" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::GeneratedEnergy), global::GeneratedEnergy.Parser, new[]{ "Data" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::GeneratedEnergy.Types.Data), global::GeneratedEnergy.Types.Data.Parser, new[]{ "Token", "Energy" }, null, null, null, null)}),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Patch), global::Patch.Parser, new[]{ "RoomId", "SceneId", "UserPosition", "IsMaster", "Diffs", "History", "Energy", "Mode" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ModeSwitch), global::ModeSwitch.Parser, new[]{ "RoomUser", "Mode" }, null, null, null, null)
         }));
   }
   #endregion
 
 }
+#region Enums
+public enum ViewMode {
+  [pbr::OriginalName("Overview")] Overview = 0,
+  [pbr::OriginalName("AR")] Ar = 1,
+  [pbr::OriginalName("VR")] Vr = 2,
+}
+
+#endregion
+
 #region Messages
 public sealed partial class Empty : pb::IMessage<Empty> {
   private static readonly pb::MessageParser<Empty> _parser = new pb::MessageParser<Empty>(() => new Empty());
@@ -3189,6 +3203,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     diffs_ = other.diffs_.Clone();
     history_ = other.history_.Clone();
     energy_ = other.energy_ != null ? other.energy_.Clone() : null;
+    mode_ = other.mode_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -3272,6 +3287,17 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     }
   }
 
+  /// <summary>Field number for the "mode" field.</summary>
+  public const int ModeFieldNumber = 9;
+  private global::ViewMode mode_ = global::ViewMode.Overview;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::ViewMode Mode {
+    get { return mode_; }
+    set {
+      mode_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Patch);
@@ -3292,6 +3318,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     if(!diffs_.Equals(other.diffs_)) return false;
     if(!history_.Equals(other.history_)) return false;
     if (!object.Equals(Energy, other.Energy)) return false;
+    if (Mode != other.Mode) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -3305,6 +3332,7 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     hash ^= diffs_.GetHashCode();
     hash ^= history_.GetHashCode();
     if (energy_ != null) hash ^= Energy.GetHashCode();
+    if (Mode != global::ViewMode.Overview) hash ^= Mode.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -3340,6 +3368,10 @@ public sealed partial class Patch : pb::IMessage<Patch> {
       output.WriteRawTag(66);
       output.WriteMessage(Energy);
     }
+    if (Mode != global::ViewMode.Overview) {
+      output.WriteRawTag(72);
+      output.WriteEnum((int) Mode);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -3364,6 +3396,9 @@ public sealed partial class Patch : pb::IMessage<Patch> {
     size += history_.CalculateSize(_repeated_history_codec);
     if (energy_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Energy);
+    }
+    if (Mode != global::ViewMode.Overview) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Mode);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -3398,6 +3433,9 @@ public sealed partial class Patch : pb::IMessage<Patch> {
         Energy = new global::GeneratedEnergy();
       }
       Energy.MergeFrom(other.Energy);
+    }
+    if (other.Mode != global::ViewMode.Overview) {
+      Mode = other.Mode;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -3442,6 +3480,173 @@ public sealed partial class Patch : pb::IMessage<Patch> {
             Energy = new global::GeneratedEnergy();
           }
           input.ReadMessage(Energy);
+          break;
+        }
+        case 72: {
+          Mode = (global::ViewMode) input.ReadEnum();
+          break;
+        }
+      }
+    }
+  }
+
+}
+
+public sealed partial class ModeSwitch : pb::IMessage<ModeSwitch> {
+  private static readonly pb::MessageParser<ModeSwitch> _parser = new pb::MessageParser<ModeSwitch>(() => new ModeSwitch());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pb::MessageParser<ModeSwitch> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::SmartenergytableServiceReflection.Descriptor.MessageTypes[13]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ModeSwitch() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ModeSwitch(ModeSwitch other) : this() {
+    roomUser_ = other.roomUser_ != null ? other.roomUser_.Clone() : null;
+    mode_ = other.mode_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public ModeSwitch Clone() {
+    return new ModeSwitch(this);
+  }
+
+  /// <summary>Field number for the "room_user" field.</summary>
+  public const int RoomUserFieldNumber = 1;
+  private global::RoomUser roomUser_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::RoomUser RoomUser {
+    get { return roomUser_; }
+    set {
+      roomUser_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "mode" field.</summary>
+  public const int ModeFieldNumber = 2;
+  private global::ViewMode mode_ = global::ViewMode.Overview;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public global::ViewMode Mode {
+    get { return mode_; }
+    set {
+      mode_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override bool Equals(object other) {
+    return Equals(other as ModeSwitch);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool Equals(ModeSwitch other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (!object.Equals(RoomUser, other.RoomUser)) return false;
+    if (Mode != other.Mode) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (roomUser_ != null) hash ^= RoomUser.GetHashCode();
+    if (Mode != global::ViewMode.Overview) hash ^= Mode.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void WriteTo(pb::CodedOutputStream output) {
+    if (roomUser_ != null) {
+      output.WriteRawTag(10);
+      output.WriteMessage(RoomUser);
+    }
+    if (Mode != global::ViewMode.Overview) {
+      output.WriteRawTag(16);
+      output.WriteEnum((int) Mode);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public int CalculateSize() {
+    int size = 0;
+    if (roomUser_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(RoomUser);
+    }
+    if (Mode != global::ViewMode.Overview) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Mode);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(ModeSwitch other) {
+    if (other == null) {
+      return;
+    }
+    if (other.roomUser_ != null) {
+      if (roomUser_ == null) {
+        RoomUser = new global::RoomUser();
+      }
+      RoomUser.MergeFrom(other.RoomUser);
+    }
+    if (other.Mode != global::ViewMode.Overview) {
+      Mode = other.Mode;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public void MergeFrom(pb::CodedInputStream input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          if (roomUser_ == null) {
+            RoomUser = new global::RoomUser();
+          }
+          input.ReadMessage(RoomUser);
+          break;
+        }
+        case 16: {
+          Mode = (global::ViewMode) input.ReadEnum();
           break;
         }
       }

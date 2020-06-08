@@ -34,6 +34,8 @@ namespace Network
 
         private Channel _channel;
         private Client _client;
+
+        /// This queue is used for running functions on the main thread.
         private readonly Queue<Action> _actionQueue = new Queue<Action>();
 
 
@@ -67,6 +69,17 @@ namespace Network
 
         private readonly Dictionary<string, Action<GeneratedEnergy>> _generatedEnergyListeners =
             new Dictionary<string, Action<GeneratedEnergy>>();
+
+        public string getTokenNameById(string uuid)
+        {
+            var ok = _currentScene.TryGetValue(uuid, out var obj);
+            if (ok)
+            {
+                return obj.name;
+            }
+
+            return "";
+        }
 
         private void Awake()
         {
@@ -293,6 +306,11 @@ namespace Network
                 yield return null;
             }
 
+            foreach (var keyValuePair in _currentScene)
+            {
+                SceneManager.MoveGameObjectToScene(keyValuePair.Value, SceneManager.GetActiveScene());
+            }
+
             _sceneLoaded = true;
         }
 
@@ -307,8 +325,13 @@ namespace Network
             // objects in the wrong scene.
             while (!_sceneLoaded)
                 yield return null;
+
+            while (_parentTransformForTokens == null)
+                yield return null;
+
             foreach (var diff in diffs)
             {
+                Debug.Log("Placing tokens");
                 switch (diff.Action)
                 {
                     case Diff.Types.Action.Add:
@@ -320,6 +343,7 @@ namespace Network
                                 y = diff.Token.Position.Y,
                                 z = diff.Token.Position.Z
                             }, Quaternion.identity);
+                        //    obj.GetComponent<TokenData>().Tok = diff.Token;
                         obj.transform.localScale *= diff.Token.Scale;
                         _currentScene.Add(diff.Token.ObjectId, obj);
                         break;
@@ -393,8 +417,7 @@ namespace Network
                                         LoadSceneAsync(patch.SceneId));
                             }
 
-                            //If the _currentScene is empty we want to process the entire history as this might mean we joined
-                            //later on and some object might not be send through the 'normal' diffs.
+
                             if (_currentScene.Count == 0)
                             {
                                 Debug.Log("Process patch history...");
@@ -405,6 +428,7 @@ namespace Network
                                 Debug.Log("Applying patches...");
                                 StartCoroutine(ProcessDiffs(patch.Diffs));
                             }
+
 
                             _uuidLookUp.Clear();
                             foreach (var keyValuePair in _currentScene)
