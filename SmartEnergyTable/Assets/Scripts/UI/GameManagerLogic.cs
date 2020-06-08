@@ -45,8 +45,6 @@ public class GameManagerLogic : MonoBehaviour
 
         }
 
-        _netMan.AddToken("Windmill", 1, new Vector3(10, 0, 0), 0.05f);
-
         graphButton.onClick.AddListener(() => showGraphs());
     }
 
@@ -72,7 +70,7 @@ public class GameManagerLogic : MonoBehaviour
 
             foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("Windmill") || ob.name.Contains("Solar Panel") || name.Contains("Battery")))
             {
-                addGraphToScene((GameObject)token);
+                addGraphToScene(token);
             }
         } else
         {
@@ -86,14 +84,17 @@ public class GameManagerLogic : MonoBehaviour
 
     void addGraphToScene(GameObject ob)
     {
+        Debug.Log("Pos: " + ob.transform.position);
         // Get our already existing graph
         var graphCanvas = UnityEngine.Object.Instantiate(prefab, ob.transform.position, ob.transform.rotation);
         graphCanvas.GetComponent<TokenData>().Tok = ob.GetComponent<TokenData>().Tok;
-        var obPos = ob.transform.position;
-        ob.transform.localScale *= ob.GetComponent<TokenData>().Tok.Scale;
-        obPos.y += 10;
-        obPos.z += 10;
+        RectTransform obPos = gameObject.GetComponent<RectTransform>();
+        //ob.transform.localScale *= ob.GetComponent<TokenData>().Tok.Scale;
 
+        obPos.position.Set(obPos.position.x, obPos.position.y + 10, obPos.position.z);
+        obPos.rotation.Set(90, obPos.rotation.y, obPos.rotation.z, obPos.rotation.w);
+
+        obPos.sizeDelta = new Vector2(1f, 1f);
         graphCanvas.name = "GenGraph" + ob.name;
         graphCanvas.SetActive(true);
 

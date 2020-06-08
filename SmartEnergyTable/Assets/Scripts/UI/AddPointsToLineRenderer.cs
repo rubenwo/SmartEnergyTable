@@ -205,8 +205,6 @@ public class AddPointsToLineRenderer : MonoBehaviour
         if (_lastRootRotation == gameObject.transform.eulerAngles)
             return;
 
-        Debug.Log("Rotating");
-
         var pivot = GameObject.Find("GraphCanvas").GetComponent<Transform>();
 
         List<Vector3> newPoints = new List<Vector3>();
