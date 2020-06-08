@@ -26,7 +26,7 @@ public class GameManagerLogic : MonoBehaviour
             _netMan = GameObject.Find("GameManager").GetComponent<NetworkManager>();
             _netMan.ObserveMaster(_id, (state) =>
             {
-                //Debug.Log("Steet: " + state);
+                Debug.Log("Steet: " + state);
             });
 
             _netMan.ObserveEnergyData(_id, (ener) =>

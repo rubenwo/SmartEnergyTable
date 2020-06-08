@@ -55,7 +55,18 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 foreach (var energy in _networkManager.GeneratedEnergy.Data)
                 {
                     if (energy.Token.ObjectId == Tok.ObjectId)
+                    {
+                        var name = gameObject.name;
+
+                        if (name.Contains("Windmill")) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
+                            energy.Energy = (int)(3285000 * (new System.Random().Next(1, 10) / 10));
+                        else if (name.Contains("SPV")) // 500-550 kWh (Yearly output windmill per year) 
+                            energy.Energy = (int)(550000 * (new System.Random().Next(1, 10) / 10));
+                        else if (name.Contains("BAT")) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
+                            energy.Energy  = (int)(500000 * (new System.Random().Next(1, 10) / 10));
+
                         data.Add(energy);
+                    }
                 }
                     
                 GraphPropertyName = "Energy";
