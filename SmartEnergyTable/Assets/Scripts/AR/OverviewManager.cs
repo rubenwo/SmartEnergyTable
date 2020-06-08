@@ -52,7 +52,7 @@ public class OverviewManager : MonoBehaviour
                 {
                     var map = Instantiate(gameObjectMapPrefab, gameObject.transform.position, Quaternion.identity);
                     map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
-                    //_networkManager.SetTransformForTokens(map.transform);
+                    _networkManager.SetTransformForTokens(map.transform);
                     _isRendering = true;
                 }
             }
