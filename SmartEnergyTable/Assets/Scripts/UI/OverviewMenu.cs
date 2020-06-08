@@ -60,7 +60,6 @@ namespace UI
 
         private NetworkManager _networkManager;
         private State _state = State.Idle;
-        private Camera _camera;
         private RaycastHit _selectedToken;
 
         private readonly List<Button> _buttons = new List<Button>();
@@ -69,7 +68,6 @@ namespace UI
         private void Start()
         {
             _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
-            _camera = Camera.main;
             _networkManager.ObserveMaster(_uuid, isMaster => gameObject.SetActive(isMaster));
 
             var pos = tokenSelectionPanel.transform.position;
@@ -187,7 +185,7 @@ namespace UI
         {
             if (Camera.main == null)
                 return (new RaycastHit(), false);
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, 100.0f))
             {
                 return (hit, true);
