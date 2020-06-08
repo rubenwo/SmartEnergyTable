@@ -425,7 +425,7 @@ namespace Network
                                 }
                             }
 
-                            if (_currentViewMode != patch.Mode && !_master)
+                            if (_currentViewMode != patch.Mode)
                             {
                                 _currentViewMode = patch.Mode;
                                 foreach (var viewModeListener in _viewModeListeners)
