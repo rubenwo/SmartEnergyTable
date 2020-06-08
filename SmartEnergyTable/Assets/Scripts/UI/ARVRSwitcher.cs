@@ -27,23 +27,23 @@ public class ARVRSwitcher : MonoBehaviour
     void Start()
     {
         // Insert all our objects into the right lists (Other ojects are rendered in both scenes)
-        ARObjects = new List<GameObject>() {
-            GameObject.Find("PlaneDiscovery")
-        };
-        VRObjects = new List<GameObject>() {
-            GameObject.Find("Camera Rig")
-        };
+        //ARObjects = new List<GameObject>() {
+        //    GameObject.Find("PlaneDiscovery")
+        //};
+        //VRObjects = new List<GameObject>() {
+        //    GameObject.Find("Camera Rig")
+        //};
 
         _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
 
-        unSetVRComponents();
+        //unSetVRComponents();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ArEnabled = true;
-        SwitchARVR();
+        //ArEnabled = true;
+        //SwitchARVR();
     }
 
     public void SwitchARVR()
@@ -54,24 +54,23 @@ public class ARVRSwitcher : MonoBehaviour
             Source.image.sprite = OffSprite;
 
             //send to server: swap all clients to AR
-            _networkManager.LoadScene(1);
+            //_networkManager.LoadScene(1);
 
             //unSetVRComponents();
             //setARComponents();
 
-            //if (XRSettings.loadedDeviceName == "cardboard")
-            //StartCoroutine(LoadDevice("None"));
+            if (XRSettings.loadedDeviceName == "cardboard")
+                StartCoroutine(LoadDevice("None"));
         }
         else
         {
-            //if (XRSettings.loadedDeviceName == "None")
-                //StartCoroutine(LoadDevice("cardboard"));
+            if (XRSettings.loadedDeviceName == "None")
+                StartCoroutine(LoadDevice("cardboard"));
 
             Source.image.sprite = OnSprite;
 
-            //send to server: swap all clients to VR
-            _networkManager.LoadScene(2);
-            
+            ////send to server: swap all clients to VR
+            //_networkManager.LoadScene(2);
 
             //unsetARComponents();
             //setVRComponents();
@@ -82,13 +81,11 @@ public class ARVRSwitcher : MonoBehaviour
     void setARComponents()
     {
         ARObjects.ForEach(ob => ob.SetActive(true));
-
     }
 
     void unsetARComponents()
     {
         ARObjects.ForEach(ob => ob.SetActive(false));
-
     }
 
     void setVRComponents()
