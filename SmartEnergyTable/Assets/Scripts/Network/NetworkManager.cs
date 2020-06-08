@@ -70,6 +70,17 @@ namespace Network
         private readonly Dictionary<string, Action<GeneratedEnergy>> _generatedEnergyListeners =
             new Dictionary<string, Action<GeneratedEnergy>>();
 
+        public string getTokenNameById(string uuid)
+        {
+            var ok = _currentScene.TryGetValue(uuid, out var obj);
+            if (ok)
+            {
+                return obj.name;
+            }
+
+            return "";
+        }
+
         private void Awake()
         {
             if (_instance == null)

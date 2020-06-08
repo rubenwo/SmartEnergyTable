@@ -22,7 +22,13 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
     private Vector3 _lastRootRotation;
 
-    public enum GraphType { DAILY, MONTHLY, POWER_UNIT };
+    public enum GraphType
+    {
+        DAILY,
+        MONTHLY,
+        POWER_UNIT
+    };
+
     public GraphType GraphTypeToDisplay = GraphType.POWER_UNIT;
 
     private NetworkManager _networkManager;
@@ -35,7 +41,11 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
     private EnergyData EnergyDataStore;
 
-    private Token Tok { get => this.GetComponent<TokenData>().Tok; set => this.GetComponent<TokenData>().Tok = value; }
+    private Token Tok
+    {
+        get => this.GetComponent<TokenData>().Tok;
+        set => this.GetComponent<TokenData>().Tok = value;
+    }
 
     void GetHourly()
     {
@@ -49,26 +59,43 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         switch (GraphTypeToDisplay)
         {
-            case GraphType.DAILY: foreach (var a in EnergyDataStore.EnergyUsers) { data.Add(a); }; break;
-            case GraphType.MONTHLY: foreach (var a in EnergyDataStore.EnergyDemandHourly) { data.Add(a); }; break;
-            case GraphType.POWER_UNIT: {
+            case GraphType.DAILY:
+                foreach (var a in EnergyDataStore.EnergyUsers)
+                {
+                    data.Add(a);
+                }
+
+                ;
+                break;
+            case GraphType.MONTHLY:
+                foreach (var a in EnergyDataStore.EnergyDemandHourly)
+                {
+                    data.Add(a);
+                }
+
+                ;
+                break;
+            case GraphType.POWER_UNIT:
+            {
                 foreach (var energy in _networkManager.GeneratedEnergy.Data)
                 {
                     if (energy.Token.ObjectId == Tok.ObjectId)
                     {
                         var name = gameObject.name;
 
-                        if (name.Contains("Windmill")) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                            energy.Energy = (int)(3285000 * (new System.Random().Next(1, 10) / 10));
+                        if (name.Contains("Windmill")
+                        ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
+                            energy.Energy = (int) (3285000 * (new System.Random().Next(1, 10) / 10));
                         else if (name.Contains("SPV")) // 500-550 kWh (Yearly output windmill per year) 
-                            energy.Energy = (int)(550000 * (new System.Random().Next(1, 10) / 10));
-                        else if (name.Contains("BAT")) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                            energy.Energy  = (int)(500000 * (new System.Random().Next(1, 10) / 10));
+                            energy.Energy = (int) (550000 * (new System.Random().Next(1, 10) / 10));
+                        else if (name.Contains("BAT")
+                        ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
+                            energy.Energy = (int) (500000 * (new System.Random().Next(1, 10) / 10));
 
                         data.Add(energy);
                     }
                 }
-                    
+
                 GraphPropertyName = "Energy";
 
                 break;
@@ -92,7 +119,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         foreach (var a in data)
         {
-            float num = (float)Convert.ToDouble(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
+            float num = (float) Convert.ToDouble(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
             // Get value and see if it's higher. Then make it our new highest number, if higher.
             if (num > maxY)
                 maxY = num;
@@ -106,7 +133,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
         // Generate 4 points for each raw value
         foreach (var values in data)
         {
-            var val = (float)Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName).GetValue(values));
+            var val = (float) Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName).GetValue(values));
 
             float startX = relX + counter * diffX;
             float endX = relX + counter * diffX + diffX;
@@ -128,15 +155,15 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 string tokenName = _networkManager.getTokenNameById(thingy.Token.ObjectId);
 
                 AddText(tokenName,
-                        val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
-                        new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
+                    val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
+                    new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
             }
             else
             {
                 //Add text above our graph bar here
                 AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
-                        val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
-                        new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
+                    val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
+                    new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
             }
 
             counter++;
@@ -152,8 +179,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
         float alpha = 1.0f;
         Gradient gradient = new Gradient();
         gradient.SetKeys(
-            new GradientColorKey[] { new GradientColorKey(c1, 0.0f), new GradientColorKey(c2, 1.0f) },
-            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+            new GradientColorKey[] {new GradientColorKey(c1, 0.0f), new GradientColorKey(c2, 1.0f)},
+            new GradientAlphaKey[] {new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f)}
         );
         lineRenderer.colorGradient = gradient;
 
@@ -170,11 +197,11 @@ public class AddPointsToLineRenderer : MonoBehaviour
         try
         {
             ac.Invoke();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Debug.Log(e.Message);
         }
-        
     }
 
     // Start is called before the first frame update
@@ -188,7 +215,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
     private void AddText(string text, string value, Vector3 start, Vector3 end)
     {
         // Create the Text GameObject.
-        GameObject textGO = new GameObject("infolabel"+text);
+        GameObject textGO = new GameObject("infolabel" + text);
         textGO.transform.parent = gameObject.transform;
         var textMesh = textGO.AddComponent<TextMesh>();
         textMesh.fontSize = 20;
@@ -196,12 +223,11 @@ public class AddPointsToLineRenderer : MonoBehaviour
         textMesh.alignment = TextAlignment.Center;
         textMesh.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
 
-        var rTransf = (RectTransform)gameObject.transform;
+        var rTransf = (RectTransform) gameObject.transform;
 
         textMesh.transform.position = start;
         rTransf.sizeDelta = new Vector2(Math.Abs(end.x - start.x), Math.Abs(end.y - start.y));
         textMesh.text = text + "\n" + value;
-
     }
 
     // Update is called once per frame

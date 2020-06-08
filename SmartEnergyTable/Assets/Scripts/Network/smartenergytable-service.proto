@@ -97,6 +97,11 @@ message EnergyData {
     repeated EnergyUser energy_users = 1;
     repeated EnergyDemandHourly energy_demand_hourly = 2;
 }
+enum ViewMode {
+    Overview = 0;
+    AR = 1;
+    VR = 2;
+}
 
 message GeneratedEnergy {
     message Data {
@@ -107,11 +112,6 @@ message GeneratedEnergy {
     repeated Data data = 1;
 }
 
-enum ViewMode {
-    Overview = 0;
-    AR = 1;
-    VR = 2;
-}
 message Patch {
     string room_id = 1;
     int32 scene_id = 2;
@@ -120,8 +120,7 @@ message Patch {
     repeated Diff diffs = 5;
     repeated Diff history = 7;
     GeneratedEnergy energy = 8;
-
-    ViewMode mode = 8;
+    ViewMode mode = 9;
 }
 
 message ModeSwitch {
