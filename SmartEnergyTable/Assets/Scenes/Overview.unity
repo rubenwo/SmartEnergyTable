@@ -1818,7 +1818,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3b6113693b46d0f459c112332fb655ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8a5483d77e384b41b69a9f7f1f5cc7c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2302,8 +2302,6 @@ MonoBehaviour:
   tokenSelectionPanel: {fileID: 2041421298}
   qrCodePanel: {fileID: 492363178}
   PrefabButton: {fileID: 2159972565663157508, guid: d7a872d7555464f47b07e25d54da70df,
-    type: 3}
-  GraphsPrefab: {fileID: 6104564577397804125, guid: 1b3a429c49d99864a909eef4d821f481,
     type: 3}
   efficiencyInputField: {fileID: 197400404}
 --- !u!114 &876213460
@@ -4781,7 +4779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a9a632647df335449aab96d09ec69089, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1c1720694caaac4ebafb2678ffb8d03, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

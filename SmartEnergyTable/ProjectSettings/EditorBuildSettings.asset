@@ -11,13 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Overview.unity
     guid: fa3ec5dd5d0295042841d1d2c4dba169
-  - enabled: 1
-    path: Assets/Scenes/3DView.unity
-    guid: 253fa6f8bcb23c24ca07c93b6ea99ac3
-  - enabled: 1
-    path: Assets/Scenes/VRMap.unity
-    guid: 9d4029ccd46774a4cac5f9cc25b06525
-  - enabled: 1
-    path: Assets/Scenes/Graphs.unity
-    guid: f58748f1850d36245a3e60ad25a790a2
   m_configObjects: {}
