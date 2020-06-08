@@ -85,12 +85,12 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
                         if (name.Contains("Windmill")
                         ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                            energy.Energy = (int) (3285000 * (new System.Random().Next(1, 10) / 10));
+                            energy.Energy = (float)(3285000 * ((double)new System.Random().Next(1, 10) / 10));
                         else if (name.Contains("SPV")) // 500-550 kWh (Yearly output windmill per year) 
-                            energy.Energy = (int) (550000 * (new System.Random().Next(1, 10) / 10));
+                            energy.Energy = (float)(550000 * ((double)new System.Random().Next(1, 10) / 10));
                         else if (name.Contains("BAT")
                         ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                            energy.Energy = (int) (500000 * (new System.Random().Next(1, 10) / 10));
+                            energy.Energy = (float)(500000 * ((double)new System.Random().Next(1, 10) / 10));
 
                         data.Add(energy);
                     }
@@ -105,15 +105,13 @@ public class AddPointsToLineRenderer : MonoBehaviour
         // Set Title bar
         GameObject.Find("TitleBar").GetComponent<TextMeshPro>().text = GraphPropertyName;
 
-        float relX, relY, relZ;
         // Set current rotation to a variable so we can compare changes
         _lastRootRotation = gameObject.transform.eulerAngles;
 
         RectTransform b = gameObject.GetComponent<RectTransform>();
 
-        relX = gameObject.transform.position.x - b.rect.width / 2;
-        relY = gameObject.transform.position.y - b.rect.height / 2;
-        relZ = 50;
+        float relX = b.rect.width / 2;
+        float relZ = b.rect.height / 2;
 
         float maxY = 0;
 
@@ -137,15 +135,15 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
             float startX = relX + counter * diffX;
             float endX = relX + counter * diffX + diffX;
-            float upperY = relY + val * diffYPerX;
+            float upperZ = relZ + val * diffYPerX;
 
             for (float c = startX; c < endX; c++)
             {
                 // Draw graph
-                _points.Add(new Vector3(c, relY, relZ));
-                _points.Add(new Vector3(c, upperY, relZ));
-                _points.Add(new Vector3(c + 1, upperY, relZ));
-                _points.Add(new Vector3(c + 1, relY, relZ));
+                _points.Add(new Vector3(c, 0, relZ));
+                _points.Add(new Vector3(c, 0, upperZ));
+                _points.Add(new Vector3(c + 1, 0, upperZ));
+                _points.Add(new Vector3(c + 1, 0, relZ));
             }
 
             if (GraphTypeToDisplay == GraphType.POWER_UNIT)
@@ -155,15 +153,15 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 string tokenName = _networkManager.getTokenNameById(thingy.Token.ObjectId);
 
                 AddText(tokenName,
-                    val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
-                    new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
+                    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
+                    new Vector3(relX + counter * diffX + diffX, relZ + val * diffYPerX + b.rect.height / 10, relZ));
             }
             else
             {
                 //Add text above our graph bar here
                 AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
-                    val.ToString(), new Vector3(relX + counter * diffX, relY + val * diffYPerX + 10, relZ),
-                    new Vector3(relX + counter * diffX + diffX, relY + val * diffYPerX + b.rect.height / 10, relZ));
+                    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
+                    new Vector3(relX + counter * diffX + diffX, relZ + val * diffYPerX + b.rect.height / 10, relZ));
             }
 
             counter++;
@@ -233,7 +231,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Rotate();
+        Rotate();
     }
 
     void Rotate()
@@ -242,7 +240,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
         if (_lastRootRotation == gameObject.transform.eulerAngles)
             return;
 
-        var pivot = GameObject.Find("GraphCanvas").GetComponent<Transform>();
+        var pivot = gameObject.GetComponent<Transform>();
 
         List<Vector3> newPoints = new List<Vector3>();
         foreach (var point in _points)

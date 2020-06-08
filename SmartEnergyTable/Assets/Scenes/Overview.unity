@@ -2317,7 +2317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphButton: {fileID: 1795964749}
-  prefab: {fileID: 0}
+  prefab: {fileID: 6104564577397804125, guid: 3f43a0d36506cff47a9e26b95527a119, type: 3}
 --- !u!1 &920556744
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,7 +5155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2101687304}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 1ec4d6e4d5d567b4ca0d9afee9f68b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2101687306

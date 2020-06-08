@@ -69,7 +69,7 @@ public class GameManagerLogic : MonoBehaviour
         {
             var data = _netMan.GetEnergyData();
 
-            foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("Windmill") || ob.name.Contains("Solar Panel") || name.Contains("Battery")))
+            foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("Windmill") || ob.name.Contains("SPV") || name.Contains("BAT")))
             {
                 addGraphToScene(token);
             }
@@ -85,24 +85,23 @@ public class GameManagerLogic : MonoBehaviour
 
     void addGraphToScene(GameObject ob)
     {
-        Debug.Log("Pos: " + ob.transform.position);
         // Get our already existing graph
         var graphCanvas = UnityEngine.Object.Instantiate(prefab, ob.transform.position, ob.transform.rotation);
         graphCanvas.GetComponent<TokenData>().Tok = ob.GetComponent<TokenData>().Tok;
-        RectTransform obPos = gameObject.GetComponent<RectTransform>();
-        //ob.transform.localScale *= ob.GetComponent<TokenData>().Tok.Scale;
 
-        obPos.position.Set(obPos.position.x, obPos.position.y + 10, obPos.position.z);
-        obPos.rotation.Set(90, obPos.rotation.y, obPos.rotation.z, obPos.rotation.w);
-
-        obPos.sizeDelta = new Vector2(1f, 1f);
         graphCanvas.name = "GenGraph" + ob.name;
         graphCanvas.SetActive(true);
 
         var graphScript = graphCanvas.GetComponent<AddPointsToLineRenderer>();
         graphScript.GraphTypeToDisplay = AddPointsToLineRenderer.GraphType.POWER_UNIT;
 
-        graphCanvas.transform.parent = this.gameObject.transform;
+        graphCanvas.transform.parent = ob.transform;
+
+        RectTransform obPos = gameObject.GetComponent<RectTransform>();
+        //obPos.sizeDelta = new Vector2(0.1f, 0.1f);
+        graphCanvas.transform.localPosition = new Vector3(0, 0, 0);
+        graphCanvas.transform.localScale *= ob.GetComponent<TokenData>().Tok.Scale;
+        graphCanvas.transform.rotation = Quaternion.Euler(-90, 0, 0);
 
     }
 

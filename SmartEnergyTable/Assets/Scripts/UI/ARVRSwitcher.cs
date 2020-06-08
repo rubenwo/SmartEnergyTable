@@ -53,8 +53,8 @@ public class ARVRSwitcher : MonoBehaviour
         if (ArEnabled) {
             Source.image.sprite = OffSprite;
 
-            //send to server: swap all clients to AR
-            //_networkManager.LoadScene(1);
+            // send to server: swap all clients to AR
+            _networkManager.LoadScene(1);
 
             //unSetVRComponents();
             //setARComponents();
