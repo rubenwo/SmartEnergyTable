@@ -584,6 +584,22 @@ namespace Network
             return _energyData;
         }
 
+        public void SwitchARVR(string mode)
+        {
+            ViewMode m = ViewMode.Overview;
+            if (mode == "AR")
+            {
+                m = ViewMode.Ar;
+            }
+
+            if (mode == "VR")
+            {
+                m = ViewMode.Vr;
+            }
+
+            _client.SwitchViewMode(_roomId, _userId, m);
+        }
+
         #endregion
     }
 }
