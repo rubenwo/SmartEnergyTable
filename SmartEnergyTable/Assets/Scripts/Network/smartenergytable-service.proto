@@ -97,6 +97,16 @@ message EnergyData {
     repeated EnergyUser energy_users = 1;
     repeated EnergyDemandHourly energy_demand_hourly = 2;
 }
+
+message GeneratedEnergy {
+    message Data {
+        Token token = 1;
+        float energy = 2;
+    }
+
+    repeated Data data = 1;
+}
+
 enum ViewMode {
     Overview = 0;
     AR = 1;
@@ -109,6 +119,7 @@ message Patch {
     bool is_master = 4;
     repeated Diff diffs = 5;
     repeated Diff history = 7;
+    GeneratedEnergy energy = 8;
 
     ViewMode mode = 8;
 }

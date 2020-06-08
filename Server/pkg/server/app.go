@@ -1,17 +1,20 @@
 package server
 
 import (
+	"fmt"
+	"github.com/rubenwo/SmartEnergyTable/Server/pkg/database"
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/room"
 	"log"
 )
 
-func Run() error {
-	manager, err := room.NewManager()
+func Run(dbName string) error {
+	db, err := database.Factory(dbName)
 	if err != nil {
-		return err
+		return fmt.Errorf("error creating database: %s with error: %w", dbName, err)
 	}
 
-	// TODO: Refactor the csv file loading to implement caching etc.
+	manager := room.NewManager(db)
+
 	eUsers, err := readSummary("/data/Feb (full).csv")
 	if err != nil {
 		return err
@@ -31,12 +34,12 @@ func Run() error {
 		energyDemandHourly []EnergyDemandHourly
 	}{energyUser: eUsers, energyDemandHourly: eHoursDemand}}
 
-	go func() {
+	go func() { // Run the REST API server concurrently
 		if err := rest.Run(); err != nil {
 			log.Fatal(err)
 		}
 	}()
-	if err := gRPC.Run(); err != nil {
+	if err := gRPC.Run(); err != nil { // Block on the gRPC server
 		return err
 	}
 	return nil

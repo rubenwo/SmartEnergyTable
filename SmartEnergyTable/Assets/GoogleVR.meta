@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:SmartEnergyTable/Assets/GoogleVR.meta
 guid: a2645f5b0fdb4684da93e08f8ae28d3e
+=======
+guid: 06face0437b206d4a9adff468ab3b5f7
+>>>>>>> develop:SmartEnergyTable/Assets/Scripts/AR.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

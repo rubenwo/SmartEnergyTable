@@ -23,17 +23,12 @@ type Patch struct {
 	RoomID  string
 	History []Diff
 
-	SceneID      int
-	Diffs        []Diff
-	UserPosition v1.Vector3_Protocol
-	IsMaster     bool
+	SceneID       int
+	Diffs         []Diff
+	UserPosition  v1.Vector3_Protocol
+	IsMaster      bool
+	GenEnergyData []*v1.GeneratedEnergy_Data
 	Mode         v1.ViewMode
-}
-
-type scene struct {
-	id           int
-	tokens       map[string]*v1.Token
-	userPosition v1.Vector3_Protocol
 }
 
 type Room struct {
@@ -45,8 +40,9 @@ type Room struct {
 
 	history []Diff // This is a slice that contains every action that has taken place during the session. When the
 	// changes slice is processed those diffs are appended to the history.
+	userPosition v1.Vector3_Protocol
 
-	scenes       []scene
+	tokens       map[string]*v1.Token
 	currentScene int
 
 	master             string
@@ -64,13 +60,25 @@ func (r *Room) Notify() {
 	r.Lock.Lock()
 
 	patch := Patch{
-		RoomID:       r.RoomID,
-		SceneID:      r.currentScene,
-		Diffs:        r.changes,
-		UserPosition: r.scenes[r.currentScene].userPosition,
-		IsMaster:     false,
-		History:      []Diff{},
+		RoomID:        r.RoomID,
+		SceneID:       r.currentScene,
+		Diffs:         r.changes,
+		UserPosition:  r.userPosition,
+		IsMaster:      false,
+		History:       []Diff{},
+		GenEnergyData: []*v1.GeneratedEnergy_Data{},
 		Mode:         r.Mode,
+	}
+
+	for _, token := range r.tokens {
+		switch token.ObjectIndex {
+		case 0: // Battery
+			patch.GenEnergyData = append(patch.GenEnergyData, &v1.GeneratedEnergy_Data{Token: token, Energy: 1 * float32(token.Efficiency) / 100})
+		case 1: // Solar panel
+			patch.GenEnergyData = append(patch.GenEnergyData, &v1.GeneratedEnergy_Data{Token: token, Energy: 0.62 * float32(token.Efficiency) / 100})
+		case 2: // Windmill
+			patch.GenEnergyData = append(patch.GenEnergyData, &v1.GeneratedEnergy_Data{Token: token, Energy: 0.73 * float32(token.Efficiency) / 100})
+		}
 	}
 
 	r.history = append(r.history, r.changes...) // Append the now processed changes to the history.
@@ -173,6 +181,7 @@ func (r *Room) UnmarshalBinary(data []byte) error {
 	r.history = s.History
 	r.master = s.Master
 	r.RoomID = s.ID
+	r.currentScene = 1
 
 	return nil
 }

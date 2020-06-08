@@ -102,6 +102,16 @@ enum ViewMode {
     AR = 1;
     VR = 2;
 }
+
+message GeneratedEnergy {
+    message Data {
+        Token token = 1;
+        float energy = 2;
+    }
+
+    repeated Data data = 1;
+}
+
 message Patch {
     string room_id = 1;
     int32 scene_id = 2;
@@ -109,6 +119,7 @@ message Patch {
     bool is_master = 4;
     repeated Diff diffs = 5;
     repeated Diff history = 7;
+    GeneratedEnergy energy = 8;
 
     ViewMode mode = 8;
 }

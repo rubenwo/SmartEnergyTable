@@ -16,15 +16,26 @@ type Manager struct {
 
 // NewManager creates a manager object and instantiates a connection to the backend database.
 // The function returns nil if an error occurred with the database creation.
-func NewManager() (*Manager, error) {
-	db, err := database.Factory("redis")
-	if err != nil {
-		return nil, err
-	}
+func NewManager(db database.Database) *Manager {
 	return &Manager{
 		db:    db,
 		rooms: make(map[string]*Room),
-	}, nil
+	}
+}
+
+func (m *Manager) LoadRoomFromDB(id string) {
+	raw, err := m.db.Get(id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	s := raw.(string)
+	var r Room
+	err = r.UnmarshalBinary([]byte(s))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(r)
+	log.Println("room conversion ok")
 }
 
 // CreateRoom creates a new uuid and creates a room. It then returns that ID.
@@ -32,11 +43,10 @@ func (m *Manager) CreateRoom() (id string) {
 	id = uuid.New().String()
 
 	m.rooms[id] = &Room{
-		Lock:   sync.Mutex{},
-		RoomID: id,
-		scenes: []scene{
-			{id: 0, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3_Protocol{}},
-			{id: 1, tokens: make(map[string]*v1.Token), userPosition: v1.Vector3_Protocol{}}},
+		Lock:               sync.Mutex{},
+		RoomID:             id,
+		tokens:             map[string]*v1.Token{},
+		userPosition:       v1.Vector3_Protocol{},
 		currentScene:       1,
 		master:             "",
 		clients:            map[string]chan Patch{},
@@ -62,14 +72,17 @@ func (m *Manager) JoinRoom(id, user string, callback chan Patch) error {
 			log.Println(err)
 			return fmt.Errorf("room with id: %s does not exist", id)
 		}
-		room, ok = raw.(*Room)
-		if !ok {
-			log.Println("Conversion from interface to Room didn't work")
-			return fmt.Errorf("internal error with the casting of interface{} to Room from database")
+		s := raw.(string)
+		err = room.UnmarshalBinary([]byte(s))
+		if err != nil {
+			log.Println("Conversion from bytes to Room didn't work")
+			return fmt.Errorf("error unmarshalling room data from the database")
 		}
+		log.Println("room conversion ok")
+
 		// TODO: Implement proper load-balancing
 		room.master = user // As the room needs to be loaded from the database, this means the master might not be the
-		// same
+		// same, so we set the user to the requesting user.
 	}
 	room.Lock.Lock()
 	defer func() {
@@ -103,16 +116,6 @@ func (m *Manager) SaveRoom(id string) error {
 	if err := m.db.Set(id, room); err != nil {
 		return fmt.Errorf("error saving room with id: %s, with error: %w", id, err)
 	}
-	raw, err := m.db.Get(id)
-	if err != nil {
-		log.Println(err)
-	}
-	fmt.Println(raw)
-	r, ok := raw.(*Room)
-	if !ok {
-		log.Println("Conversion failed")
-	}
-	fmt.Println(r)
 	return nil
 }
 
@@ -132,7 +135,7 @@ func (m *Manager) AddToken(id, user string, object *v1.Token) error {
 	}
 	object.ObjectId = uuid.New().String() // Generate a uuid for the new object.
 	// Set the token
-	room.scenes[room.currentScene].tokens[object.ObjectId] = object
+	room.tokens[object.ObjectId] = object
 	room.changes = append(room.changes, Diff{
 		Action: ADD,
 		Token:  object,
@@ -153,7 +156,7 @@ func (m *Manager) RemoveToken(id, user string, object *v1.Token) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	delete(room.scenes[room.currentScene].tokens, object.ObjectId)
+	delete(room.tokens, object.ObjectId)
 	room.changes = append(room.changes, Diff{
 		Action: DELETE,
 		Token:  object,
@@ -175,7 +178,7 @@ func (m *Manager) MoveToken(id, user string, object *v1.Token) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	room.scenes[room.currentScene].tokens[object.ObjectId] = object
+	room.tokens[object.ObjectId] = object
 	room.changes = append(room.changes, Diff{
 		Action: MOVE,
 		Token:  object,
@@ -199,15 +202,13 @@ func (m *Manager) ClearRoom(id, user string) error {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
 
-	s := room.scenes[room.currentScene]
-	for _, token := range s.tokens {
+	for _, token := range room.tokens {
 		room.changes = append(room.changes, Diff{
 			Action: DELETE,
 			Token:  token,
 		})
 	}
-	room.scenes[room.currentScene] = scene{id: s.id, tokens: map[string]*v1.Token{}, userPosition: s.userPosition}
-
+	room.tokens = map[string]*v1.Token{}
 	return nil
 }
 
@@ -225,13 +226,7 @@ func (m *Manager) ChangeScene(id, user string, sceneID int) error {
 	if room.master != user {
 		return fmt.Errorf("user: %s is not the master of room: %s", user, id)
 	}
-	if sceneID > len(room.scenes)-1 {
-		size := len(room.scenes) - 1
-		for i := 0; i < sceneID-size; i++ {
-			room.scenes = append(room.scenes, scene{id: i + size + 1, tokens: make(map[string]*v1.Token),
-				userPosition: v1.Vector3_Protocol{}})
-		}
-	}
+
 	room.currentScene = sceneID
 
 	return nil
@@ -293,7 +288,7 @@ func (m *Manager) MoveUsers(id, master string, position v1.Vector3_Protocol) err
 	if room.master != master {
 		return fmt.Errorf("you don't have the permissions to move the users")
 	}
-	room.scenes[room.currentScene].userPosition = position
+	room.userPosition = position
 
 	return nil
 }
