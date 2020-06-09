@@ -21,11 +21,15 @@ public class ARVRSwitcher : MonoBehaviour
 
     private Button Source { get => gameObject.GetComponent<Button>(); }
 
-    public static bool ArEnabled;
+    public static bool ArEnabled { get; set; }
+
+    public static ARVRSwitcher ARVRSwitch;
 
     // Start is called before the first frame update
     void Start()
     {
+        ARVRSwitch = this;
+
         // Insert all our objects into the right lists (Other ojects are rendered in both scenes)
         ARObjects = new List<GameObject>() {
             GameObject.Find("PlaneDiscovery")
