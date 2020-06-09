@@ -37,11 +37,12 @@ public class OverviewManager : MonoBehaviour
                 sceneLight.gameObject.SetActive(false);
                 Debug.Log("Set AR go's to active");
 
-
                 fpvCamera.tag = "MainCamera";
 
                 masterCamera.enabled = false;
                 fpvCamera.enabled = true;
+
+                GameObject.Find("UserCanvas").SetActive(false);
             }
             else
             {

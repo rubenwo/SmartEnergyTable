@@ -110,9 +110,6 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         RectTransform b = gameObject.GetComponent<RectTransform>();
 
-        float relX = b.rect.width / 2;
-        float relZ = b.rect.height / 2;
-
         float maxY = 0;
 
         foreach (var a in data)
@@ -133,17 +130,17 @@ public class AddPointsToLineRenderer : MonoBehaviour
         {
             var val = (float) Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName).GetValue(values));
 
-            float startX = relX + counter * diffX;
-            float endX = relX + counter * diffX + diffX;
-            float upperZ = relZ + val * diffYPerX;
+            float startX = counter * diffX;
+            float endX = counter * diffX + diffX;
+            float upperZ = val * diffYPerX;
 
             for (float c = startX; c < endX; c++)
             {
                 // Draw graph
-                _points.Add(new Vector3(c, 0, relZ));
-                _points.Add(new Vector3(c, 0, upperZ));
-                _points.Add(new Vector3(c + 1, 0, upperZ));
-                _points.Add(new Vector3(c + 1, 0, relZ));
+                _points.Add(new Vector3(c, 0, 0));
+                _points.Add(new Vector3(c, diffYPerX * val, 0));
+                _points.Add(new Vector3(c + diffX, diffYPerX * val, 0));
+                _points.Add(new Vector3(c + diffX, 0, 0));
             }
 
             if (GraphTypeToDisplay == GraphType.POWER_UNIT)
@@ -152,16 +149,19 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
                 string tokenName = _networkManager.getTokenNameById(thingy.Token.ObjectId);
 
+                //AddText(tokenName,
+                //    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
+                //    new Vector3(relX + counter * diffX + diffX, relZ + val * diffYPerX + b.rect.height / 10, relZ));
                 AddText(tokenName,
-                    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
-                    new Vector3(relX + counter * diffX + diffX, relZ + val * diffYPerX + b.rect.height / 10, relZ));
+                    val.ToString(), new Vector3(0, 0, 0), new Vector3(0,0,0));
             }
             else
             {
                 //Add text above our graph bar here
+                //AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
+                //    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
                 AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
-                    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
-                    new Vector3(relX + counter * diffX + diffX, relZ + val * diffYPerX + b.rect.height / 10, relZ));
+                    val.ToString(), new Vector3(0, 0, 0), new Vector3(0, 0, 0));
             }
 
             counter++;
@@ -231,7 +231,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Rotate();
+        //Rotate();
     }
 
     void Rotate()

@@ -27,12 +27,12 @@ public class ARVRSwitcher : MonoBehaviour
     void Start()
     {
         // Insert all our objects into the right lists (Other ojects are rendered in both scenes)
-        //ARObjects = new List<GameObject>() {
-        //    GameObject.Find("PlaneDiscovery")
-        //};
-        //VRObjects = new List<GameObject>() {
-        //    GameObject.Find("Camera Rig")
-        //};
+        ARObjects = new List<GameObject>() {
+            GameObject.Find("PlaneDiscovery")
+        };
+        VRObjects = new List<GameObject>() {
+            GameObject.Find("Camera Rig")
+        };
 
         _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
 
@@ -59,18 +59,13 @@ public class ARVRSwitcher : MonoBehaviour
             //unSetVRComponents();
             //setARComponents();
 
-            if (XRSettings.loadedDeviceName == "cardboard")
-                StartCoroutine(LoadDevice("None"));
         }
         else
         {
-            if (XRSettings.loadedDeviceName == "None")
-                StartCoroutine(LoadDevice("cardboard"));
-
             Source.image.sprite = OnSprite;
 
             ////send to server: swap all clients to VR
-            //_networkManager.LoadScene(2);
+            _networkManager.LoadScene(2);
 
             //unsetARComponents();
             //setVRComponents();
@@ -97,13 +92,6 @@ public class ARVRSwitcher : MonoBehaviour
     {
         VRObjects.ForEach(ob => ob.SetActive(false));
 
-    }
-
-    IEnumerator LoadDevice(string newDevice)
-    {
-        XRSettings.LoadDeviceByName(newDevice);
-        yield return null;
-        XRSettings.enabled = true;
     }
 
 }
