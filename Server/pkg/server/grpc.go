@@ -8,7 +8,6 @@ import (
 	"github.com/rubenwo/SmartEnergyTable/Server/pkg/room"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/peer"
 	"log"
 	"net"
 	"time"
@@ -38,7 +37,7 @@ func (s *server) Run() error {
 		log.Fatal("can't load certificates:", err)
 	}
 
-	grpcServer := grpc.NewServer(grpc.Creds(creds))
+	grpcServer := grpc.NewServer(grpc.Creds(creds), grpc.StreamInterceptor(StreamLogger), grpc.UnaryInterceptor(UnaryLogger))
 
 	v1.RegisterSmartEnergyTableServiceServer(grpcServer, s)
 	log.Println("grpc server started listening on port:", lis.Addr())
@@ -52,11 +51,7 @@ func (s *server) Run() error {
 // CreateRoom is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.RoomUser, error) {
 	id := s.manager.CreateRoom()
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in CreateRoom()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("CreateRoom() => instantiated room:", id)
 
 	return &v1.RoomUser{Id: id}, nil
@@ -64,11 +59,7 @@ func (s *server) CreateRoom(ctx context.Context, empty *v1.Empty) (*v1.RoomUser,
 
 // JoinRoom is a implementation of the gRPC services interface created by the .proto file.
 func (s *server) JoinRoom(roomID *v1.RoomUser, stream v1.SmartEnergyTableService_JoinRoomServer) error {
-	p, ok := peer.FromContext(stream.Context())
-	if !ok {
-		log.Println("peer.FromContext failed in JoinRoom()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("JoinRoom() => A client:", roomID.UserId, "has joined room:", roomID.Id)
 
 	patches := make(chan room.Patch)
@@ -152,11 +143,7 @@ func (s *server) SaveRoom(ctx context.Context, roomUser *v1.RoomUser) (*v1.Empty
 	if err := s.manager.SaveRoom(roomUser.Id); err != nil {
 		return &v1.Empty{}, fmt.Errorf("error occurred when saving room: %s error: %w", roomUser.Id, err)
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in SaveRoom()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("SaveRoom() => Room:", roomUser.Id, " is saved to the database.", "by:")
 	return &v1.Empty{}, nil
 }
@@ -167,11 +154,7 @@ func (s *server) AddToken(ctx context.Context, token *v1.Token) (*v1.Empty, erro
 		return &v1.Empty{}, fmt.Errorf("error occurred when adding Token: %d from the scene: %w",
 			token.ObjectIndex, err)
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in AddToken()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("AddToken() => Token with objectLibrary index:", token.ObjectIndex, "has been added to room:",
 		token.RoomUser.Id, "by:", token.RoomUser.UserId)
 
@@ -184,11 +167,7 @@ func (s *server) RemoveToken(ctx context.Context, token *v1.Token) (*v1.Empty, e
 		return &v1.Empty{}, fmt.Errorf("error occurred when removing Token: %s from the scene: %w",
 			token.ObjectId, err)
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in RemoveToken()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("RemoveToken() => Token with uuid:", token.ObjectId, "has been removed from room:",
 		token.RoomUser.Id, "by:", token.RoomUser.UserId)
 
@@ -201,11 +180,6 @@ func (s *server) MoveToken(ctx context.Context, token *v1.Token) (*v1.Empty, err
 		return &v1.Empty{}, fmt.Errorf("error occurred when moving Token: %s in the scene: %w",
 			token.ObjectId, err)
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in MoveToken()")
-	}
-	log.Print(p.Addr.String())
 
 	log.Println("MoveToken() => Token with uuid:", token.ObjectId, "has been moved in room:", token.RoomUser.Id,
 		"by:", token.RoomUser.UserId)
@@ -217,11 +191,7 @@ func (s *server) ClearRoom(ctx context.Context, roomUser *v1.RoomUser) (*v1.Empt
 	if err := s.manager.ClearRoom(roomUser.Id, roomUser.UserId); err != nil {
 		return &v1.Empty{}, fmt.Errorf("error occurred when clearing room: %s, %w", roomUser.Id, err)
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in ClearRoom()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("ClearRoom() => room:", roomUser.Id, "was cleared by:", roomUser.UserId)
 	return &v1.Empty{}, nil
 }
@@ -231,11 +201,7 @@ func (s *server) ChangeScene(ctx context.Context, scene *v1.Scene) (*v1.Empty, e
 	if err := s.manager.ChangeScene(scene.RoomUser.Id, scene.RoomUser.UserId, int(scene.SceneId)); err != nil {
 		return &v1.Empty{}, err
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in ChangeScene()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("ChangeScene() => Scene in room:", scene.RoomUser.Id, "has been changed to:", scene.SceneId, "by:",
 		scene.RoomUser.UserId)
 	return &v1.Empty{}, nil
@@ -246,11 +212,7 @@ func (s *server) MoveUsers(ctx context.Context, position *v1.UserPosition) (*v1.
 	if err := s.manager.MoveUsers(position.RoomUser.Id, position.RoomUser.UserId, *position.NewPosition); err != nil {
 		return &v1.Empty{}, err
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in MoveUsers()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("MoveUsers() => Users in room:", position.RoomUser.Id, "have been moved to:", position.NewPosition,
 		"by:", position.RoomUser.UserId)
 	return &v1.Empty{}, nil
@@ -262,11 +224,7 @@ func (s *server) LeaveRoom(ctx context.Context, roomID *v1.RoomUser) (*v1.Empty,
 		log.Println(err)
 		return &v1.Empty{}, nil
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in LeaveRoom()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("LeaveRoom() => User:", roomID.UserId, "left room:", roomID.Id)
 	return &v1.Empty{}, nil
 }
@@ -277,16 +235,13 @@ func (s *server) ChangeMaster(ctx context.Context, user *v1.MasterSwitch) (*v1.E
 		log.Println(err)
 		return &v1.Empty{}, err
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in ChangeMaster()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("ChangeMaster() =>", user.NewMasterId, "is now the new master of room:", user.Id, "by:", user.MasterId)
 
 	return &v1.Empty{}, nil
 }
 
+// GetEnergyData is an implementation of the gRPC services interface created by the .proto file
 func (s *server) GetEnergyData(ctx context.Context, roomID *v1.RoomUser) (*v1.EnergyData, error) {
 	energyUser := make([]*v1.EnergyUser, len(s.energyData.energyUser))
 	energyDataHourly := make([]*v1.EnergyDemandHourly, len(s.energyData.energyDemandHourly))
@@ -333,11 +288,7 @@ func (s *server) GetEnergyData(ctx context.Context, roomID *v1.RoomUser) (*v1.En
 			Renewables:       data.Renewables,
 		}
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in GetEnergyData()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("GetEnergyData() => User:", roomID.UserId, "requested the energy data.")
 
 	return &v1.EnergyData{
@@ -346,16 +297,13 @@ func (s *server) GetEnergyData(ctx context.Context, roomID *v1.RoomUser) (*v1.En
 	}, nil
 }
 
+// SwitchMode is an implementation of the gRPC services interface created by the .proto file
 func (s *server) SwitchMode(ctx context.Context, modeSwitch *v1.ModeSwitch) (*v1.Empty, error) {
 	if err := s.manager.SwitchRoomMode(modeSwitch.RoomUser.Id, modeSwitch.RoomUser.UserId, modeSwitch.Mode); err != nil {
 		log.Println(err)
 		return &v1.Empty{}, err
 	}
-	p, ok := peer.FromContext(ctx)
-	if !ok {
-		log.Println("peer.FromContext failed in SwitchMode()")
-	}
-	log.Print(p.Addr.String())
+
 	log.Println("SwitchMode() =>", modeSwitch.RoomUser.UserId, "switched mode to:", modeSwitch.Mode.String())
 
 	return &v1.Empty{}, nil
