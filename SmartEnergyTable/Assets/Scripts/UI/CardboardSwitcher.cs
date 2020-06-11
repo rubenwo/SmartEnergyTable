@@ -19,7 +19,7 @@ public class CardboardSwitcher : MonoBehaviour
     }
 
 
-    void updateAR()
+    void updateCardboard()
     {
         if (_cardboardActive)
             cardboardOn();
