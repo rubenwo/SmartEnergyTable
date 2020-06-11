@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.VR;
 using UnityEngine.XR;
 using Network;
+using System.Security.Policy;
 
 public class ARVRSwitcher : MonoBehaviour
 {
@@ -76,6 +77,7 @@ public class ARVRSwitcher : MonoBehaviour
         }
     }
 
+    
 
     void setARComponents()
     {

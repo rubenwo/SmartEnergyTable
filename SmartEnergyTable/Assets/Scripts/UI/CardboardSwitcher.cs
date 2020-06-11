@@ -18,7 +18,6 @@ public class CardboardSwitcher : MonoBehaviour
         CardboardButton.onClick.AddListener(() => CardboardActive = !CardboardActive);
     }
 
-
     void updateCardboard()
     {
         if (_cardboardActive)
@@ -29,13 +28,13 @@ public class CardboardSwitcher : MonoBehaviour
 
     void cardboardOn()
     {
-        if (XRSettings.loadedDeviceName == "cardboard")
+        if (XRSettings.loadedDeviceName == "Cardboard")
             StartCoroutine(LoadDevice("None"));
     }
 
     void cardboardOff()
     {
-        if (XRSettings.loadedDeviceName == "cardboard")
+        if (XRSettings.loadedDeviceName == "Cardboard")
             StartCoroutine(LoadDevice("None"));
     }
 

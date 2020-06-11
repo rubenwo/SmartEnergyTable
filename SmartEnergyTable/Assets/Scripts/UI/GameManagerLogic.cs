@@ -39,11 +39,6 @@ public class GameManagerLogic : MonoBehaviour
                 EnergyData en = _netMan.GetEnergyData();
             });
 
-            _netMan.ObserveGeneratedEnergy(_id, (ener) =>
-            {
-                EnergyData en = _netMan.GetEnergyData();
-            });
-
             _netMan.ObserveViewMode(_id, (view) =>
             {
                 if (view == ViewMode.Overview)
