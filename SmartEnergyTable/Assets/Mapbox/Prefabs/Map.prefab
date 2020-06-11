@@ -138,4 +138,4 @@ MonoBehaviour:
       locationPrefabList: []
   _tileProvider: {fileID: 0}
   _previewOptions:
-    isPreviewEnabled: 0
+    isPreviewEnabled: 1

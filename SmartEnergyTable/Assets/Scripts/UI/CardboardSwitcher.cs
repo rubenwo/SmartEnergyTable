@@ -10,7 +10,7 @@ public class CardboardSwitcher : MonoBehaviour
     public Button CardboardButton;
 
     private bool _cardboardActive;
-    public bool CardboardActive { get => _cardboardActive; set { _cardboardActive = value; updateAR(); } }
+    public bool CardboardActive { get => _cardboardActive; set { _cardboardActive = value; updateCardboard(); } }
 
     // Start is called before the first frame update
     void Start()

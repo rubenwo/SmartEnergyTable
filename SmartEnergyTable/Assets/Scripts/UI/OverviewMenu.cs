@@ -119,7 +119,7 @@ namespace UI
             });
             clearButton.onClick.AddListener(() => { _networkManager.ClearScene(); });
             moveUsersButton.onClick.AddListener(() => { Debug.Log("Move"); });
-            changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
+            //changeSceneButton.onClick.AddListener(() => { _networkManager.LoadScene(2); });
         }
 
 
