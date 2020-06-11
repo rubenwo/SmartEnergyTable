@@ -8,6 +8,8 @@ using UnityEngine.VR;
 using UnityEngine.XR;
 using Network;
 using System.Security.Policy;
+using System;
+using UnityEngine.SceneManagement;
 
 public class ARVRSwitcher : MonoBehaviour
 {
@@ -51,9 +53,21 @@ public class ARVRSwitcher : MonoBehaviour
         //SwitchARVR();
     }
 
+    internal static void switchClientMode(ViewMode view)
+    {
+        if (view == ViewMode.Overview)
+        {
+            ArEnabled = true;
+            SceneManager.LoadScene(1);
+        } else
+        {
+            ArEnabled = false;
+            SceneManager.LoadScene(2);
+        }
+    }
+
     public void SwitchARVR()
     {
-        ArEnabled = !ArEnabled;
 
         if (ArEnabled) {
             Source.image.sprite = OffSprite;
@@ -63,7 +77,7 @@ public class ARVRSwitcher : MonoBehaviour
 
             //unSetVRComponents();
             //setARComponents();
-
+            UnityEngine.Debug.Log("Hallo VR");
         }
         else
         {
@@ -71,6 +85,7 @@ public class ARVRSwitcher : MonoBehaviour
 
             ////send to server: swap all clients to VR
             _networkManager.LoadScene(2);
+            UnityEngine.Debug.Log("Hallo AR");
 
             //unsetARComponents();
             //setVRComponents();

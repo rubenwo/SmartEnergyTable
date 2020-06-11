@@ -44,11 +44,15 @@ public class GameManagerLogic : MonoBehaviour
                 if (view == ViewMode.Overview)
                 {
                     if (!ARVRSwitcher.ArEnabled)
-                        ARVRSwitcher.ARVRSwitch.SwitchARVR();
+                    {
+                        ARVRSwitcher.switchForClient();
+                    }
                 } else // Streetview
                 {
                     if (ARVRSwitcher.ArEnabled)
-                        ARVRSwitcher.ARVRSwitch.SwitchARVR();
+                    {
+                        ARVRSwitcher.switchForClient();
+                    }
                 }
             });
 
