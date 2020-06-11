@@ -1946,7 +1946,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4574338}
   m_Father: {fileID: 876213458}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2522,12 +2523,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876213454}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45d52d614320a9c499751f16f1a200e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphButton: {fileID: 0}
+  graphButton: {fileID: 1967983658}
   prefab: {fileID: 6104564577397804125, guid: 3f43a0d36506cff47a9e26b95527a119, type: 3}
 --- !u!1 &920556744
 GameObject:

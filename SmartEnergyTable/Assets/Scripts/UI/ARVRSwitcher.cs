@@ -24,7 +24,7 @@ public class ARVRSwitcher : MonoBehaviour
 
     private Button Source { get => gameObject.GetComponent<Button>(); }
 
-    public static bool ArEnabled { get; set; }
+    public static bool ArEnabled { get; set; } = true;
 
     public static ARVRSwitcher ARVRSwitch;
 
@@ -34,14 +34,20 @@ public class ARVRSwitcher : MonoBehaviour
         ARVRSwitch = this;
 
         // Insert all our objects into the right lists (Other ojects are rendered in both scenes)
+        //ARObjects = new List<GameObject>() {
+        //    GameObject.Find("PlaneDiscovery")
+        //};
+        //VRObjects = new List<GameObject>() {
+        //    GameObject.Find("Camera Rig")
+        //};
         ARObjects = new List<GameObject>() {
-            GameObject.Find("PlaneDiscovery")
         };
         VRObjects = new List<GameObject>() {
-            GameObject.Find("Camera Rig")
         };
 
         _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+
+        Source.onClick.AddListener(() => SwitchARVR());
 
         //unSetVRComponents();
     }

@@ -41,13 +41,15 @@ public class GameManagerLogic : MonoBehaviour
 
             _netMan.ObserveViewMode(_id, (view) =>
             {
+                Debug.Log("Got view" + view);
                 if (view == ViewMode.Overview)
                 {
                     if (!ARVRSwitcher.ArEnabled)
                     {
                         ARVRSwitcher.switchClientMode(view);
                     }
-                } else // Streetview
+                }
+                else // Streetview
                 {
                     if (ARVRSwitcher.ArEnabled)
                     {
