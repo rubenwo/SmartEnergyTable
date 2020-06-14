@@ -12,10 +12,18 @@ public class CardboardSwitcher : MonoBehaviour
     private bool _cardboardActive;
     public bool CardboardActive { get => _cardboardActive; set { _cardboardActive = value; updateCardboard(); } }
 
+    public static CardboardSwitcher cardboard;
+
     // Start is called before the first frame update
     void Start()
     {
-        CardboardButton.onClick.AddListener(() => CardboardActive = !CardboardActive);
+        cardboard = this;
+
+        CardboardButton.onClick.AddListener(() =>
+        {
+            CardboardActive = !CardboardActive;
+            Debug.Log("Hello");
+        });
     }
 
     void updateCardboard()
@@ -28,14 +36,12 @@ public class CardboardSwitcher : MonoBehaviour
 
     void cardboardOn()
     {
-        if (XRSettings.loadedDeviceName == "Cardboard")
-            StartCoroutine(LoadDevice("None"));
+        StartCoroutine(LoadDevice("cardboard"));
     }
 
     void cardboardOff()
     {
-        if (XRSettings.loadedDeviceName == "Cardboard")
-            StartCoroutine(LoadDevice("None"));
+        StartCoroutine(LoadDevice("none"));
     }
 
     IEnumerator LoadDevice(string newDevice)

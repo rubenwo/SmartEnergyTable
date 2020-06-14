@@ -435,8 +435,9 @@ PlayerSettings:
     - Oculus
     - OpenVR
   - m_BuildTarget: Android
-    m_Enabled: 0
+    m_Enabled: 1
     m_Devices:
+    - None
     - cardboard
   openGLRequireES31: 1
   openGLRequireES31AEP: 0

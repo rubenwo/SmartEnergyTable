@@ -25,6 +25,8 @@ public class CameraMovement : MonoBehaviour
             // Controls Here
             _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
             {
+                // Elevate to correct map height.
+                vec3.y = 10;
                 this._camera.transform.position = vec3;
             });
             
