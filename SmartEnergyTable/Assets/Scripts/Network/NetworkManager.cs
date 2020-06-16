@@ -368,7 +368,7 @@ namespace Network
                         if (_master)
                         {
                             var temp = new GameObject().transform;
-                            temp.Translate(0,0,0);
+                            temp.Translate(0, 0, 0);
                             t = temp;
                         }
 
@@ -469,7 +469,6 @@ namespace Network
                                 _firstRun = true;
                             }
 
-                            
 
                             if (_currentScene.Count == 0)
                             {
@@ -487,7 +486,6 @@ namespace Network
                             {
                                 _uuidLookUp.Add(keyValuePair.Value, keyValuePair.Key);
                             }
-
                         });
                     }
                 });

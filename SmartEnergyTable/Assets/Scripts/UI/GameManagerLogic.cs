@@ -14,20 +14,23 @@ public class GameManagerLogic : MonoBehaviour
 
     private bool _graphsActive;
 
-    private Token Tok { get => this.GetComponent<TokenData>().Tok; set => this.GetComponent<TokenData>().Tok = value; }
+    private Token Tok
+    {
+        get => this.GetComponent<TokenData>().Tok;
+        set => this.GetComponent<TokenData>().Tok = value;
+    }
 
     public GameObject prefab;
-     
+
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("GameManagerLogic() => Start()");
         try
         {
             _netMan = GameObject.Find("GameManager").GetComponent<NetworkManager>();
-            _netMan.ObserveMaster(_id, (state) =>
-            {
-                Debug.Log("Steet: " + state);
-            });
+
+            _netMan.ObserveMaster(_id, (state) => { Debug.Log("Steet: " + state); });
 
             _netMan.ObserveEnergyData(_id, (ener) =>
             {
@@ -38,30 +41,30 @@ public class GameManagerLogic : MonoBehaviour
             {
                 EnergyData en = _netMan.GetEnergyData();
             });
-
-            _netMan.ObserveViewMode(_id, (view) =>
-            {
-
-                if (_netMan.IsMaster)
-                    return;
-
-                if (view == ViewMode.Overview)
-                {
-                    ARVRSwitcher.ArEnabled = true;
-                }
-                else // Streetview
-                {
-                    ARVRSwitcher.ArEnabled = false;
-
-                }
-
-                new ARVRSwitcher().switchClientMode(view);
-            });
-
-
-        } catch (Exception e)
+            _netMan.SetTransformForTokens(GameObject.Find("CitySimulatorMap").transform);
+//            _netMan.ObserveViewMode(_id, (view) =>
+//            {
+//                if (_netMan.IsMaster)
+//                    return;
+//
+//                if (view == ViewMode.Overview)
+//                {
+//                    ARVRSwitcher.ArEnabled = true;
+//                }
+//                else // Streetview
+//                {
+//                    ARVRSwitcher.ArEnabled = false;
+//                    _netMan.SetTransformForTokens(GameObject.Find("Map").transform);
+//                }
+//
+//                new ARVRSwitcher().switchClientMode(view);
+//            });
+        }
+        catch (Exception e)
         {
             Debug.Log("Got err: " + e.Message);
+            Debug.Log(e.StackTrace);
+            Debug.Log(e.Data);
         }
 
         graphButton.onClick.AddListener(() => showGraphs());
@@ -70,12 +73,10 @@ public class GameManagerLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     void Destroy()
     {
-
     }
 
     public void showGraphs()
@@ -87,13 +88,16 @@ public class GameManagerLogic : MonoBehaviour
         {
             var data = _netMan.GetEnergyData();
 
-            foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("Windmill") || ob.name.Contains("SPV") || name.Contains("BAT")))
+            foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob =>
+                ob.name.Contains("Windmill") || ob.name.Contains("SPV") || name.Contains("BAT")))
             {
                 addGraphToScene(token);
             }
-        } else
+        }
+        else
         {
-            foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects().Where(ob => ob.name.Contains("GenGraph")))
+            foreach (var token in SceneManager.GetActiveScene().GetRootGameObjects()
+                .Where(ob => ob.name.Contains("GenGraph")))
             {
                 token.Destroy();
             }
@@ -120,7 +124,6 @@ public class GameManagerLogic : MonoBehaviour
         graphCanvas.transform.localPosition = new Vector3(0, 0, 0);
         graphCanvas.transform.localScale *= ob.GetComponent<TokenData>().Tok.Scale;
         graphCanvas.transform.rotation = Quaternion.Euler(-90, 0, 0);
-
     }
 
     void moveToGrapPosition()
@@ -132,6 +135,4 @@ public class GameManagerLogic : MonoBehaviour
         //GameObject prefab = UnityEngine.Object.Instantiate(prefab, position, Quaternion.identity);
         //gameObject.
     }
-
-
 }

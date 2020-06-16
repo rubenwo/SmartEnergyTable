@@ -2273,7 +2273,6 @@ GameObject:
   - component: {fileID: 876213456}
   - component: {fileID: 876213455}
   - component: {fileID: 876213459}
-  - component: {fileID: 876213460}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2399,20 +2398,6 @@ MonoBehaviour:
   PrefabButton: {fileID: 2159972565663157508, guid: d7a872d7555464f47b07e25d54da70df,
     type: 3}
   efficiencyInputField: {fileID: 197400404}
---- !u!114 &876213460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876213454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45d52d614320a9c499751f16f1a200e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  graphButton: {fileID: 1967983658}
-  prefab: {fileID: 6104564577397804125, guid: 3f43a0d36506cff47a9e26b95527a119, type: 3}
 --- !u!1 &920556744
 GameObject:
   m_ObjectHideFlags: 0
@@ -4358,6 +4343,7 @@ GameObject:
   - component: {fileID: 2072458617}
   - component: {fileID: 2072458616}
   - component: {fileID: 2072458615}
+  - component: {fileID: 2072458620}
   m_Layer: 5
   m_Name: UserInterface
   m_TagString: Untagged
@@ -4458,6 +4444,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2072458620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072458614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45d52d614320a9c499751f16f1a200e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphButton: {fileID: 1967983658}
+  prefab: {fileID: 6104564577397804125, guid: 3f43a0d36506cff47a9e26b95527a119, type: 3}
 --- !u!1 &2101687304
 GameObject:
   m_ObjectHideFlags: 0
