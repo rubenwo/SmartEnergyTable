@@ -45,23 +45,25 @@ public class GameManagerLogic : MonoBehaviour
                 EnergyData en = _netMan.GetEnergyData();
             });
             _netMan.SetTransformForTokens(GameObject.Find("CitySimulatorMap").transform);
-//            _netMan.ObserveViewMode(_id, (view) =>
-//            {
-//                if (_netMan.IsMaster)
-//                    return;
-//
-//                if (view == ViewMode.Overview)
-//                {
-//                    ARVRSwitcher.ArEnabled = true;
-//                }
-//                else // Streetview
-//                {
-//                    ARVRSwitcher.ArEnabled = false;
-//                    _netMan.SetTransformForTokens(GameObject.Find("Map").transform);
-//                }
-//
-//                new ARVRSwitcher().switchClientMode(view);
-//            });
+
+            _netMan.ObserveViewMode(_id, (view) =>
+            {
+                if (_netMan.IsMaster)
+                    return;
+
+                if (view == ViewMode.Overview)
+                {
+                    _switcher.ArEnabled = true;
+                }
+                else // Streetview
+                {
+                    _switcher.ArEnabled = false;
+                    _netMan.SetTransformForTokens(GameObject.Find("CitySimulatorMap").transform);
+                }
+
+
+                new ARVRSwitcher().switchClientMode(view);
+            });
         }
         catch (Exception e)
         {

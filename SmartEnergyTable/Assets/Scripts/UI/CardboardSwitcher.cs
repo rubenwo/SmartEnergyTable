@@ -26,8 +26,8 @@ public class CardboardSwitcher : MonoBehaviour
 
     public void Update()
     {
-        if (SystemInfo.batteryStatus == BatteryStatus.NotCharging)
-            CardboardActive = !CardboardActive;
+        //if (SystemInfo.batteryStatus == BatteryStatus.NotCharging)
+        //    CardboardActive = !CardboardActive;
 
     }
 

@@ -365,12 +365,10 @@ namespace Network
                 {
                     case Diff.Types.Action.Add:
                         var t = _parentTransformForTokens != null ? _parentTransformForTokens : transform;
-                        if (_master)
-                        {
-                            var temp = new GameObject().transform;
-                            temp.Translate(0, 0, 0);
-                            t = temp;
-                        }
+
+                        var temp = new GameObject().transform;
+                        temp.Translate(0, 0, 0);
+                        t = temp;
 
                         var obj = Instantiate(objectLibrary[diff.Token.ObjectIndex],
                             t.position + new Vector3
