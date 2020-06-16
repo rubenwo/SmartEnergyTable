@@ -14,9 +14,13 @@ public class DebugText : MonoBehaviour
     public static Button Clicker;
     private NetworkManager _networkManager;
 
+    public ARVRSwitcher _switcher;
+
     // Start is called before the first frame update
     void Start()
     {
+        _switcher = ARVRSwitcher.ARVRSwitch;
+
         Clicker = this._clicker;
         _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
         _clicker.onClick.AddListener(() =>
@@ -45,7 +49,7 @@ public class DebugText : MonoBehaviour
                 a += e.Message;
             }
 
-            a += "\n" + ARVRSwitcher.ArEnabled + "\n";
+            a += "\n" + _switcher.ArEnabled + "\n";
             a += "\n" + _networkManager._currentScene.Count + "\n";
 
             GameObject.Find("Textos").GetComponent<TextMeshProUGUI>().text = a + " and  "+ GameObject.FindObjectsOfType(typeof(MonoBehaviour)).Length.ToString();

@@ -22,10 +22,13 @@ public class GameManagerLogic : MonoBehaviour
 
     public GameObject prefab;
 
+    private ARVRSwitcher _switcher;
+     
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("GameManagerLogic() => Start()");
+        _switcher = new ARVRSwitcher();
+
         try
         {
             _netMan = GameObject.Find("GameManager").GetComponent<NetworkManager>();

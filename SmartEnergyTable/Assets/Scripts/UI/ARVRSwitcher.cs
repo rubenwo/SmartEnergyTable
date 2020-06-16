@@ -22,7 +22,7 @@ public class ARVRSwitcher : MonoBehaviour
 
     private Button Source { get => GameObject.Find("SwitchARVR").GetComponent<Button>(); }
 
-    public static bool ArEnabled { get; set; } = true;
+    public bool ArEnabled { get; set; } = true;
 
     public static ARVRSwitcher ARVRSwitch;
 
