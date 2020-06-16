@@ -23,13 +23,13 @@ public class CameraMovement : MonoBehaviour
             _camera = GameObject.Find("Camera Rig");
 
             // Controls Here
-            _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
-            {
-                // Elevate to correct map height.
-                vec3.y = 10;
-                this._camera.transform.position = vec3;
-            });
-            
+            //_networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
+            //{
+            //    // Elevate to correct map height.
+            //    Vector3 newVec = new Vector3(vec3.x, 20, vec3.z);
+            //    this._camera.transform.position = vec3;
+            //});
+
 
         } catch
         {
@@ -41,18 +41,18 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //MovePlayer(new Vector3(1, 0, 0), false);
+        
     }
     
     public void MovePlayer(Vector3 pos, bool IsAbsolutePosition)
     {
         if (IsAbsolutePosition)
-            _networkManager.MoveUsers(pos);
+            gameObject.transform.position = (pos);
         else
         {
             var oldPos = this._camera.transform.position;
             var newPos = new Vector3(oldPos.x + pos.x, oldPos.y + pos.y, oldPos.z + pos.z);
-            _networkManager.MoveUsers(this._camera.transform.position);
+            gameObject.transform.position = this._camera.transform.position;
         }
     }
 

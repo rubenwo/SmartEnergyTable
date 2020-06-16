@@ -41,27 +41,27 @@ public class GameManagerLogic : MonoBehaviour
 
             _netMan.ObserveViewMode(_id, (view) =>
             {
-                Debug.Log("Got view" + view);
+
+                if (_netMan.IsMaster)
+                    return;
+
                 if (view == ViewMode.Overview)
                 {
-                    if (!ARVRSwitcher.ArEnabled)
-                    {
-                        ARVRSwitcher.switchClientMode(view);
-                    }
+                    ARVRSwitcher.ArEnabled = true;
                 }
                 else // Streetview
                 {
-                    if (ARVRSwitcher.ArEnabled)
-                    {
-                        ARVRSwitcher.switchClientMode(view);
-                    }
+                    ARVRSwitcher.ArEnabled = false;
+
                 }
+
+                new ARVRSwitcher().switchClientMode(view);
             });
 
 
-        } catch
+        } catch (Exception e)
         {
-
+            Debug.Log("Got err: " + e.Message);
         }
 
         graphButton.onClick.AddListener(() => showGraphs());
@@ -121,6 +121,16 @@ public class GameManagerLogic : MonoBehaviour
         graphCanvas.transform.localScale *= ob.GetComponent<TokenData>().Tok.Scale;
         graphCanvas.transform.rotation = Quaternion.Euler(-90, 0, 0);
 
+    }
+
+    void moveToGrapPosition()
+    {
+        // Choose a position
+        var position = new Vector3(0, 0, 0);
+
+        // 
+        //GameObject prefab = UnityEngine.Object.Instantiate(prefab, position, Quaternion.identity);
+        //gameObject.
     }
 
 

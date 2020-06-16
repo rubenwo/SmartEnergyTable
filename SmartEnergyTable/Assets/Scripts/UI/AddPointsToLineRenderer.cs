@@ -138,8 +138,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
             {
                 // Draw graph
                 _points.Add(new Vector3(c, 0, 0));
-                _points.Add(new Vector3(c, diffYPerX * val, 0));
-                _points.Add(new Vector3(c + diffX, diffYPerX * val, 0));
+                _points.Add(new Vector3(c, 0, diffYPerX * val));
+                _points.Add(new Vector3(c + diffX, 0, diffYPerX * val));
                 _points.Add(new Vector3(c + diffX, 0, 0));
             }
 
@@ -223,8 +223,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         var rTransf = (RectTransform) gameObject.transform;
 
-        textMesh.transform.position = start;
-        rTransf.sizeDelta = new Vector2(Math.Abs(end.x - start.x), Math.Abs(end.y - start.y));
+        textMesh.transform.position = new Vector3(0, 0, 5);
+        rTransf.sizeDelta = new Vector2(1, 1);
         textMesh.text = text + "\n" + value;
     }
 
