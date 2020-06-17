@@ -44,7 +44,10 @@ public class GameManagerLogic : MonoBehaviour
             {
                 EnergyData en = _netMan.GetEnergyData();
             });
-            _netMan.SetTransformForTokens(GameObject.Find("CitySimulatorMap").transform);
+            GameObject ob = new GameObject();
+            
+
+            _netMan.SetTransformForTokens(ob.transform);
 
             _netMan.ObserveViewMode(_id, (view) =>
             {
@@ -58,7 +61,7 @@ public class GameManagerLogic : MonoBehaviour
                 else // Streetview
                 {
                     _switcher.ArEnabled = false;
-                    _netMan.SetTransformForTokens(GameObject.Find("CitySimulatorMap").transform);
+                    _netMan.SetTransformForTokens(ob.transform);
                 }
 
 

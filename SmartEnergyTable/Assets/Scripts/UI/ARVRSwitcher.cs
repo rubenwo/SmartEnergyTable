@@ -44,8 +44,8 @@ public class ARVRSwitcher : MonoBehaviour
 
     public void switchClientMode(ViewMode view)
     {
-        if (_networkManager.IsMaster)
-            return;
+        //if (_networkManager.IsMaster)
+        //    return;
 
         if (view == ViewMode.Overview)
         {
@@ -78,6 +78,8 @@ public class ARVRSwitcher : MonoBehaviour
             _networkManager.LoadScene(2);
 
         }
+
+        UnityEngine.Debug.Log("Sent");
     }
 
 }

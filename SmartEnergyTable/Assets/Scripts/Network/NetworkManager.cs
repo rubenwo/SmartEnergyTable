@@ -10,6 +10,7 @@ using Grpc.Core.Api;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VR;
 
 namespace Network
 {
@@ -119,6 +120,9 @@ namespace Network
             {
                 Destroy(gameObject);
             }
+
+            if (ARVRSwitcher.ARVRSwitch == null)
+                ARVRSwitcher.ARVRSwitch = new ARVRSwitcher();
         }
 
         private void OnApplicationPause(bool pauseStatus)
@@ -366,20 +370,43 @@ namespace Network
                     case Diff.Types.Action.Add:
                         var t = _parentTransformForTokens != null ? _parentTransformForTokens : transform;
 
-                        var temp = new GameObject().transform;
-                        temp.Translate(0, 0, 0);
-                        t = temp;
+                        if (_master)
+                        {
+                            var temp = new GameObject().transform;
+                            temp.Translate(0, 0, 0);
+                            t = temp;
+                        }
 
-                        var obj = Instantiate(objectLibrary[diff.Token.ObjectIndex],
+                        if (_master)
+                        {
+                            var obj = Instantiate(objectLibrary[diff.Token.ObjectIndex],
                             t.position + new Vector3
                             {
                                 x = diff.Token.Position.X,
                                 y = diff.Token.Position.Y,
                                 z = diff.Token.Position.Z
                             }, Quaternion.identity);
-                        obj.GetComponent<TokenData>().Tok = diff.Token;
-                        obj.transform.localScale *= diff.Token.Scale;
-                        _currentScene.Add(diff.Token.ObjectId, obj);
+
+                            obj.transform.localScale *= diff.Token.Scale;
+                            obj.GetComponent<TokenData>().Tok = diff.Token;
+                            _currentScene.Add(diff.Token.ObjectId, obj);
+                        } else
+                        {
+                            
+                            var obj2 = Instantiate(objectLibrary[diff.Token.ObjectIndex],
+                            new Vector3
+                            {
+                                x = diff.Token.Position.X,
+                                y = 1.50f,
+                                z = diff.Token.Position.Z,
+                            }, Quaternion.identity);
+                            //obj2.transform.localScale *= diff.Token.Scale;
+
+                            obj2.GetComponent<TokenData>().Tok = diff.Token;
+                            _currentScene.Add(diff.Token.ObjectId + "1", obj2);
+
+                        }
+                        
                         break;
                     case Diff.Types.Action.Delete:
                         Destroy(_currentScene[diff.Token.ObjectId]);
