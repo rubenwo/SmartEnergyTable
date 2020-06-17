@@ -44,8 +44,8 @@ public class ARVRSwitcher : MonoBehaviour
 
     public void switchClientMode(ViewMode view)
     {
-        //if (_networkManager.IsMaster)
-        //    return;
+        if (_networkManager.IsMaster)
+            return;
 
         if (view == ViewMode.Overview)
         {

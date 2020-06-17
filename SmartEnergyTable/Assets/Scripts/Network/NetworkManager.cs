@@ -121,8 +121,8 @@ namespace Network
                 Destroy(gameObject);
             }
 
-            if (ARVRSwitcher.ARVRSwitch == null)
-                ARVRSwitcher.ARVRSwitch = new ARVRSwitcher();
+            //if (ARVRSwitcher.ARVRSwitch == null)
+            //    ARVRSwitcher.ARVRSwitch = new ARVRSwitcher();
         }
 
         private void OnApplicationPause(bool pauseStatus)
@@ -396,14 +396,14 @@ namespace Network
                             var obj2 = Instantiate(objectLibrary[diff.Token.ObjectIndex],
                             new Vector3
                             {
-                                x = diff.Token.Position.X,
+                                x = diff.Token.Position.X * (1/diff.Token.Scale),
                                 y = 1.50f,
-                                z = diff.Token.Position.Z,
+                                z = diff.Token.Position.Z * (1 / diff.Token.Scale),
                             }, Quaternion.identity);
                             //obj2.transform.localScale *= diff.Token.Scale;
 
                             obj2.GetComponent<TokenData>().Tok = diff.Token;
-                            _currentScene.Add(diff.Token.ObjectId + "1", obj2);
+                            _currentScene.Add(diff.Token.ObjectId, obj2);
 
                         }
                         
