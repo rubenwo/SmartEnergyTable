@@ -1549,7 +1549,8 @@ public sealed partial class Diff : pb::IMessage<Diff> {
       [pbr::OriginalName("ADD")] Add = 0,
       [pbr::OriginalName("DELETE")] Delete = 1,
       [pbr::OriginalName("MOVE")] Move = 2,
-    }
+      [pbr::OriginalName("MOVEUSER")] MoveUser = 3
+        }
 
   }
   #endregion

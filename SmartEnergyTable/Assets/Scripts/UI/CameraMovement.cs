@@ -23,12 +23,16 @@ public class CameraMovement : MonoBehaviour
             _camera = GameObject.Find("Camera Rig");
 
             // Controls Here
-            //_networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
-            //{
-            //    // Elevate to correct map height.
-            //    Vector3 newVec = new Vector3(vec3.x, 20, vec3.z);
-            //    this._camera.transform.position = vec3;
-            //});
+            _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
+            {
+                if (!_networkManager.IsMaster)
+                {
+                    // Elevate to correct map height.
+                    //Vector3 newVec = new Vector3(vec3.x, 20, vec3.z);
+                    Debug.Log("Moving to pos: " + vec3.ToString());
+                    this._camera.transform.position = vec3;
+                }
+            });
 
 
         } catch

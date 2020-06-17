@@ -365,6 +365,7 @@ namespace Network
             foreach (var diff in diffs)
             {
                 Debug.Log("Placing tokens");
+
                 switch (diff.Action)
                 {
                     case Diff.Types.Action.Add:
