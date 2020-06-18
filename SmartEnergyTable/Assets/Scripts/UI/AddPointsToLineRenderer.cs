@@ -282,11 +282,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
             b.transform.localPosition = new Vector3(0, 0, 1f);
             b.transform.localScale = new Vector3(1f, 1f, 1f);
         }
-            
-
-
-
-
+          
         //rTransf.sizeDelta = new Vector2(0.1f, 0.1f);
         textMesh.text = text + "\n" + value + " kW/y";
     }

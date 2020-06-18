@@ -121,8 +121,7 @@ namespace Network
                 Destroy(gameObject);
             }
 
-            //if (ARVRSwitcher.ARVRSwitch == null)
-            //    ARVRSwitcher.ARVRSwitch = new ARVRSwitcher();
+            ARVRSwitcher.CreateIfNeeded();
         }
 
         private void OnApplicationPause(bool pauseStatus)

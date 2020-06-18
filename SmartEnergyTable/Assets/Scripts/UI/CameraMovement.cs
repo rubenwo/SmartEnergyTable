@@ -31,26 +31,6 @@ public class CameraMovement : MonoBehaviour
             }
         });
 
-
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    public void MovePlayer(Vector3 pos, bool IsAbsolutePosition)
-    {
-        if (IsAbsolutePosition)
-            gameObject.transform.position = (pos);
-        else
-        {
-            var oldPos = this._camera.transform.position;
-            var newPos = new Vector3(oldPos.x + pos.x, oldPos.y + pos.y, oldPos.z + pos.z);
-            gameObject.transform.position = this._camera.transform.position;
-        }
-    }
-
 
 }

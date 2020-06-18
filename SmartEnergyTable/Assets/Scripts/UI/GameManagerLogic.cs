@@ -27,7 +27,7 @@ public class GameManagerLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _switcher = new ARVRSwitcher();
+        ARVRSwitcher.CreateIfNeeded();
 
         try
         {
@@ -57,17 +57,7 @@ public class GameManagerLogic : MonoBehaviour
                 if (_netMan.IsMaster)
                     return;
 
-                if (view == ViewMode.Overview)
-                {
-                    _switcher.ArEnabled = true;
-                }
-                else // Streetview
-                {
-                    _switcher.ArEnabled = false;
-                }
-
-
-                new ARVRSwitcher().switchClientMode(view);
+                ARVRSwitcher.ARVRSwitch.switchClientMode(view);
             });
         }
         catch (Exception e)

@@ -34,18 +34,19 @@ public class ARVRSwitcher : MonoBehaviour
         _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
 
         Source.onClick.AddListener(() => SwitchARVR());
-
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void switchClientMode(ViewMode view)
     {
-        if (_networkManager.IsMaster)
-            return;
+        UnityEngine.Debug.Log("Got switch client view ");
+        //if (_networkManager.IsMaster)
+        //    return;
 
         if (view == ViewMode.Overview)
         {
@@ -56,7 +57,7 @@ public class ARVRSwitcher : MonoBehaviour
         {
             ArEnabled = false;
             SceneManager.LoadScene(2);
-        }
+        } 
     }
 
     public void SwitchARVR()
@@ -76,10 +77,13 @@ public class ARVRSwitcher : MonoBehaviour
 
             ////send to server: swap all clients to VR
             _networkManager.LoadScene(2);
-
         }
 
-        UnityEngine.Debug.Log("Sent");
     }
 
+    internal static void CreateIfNeeded()
+    {
+        if (ARVRSwitch == null)
+            ARVRSwitch = new ARVRSwitcher();
+    }
 }

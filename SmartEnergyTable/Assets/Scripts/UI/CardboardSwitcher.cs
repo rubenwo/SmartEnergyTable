@@ -18,16 +18,11 @@ public class CardboardSwitcher : MonoBehaviour
     {
         cardboard = this;
 
-        //CardboardButton.onClick.AddListener(() =>
-        //{
-        //    CardboardActive = !CardboardActive;
-        //});
     }
 
     public void Update()
     {
-        //if (SystemInfo.batteryStatus == BatteryStatus.NotCharging)
-        //    CardboardActive = !CardboardActive;
+
 
     }
 
