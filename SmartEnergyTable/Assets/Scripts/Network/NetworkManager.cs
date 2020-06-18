@@ -11,6 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.VR;
+using Application = UnityEngine.Application;
 
 namespace Network
 {
@@ -299,7 +300,7 @@ namespace Network
         /// <param name="t">Transform of the parent object</param>
         public void SetTransformForTokens(Transform t)
         {
-            _parentTransformForTokens = transform;
+            _parentTransformForTokens = t;
         }
 
         public GeneratedEnergy GeneratedEnergy => _generatedEnergy;
@@ -487,7 +488,7 @@ namespace Network
                                 //The master should only be able to change between scene 0 and 1 (Launcher and Overview).
                                 //The other clients should be able to change to any scene.
                                 if (!_master)
-                                    StartCoroutine(LoadSceneAsync(2));
+                                    StartCoroutine(LoadSceneAsync(patch.SceneId));
                                 else if (!(patch.SceneId > 1))
                                     StartCoroutine(LoadSceneAsync(patch.SceneId));
 
