@@ -23,7 +23,7 @@ public class GameManagerLogic : MonoBehaviour
     public GameObject prefab;
 
     private ARVRSwitcher _switcher;
-     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +44,13 @@ public class GameManagerLogic : MonoBehaviour
             {
                 EnergyData en = _netMan.GetEnergyData();
             });
-            GameObject ob = new GameObject();
-            
+            if (!_netMan.IsMaster)
+            {
+                GameObject ob = GameObject.Find("CitySimulatorMap");
+                //ob.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                _netMan.SetTransformForTokens(ob.transform);
+            }
 
-            _netMan.SetTransformForTokens(ob.transform);
 
             _netMan.ObserveViewMode(_id, (view) =>
             {
@@ -61,7 +64,6 @@ public class GameManagerLogic : MonoBehaviour
                 else // Streetview
                 {
                     _switcher.ArEnabled = false;
-                    _netMan.SetTransformForTokens(ob.transform);
                 }
 
 
@@ -76,8 +78,6 @@ public class GameManagerLogic : MonoBehaviour
         }
 
         graphButton.onClick.AddListener(() => showGraphs());
-
-        GameObject.Find("CitySimulatorMap").transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
     }
 
     // Update is called once per frame
