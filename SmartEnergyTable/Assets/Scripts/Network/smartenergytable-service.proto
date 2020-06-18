@@ -1,0 +1,169 @@
+syntax = "proto3";
+
+option go_package = "pkg/api/v1";
+
+message Empty {
+}
+
+message Token {
+    RoomUser room_user = 1;
+    int32 object_index = 2;
+    Vector3_Protocol position = 3;
+    string object_id = 4;
+    Vector3_Protocol rotation = 5;
+    float scale = 6;
+    int32 efficiency = 7;
+}
+
+message Vector3_Protocol {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message RoomUser {
+    string id = 1;
+    string user_id = 2;
+}
+
+message UserPosition {
+    RoomUser room_user = 1;
+    Vector3_Protocol new_position = 2;
+}
+
+message MasterSwitch {
+    string id = 1;
+    string master_id = 2;
+    string new_master_id = 3;
+}
+
+message Scene {
+    RoomUser room_user = 1;
+    int32 sceneId = 2;
+}
+
+message Diff {
+    enum Action {
+        ADD = 0;
+        DELETE = 1;
+        MOVE = 2;
+    }
+    Action action = 1;
+    Token token = 2;
+}
+
+message EnergyUser {
+    string time = 1;
+    string label = 2;
+    string name = 3;
+    string source_id = 4;
+    string total_demand = 5;
+    string lighting = 6;
+    string hvac = 7;
+    string appliances = 8;
+    string lab = 9;
+    string pv = 10;
+    string unit = 11;
+}
+
+message EnergyDemandHourly {
+    string id = 1;
+    string date = 2;
+    string year = 3;
+    string month = 4;
+    string day = 5;
+    string hour = 6;
+    string minutes = 7;
+    string source_id = 8;
+    string channel_id = 9;
+    string unit = 10;
+    string total_demand = 11;
+    string delta_value = 12;
+    string source_tag = 13;
+    string channel_tag = 14;
+    string label = 15;
+    string name = 16;
+    string height = 17;
+    string area = 18;
+    string wind_speed = 19;
+    string temperature = 20;
+    string solar_rad = 21;
+    string electricity_price = 22;
+    string supply = 23;
+    string renewables = 24;
+}
+
+message EnergyData {
+    repeated EnergyUser energy_users = 1;
+    repeated EnergyDemandHourly energy_demand_hourly = 2;
+}
+enum ViewMode {
+    Overview = 0;
+    StreetView = 1;
+}
+
+message GeneratedEnergy {
+    message Data {
+        Token token = 1;
+        float energy = 2;
+    }
+
+    repeated Data data = 1;
+}
+
+message Patch {
+    string room_id = 1;
+    int32 scene_id = 2;
+    Vector3_Protocol user_position = 3;
+    bool is_master = 4;
+    repeated Diff diffs = 5;
+    repeated Diff history = 7;
+    GeneratedEnergy energy = 8;
+    ViewMode mode = 9;
+}
+
+message ModeSwitch {
+    RoomUser room_user = 1;
+    ViewMode mode = 2;
+}
+
+service SmartEnergyTableService {
+    rpc CreateRoom (Empty) returns (RoomUser) {
+    }
+
+    rpc JoinRoom (RoomUser) returns (stream Patch) {
+    }
+
+    rpc SaveRoom (RoomUser) returns (Empty) {
+    }
+
+    rpc AddToken (Token) returns (Empty) {
+    }
+
+    rpc RemoveToken (Token) returns (Empty) {
+    }
+
+    rpc MoveToken (Token) returns (Empty) {
+    }
+
+    rpc ClearRoom (RoomUser) returns (Empty) {
+    }
+
+    rpc ChangeScene (Scene) returns (Empty) {
+    }
+
+    rpc MoveUsers (UserPosition) returns (Empty) {
+    }
+
+    rpc LeaveRoom (RoomUser) returns (Empty) {
+    }
+
+    rpc ChangeMaster (MasterSwitch) returns (Empty) {
+    }
+
+    rpc GetEnergyData (RoomUser) returns (EnergyData) {
+    }
+
+    rpc SwitchMode (ModeSwitch) returns (Empty) {
+    }
+}
