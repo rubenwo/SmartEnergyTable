@@ -299,7 +299,7 @@ namespace Network
         /// <param name="t">Transform of the parent object</param>
         public void SetTransformForTokens(Transform t)
         {
-            _parentTransformForTokens = t;
+            _parentTransformForTokens = transform;
         }
 
         public GeneratedEnergy GeneratedEnergy => _generatedEnergy;
@@ -377,34 +377,35 @@ namespace Network
                             t = temp;
                         }
 
-                        if (_master)
-                        {
-                            var obj = Instantiate(objectLibrary[diff.Token.ObjectIndex],
-                                t.position + new Vector3
-                                {
-                                    x = diff.Token.Position.X,
-                                    y = diff.Token.Position.Y,
-                                    z = diff.Token.Position.Z
-                                }, Quaternion.identity);
+//
+//                        if (_master)
+//                        {
+                        var obj = Instantiate(objectLibrary[diff.Token.ObjectIndex],
+                            t.position + new Vector3
+                            {
+                                x = diff.Token.Position.X,
+                                y = diff.Token.Position.Y,
+                                z = diff.Token.Position.Z
+                            }, Quaternion.identity);
 
-                            obj.transform.localScale *= diff.Token.Scale;
-                            obj.GetComponent<TokenData>().Tok = diff.Token;
-                            _currentScene.Add(diff.Token.ObjectId, obj);
-                        }
-                        else
-                        {
-                            var obj2 = Instantiate(objectLibrary[diff.Token.ObjectIndex],
-                                new Vector3
-                                {
-                                    x = diff.Token.Position.X,
-                                    y = 1.5f,
-                                    z = diff.Token.Position.Z
-                                }, Quaternion.identity);
-                            obj2.transform.localScale *= diff.Token.Scale;
-
-                            obj2.GetComponent<TokenData>().Tok = diff.Token;
-                            _currentScene.Add(diff.Token.ObjectId, obj2);
-                        }
+                        obj.transform.localScale *= diff.Token.Scale;
+                        obj.GetComponent<TokenData>().Tok = diff.Token;
+                        _currentScene.Add(diff.Token.ObjectId, obj);
+//                        }
+//                        else
+//                        {
+//                            var obj2 = Instantiate(objectLibrary[diff.Token.ObjectIndex],
+//                                new Vector3
+//                                {
+//                                    x = diff.Token.Position.X,
+//                                    y = 1.5f,
+//                                    z = diff.Token.Position.Z
+//                                }, Quaternion.identity);
+//                            obj2.transform.localScale *= diff.Token.Scale;
+//
+//                            obj2.GetComponent<TokenData>().Tok = diff.Token;
+//                            _currentScene.Add(diff.Token.ObjectId, obj2);
+//                        }
 
                         break;
                     case Diff.Types.Action.Delete:

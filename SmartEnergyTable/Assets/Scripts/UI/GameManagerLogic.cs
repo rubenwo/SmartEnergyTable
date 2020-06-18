@@ -13,6 +13,7 @@ public class GameManagerLogic : MonoBehaviour
     public Button graphButton;
 
     private bool _graphsActive;
+    public GameObject GameObjectMapPrefab;
 
     private Token Tok
     {
@@ -46,9 +47,17 @@ public class GameManagerLogic : MonoBehaviour
             });
             if (!_netMan.IsMaster)
             {
-                GameObject ob = GameObject.Find("CitySimulatorMap");
-                //ob.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
-                _netMan.SetTransformForTokens(ob.transform);
+//                GameObject ob = GameObject.Find("CitySimulatorMap");
+//                //ob.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+//                _netMan.SetTransformForTokens(ob.transform);
+
+                var map = Instantiate(GameObjectMapPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+                map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+                //map.transform.Rotate(0, 180, 0);
+                map.tag = "map";
+
+                _netMan.SetTransformForTokens(map.transform);
             }
 
 
