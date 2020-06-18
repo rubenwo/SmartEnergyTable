@@ -18,10 +18,10 @@ public class CardboardSwitcher : MonoBehaviour
     {
         cardboard = this;
 
-        CardboardButton.onClick.AddListener(() =>
-        {
-            CardboardActive = !CardboardActive;
-        });
+        //CardboardButton.onClick.AddListener(() =>
+        //{
+        //    CardboardActive = !CardboardActive;
+        //});
     }
 
     public void Update()

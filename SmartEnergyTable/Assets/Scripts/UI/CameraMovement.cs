@@ -17,28 +17,20 @@ public class CameraMovement : MonoBehaviour
     {
         // Won't start when not started from Launcher, so this is a bypass.
         // We don't need Camera movement from server wehn we're in editor mode anyway
-        try
-        {
-            _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
-            _camera = GameObject.Find("Camera Rig");
 
-            // Controls Here
-            _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
+        _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
+        _camera = GameObject.Find("Camera Rig");
+
+        // Controls Here
+        _networkManager.ObserveUserPosition(Guid.NewGuid().ToString(), (vec3) =>
+        {
+            if (!_networkManager.IsMaster)
             {
-                if (!_networkManager.IsMaster)
-                {
-                    // Elevate to correct map height.
-                    //Vector3 newVec = new Vector3(vec3.x, 20, vec3.z);
-                    Debug.Log("Moving to pos: " + vec3.ToString());
-                    this._camera.transform.position = vec3;
-                }
-            });
+                // Elevate to correct user position.
+                this._camera.transform.position = vec3;
+            }
+        });
 
-
-        } catch
-        {
-
-        }
 
     }
 
