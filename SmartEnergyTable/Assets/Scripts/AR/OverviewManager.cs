@@ -52,6 +52,7 @@ public class OverviewManager : MonoBehaviour
                 if (!_isRendering)
                 {
                     var map = Instantiate(gameObjectMapPrefab, gameObject.transform.position, Quaternion.identity);
+                    Debug.Log(map.transform.position);
                     map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
                     _networkManager.SetTransformForTokens(map.transform);
                     _isRendering = true;

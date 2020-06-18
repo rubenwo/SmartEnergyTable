@@ -6,7 +6,6 @@ using UnityEngine.XR;
 
 public class CardboardSwitcher : MonoBehaviour
 {
-
     public Button CardboardButton;
 
     private bool _cardboardActive;
@@ -19,11 +18,12 @@ public class CardboardSwitcher : MonoBehaviour
     {
         cardboard = this;
 
-        CardboardButton.onClick.AddListener(() =>
-        {
-            CardboardActive = !CardboardActive;
-            Debug.Log("Hello");
-        });
+    }
+
+    public void Update()
+    {
+
+
     }
 
     void updateCardboard()

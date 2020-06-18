@@ -60,17 +60,25 @@ public class AddPointsToLineRenderer : MonoBehaviour
         switch (GraphTypeToDisplay)
         {
             case GraphType.DAILY:
+                int c = 0;
                 foreach (var a in EnergyDataStore.EnergyUsers)
                 {
                     data.Add(a);
+
+                    if (c++ > 10)
+                        break;
                 }
 
                 ;
                 break;
             case GraphType.MONTHLY:
+                int d = 0;
                 foreach (var a in EnergyDataStore.EnergyDemandHourly)
                 {
                     data.Add(a);
+
+                    if (d++ > 10)
+                        break;
                 }
 
                 ;
@@ -81,17 +89,6 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 {
                     if (energy.Token.ObjectId == Tok.ObjectId)
                     {
-                        var name = gameObject.name;
-
-                        if (name.Contains("Windmill")
-                        ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                            energy.Energy = (float)(3285000 * ((double)new System.Random().Next(1, 10) / 10));
-                        else if (name.Contains("SPV")) // 500-550 kWh (Yearly output windmill per year) 
-                            energy.Energy = (float)(550000 * ((double)new System.Random().Next(1, 10) / 10));
-                        else if (name.Contains("BAT")
-                        ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                            energy.Energy = (float)(500000 * ((double)new System.Random().Next(1, 10) / 10));
-
                         data.Add(energy);
                     }
                 }
@@ -114,57 +111,68 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         foreach (var a in data)
         {
-            float num = (float) Convert.ToDouble(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
-            // Get value and see if it's higher. Then make it our new highest number, if higher.
-            if (num > maxY)
-                maxY = num;
+            try
+            {
+                float num = (float) Convert.ToDouble(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
+                // Get value and see if it's higher. Then make it our new highest number, if higher.
+                if (num > maxY)
+                    maxY = num;
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         // Calculate desired sizes
-        float diffYPerX = b.rect.height / maxY * 0.9f;
+        float diffYPerX = b.rect.height / maxY * 0.1f;
         float diffX = b.rect.width / data.Count;
 
-        short counter = 0;
-        // Generate 4 points for each raw value
-        foreach (var values in data)
+        if (GraphTypeToDisplay == GraphType.POWER_UNIT)
         {
-            var val = (float) Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName).GetValue(values));
+            dynamic thingy = data[0];
 
-            float startX = counter * diffX;
-            float endX = counter * diffX + diffX;
-            float upperZ = val * diffYPerX;
+            string tokenName = _networkManager.getTokenNameById(thingy.Token.ObjectId);
 
-            for (float c = startX; c < endX; c++)
+            //_points.Add(new Vector3(0, 0, 0));
+            //_points.Add(new Vector3(1, 0, diffYPerX * thingy.Energy));
+
+            AddTextToPowerUnit(tokenName, thingy.Energy.ToString());
+        }
+        else
+        {
+            short counter = 0;
+            // Generate 4 points for each raw value
+            foreach (var values in data)
             {
-                // Draw graph
-                _points.Add(new Vector3(c, 0, 0));
-                _points.Add(new Vector3(c, diffYPerX * val, 0));
-                _points.Add(new Vector3(c + diffX, diffYPerX * val, 0));
-                _points.Add(new Vector3(c + diffX, 0, 0));
+                try
+                {
+                    var val = (float) Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName)
+                        .GetValue(values));
+
+                    float startX = counter * diffX;
+                    float endX = counter * diffX + diffX;
+                    float upperZ = val * diffYPerX;
+
+                    for (float c = startX; c < endX; c++)
+                    {
+                        // Draw graph
+                        _points.Add(new Vector3(c, 0, 0));
+                        _points.Add(new Vector3(c, 0, diffYPerX * val));
+                        _points.Add(new Vector3(c + diffX, 0, diffYPerX * val));
+                        _points.Add(new Vector3(c + diffX, 0, 0));
+                    }
+
+
+                    AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
+                        val.ToString(), new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+
+
+                    counter++;
+                }
+                catch (Exception e)
+                {
+                }
             }
-
-            if (GraphTypeToDisplay == GraphType.POWER_UNIT)
-            {
-                dynamic thingy = values;
-
-                string tokenName = _networkManager.getTokenNameById(thingy.Token.ObjectId);
-
-                //AddText(tokenName,
-                //    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
-                //    new Vector3(relX + counter * diffX + diffX, relZ + val * diffYPerX + b.rect.height / 10, relZ));
-                AddText(tokenName,
-                    val.ToString(), new Vector3(0, 0, 0), new Vector3(0,0,0));
-            }
-            else
-            {
-                //Add text above our graph bar here
-                //AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
-                //    val.ToString(), new Vector3(relX + counter * diffX, relZ + val * diffYPerX + 10, relZ),
-                AddText(values.GetType().GetProperty("Name").GetValue(values).ToString(),
-                    val.ToString(), new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-            }
-
-            counter++;
         }
 
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
@@ -183,10 +191,10 @@ public class AddPointsToLineRenderer : MonoBehaviour
         lineRenderer.colorGradient = gradient;
 
         //LineRenderer lineRenderer = GetComponent<LineRenderer>();
-        counter = 0;
+        int count = 0;
         foreach (var point in _points)
         {
-            lineRenderer.SetPosition(counter++, point);
+            lineRenderer.SetPosition(count++, point);
         }
     }
 
@@ -223,9 +231,47 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
         var rTransf = (RectTransform) gameObject.transform;
 
-        textMesh.transform.position = start;
-        rTransf.sizeDelta = new Vector2(Math.Abs(end.x - start.x), Math.Abs(end.y - start.y));
+        if (_networkManager.IsMaster)
+            textGO.transform.position = new Vector3(0, 0, 20);
+        else
+            textGO.transform.position = new Vector3(0, 0, 0.2f);
+
+        rTransf.sizeDelta = new Vector2(1f, 1f);
         textMesh.text = text + "\n" + value;
+    }
+
+    private void AddTextToPowerUnit(string text, string value)
+    {
+        // Create the Text GameObject.
+        GameObject textGO = new GameObject("infolabel" + text);
+        textGO.transform.parent = gameObject.transform;
+        var textMesh = textGO.AddComponent<TextMesh>();
+        textMesh.fontSize = 20;
+        textMesh.color = TextColor;
+        textMesh.alignment = TextAlignment.Center;
+        textMesh.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+
+        var rTransf = (RectTransform) gameObject.transform;
+        var a = textGO.transform.position;
+
+        var b = GameObject.Find("infolabel" + text);
+
+        if (_networkManager.IsMaster)
+        {
+            textGO.transform.position = new Vector3(0, 0, 20);
+            b.transform.localPosition = new Vector3(0, 0, 20);
+            b.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+
+        else
+        {
+            textGO.transform.position = new Vector3(0, 0.2f, 0);
+            b.transform.localPosition = new Vector3(0, 0, 1f);
+            b.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+
+        //rTransf.sizeDelta = new Vector2(0.1f, 0.1f);
+        textMesh.text = text + "\n" + value + " kW/y";
     }
 
     // Update is called once per frame

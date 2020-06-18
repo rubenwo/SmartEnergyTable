@@ -165,6 +165,7 @@ namespace GoogleARCore.Examples.HelloAR
                     //Initialize the mapbox prefab on the found location.
                     //projectionPlaneCenter.position.y += 200f; //new Vector3(0f, 200f, 0f);
                     var map = Instantiate(GameObjectMapPrefab, projectionPlaneCenter.position, hit.Pose.rotation);
+                    Debug.Log(map.transform.position);
                     map.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
                     map.transform.Rotate(0, 180, 0);
                     map.tag = "map";

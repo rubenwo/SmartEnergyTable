@@ -18,13 +18,11 @@ public class ARVRSwitcher : MonoBehaviour
     public Sprite OnSprite;
 
     // All AR/VR Objects present in the scene
-    private List<GameObject> ARObjects;
-    private List<GameObject> VRObjects;
     private NetworkManager _networkManager;
 
-    private Button Source { get => gameObject.GetComponent<Button>(); }
+    private Button Source { get => GameObject.Find("SwitchARVR").GetComponent<Button>(); }
 
-    public static bool ArEnabled { get; set; } = true;
+    public bool ArEnabled { get; set; } = true;
 
     public static ARVRSwitcher ARVRSwitch;
 
@@ -33,47 +31,38 @@ public class ARVRSwitcher : MonoBehaviour
     {
         ARVRSwitch = this;
 
-        // Insert all our objects into the right lists (Other ojects are rendered in both scenes)
-        //ARObjects = new List<GameObject>() {
-        //    GameObject.Find("PlaneDiscovery")
-        //};
-        //VRObjects = new List<GameObject>() {
-        //    GameObject.Find("Camera Rig")
-        //};
-        ARObjects = new List<GameObject>() {
-        };
-        VRObjects = new List<GameObject>() {
-        };
-
         _networkManager = GameObject.Find("GameManager").GetComponent<NetworkManager>();
 
         Source.onClick.AddListener(() => SwitchARVR());
-
-        //unSetVRComponents();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ArEnabled = true;
-        //SwitchARVR();
+
     }
 
-    internal static void switchClientMode(ViewMode view)
+    public void switchClientMode(ViewMode view)
     {
+        UnityEngine.Debug.Log("Got switch client view ");
+        //if (_networkManager.IsMaster)
+        //    return;
+
         if (view == ViewMode.Overview)
         {
             ArEnabled = true;
             SceneManager.LoadScene(1);
-        } else
+        }
+        else
         {
             ArEnabled = false;
             SceneManager.LoadScene(2);
-        }
+        } 
     }
 
     public void SwitchARVR()
     {
+        ArEnabled = !ArEnabled;
 
         if (ArEnabled) {
             Source.image.sprite = OffSprite;
@@ -81,9 +70,6 @@ public class ARVRSwitcher : MonoBehaviour
             // send to server: swap all clients to AR
             _networkManager.LoadScene(1);
 
-            //unSetVRComponents();
-            //setARComponents();
-            UnityEngine.Debug.Log("Hallo VR");
         }
         else
         {
@@ -91,34 +77,13 @@ public class ARVRSwitcher : MonoBehaviour
 
             ////send to server: swap all clients to VR
             _networkManager.LoadScene(2);
-            UnityEngine.Debug.Log("Hallo AR");
-
-            //unsetARComponents();
-            //setVRComponents();
         }
+
     }
 
-    
-
-    void setARComponents()
+    internal static void CreateIfNeeded()
     {
-        ARObjects.ForEach(ob => ob.SetActive(true));
+        if (ARVRSwitch == null)
+            ARVRSwitch = new ARVRSwitcher();
     }
-
-    void unsetARComponents()
-    {
-        ARObjects.ForEach(ob => ob.SetActive(false));
-    }
-
-    void setVRComponents()
-    {
-        VRObjects.ForEach(ob => ob.SetActive(true));
-    }
-
-    void unSetVRComponents()
-    {
-        VRObjects.ForEach(ob => ob.SetActive(false));
-
-    }
-
 }
