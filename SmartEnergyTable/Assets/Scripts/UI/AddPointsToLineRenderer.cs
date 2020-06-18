@@ -84,30 +84,19 @@ public class AddPointsToLineRenderer : MonoBehaviour
                 ;
                 break;
             case GraphType.POWER_UNIT:
+            {
+                foreach (var energy in _networkManager.GeneratedEnergy.Data)
                 {
-                    foreach (var energy in _networkManager.GeneratedEnergy.Data)
+                    if (energy.Token.ObjectId == Tok.ObjectId)
                     {
-                        if (energy.Token.ObjectId == Tok.ObjectId)
-                        {
-                            var name = gameObject.name;
-
-                            if (name.Contains("Windmill")
-                            ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                                energy.Energy = (float)(3285000 * ((double)new System.Random().Next(1, 10) / 10));
-                            else if (name.Contains("SPV")) // 500-550 kWh (Yearly output windmill per year) 
-                                energy.Energy = (float)(550000 * ((double)new System.Random().Next(1, 10) / 10));
-                            else if (name.Contains("BAT")
-                            ) // 365 * 24 * 1,500(kW) * .25 = 3,285,000 (Yearly output windmill per year) 
-                                energy.Energy = (float)(500000 * ((double)new System.Random().Next(1, 10) / 10));
-
-                            data.Add(energy);
-                        }
+                        data.Add(energy);
                     }
-
-                    GraphPropertyName = "Energy";
-
-                    break;
                 }
+
+                GraphPropertyName = "Energy";
+
+                break;
+            }
         }
 
         // Set Title bar
@@ -124,15 +113,14 @@ public class AddPointsToLineRenderer : MonoBehaviour
         {
             try
             {
-                float num = (float)Convert.ToDouble(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
+                float num = (float) Convert.ToDouble(a.GetType().GetProperty(GraphPropertyName).GetValue(a));
                 // Get value and see if it's higher. Then make it our new highest number, if higher.
                 if (num > maxY)
                     maxY = num;
-            } catch (Exception e)
-            {
-
             }
-
+            catch (Exception e)
+            {
+            }
         }
 
         // Calculate desired sizes
@@ -158,9 +146,8 @@ public class AddPointsToLineRenderer : MonoBehaviour
             {
                 try
                 {
-
-
-                    var val = (float)Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName).GetValue(values));
+                    var val = (float) Convert.ToDouble(values.GetType().GetProperty(GraphPropertyName)
+                        .GetValue(values));
 
                     float startX = counter * diffX;
                     float endX = counter * diffX + diffX;
@@ -181,9 +168,9 @@ public class AddPointsToLineRenderer : MonoBehaviour
 
 
                     counter++;
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
-
                 }
             }
         }
@@ -264,7 +251,7 @@ public class AddPointsToLineRenderer : MonoBehaviour
         textMesh.alignment = TextAlignment.Center;
         textMesh.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
 
-        var rTransf = (RectTransform)gameObject.transform;
+        var rTransf = (RectTransform) gameObject.transform;
         var a = textGO.transform.position;
 
         var b = GameObject.Find("infolabel" + text);
@@ -275,14 +262,14 @@ public class AddPointsToLineRenderer : MonoBehaviour
             b.transform.localPosition = new Vector3(0, 0, 20);
             b.transform.localScale = new Vector3(1f, 1f, 1f);
         }
-            
+
         else
         {
             textGO.transform.position = new Vector3(0, 0.2f, 0);
             b.transform.localPosition = new Vector3(0, 0, 1f);
             b.transform.localScale = new Vector3(1f, 1f, 1f);
         }
-          
+
         //rTransf.sizeDelta = new Vector2(0.1f, 0.1f);
         textMesh.text = text + "\n" + value + " kW/y";
     }

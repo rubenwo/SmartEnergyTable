@@ -88,6 +88,14 @@ namespace Network
             return "";
         }
 
+        public GameObject getGameObjectById(string uuid)
+        {
+            var ok = _currentScene.TryGetValue(uuid, out var obj);
+            if (ok)
+                return obj;
+            return null;
+        }
+
         private void Awake()
         {
             if (_instance == null)
@@ -392,6 +400,7 @@ namespace Network
                         obj.transform.localScale *= diff.Token.Scale;
                         obj.GetComponent<TokenData>().Tok = diff.Token;
                         _currentScene.Add(diff.Token.ObjectId, obj);
+                        Debug.Log(obj.transform.position);
 //                        }
 //                        else
 //                        {
